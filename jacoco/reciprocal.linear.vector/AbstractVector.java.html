@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractVector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.vector</a> &gt; <span class="el_source">AbstractVector.java</span></div><h1>AbstractVector.java</h1><pre class="source lang-java linenums">package reciprocal.linear.vector;
+
+import com.google.common.collect.ImmutableList;
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.linear.field.QuotientField;
+
+/**
+ * Base class for vectors
+ *
+ * @param &lt;E&gt; element
+ * @param &lt;Q&gt; quotient of element
+ * @param &lt;V&gt; this
+ * @param &lt;N&gt; norm
+ * @param &lt;A&gt; absolute value of element
+ */
+public abstract class AbstractVector&lt;
+    E extends Number,
+    Q extends Number,
+    V extends AbstractVector&lt;E, Q, V, N, A&gt;,
+    N extends Number,
+    A extends Number&gt;
+    implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; entries;
+
+    /**
+     * Constructor
+     *
+     * @param entries entries
+     * @throws NullPointerException when {@code entries == null}
+     * @throws IllegalArgumentException when one element in entries is null
+     */
+<span class="nc" id="L40">    protected AbstractVector(final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; entries) {</span>
+<span class="nc" id="L41">        Validate.noNullElements(entries, &quot;expected all elements in entries not to be null but entries = %s&quot;, entries);</span>
+<span class="nc" id="L42">        this.entries = ImmutableList.copyOf(entries);</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Quotient field
+     *
+     * @return quotient field
+     */
+    protected abstract @NotNull QuotientField&lt;@NotNull E, @NotNull Q, @NotNull A&gt; getQuotientField();
+
+    /**
+     * Entries
+     *
+     * @return entries
+     */
+    public final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; getEntries() {
+<span class="nc" id="L58">        return List.copyOf(entries);</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="nc" id="L63">        return Objects.hash(entries);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L69">            return true;</span>
+        }
+<span class="nc bnc" id="L71" title="All 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L72">            return false;</span>
+        }
+<span class="nc" id="L74">        final var other = (AbstractVector&lt;?, ?, ?, ?, ?&gt;) obj;</span>
+<span class="nc" id="L75">        return entries.equals(other.getEntries());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="nc" id="L80">        return getClass().getSimpleName() + &quot;(entries=&quot; + entries + &quot;)&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

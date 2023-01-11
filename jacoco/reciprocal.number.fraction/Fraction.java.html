@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Fraction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.fraction</a> &gt; <span class="el_source">Fraction.java</span></div><h1>Fraction.java</h1><pre class="source lang-java linenums">package reciprocal.number.fraction;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import com.google.common.math.LongMath;
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.util.Comparator;
+import java.util.function.BiFunction;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.linear.field.LongQuotientField;
+import reciprocal.linear.field.QuotientField;
+import reciprocal.number.complex.Complex;
+
+/**
+ * &lt;p&gt;
+ * Immutable implementation of a fraction which uses {@link Long} as type for its numerator and denominator
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * The returned Fractions of most methods are neither normalized nor reduced.
+ * &lt;/p&gt;
+ */
+@API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+public final class Fraction extends AbstractFraction&lt;Long, Fraction, Double&gt; {
+    /**
+     * 0
+     */
+<span class="fc" id="L35">    public static final @NotNull Fraction ZERO = new Fraction(0L);</span>
+
+    /**
+     * 1
+     */
+<span class="fc" id="L40">    public static final @NotNull Fraction ONE = new Fraction(1L);</span>
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param numerator numerator
+     */
+    public Fraction(final long numerator) {
+<span class="fc" id="L51">        this(numerator, 1L);</span>
+<span class="fc" id="L52">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param numerator numerator
+     * @param denominator denominator
+     * @throws IllegalArgumentException when {@code denominator == 0}
+     */
+    public Fraction(final long numerator, final long denominator) {
+<span class="fc" id="L62">        super(numerator, denominator);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        checkArgument(denominator != 0L, &quot;denominator expected not to be 0 but denominator = %s&quot;, denominator);</span>
+<span class="fc" id="L64">    }</span>
+
+    @Override
+    public boolean isDyadic() {
+<span class="fc" id="L68">        return LongMath.isPowerOfTwo(getDenominator());</span>
+    }
+
+    @Override
+    public boolean isIrreducible() {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        return LongMath.gcd(Math.abs(getNumerator()), Math.abs(getDenominator())) == 1L;</span>
+    }
+
+    @Override
+    public boolean isProper() {
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        return Math.abs(getNumerator()) &lt; Math.abs(getDenominator());</span>
+    }
+
+    @Override
+    public int getSignum() {
+<span class="nc" id="L83">        final var numeratorCompareToZero = getNumerator().compareTo(0L);</span>
+<span class="nc" id="L84">        final var denominatorCompareToZero = getDenominator().compareTo(0L);</span>
+<span class="nc bnc" id="L85" title="All 4 branches missed.">        if (numeratorCompareToZero == 0 || denominatorCompareToZero == 0) {</span>
+<span class="nc" id="L86">            return 0;</span>
+        }
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (numeratorCompareToZero != denominatorCompareToZero) {</span>
+<span class="nc" id="L89">            return -1;</span>
+        }
+<span class="nc" id="L91">        return 1;</span>
+    }
+
+    @Override
+    public boolean lessThanOrEqualTo(final @NotNull Fraction other) {
+<span class="nc" id="L96">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="nc" id="L97">        final var normalized = normalize();</span>
+<span class="nc" id="L98">        final var normalizedOther = other.normalize();</span>
+<span class="nc" id="L99">        final var left = normalizedOther.getDenominator() * normalized.getNumerator();</span>
+<span class="nc" id="L100">        final var right = normalized.getDenominator() * normalizedOther.getNumerator();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        return left &lt;= right;</span>
+    }
+
+    @Override
+    public @NotNull Fraction normalize() {
+<span class="nc bnc" id="L106" title="All 4 branches missed.">        if (getSignum() &lt; 0 &amp;&amp; getNumerator().compareTo(0L) &gt; 0) {</span>
+<span class="nc" id="L107">            return new Fraction(-getNumerator(), Math.abs(getDenominator()));</span>
+        }
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (getSignum() &lt; 0) {</span>
+<span class="nc" id="L110">            return this;</span>
+        }
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (getSignum() == 0) {</span>
+<span class="nc" id="L113">            return ZERO;</span>
+        }
+<span class="nc" id="L115">        return abs();</span>
+    }
+
+    @Override
+    public @NotNull Fraction reduce() {
+<span class="nc" id="L120">        final var gcd = LongMath.gcd(getNumerator(), getDenominator());</span>
+<span class="nc" id="L121">        return new Fraction(getNumerator() / gcd, getDenominator() / gcd);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal toBigDecimal() {
+<span class="nc" id="L126">        return BigDecimal.valueOf(getNumerator()).divide(BigDecimal.valueOf(getDenominator()), MathContext.DECIMAL128);</span>
+    }
+
+    /**
+     * Returns this as {@link BigFraction}
+     *
+     * @return {@link BigFraction}
+     */
+    public @NotNull BigFraction toBigFraction() {
+<span class="nc" id="L135">        return new BigFraction(BigInteger.valueOf(getNumerator()), BigInteger.valueOf(getDenominator()));</span>
+    }
+
+    /**
+     * Returns this as {@link Complex}
+     *
+     * @return {@link Complex}
+     */
+    public @NotNull Complex toComplex() {
+<span class="nc" id="L144">        return new Complex(doubleValue());</span>
+    }
+
+    @Override
+    public int compareTo(@Nullable final Fraction o) {
+<span class="nc" id="L149">        return NullableFractionComparator.INSTANCE.compare(this, o);</span>
+    }
+
+    @Override
+    protected @NotNull QuotientField&lt;@NotNull Long, @NotNull Double, @NotNull Long&gt; quotientField() {
+<span class="fc" id="L154">        return LongQuotientField.INSTANCE;</span>
+    }
+
+    @Override
+    protected @NotNull Fraction one() {
+<span class="nc" id="L159">        return ONE;</span>
+    }
+
+    @Override
+    protected @NotNull BiFunction&lt;Long, Long, Fraction&gt; constructor() {
+<span class="nc" id="L164">        return Fraction::new;</span>
+    }
+
+    /**
+     * Comparator which rejects null
+     *
+     * @author Lars Tennstedt
+     */
+    @API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+    public static final class NonNullFractionComparator implements Comparator&lt;Fraction&gt;, Serializable {
+        /**
+         * Instance
+         */
+<span class="nc" id="L177">        public static final NonNullFractionComparator INSTANCE = new NonNullFractionComparator();</span>
+
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        private NonNullFractionComparator() {
+        }
+
+        @Override
+        public int compare(final @NotNull Fraction o1, final @NotNull Fraction o2) {
+<span class="nc" id="L187">            requireNonNull(o1, &quot;o1&quot;);</span>
+<span class="nc" id="L188">            requireNonNull(o2, &quot;o2&quot;);</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">            if (o1.lessThan(o2)) {</span>
+<span class="nc" id="L190">                return -1;</span>
+            }
+<span class="nc bnc" id="L192" title="All 2 branches missed.">            if (o1.greaterThan(o2)) {</span>
+<span class="nc" id="L193">                return 1;</span>
+            }
+<span class="nc" id="L195">            return 0;</span>
+        }
+    }
+
+    /**
+     * Comparator which accepts null
+     *
+     * @author Lars Tennstedt
+     */
+    @API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+    public static final class NullableFractionComparator implements Comparator&lt;Fraction&gt;, Serializable {
+        /**
+         * Instance
+         */
+<span class="nc" id="L209">        public static final NullableFractionComparator INSTANCE = new NullableFractionComparator();</span>
+
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        private NullableFractionComparator() {
+        }
+
+        @Override
+        public int compare(@Nullable final Fraction o1, @Nullable final Fraction o2) {
+<span class="nc" id="L219">            return Comparator.nullsFirst(NonNullFractionComparator.INSTANCE).compare(o1, o2);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

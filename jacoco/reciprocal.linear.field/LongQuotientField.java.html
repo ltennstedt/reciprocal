@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LongQuotientField.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.field</a> &gt; <span class="el_source">LongQuotientField.java</span></div><h1>LongQuotientField.java</h1><pre class="source lang-java linenums">package reciprocal.linear.field;
+
+import com.google.common.math.LongMath;
+import java.io.Serial;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Quotient field for {@link Long Longs}
+ */
+@API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+public final class LongQuotientField implements QuotientField&lt;Long, Double, Long&gt; {
+    /**
+     * Instance
+     */
+<span class="fc" id="L20">    public static final @NotNull LongQuotientField INSTANCE = new LongQuotientField();</span>
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private LongQuotientField() {
+    }
+
+    @Override
+    public @NotNull BiFunction&lt;@NotNull Long, @NotNull Long, @NotNull Long&gt; getAddition() {
+<span class="nc" id="L30">        return Long::sum;</span>
+    }
+
+    @Override
+    public @NotNull BiFunction&lt;@NotNull Long, @NotNull Long, @NotNull Long&gt; getSubtraction() {
+<span class="nc" id="L35">        return (x, y) -&gt; x - y;</span>
+    }
+
+    @Override
+    public @NotNull BiFunction&lt;@NotNull Long, @NotNull Long, @NotNull Long&gt; getMultiplication() {
+<span class="nc" id="L40">        return (x, y) -&gt; x * y;</span>
+    }
+
+    @Override
+    public @NotNull BiFunction&lt;@NotNull Long, @NotNull Long, @NotNull Double&gt; getDivision() {
+<span class="nc" id="L45">        return (x, y) -&gt; x.doubleValue() / y.doubleValue();</span>
+    }
+
+    @Override
+    public @NotNull BiFunction&lt;@NotNull Long, @NotNull Integer, @NotNull Double&gt; getPower() {
+<span class="nc" id="L50">        return (x, k) -&gt; (double) LongMath.pow(x, k);</span>
+    }
+
+    @Override
+    public @NotNull Function&lt;@NotNull Long, @NotNull Long&gt; getNegation() {
+<span class="nc" id="L55">        return x -&gt; -x;</span>
+    }
+
+    @Override
+    public @NotNull BiPredicate&lt;@NotNull Long, @NotNull Long&gt; getEqualityByComparing() {
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        return (x, y) -&gt; (long) x == y;</span>
+    }
+
+    @Override
+    public @NotNull Function&lt;@NotNull Long, @NotNull Long&gt; getAbsOperator() {
+<span class="nc" id="L65">        return Math::abs;</span>
+    }
+
+    @Override
+    public @NotNull Long getZero() {
+<span class="fc" id="L70">        return 0L;</span>
+    }
+
+    @Override
+    public @NotNull Long getOne() {
+<span class="fc" id="L75">        return 1L;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

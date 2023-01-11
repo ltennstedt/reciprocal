@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigCircle.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.geometry</a> &gt; <span class="el_source">BigCircle.java</span></div><h1>BigCircle.java</h1><pre class="source lang-java linenums">package reciprocal.geometry;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Comparator;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.ReciprocalUtils;
+
+/**
+ * Immutable implementation of a circle which uses {@link BigDecimal} as type for its radius
+ */
+public final class BigCircle extends AbstractCircle&lt;BigDecimal, BigCircle&gt; {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws IllegalArgumentException when {@code radius &lt;= 0}
+     */
+    public BigCircle(final int radius) {
+<span class="nc" id="L31">        this(BigDecimal.valueOf(radius));</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws IllegalArgumentException when {@code radius &lt;= 0}
+     */
+    public BigCircle(final long radius) {
+<span class="nc" id="L41">        this(BigDecimal.valueOf(radius));</span>
+<span class="nc" id="L42">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws IllegalArgumentException when {@code radius &lt;= 0}
+     */
+    public BigCircle(final float radius) {
+<span class="nc" id="L51">        this(BigDecimal.valueOf(radius));</span>
+<span class="nc" id="L52">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws IllegalArgumentException when {@code radius &lt;= 0}
+     */
+    public BigCircle(final double radius) {
+<span class="nc" id="L61">        this(BigDecimal.valueOf(radius));</span>
+<span class="nc" id="L62">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws NullPointerException when {@code radius == null}
+     * @throws IllegalArgumentException when {@code radius &lt;= 0}
+     */
+    public BigCircle(final @NotNull BigInteger radius) {
+<span class="nc" id="L72">        this(new BigDecimal(radius));</span>
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws NullPointerException when {@code radius == null}
+     * @throws IllegalArgumentException when {@code radius &lt;= 0}
+     */
+    public BigCircle(final @NotNull BigDecimal radius) {
+<span class="nc" id="L83">        super(radius);</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        checkArgument(radius.compareTo(BigDecimal.ZERO) &gt; 0, &quot;radius &gt; 0 expected but radius = %s&quot;, radius);</span>
+<span class="nc" id="L85">    }</span>
+
+    @Override
+    public @NotNull BigDecimal diameter() {
+<span class="nc" id="L89">        return BigDecimal.valueOf(2L).multiply(getRadius());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal circumference() {
+<span class="nc" id="L94">        return ReciprocalUtils.BIG_PI.multiply(diameter());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal area() {
+<span class="nc" id="L99">        return ReciprocalUtils.BIG_PI.multiply(getRadius().pow(2));</span>
+    }
+
+    @Override
+    public int compareTo(final @Nullable BigCircle o) {
+<span class="nc" id="L104">        return NullableBigCircleComparator.INSTANCE.compare(this, o);</span>
+    }
+
+    /**
+     * Comparator which rejects null
+     *
+     * @author Lars Tennstedt
+     */
+    @API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+    public static final class NonNullBigCircleComparator implements Comparator&lt;BigCircle&gt;, Serializable {
+        /**
+         * Instance
+         */
+<span class="nc" id="L117">        public static final @NotNull NonNullBigCircleComparator INSTANCE = new NonNullBigCircleComparator();</span>
+
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        private NonNullBigCircleComparator() {
+        }
+
+        @Override
+        public int compare(final @NotNull BigCircle o1, final @NotNull BigCircle o2) {
+<span class="nc" id="L127">            requireNonNull(o1, &quot;o1&quot;);</span>
+<span class="nc" id="L128">            requireNonNull(o2, &quot;o2&quot;);</span>
+<span class="nc" id="L129">            return o1.getRadius().compareTo(o2.getRadius());</span>
+        }
+    }
+
+    /**
+     * Comparator which accepts null
+     *
+     * @author Lars Tennstedt
+     */
+    @API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+    public static final class NullableBigCircleComparator implements Comparator&lt;BigCircle&gt;, Serializable {
+        /**
+         * Instance
+         */
+<span class="nc" id="L143">        public static final @NotNull NullableBigCircleComparator INSTANCE = new NullableBigCircleComparator();</span>
+
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        private NullableBigCircleComparator() {
+        }
+
+        @Override
+        public int compare(final @Nullable BigCircle o1, final @Nullable BigCircle o2) {
+<span class="nc" id="L153">            return Comparator.nullsFirst(NonNullBigCircleComparator.INSTANCE).compare(o1, o2);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

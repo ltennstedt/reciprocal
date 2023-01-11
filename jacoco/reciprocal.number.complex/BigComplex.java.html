@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigComplex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.complex</a> &gt; <span class="el_source">BigComplex.java</span></div><h1>BigComplex.java</h1><pre class="source lang-java linenums">package reciprocal.number.complex;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import ch.obermuhlner.math.big.BigDecimalMath;
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a complex number which uses {@link BigDecimal} as type for its real and imaginary part
+ */
+@API(status = Status.EXPERIMENTAL, since = &quot;0.0.1&quot;)
+public final class BigComplex extends AbstractComplex&lt;BigDecimal, BigComplex, BigComplex, BigDecimal, BigPolarForm&gt; {
+    /**
+     * 0
+     */
+<span class="nc" id="L23">    public static final @NotNull BigComplex ZERO = new BigComplex(BigDecimal.ZERO);</span>
+
+    /**
+     * 1
+     */
+<span class="nc" id="L28">    public static final @NotNull BigComplex ONE = new BigComplex(BigDecimal.ONE);</span>
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param real real part
+     * @throws NullPointerException when {@code real == null}
+     */
+    public BigComplex(final @NotNull BigDecimal real) {
+<span class="nc" id="L40">        this(real, BigDecimal.ZERO);</span>
+<span class="nc" id="L41">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param real real part
+     * @param imaginary imaginary part
+     * @throws NullPointerException when {@code real == null}
+     * @throws NullPointerException when {@code imaginary == null}
+     */
+    public BigComplex(final @NotNull BigDecimal real, final @NotNull BigDecimal imaginary) {
+<span class="nc" id="L52">        super(real, imaginary);</span>
+<span class="nc" id="L53">    }</span>
+
+    @Override
+    public boolean isInvertible() {
+<span class="nc" id="L57">        return doesNotEqualByComparing(ZERO);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex add(final @NotNull BigComplex summand) {
+<span class="nc" id="L62">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="nc" id="L63">        final var re = getReal().add(summand.getReal());</span>
+<span class="nc" id="L64">        final var im = getImaginary().add(summand.getImaginary());</span>
+<span class="nc" id="L65">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex subtract(final @NotNull BigComplex subtrahend) {
+<span class="nc" id="L70">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="nc" id="L71">        final var re = getReal().subtract(subtrahend.getReal());</span>
+<span class="nc" id="L72">        final var im = getImaginary().subtract(subtrahend.getImaginary());</span>
+<span class="nc" id="L73">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex multiply(final @NotNull BigComplex factor) {
+<span class="nc" id="L78">        requireNonNull(factor, &quot;factor&quot;);</span>
+<span class="nc" id="L79">        final var re = getReal().multiply(factor.getReal()).subtract(getImaginary().multiply(factor.getImaginary()));</span>
+<span class="nc" id="L80">        final var im = getReal().multiply(factor.getImaginary()).add(getImaginary().multiply(factor.getReal()));</span>
+<span class="nc" id="L81">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex divide(final @NotNull BigComplex divisor) {
+<span class="nc" id="L86">        requireNonNull(divisor, &quot;divisor&quot;);</span>
+<span class="nc" id="L87">        checkArgument(divisor.isInvertible(), &quot;expected divisor to be invertible but divisor = %s&quot;, divisor);</span>
+<span class="nc" id="L88">        final var den = divisor.getReal().pow(2).add(divisor.getImaginary().pow(2));</span>
+<span class="nc" id="L89">        final var re = getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary()))</span>
+<span class="nc" id="L90">            .divide(den, MathContext.DECIMAL128);</span>
+<span class="nc" id="L91">        final var im = getImaginary().multiply(divisor.getReal()).subtract(getReal().multiply(divisor.getImaginary()))</span>
+<span class="nc" id="L92">            .divide(den, MathContext.DECIMAL128);</span>
+<span class="nc" id="L93">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex pow(final int exponent) {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (exponent &lt; 0) {</span>
+<span class="nc" id="L99">            return multiply(pow(-exponent - 1)).invert();</span>
+        }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (exponent &gt; 0) {</span>
+<span class="nc" id="L102">            return multiply(pow(exponent - 1));</span>
+        }
+<span class="nc" id="L104">        return ZERO;</span>
+    }
+
+    @Override
+    public @NotNull BigComplex negate() {
+<span class="nc" id="L109">        return new BigComplex(getReal().negate(), getImaginary().negate());</span>
+    }
+
+    @Override
+    public @NotNull BigComplex invert() {
+<span class="nc" id="L114">        checkArgument(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="nc" id="L115">        return ONE.divide(this);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal absPow2() {
+<span class="nc" id="L120">        return getReal().pow(2).add(getImaginary().pow(2));</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal abs() {
+<span class="nc" id="L125">        return absPow2().sqrt(MathContext.DECIMAL128);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex conjugate() {
+<span class="nc" id="L130">        return new BigComplex(getReal(), getImaginary().negate());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal argument() {
+<span class="nc" id="L135">        checkArgument(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="nc" id="L136">        final var acos = BigDecimalMath.acos(getReal().divide(abs(), MathContext.DECIMAL128), MathContext.DECIMAL128);</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        return getImaginary().compareTo(BigDecimal.ZERO) &lt; 0 ? acos.negate() : acos;</span>
+    }
+
+    @Override
+    public @NotNull BigInteger toBigInteger() {
+<span class="nc" id="L142">        return BigInteger.valueOf(longValue());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal toBigDecimal() {
+<span class="nc" id="L147">        return BigDecimal.valueOf(doubleValue());</span>
+    }
+
+    @Override
+    public @NotNull BigPolarForm toPolarForm() {
+<span class="nc" id="L152">        checkArgument(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="nc" id="L153">        return new BigPolarForm(abs(), argument());</span>
+    }
+
+    @Override
+    public boolean equalsByComparing(final @NotNull BigComplex other) {
+<span class="nc" id="L158">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="nc bnc" id="L159" title="All 4 branches missed.">        return getReal().compareTo(other.getReal()) == 0 &amp;&amp; getImaginary().compareTo(other.getImaginary()) == 0;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
