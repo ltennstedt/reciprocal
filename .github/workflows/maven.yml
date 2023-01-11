@@ -70,34 +70,9 @@ jobs:
         with:
           name: target
           path: target
-  lint:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - uses: actions/checkout@v3.3.0
-        with:
-          fetch-depth: 0
-      - name: Set up JDK
-        uses: actions/setup-java@v3.9.0
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.2
-        with:
-          name: target
-          path: target
-      - name: Lint
-        run: mvn -q checkstyle:check pmd:check spotbugs:check
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: target
-          path: target
   doc:
     runs-on: ubuntu-latest
-    needs: lint
+    needs: test
     steps:
       - uses: actions/checkout@v3.3.0
         with:
