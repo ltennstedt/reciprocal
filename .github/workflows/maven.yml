@@ -191,7 +191,7 @@ jobs:
           name: target
           path: target
       - name: Sonar
-        run: mvn -q -Dsonar.projectKey=ltennstedt_finnmath sonar:sonar
+        run: mvn -q -Dsonar.projectKey=ltennstedt_reciprocal -Pcoverage sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
