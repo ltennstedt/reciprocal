@@ -12,7 +12,6 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ltennstedt_reciprocal&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ltennstedt_reciprocal)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=ltennstedt_reciprocal&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=ltennstedt_reciprocal)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ltennstedt_reciprocal&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=ltennstedt_reciprocal)
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/ltennstedt/reciprocal)
 
 reciprocal is a free software library for the [JVM](https://www.java.com/) which provides or will provide
 implementations of fractions, complex numbers, vectors, matrices and polynomials and their arithmetic.
