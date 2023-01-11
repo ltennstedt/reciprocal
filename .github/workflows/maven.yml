@@ -1,0 +1,238 @@
+#
+# Copyright 2022 Lars Tennstedt
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Java CI with Maven
+on:
+  push:
+    branches: main
+    paths-ignore:
+      - '.editorconfig'
+      - 'LICENSE'
+      - 'README.md'
+      - '.gitpod.yml'
+  pull_request:
+    branches: main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build
+        run: mvn -q compiler:compile compiler:testCompile
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Test
+        run: mvn -q surefire:test
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  lint:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Lint
+        run: mvn -q checkstyle:check pmd:check spotbugs:check
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  doc:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Doc
+        run: mvn -q javadoc:javadoc
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  package:
+    runs-on: ubuntu-latest
+    needs: doc
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Package
+        run: mvn -q jar:jar javadoc:jar source:jar-no-fork
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  deploy:
+    runs-on: ubuntu-latest
+    needs: package
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Deploy
+        run: mvn -q install deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  site:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Site
+        run: mvn -q site
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: target
+          path: target
+  sonar:
+    runs-on: ubuntu-latest
+    needs: site
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3.0.0
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: Sonar
+        run: mvn -q -Dsonar.projectKey=ltennstedt_finnmath sonar:sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  pages:
+    runs-on: ubuntu-latest
+    needs: site
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: target
+          path: target
+      - name: GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2.6.0
+        with:
+          build_dir: target/site
+          jekyll: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

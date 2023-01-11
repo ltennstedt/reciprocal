@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+   Copyright 2019 Lars Tennstedt
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+<module name="Checker">
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="warning"/>
+    <property name="fileExtensions" value="java"/>
+    <module name="NewlineAtEndOfFile"/>
+    <module name="UniqueProperties"/>
+    <module name="FileTabCharacter"/>
+    <module name="TreeWalker">
+        <!-- annotations -->
+        <module name="AnnotationLocation"/>
+        <module name="AnnotationUseStyle"/>
+        <module name="MissingDeprecated"/>
+        <module name="MissingOverride"/>
+        <!-- blocks -->
+        <module name="AvoidNestedBlocks"/>
+        <module name="EmptyBlock"/>
+        <module name="EmptyCatchBlock"/>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+        <!-- class design -->
+        <module name="DesignForExtension"/>
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InnerTypeLast"/>
+        <module name="InterfaceIsType"/>
+        <module name="MutableException"/>
+        <module name="OneTopLevelClass"/>
+        <module name="VisibilityModifier"/>
+        <!-- coding -->
+        <module name="AvoidDoubleBraceInitialization"/>
+        <module name="CovariantEquals"/>
+        <module name="DeclarationOrder"/>
+        <module name="DefaultComesLast"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsAvoidNull"/>
+        <module name="EqualsHashCode"/>
+        <module name="FallThrough"/>
+        <module name="FinalLocalVariable"/>
+        <module name="IllegalCatch"/>
+        <module name="IllegalInstantiation"/>
+        <module name="IllegalThrows"/>
+        <module name="IllegalToken"/>
+        <module name="IllegalType"/>
+        <module name="InnerAssignment"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="NestedForDepth"/>
+        <module name="NestedIfDepth"/>
+        <module name="NestedTryDepth"/>
+        <module name="NoArrayTrailingComma"/>
+        <module name="NoClone"/>
+        <module name="NoEnumTrailingComma"/>
+        <module name="NoFinalizer"/>
+        <module name="OneStatementPerLine"/>
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <module name="PackageDeclaration"/>
+        <module name="ParameterAssignment"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="UnnecessaryParentheses"/>
+        <module name="UnnecessarySemicolonAfterOuterTypeDeclaration"/>
+        <module name="UnnecessarySemicolonAfterTypeMemberDeclaration"/>
+        <module name="UnnecessarySemicolonInEnumeration"/>
+        <module name="UnnecessarySemicolonInTryWithResources"/>
+        <module name="VariableDeclarationUsageDistance"/>
+        <!-- imports -->
+        <module name="AvoidStarImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <!-- Javadoc comments -->
+        <module name="InvalidJavadocPosition"/>
+        <module name="JavadocContentLocationCheck"/>
+        <module name="JavadocMethod"/>
+        <module name="JavadocMissingWhitespaceAfterAsterisk"/>
+        <module name="JavadocTagContinuationIndentation"/>
+        <module name="JavadocType">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="MissingJavadocMethod">
+            <property name="scope" value="protected"/>
+        </module>
+        <module name="MissingJavadocType"/>
+        <module name="NonEmptyAtclauseDescription"/>
+        <!-- metrics -->
+        <module name="BooleanExpressionComplexity"/>
+        <module name="ClassDataAbstractionCoupling"/>
+        <module name="ClassFanOutComplexity"/>
+        <module name="CyclomaticComplexity"/>
+        <module name="NPathComplexity"/>
+        <!-- miscellaneous -->
+        <module name="ArrayTypeStyle"/>
+        <module name="CommentsIndentation"/>
+        <module name="FinalParameters"/>
+        <module name="Indentation"/>
+        <module name="NoCodeInFile"/>
+        <module name="OuterTypeFilename"/>
+        <module name="TrailingComment"/>
+        <module name="UpperEll"/>
+        <!-- modifiers -->
+        <module name="ClassMemberImpliedModifier"/>
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+        <!-- naming conventions -->
+        <module name="AbstractClassName"/>
+        <module name="CatchParameterName"/>
+        <module name="ClassTypeParameterName"/>
+        <module name="ConstantName"/>
+        <module name="IllegalIdentifierName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="LambdaParameterName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="PatternVariableName"/>
+        <module name="RecordTypeParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+        <!-- whitespace -->
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="ParenPad"/>
+        <module name="SingleSpaceSeparator"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+    </module>
+</module>
