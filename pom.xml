@@ -9,8 +9,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <sonar.organization>ltennstedt-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.junit.reportPaths>target/surefire-reports/TEST-reciprocal.reciprocalContextTests.xml
+        <sonar.junit.reportPaths>
+            target/surefire-reports/TEST-reciprocal.reciprocalContextTests.xml
         </sonar.junit.reportPaths>
     </properties>
     <build>
