@@ -22,7 +22,6 @@ on:
       - '.editorconfig'
       - 'LICENSE'
       - 'README.md'
-      - '.gitpod.yml'
   pull_request:
     branches: main
 jobs:
