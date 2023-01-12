@@ -1,49 +1,64 @@
 package reciprocal.number.complex;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
-
 import com.google.common.math.LongMath;
-import java.io.Serial;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Set;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
 /**
  * Immutable implementation of a Gaussian integer which uses {@link Long} as type for its real and imaginary part
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Double, PolarForm> {
     /**
      * 0
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Gaussian ZERO = new Gaussian(0L);
 
     /**
      * 1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Gaussian ONE = new Gaussian(1L);
 
     /**
      * i
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Gaussian IMAGINARY = new Gaussian(0L, 1L);
 
     /**
      * -1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Gaussian MINUS_ONE = ONE.negate();
 
     /**
      * -i
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Gaussian MINUS_IMAGINARY = IMAGINARY.negate();
 
     /**
      * Units
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Set<@NotNull Gaussian> UNITS = Set.of(ONE, IMAGINARY, MINUS_ONE, MINUS_IMAGINARY);
 
@@ -54,15 +69,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Constructor
      *
      * @param real real part
-     */
-    public Gaussian(final int real) {
-        this((long) real);
-    }
-
-    /**
-     * Constructor
-     *
-     * @param real real part
+     * @since 0.0.1
      */
     public Gaussian(final long real) {
         this(real, 0L);
@@ -71,8 +78,9 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     /**
      * Constructor
      *
-     * @param real real part
+     * @param real      real part
      * @param imaginary imaginary part
+     * @since 0.0.1
      */
     public Gaussian(final long real, final long imaginary) {
         super(real, imaginary);
@@ -175,6 +183,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Returns this as {@link Complex}
      *
      * @return {@link Complex}
+     * @since 0.0.1
      */
     public @NotNull Complex toComplex() {
         return new Complex(getReal(), getImaginary());
@@ -184,6 +193,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Returns this as {@link BigGaussian}
      *
      * @return {@link BigGaussian}
+     * @since 0.0.1
      */
     public @NotNull BigGaussian toBigGaussian() {
         return new BigGaussian(BigInteger.valueOf(getReal()), BigInteger.valueOf(getImaginary()));
@@ -193,6 +203,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Returns this as {@link BigComplex}
      *
      * @return {@link BigComplex}
+     * @since 0.0.1
      */
     public @NotNull BigComplex toBigComplex() {
         return new BigComplex(BigDecimal.valueOf(getReal()), BigDecimal.valueOf(getImaginary()));

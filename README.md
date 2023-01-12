@@ -22,10 +22,10 @@ What reciprocal will provide:
 * Vectors and matrices
 * Determinant calculation
 * Polynomials
-* [Kotlin module (separate JAR)](https://github.com/ltennstedt/reciprocal-kotlin)
+* [Kotlin](https://github.com/ltennstedt/reciprocal-kotlin) module (separate JAR)
 * [Scala](https://scala-lang.org/) module (separate JAR)
-* Custom assertions for AssertJ
-* Custom matchers for Kotest
+* Custom assertions for [AssertJ](https://assertj.github.io/doc/)
+* Custom matchers for [Kotest](https://kotest.io/)
 
 What reciprocal will not provide:
 
@@ -60,7 +60,7 @@ mvn install
 class Class {
     void method() {
         // arithmetic methods follow the naming scheme of BigInteger/BigDecimal
-        Fraction(2L, 3L).add(Fraction(3L, 4L));
+        new Fraction(2L, 3L).add(new Fraction(3L, 4L));
 
         // getting an element of a vector or matrix
         vector.get(1);
@@ -72,11 +72,11 @@ class Class {
         }
 
         // classic builders for vectors and matrices with a fluent API        
-        LongVector.builder(5)
-                .computationOfAbsent(i -> random.nextLong())
-                .set(2, 1L)
-                .set(4, 2L)
-                .build();
+        LongVector.ofSize(5)
+            .computationOfAbsent(i -> new Random().nextLong())
+            .set(2, 1L)
+            .set(4, 2L)
+            .build();
     }
 }
 ```

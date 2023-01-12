@@ -1,50 +1,65 @@
 package reciprocal.number.complex;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
-
 import ch.obermuhlner.math.big.BigDecimalMath;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Set;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Immutable implementation of a Gaussian integer which uses {@link BigInteger} as type for its real and imaginary part
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, BigComplex, BigDecimal, BigPolarForm> {
     /**
      * 0
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigGaussian ZERO = new BigGaussian(BigInteger.ZERO);
 
     /**
      * 1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigGaussian ONE = new BigGaussian(BigInteger.ONE);
 
     /**
      * i
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigGaussian IMAGINARY = new BigGaussian(BigInteger.ZERO, BigInteger.ONE);
 
     /**
      * -1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigGaussian MINUS_ONE = ONE.negate();
 
     /**
      * -i
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigGaussian MINUS_IMAGINARY = IMAGINARY.negate();
 
     /**
      * Units
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Set<@NotNull BigGaussian> UNITS = Set.of(ONE, IMAGINARY, MINUS_ONE, MINUS_IMAGINARY);
 
@@ -56,6 +71,7 @@ public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, 
      *
      * @param real real part
      * @throws NullPointerException when {@code real == null}
+     * @since 0.0.1
      */
     public BigGaussian(final @NotNull BigInteger real) {
         this(real, BigInteger.ZERO);
@@ -64,10 +80,11 @@ public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, 
     /**
      * Constructor
      *
-     * @param real real part
+     * @param real      real part
      * @param imaginary imaginary part
      * @throws NullPointerException when {@code real == null}
      * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
      */
     public BigGaussian(final @NotNull BigInteger real, final @NotNull BigInteger imaginary) {
         super(real, imaginary);
@@ -176,6 +193,7 @@ public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, 
      * Returns this as {@link BigComplex}
      *
      * @return {@link BigComplex}
+     * @since 0.0.1
      */
     public @NotNull BigComplex toBigComplex() {
         return new BigComplex(new BigDecimal(getReal()), new BigDecimal(getImaginary()));

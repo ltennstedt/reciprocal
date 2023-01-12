@@ -1,36 +1,40 @@
 package reciprocal.number.complex;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for polar forms
  *
  * @param <N> type of number
  * @param <T> type of this
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractPolarForm<N extends Number, T extends AbstractPolarForm<N, T>>
     implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private final @NotNull N radial;
     private final @NotNull N angular;
 
     /**
      * Constructor
      *
-     * @param radial radial
+     * @param radial  radial
      * @param angular angular
      * @throws NullPointerException when {@code radial == null}
      * @throws NullPointerException when {@code angular == null}
+     * @since 0.0.1
      */
     protected AbstractPolarForm(final @NotNull N radial, final @NotNull N angular) {
         this.radial = requireNonNull(radial, "radial");
@@ -41,6 +45,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * Radial
      *
      * @return radial
+     * @since 0.0.1
      */
     public final @NotNull N getRadial() {
         return radial;
@@ -50,6 +55,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * Angular
      *
      * @return angular
+     * @since 0.0.1
      */
     public final @NotNull N getAngular() {
         return angular;
@@ -61,6 +67,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @param other other
      * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
      */
     public abstract boolean equalsByComparing(@NotNull T other);
 
@@ -70,6 +77,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @param other other
      * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
      */
     public final boolean doesNotEqualByComparing(final @NotNull T other) {
         requireNonNull(other, "other");

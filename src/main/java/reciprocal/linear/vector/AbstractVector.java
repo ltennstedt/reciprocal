@@ -1,14 +1,15 @@
 package reciprocal.linear.vector;
 
 import com.google.common.collect.ImmutableList;
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import reciprocal.linear.field.QuotientField;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Base class for vectors
@@ -18,6 +19,7 @@ import reciprocal.linear.field.QuotientField;
  * @param <V> this
  * @param <N> norm
  * @param <A> absolute value of element
+ * @since 0.0.1
  */
 public abstract class AbstractVector<
     E extends Number,
@@ -28,14 +30,16 @@ public abstract class AbstractVector<
     implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
 
     /**
      * Constructor
      *
      * @param entries entries
-     * @throws NullPointerException when {@code entries == null}
+     * @throws NullPointerException     when {@code entries == null}
      * @throws IllegalArgumentException when one element in entries is null
+     * @since 0.0.1
      */
     protected AbstractVector(final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries) {
         Validate.noNullElements(entries, "expected all elements in entries not to be null but entries = %s", entries);
@@ -46,6 +50,7 @@ public abstract class AbstractVector<
      * Quotient field
      *
      * @return quotient field
+     * @since 0.0.1
      */
     protected abstract @NotNull QuotientField<@NotNull E, @NotNull Q, @NotNull A> getQuotientField();
 
@@ -53,6 +58,7 @@ public abstract class AbstractVector<
      * Entries
      *
      * @return entries
+     * @since 0.0.1
      */
     public final @NotNull List<@NotNull VectorEntry<@NotNull E>> getEntries() {
         return List.copyOf(entries);

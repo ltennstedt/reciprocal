@@ -1,18 +1,20 @@
 package reciprocal.linear.vector;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import org.jetbrains.annotations.NotNull;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Entry for vectors
  *
- * @param <E> type of element
- * @param index index
+ * @param <E>     type of element
+ * @param index   index
  * @param element element
+ * @since 0.0.1
  */
 public record VectorEntry<E extends Number>(int index, @NotNull E element) implements Serializable {
     @Serial
@@ -21,10 +23,11 @@ public record VectorEntry<E extends Number>(int index, @NotNull E element) imple
     /**
      * Constructor
      *
-     * @param index index
+     * @param index   index
      * @param element element
      * @throws IllegalArgumentException when {@code index <= 0}
-     * @throws NullPointerException when {@code element == null}
+     * @throws NullPointerException     when {@code element == null}
+     * @since 0.0.1
      */
     public VectorEntry {
         checkArgument(index > 0, "expected index > 0 but index = %s", index);
