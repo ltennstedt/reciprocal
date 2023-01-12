@@ -1,25 +1,28 @@
 package reciprocal.geometry;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for rectangles
  *
  * @param <N> type of number
  * @param <R> type of rectangle
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractRectangle<N extends Number, R extends AbstractRectangle<N, R>> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private final @NotNull N length;
     private final @NotNull N width;
 
@@ -27,9 +30,10 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * Constructor
      *
      * @param length length
-     * @param width width
+     * @param width  width
      * @throws NullPointerException when {@code length == null}
      * @throws NullPointerException when {@code width == null}
+     * @since 0.0.1
      */
     protected AbstractRectangle(final @NotNull N length, final @NotNull N width) {
         this.length = requireNonNull(length, "length");
@@ -40,27 +44,31 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * Indicates if this is square
      *
      * @return {@link Boolean}
+     * @since 0.0.1
      */
     public abstract boolean isSquare();
 
     /**
-     * Returns the perimeter
+     * Perimeter
      *
      * @return perimeter
+     * @since 0.0.1
      */
-    public abstract @NotNull N perimeter();
+    public abstract @NotNull N getPerimeter();
 
     /**
-     * Returns the diagonal
+     * Diagonal
      *
      * @return diagonal
+     * @since 0.0.1
      */
-    public abstract @NotNull N diagonal();
+    public abstract @NotNull N getDiagonal();
 
     /**
      * Length
      *
      * @return length
+     * @since 0.0.1
      */
     public final @NotNull N getLength() {
         return length;
@@ -70,6 +78,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * Width
      *
      * @return width
+     * @since 0.0.1
      */
     public final @NotNull N getWidth() {
         return width;

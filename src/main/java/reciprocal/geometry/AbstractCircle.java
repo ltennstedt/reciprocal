@@ -1,20 +1,22 @@
 package reciprocal.geometry;
 
-import static java.util.Objects.requireNonNull;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for circles
  *
  * @param <N> type of the number
  * @param <C> type of the circle
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<N, C>>
@@ -29,36 +31,41 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      *
      * @param radius radius
      * @throws NullPointerException when {@code radius == null}
+     * @since 0.0.1
      */
     protected AbstractCircle(@NotNull final N radius) {
         this.radius = requireNonNull(radius, "radius");
     }
 
     /**
-     * Returns the diameter
+     * Diameter
      *
      * @return diameter
+     * @since 0.0.1
      */
-    public abstract @NotNull N diameter();
+    public abstract @NotNull N getDiameter();
 
     /**
-     * Returns the circumference
+     * Circumference
      *
      * @return circumference
+     * @since 0.0.1
      */
-    public abstract @NotNull N circumference();
+    public abstract @NotNull N getCircumference();
 
     /**
-     * Returns the area
+     * Area
      *
      * @return area
+     * @since 0.0.1
      */
-    public abstract @NotNull N area();
+    public abstract @NotNull N getArea();
 
     /**
      * Radius
      *
      * @return radius
+     * @since 0.0.1
      */
     public final @NotNull N getRadius() {
         return radius;

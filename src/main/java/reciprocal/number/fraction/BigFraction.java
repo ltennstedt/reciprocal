@@ -1,9 +1,12 @@
 package reciprocal.number.fraction;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
-
 import com.google.common.math.BigIntegerMath;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import reciprocal.linear.field.BigIntegerQuotientField;
+import reciprocal.linear.field.QuotientField;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,36 +15,41 @@ import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import reciprocal.linear.field.BigIntegerQuotientField;
-import reciprocal.linear.field.QuotientField;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Immutable implementation of a fraction which uses {@link BigFraction} as type for its numerator and denominator
  * <p>
  * The returned Fractions of most methods are neither normalized nor reduced.
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigFraction extends AbstractFraction<BigInteger, BigFraction, BigDecimal> {
     /**
      * 0
+     *
+     * @since 0.0.1
      */
     public static final BigFraction ZERO = new BigFraction(BigInteger.ZERO);
 
     /**
      * 1
+     *
+     * @since 0.0.1
      */
     public static final BigFraction ONE = new BigFraction(BigInteger.ONE);
 
     /**
      * Units
+     *
+     * @since 0.0.1
      */
     public static final Stream<BigFraction> UNITS = Stream.iterate(
         ONE,
-        bf -> new BigFraction(BigInteger.ONE, bf.getDenominator().add(BigInteger.ONE)));
+        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -50,49 +58,9 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
      * Constructor
      *
      * @param numerator numerator
-     */
-    public BigFraction(final int numerator) {
-        this(BigInteger.valueOf(numerator), BigInteger.valueOf(1L));
-    }
-
-    /**
-     * Constructor
-     *
-     * @param numerator numerator
-     * @param denominator denominator
+     * @throws NullPointerException     when {@code numerator == null}
      * @throws IllegalArgumentException when {@code denominator == 0}
-     */
-    public BigFraction(final int numerator, final int denominator) {
-        this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
-    }
-
-    /**
-     * Constructor
-     *
-     * @param numerator numerator
-     */
-    public BigFraction(final long numerator) {
-        this(BigInteger.valueOf(numerator), BigInteger.valueOf(1L));
-    }
-
-    /**
-     * Constructor
-     *
-     * @param numerator numerator
-     * @param denominator denominator
-     * @throws IllegalArgumentException when {@code denominator == 0}
-     */
-    public BigFraction(final long numerator, final long denominator) {
-        this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
-
-    }
-
-    /**
-     * Constructor
-     *
-     * @param numerator numerator
-     * @throws NullPointerException when {@code numerator == null}
-     * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since 0.0.1
      */
     public BigFraction(final @NotNull BigInteger numerator) {
         this(numerator, BigInteger.ONE);
@@ -101,11 +69,12 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
     /**
      * Constructor
      *
-     * @param numerator numerator
+     * @param numerator   numerator
      * @param denominator denominator
-     * @throws NullPointerException when {@code numerator == null}
-     * @throws NullPointerException when {@code denominator == null}
+     * @throws NullPointerException     when {@code numerator == null}
+     * @throws NullPointerException     when {@code denominator == null}
      * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since 0.0.1
      */
     public BigFraction(final @NotNull BigInteger numerator, final @NotNull BigInteger denominator) {
         super(numerator, denominator);
@@ -171,41 +140,43 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
     }
 
     @Override
-    public int compareTo(@Nullable final BigFraction o) {
-        return NullableBigFractionComparator.INSTANCE.compare(this, o);
+    public int compareTo(final @NotNull BigFraction o) {
+        return BigFractionComparator.INSTANCE.compare(this, o);
     }
 
     @Override
-    protected @NotNull QuotientField<@NotNull BigInteger, @NotNull BigDecimal, @NotNull BigInteger> quotientField() {
+    protected @NotNull QuotientField<@NotNull BigInteger, @NotNull BigDecimal, @NotNull BigInteger> getQuotientField() {
         return BigIntegerQuotientField.INSTANCE;
     }
 
     @Override
-    protected BigFraction one() {
+    protected @NotNull BigFraction getOne() {
         return ONE;
     }
 
     @Override
-    protected @NotNull BiFunction<BigInteger, BigInteger, BigFraction> constructor() {
+    protected @NotNull BiFunction<BigInteger, BigInteger, BigFraction> getConstructor() {
         return BigFraction::new;
     }
 
     /**
      * Comparator which rejects null
      *
-     * @author Lars Tennstedt
+     * @since 0.0.1
      */
     @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class NonNullBigFractionComparator implements Comparator<BigFraction>, Serializable {
+    public static final class BigFractionComparator implements Comparator<BigFraction>, Serializable {
         /**
          * Instance
+         *
+         * @since 0.0.1
          */
-        public static final NonNullBigFractionComparator INSTANCE = new NonNullBigFractionComparator();
+        public static final BigFractionComparator INSTANCE = new BigFractionComparator();
 
         @Serial
         private static final long serialVersionUID = 1L;
 
-        private NonNullBigFractionComparator() {
+        private BigFractionComparator() {
         }
 
         @Override
@@ -219,30 +190,6 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
                 return 1;
             }
             return 0;
-        }
-    }
-
-    /**
-     * Comparator which accepts null
-     *
-     * @author Lars Tennstedt
-     */
-    @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class NullableBigFractionComparator implements Comparator<BigFraction>, Serializable {
-        /**
-         * Instance
-         */
-        public static final NullableBigFractionComparator INSTANCE = new NullableBigFractionComparator();
-
-        @Serial
-        private static final long serialVersionUID = 1L;
-
-        private NullableBigFractionComparator() {
-        }
-
-        @Override
-        public int compare(@Nullable final BigFraction o1, @Nullable final BigFraction o2) {
-            return Comparator.nullsFirst(NonNullBigFractionComparator.INSTANCE).compare(o1, o2);
         }
     }
 }

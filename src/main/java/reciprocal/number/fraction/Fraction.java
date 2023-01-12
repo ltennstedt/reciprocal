@@ -1,9 +1,13 @@
 package reciprocal.number.fraction;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
-
 import com.google.common.math.LongMath;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import reciprocal.linear.field.LongQuotientField;
+import reciprocal.linear.field.QuotientField;
+import reciprocal.number.complex.Complex;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -11,31 +15,30 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import reciprocal.linear.field.LongQuotientField;
-import reciprocal.linear.field.QuotientField;
-import reciprocal.number.complex.Complex;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
- * <p>
  * Immutable implementation of a fraction which uses {@link Long} as type for its numerator and denominator
- * </p>
  * <p>
  * The returned Fractions of most methods are neither normalized nor reduced.
- * </p>
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
     /**
      * 0
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Fraction ZERO = new Fraction(0L);
 
     /**
      * 1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Fraction ONE = new Fraction(1L);
 
@@ -46,6 +49,7 @@ public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
      * Constructor
      *
      * @param numerator numerator
+     * @since 0.0.1
      */
     public Fraction(final long numerator) {
         this(numerator, 1L);
@@ -54,9 +58,10 @@ public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
     /**
      * Constructor
      *
-     * @param numerator numerator
+     * @param numerator   numerator
      * @param denominator denominator
      * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since 0.0.1
      */
     public Fraction(final long numerator, final long denominator) {
         super(numerator, denominator);
@@ -139,47 +144,50 @@ public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
      * Returns this as {@link Complex}
      *
      * @return {@link Complex}
+     * @since 0.0.1
      */
     public @NotNull Complex toComplex() {
         return new Complex(doubleValue());
     }
 
     @Override
-    public int compareTo(@Nullable final Fraction o) {
-        return NullableFractionComparator.INSTANCE.compare(this, o);
+    public int compareTo(final @NotNull Fraction o) {
+        return FractionComparator.INSTANCE.compare(this, o);
     }
 
     @Override
-    protected @NotNull QuotientField<@NotNull Long, @NotNull Double, @NotNull Long> quotientField() {
+    protected @NotNull QuotientField<@NotNull Long, @NotNull Double, @NotNull Long> getQuotientField() {
         return LongQuotientField.INSTANCE;
     }
 
     @Override
-    protected @NotNull Fraction one() {
+    protected @NotNull Fraction getOne() {
         return ONE;
     }
 
     @Override
-    protected @NotNull BiFunction<Long, Long, Fraction> constructor() {
+    protected @NotNull BiFunction<Long, Long, Fraction> getConstructor() {
         return Fraction::new;
     }
 
     /**
      * Comparator which rejects null
      *
-     * @author Lars Tennstedt
+     * @since 0.0.1
      */
     @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class NonNullFractionComparator implements Comparator<Fraction>, Serializable {
+    public static final class FractionComparator implements Comparator<Fraction>, Serializable {
         /**
          * Instance
+         *
+         * @since 0.0.1
          */
-        public static final NonNullFractionComparator INSTANCE = new NonNullFractionComparator();
+        public static final FractionComparator INSTANCE = new FractionComparator();
 
         @Serial
         private static final long serialVersionUID = 1L;
 
-        private NonNullFractionComparator() {
+        private FractionComparator() {
         }
 
         @Override
@@ -193,30 +201,6 @@ public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
                 return 1;
             }
             return 0;
-        }
-    }
-
-    /**
-     * Comparator which accepts null
-     *
-     * @author Lars Tennstedt
-     */
-    @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class NullableFractionComparator implements Comparator<Fraction>, Serializable {
-        /**
-         * Instance
-         */
-        public static final NullableFractionComparator INSTANCE = new NullableFractionComparator();
-
-        @Serial
-        private static final long serialVersionUID = 1L;
-
-        private NullableFractionComparator() {
-        }
-
-        @Override
-        public int compare(@Nullable final Fraction o1, @Nullable final Fraction o2) {
-            return Comparator.nullsFirst(NonNullFractionComparator.INSTANCE).compare(o1, o2);
         }
     }
 }

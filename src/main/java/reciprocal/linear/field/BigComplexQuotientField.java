@@ -1,22 +1,27 @@
 package reciprocal.linear.field;
 
-import java.io.Serial;
-import java.math.BigDecimal;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.BigComplex;
 
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
+
 /**
  * Quotient field for {@link BigComplex BigComplexs}
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigComplexQuotientField implements QuotientField<BigComplex, BigComplex, BigDecimal> {
     /**
      * Instance
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigComplexQuotientField INSTANCE = new BigComplexQuotientField();
 

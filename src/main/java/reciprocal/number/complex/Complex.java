@@ -1,27 +1,34 @@
 package reciprocal.number.complex;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
-
-import java.io.Serial;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
 /**
  * Immutable implementation of a complex number which uses {@link Double} as type for its real and imaginary part
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class Complex extends AbstractComplex<Double, Complex, Complex, Double, PolarForm> {
     /**
      * 0
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Complex ZERO = new Complex(0.0D);
 
     /**
      * 1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull Complex ONE = new Complex(1.0D);
 
@@ -32,15 +39,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
      * Constructor
      *
      * @param real real part
-     */
-    public Complex(final int real) {
-        this((double) real);
-    }
-
-    /**
-     * Constructor
-     *
-     * @param real real part
+     * @since 0.0.1
      */
     public Complex(final double real) {
         this(real, 0.0D);
@@ -49,8 +48,9 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     /**
      * Constructor
      *
-     * @param real real part
+     * @param real      real part
      * @param imaginary imaginary part
+     * @since 0.0.1
      */
     public Complex(final double real, final double imaginary) {
         super(real, imaginary);

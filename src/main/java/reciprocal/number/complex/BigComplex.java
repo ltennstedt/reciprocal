@@ -1,29 +1,36 @@
 package reciprocal.number.complex;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
-
 import ch.obermuhlner.math.big.BigDecimalMath;
-import java.io.Serial;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
 /**
  * Immutable implementation of a complex number which uses {@link BigDecimal} as type for its real and imaginary part
+ *
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigComplex extends AbstractComplex<BigDecimal, BigComplex, BigComplex, BigDecimal, BigPolarForm> {
     /**
      * 0
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigComplex ZERO = new BigComplex(BigDecimal.ZERO);
 
     /**
      * 1
+     *
+     * @since 0.0.1
      */
     public static final @NotNull BigComplex ONE = new BigComplex(BigDecimal.ONE);
 
@@ -35,6 +42,7 @@ public final class BigComplex extends AbstractComplex<BigDecimal, BigComplex, Bi
      *
      * @param real real part
      * @throws NullPointerException when {@code real == null}
+     * @since 0.0.1
      */
     public BigComplex(final @NotNull BigDecimal real) {
         this(real, BigDecimal.ZERO);
@@ -43,10 +51,11 @@ public final class BigComplex extends AbstractComplex<BigDecimal, BigComplex, Bi
     /**
      * Constructor
      *
-     * @param real real part
+     * @param real      real part
      * @param imaginary imaginary part
      * @throws NullPointerException when {@code real == null}
      * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
      */
     public BigComplex(final @NotNull BigDecimal real, final @NotNull BigDecimal imaginary) {
         super(real, imaginary);
