@@ -16,15 +16,15 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public record ReciprocalContext(int scale, @NonNull MathContext mathContext) {
-	/**
-	 * Constructor
-	 *
-	 * @param  scale                scale
-	 * @param  mathContext          {@link MathContext}
-	 * @throws NullPointerException when {@code mathContext == null}
-	 * @since                       0.0.1
-	 */
-	public ReciprocalContext {
-		requireNonNull(mathContext, "mathContext");
-	}
+    /**
+     * Constructor
+     *
+     * @param  scale                scale
+     * @param  mathContext          {@link MathContext}
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since                       0.0.1
+     */
+    public ReciprocalContext {
+        requireNonNull(mathContext, "mathContext");
+    }
 }

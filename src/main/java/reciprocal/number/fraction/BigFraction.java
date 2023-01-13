@@ -28,165 +28,165 @@ import reciprocal.linear.field.QuotientField;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigFraction extends AbstractFraction<BigInteger, BigFraction, BigDecimal> {
-	/**
-	 * 0
-	 *
-	 * @since 0.0.1
-	 */
-	public static final BigFraction ZERO = new BigFraction(BigInteger.ZERO);
+    /**
+     * 0
+     *
+     * @since 0.0.1
+     */
+    public static final BigFraction ZERO = new BigFraction(BigInteger.ZERO);
 
-	/**
-	 * 1
-	 *
-	 * @since 0.0.1
-	 */
-	public static final BigFraction ONE = new BigFraction(BigInteger.ONE);
+    /**
+     * 1
+     *
+     * @since 0.0.1
+     */
+    public static final BigFraction ONE = new BigFraction(BigInteger.ONE);
 
-	/**
-	 * Units
-	 *
-	 * @since 0.0.1
-	 */
-	public static final Stream<BigFraction> UNITS = Stream.iterate(ONE,
-			bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
+    /**
+     * Units
+     *
+     * @since 0.0.1
+     */
+    public static final Stream<BigFraction> UNITS = Stream.iterate(ONE,
+            bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
 
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor
-	 *
-	 * @param  numerator                numerator
-	 * @throws NullPointerException     when {@code numerator == null}
-	 * @throws IllegalArgumentException when {@code denominator == 0}
-	 * @since                           0.0.1
-	 */
-	public BigFraction(final @NonNull BigInteger numerator) {
-		this(numerator, BigInteger.ONE);
-	}
+    /**
+     * Constructor
+     *
+     * @param  numerator                numerator
+     * @throws NullPointerException     when {@code numerator == null}
+     * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since                           0.0.1
+     */
+    public BigFraction(final @NonNull BigInteger numerator) {
+        this(numerator, BigInteger.ONE);
+    }
 
-	/**
-	 * Constructor
-	 *
-	 * @param  numerator                numerator
-	 * @param  denominator              denominator
-	 * @throws NullPointerException     when {@code numerator == null}
-	 * @throws NullPointerException     when {@code denominator == null}
-	 * @throws IllegalArgumentException when {@code denominator == 0}
-	 * @since                           0.0.1
-	 */
-	public BigFraction(final @NonNull BigInteger numerator, final @NonNull BigInteger denominator) {
-		super(numerator, denominator);
-		checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
-				"denominator expected not to be 0 but denominator=%s", denominator);
-	}
+    /**
+     * Constructor
+     *
+     * @param  numerator                numerator
+     * @param  denominator              denominator
+     * @throws NullPointerException     when {@code numerator == null}
+     * @throws NullPointerException     when {@code denominator == null}
+     * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since                           0.0.1
+     */
+    public BigFraction(final @NonNull BigInteger numerator, final @NonNull BigInteger denominator) {
+        super(numerator, denominator);
+        checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
+                "denominator expected not to be 0 but denominator=%s", denominator);
+    }
 
-	@Override
-	public boolean isDyadic() {
-		return BigIntegerMath.isPowerOfTwo(getDenominator());
-	}
+    @Override
+    public boolean isDyadic() {
+        return BigIntegerMath.isPowerOfTwo(getDenominator());
+    }
 
-	@Override
-	public boolean isIrreducible() {
-		return getNumerator().abs().gcd(getDenominator().abs()).compareTo(BigInteger.ONE) == 0;
-	}
+    @Override
+    public boolean isIrreducible() {
+        return getNumerator().abs().gcd(getDenominator().abs()).compareTo(BigInteger.ONE) == 0;
+    }
 
-	@Override
-	public boolean isProper() {
-		return getNumerator().abs().compareTo(getDenominator().abs()) < 0;
-	}
+    @Override
+    public boolean isProper() {
+        return getNumerator().abs().compareTo(getDenominator().abs()) < 0;
+    }
 
-	@Override
-	public int getSignum() {
-		return getNumerator().signum() * getDenominator().signum();
-	}
+    @Override
+    public int getSignum() {
+        return getNumerator().signum() * getDenominator().signum();
+    }
 
-	@Override
-	public boolean lessThanOrEqualTo(final @NonNull BigFraction other) {
-		requireNonNull(other, "other");
-		final var normalized = normalize();
-		final var normalizedOther = other.normalize();
-		final var left = normalizedOther.getDenominator().multiply(normalized.getNumerator());
-		final var right = normalized.getDenominator().multiply(normalizedOther.getNumerator());
-		return left.compareTo(right) < 1;
-	}
+    @Override
+    public boolean lessThanOrEqualTo(final @NonNull BigFraction other) {
+        requireNonNull(other, "other");
+        final var normalized = normalize();
+        final var normalizedOther = other.normalize();
+        final var left = normalizedOther.getDenominator().multiply(normalized.getNumerator());
+        final var right = normalized.getDenominator().multiply(normalizedOther.getNumerator());
+        return left.compareTo(right) < 1;
+    }
 
-	@Override
-	public @NonNull BigFraction normalize() {
-		if (getSignum() < 0 && getNumerator().compareTo(BigInteger.ZERO) > 0) {
-			return new BigFraction(getNumerator().negate(), getDenominator().abs());
-		}
-		if (getSignum() < 0) {
-			return this;
-		}
-		if (getSignum() == 0) {
-			return ZERO;
-		}
-		return abs();
-	}
+    @Override
+    public @NonNull BigFraction normalize() {
+        if (getSignum() < 0 && getNumerator().compareTo(BigInteger.ZERO) > 0) {
+            return new BigFraction(getNumerator().negate(), getDenominator().abs());
+        }
+        if (getSignum() < 0) {
+            return this;
+        }
+        if (getSignum() == 0) {
+            return ZERO;
+        }
+        return abs();
+    }
 
-	@Override
-	public @NonNull BigFraction reduce() {
-		final var gcd = getNumerator().gcd(getDenominator()).abs();
-		return new BigFraction(getNumerator().divide(gcd), getDenominator().divide(gcd));
-	}
+    @Override
+    public @NonNull BigFraction reduce() {
+        final var gcd = getNumerator().gcd(getDenominator()).abs();
+        return new BigFraction(getNumerator().divide(gcd), getDenominator().divide(gcd));
+    }
 
-	@Override
-	public @NonNull BigDecimal toBigDecimal() {
-		return new BigDecimal(getNumerator()).divide(new BigDecimal(getDenominator()), MathContext.DECIMAL128);
-	}
+    @Override
+    public @NonNull BigDecimal toBigDecimal() {
+        return new BigDecimal(getNumerator()).divide(new BigDecimal(getDenominator()), MathContext.DECIMAL128);
+    }
 
-	@Override
-	public int compareTo(final @NonNull BigFraction o) {
-		return BigFractionComparator.INSTANCE.compare(this, o);
-	}
+    @Override
+    public int compareTo(final @NonNull BigFraction o) {
+        return BigFractionComparator.INSTANCE.compare(this, o);
+    }
 
-	@Override
-	protected @NonNull QuotientField<@NonNull BigInteger, @NonNull BigDecimal, @NonNull BigInteger> getQuotientField() {
-		return BigIntegerQuotientField.INSTANCE;
-	}
+    @Override
+    protected @NonNull QuotientField<@NonNull BigInteger, @NonNull BigDecimal, @NonNull BigInteger> getQuotientField() {
+        return BigIntegerQuotientField.INSTANCE;
+    }
 
-	@Override
-	protected @NonNull BigFraction getOne() {
-		return ONE;
-	}
+    @Override
+    protected @NonNull BigFraction getOne() {
+        return ONE;
+    }
 
-	@Override
-	protected @NonNull BiFunction<BigInteger, BigInteger, BigFraction> getConstructor() {
-		return BigFraction::new;
-	}
+    @Override
+    protected @NonNull BiFunction<BigInteger, BigInteger, BigFraction> getConstructor() {
+        return BigFraction::new;
+    }
 
-	/**
-	 * Comparator which rejects null
-	 *
-	 * @since 0.0.1
-	 */
-	@API(status = Status.EXPERIMENTAL, since = "0.0.1")
-	public static final class BigFractionComparator implements Comparator<BigFraction>, Serializable {
-		/**
-		 * Instance
-		 *
-		 * @since 0.0.1
-		 */
-		public static final BigFractionComparator INSTANCE = new BigFractionComparator();
+    /**
+     * Comparator which rejects null
+     *
+     * @since 0.0.1
+     */
+    @API(status = Status.EXPERIMENTAL, since = "0.0.1")
+    public static final class BigFractionComparator implements Comparator<BigFraction>, Serializable {
+        /**
+         * Instance
+         *
+         * @since 0.0.1
+         */
+        public static final BigFractionComparator INSTANCE = new BigFractionComparator();
 
-		@Serial
-		private static final long serialVersionUID = 1L;
+        @Serial
+        private static final long serialVersionUID = 1L;
 
-		private BigFractionComparator() {
-		}
+        private BigFractionComparator() {
+        }
 
-		@Override
-		public int compare(final @NonNull BigFraction o1, final @NonNull BigFraction o2) {
-			requireNonNull(o1, "o1");
-			requireNonNull(o2, "o2");
-			if (o1.lessThan(o2)) {
-				return -1;
-			}
-			if (o1.greaterThan(o2)) {
-				return 1;
-			}
-			return 0;
-		}
-	}
+        @Override
+        public int compare(final @NonNull BigFraction o1, final @NonNull BigFraction o2) {
+            requireNonNull(o1, "o1");
+            requireNonNull(o2, "o2");
+            if (o1.lessThan(o2)) {
+                return -1;
+            }
+            if (o1.greaterThan(o2)) {
+                return 1;
+            }
+            return 0;
+        }
+    }
 }

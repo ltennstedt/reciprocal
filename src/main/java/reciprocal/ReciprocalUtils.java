@@ -12,19 +12,19 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class ReciprocalUtils {
-	/**
-	 * pi
-	 *
-	 * @since 0.0.1
-	 */
-	public static final @NonNull BigDecimal BIG_PI = BigDecimal.valueOf(Math.PI);
-	/**
-	 * e
-	 *
-	 * @since 0.0.1
-	 */
-	public static final @NonNull BigDecimal BIG_E = BigDecimal.valueOf(Math.E);
+    /**
+     * pi
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull BigDecimal BIG_PI = BigDecimal.valueOf(Math.PI);
+    /**
+     * e
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull BigDecimal BIG_E = BigDecimal.valueOf(Math.E);
 
-	private ReciprocalUtils() {
-	}
+    private ReciprocalUtils() {
+    }
 }
