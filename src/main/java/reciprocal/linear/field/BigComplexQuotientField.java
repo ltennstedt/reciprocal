@@ -7,7 +7,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 import reciprocal.number.complex.BigComplex;
 
 /**
@@ -17,66 +17,66 @@ import reciprocal.number.complex.BigComplex;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigComplexQuotientField implements QuotientField<BigComplex, BigComplex, BigDecimal> {
-    /**
-     * Instance
-     *
-     * @since 0.0.1
-     */
-    public static final @NotNull BigComplexQuotientField INSTANCE = new BigComplexQuotientField();
+	/**
+	 * Instance
+	 *
+	 * @since 0.0.1
+	 */
+	public static final @NonNull BigComplexQuotientField INSTANCE = new BigComplexQuotientField();
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private BigComplexQuotientField() {
-    }
+	private BigComplexQuotientField() {
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigComplex, @NotNull BigComplex, @NotNull BigComplex> getAddition() {
-        return BigComplex::add;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigComplex, @NonNull BigComplex, @NonNull BigComplex> getAddition() {
+		return BigComplex::add;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigComplex, @NotNull BigComplex, @NotNull BigComplex> getSubtraction() {
-        return BigComplex::subtract;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigComplex, @NonNull BigComplex, @NonNull BigComplex> getSubtraction() {
+		return BigComplex::subtract;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigComplex, @NotNull BigComplex, @NotNull BigComplex> getMultiplication() {
-        return BigComplex::multiply;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigComplex, @NonNull BigComplex, @NonNull BigComplex> getMultiplication() {
+		return BigComplex::multiply;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigComplex, @NotNull BigComplex, @NotNull BigComplex> getDivision() {
-        return BigComplex::divide;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigComplex, @NonNull BigComplex, @NonNull BigComplex> getDivision() {
+		return BigComplex::divide;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigComplex, @NotNull Integer, @NotNull BigComplex> getPower() {
-        return BigComplex::pow;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigComplex, @NonNull Integer, @NonNull BigComplex> getPower() {
+		return BigComplex::pow;
+	}
 
-    @Override
-    public @NotNull Function<@NotNull BigComplex, @NotNull BigComplex> getNegation() {
-        return BigComplex::negate;
-    }
+	@Override
+	public @NonNull Function<@NonNull BigComplex, @NonNull BigComplex> getNegation() {
+		return BigComplex::negate;
+	}
 
-    @Override
-    public @NotNull BiPredicate<@NotNull BigComplex, @NotNull BigComplex> getEqualityByComparing() {
-        return BigComplex::equalsByComparing;
-    }
+	@Override
+	public @NonNull BiPredicate<@NonNull BigComplex, @NonNull BigComplex> getEqualityByComparing() {
+		return BigComplex::equalsByComparing;
+	}
 
-    @Override
-    public @NotNull Function<@NotNull BigComplex, @NotNull BigDecimal> getAbsOperator() {
-        return BigComplex::abs;
-    }
+	@Override
+	public @NonNull Function<@NonNull BigComplex, @NonNull BigDecimal> getAbsOperator() {
+		return BigComplex::abs;
+	}
 
-    @Override
-    public @NotNull BigComplex getZero() {
-        return BigComplex.ZERO;
-    }
+	@Override
+	public @NonNull BigComplex getZero() {
+		return BigComplex.ZERO;
+	}
 
-    @Override
-    public @NotNull BigComplex getOne() {
-        return BigComplex.ONE;
-    }
+	@Override
+	public @NonNull BigComplex getOne() {
+		return BigComplex.ONE;
+	}
 }

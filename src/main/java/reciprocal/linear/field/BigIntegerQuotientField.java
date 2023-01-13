@@ -9,7 +9,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Quotient field for {@link BigInteger BigIntegers}
@@ -18,66 +18,66 @@ import org.jetbrains.annotations.NotNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigIntegerQuotientField implements QuotientField<BigInteger, BigDecimal, BigInteger> {
-    /**
-     * Instance
-     *
-     * @since 0.0.1
-     */
-    public static final @NotNull BigIntegerQuotientField INSTANCE = new BigIntegerQuotientField();
+	/**
+	 * Instance
+	 *
+	 * @since 0.0.1
+	 */
+	public static final @NonNull BigIntegerQuotientField INSTANCE = new BigIntegerQuotientField();
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private BigIntegerQuotientField() {
-    }
+	private BigIntegerQuotientField() {
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigInteger> getAddition() {
-        return BigInteger::add;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigInteger> getAddition() {
+		return BigInteger::add;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigInteger> getSubtraction() {
-        return BigInteger::subtract;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigInteger> getSubtraction() {
+		return BigInteger::subtract;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigInteger> getMultiplication() {
-        return BigInteger::multiply;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigInteger> getMultiplication() {
+		return BigInteger::multiply;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigDecimal> getDivision() {
-        return (x, y) -> new BigDecimal(x).divide(new BigDecimal(y), MathContext.DECIMAL128);
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigDecimal> getDivision() {
+		return (x, y) -> new BigDecimal(x).divide(new BigDecimal(y), MathContext.DECIMAL128);
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigInteger, @NotNull Integer, @NotNull BigDecimal> getPower() {
-        return (x, k) -> new BigDecimal(x).pow(k);
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigInteger, @NonNull Integer, @NonNull BigDecimal> getPower() {
+		return (x, k) -> new BigDecimal(x).pow(k);
+	}
 
-    @Override
-    public @NotNull Function<@NotNull BigInteger, @NotNull BigInteger> getNegation() {
-        return BigInteger::negate;
-    }
+	@Override
+	public @NonNull Function<@NonNull BigInteger, @NonNull BigInteger> getNegation() {
+		return BigInteger::negate;
+	}
 
-    @Override
-    public @NotNull BiPredicate<@NotNull BigInteger, @NotNull BigInteger> getEqualityByComparing() {
-        return (x, y) -> x.compareTo(y) == 0;
-    }
+	@Override
+	public @NonNull BiPredicate<@NonNull BigInteger, @NonNull BigInteger> getEqualityByComparing() {
+		return (x, y) -> x.compareTo(y) == 0;
+	}
 
-    @Override
-    public @NotNull Function<@NotNull BigInteger, @NotNull BigInteger> getAbsOperator() {
-        return BigInteger::abs;
-    }
+	@Override
+	public @NonNull Function<@NonNull BigInteger, @NonNull BigInteger> getAbsOperator() {
+		return BigInteger::abs;
+	}
 
-    @Override
-    public @NotNull BigInteger getZero() {
-        return BigInteger.ZERO;
-    }
+	@Override
+	public @NonNull BigInteger getZero() {
+		return BigInteger.ZERO;
+	}
 
-    @Override
-    public @NotNull BigInteger getOne() {
-        return BigInteger.ONE;
-    }
+	@Override
+	public @NonNull BigInteger getOne() {
+		return BigInteger.ONE;
+	}
 }

@@ -7,112 +7,111 @@ import java.io.Serializable;
 import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Base class for polar forms
  *
  * @param <N> type of number
  * @param <T> type of this
- * @since 0.0.1
+ * @since     0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public abstract class AbstractPolarForm<N extends Number, T extends AbstractPolarForm<N, T>>
-    implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public abstract class AbstractPolarForm<N extends Number, T extends AbstractPolarForm<N, T>> implements Serializable {
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Radial
-     *
-     * @since 0.0.1
-     */
-    private final @NotNull N radial;
+	/**
+	 * Radial
+	 *
+	 * @since 0.0.1
+	 */
+	private final @NonNull N radial;
 
-    /**
-     * Angular
-     *
-     * @since 0.0.1
-     */
-    private final @NotNull N angular;
+	/**
+	 * Angular
+	 *
+	 * @since 0.0.1
+	 */
+	private final @NonNull N angular;
 
-    /**
-     * Constructor
-     *
-     * @param radial radial
-     * @param angular angular
-     * @throws NullPointerException when {@code radial == null}
-     * @throws NullPointerException when {@code angular == null}
-     * @since 0.0.1
-     */
-    protected AbstractPolarForm(final @NotNull N radial, final @NotNull N angular) {
-        this.radial = requireNonNull(radial, "radial");
-        this.angular = requireNonNull(angular, "angular");
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param  radial               radial
+	 * @param  angular              angular
+	 * @throws NullPointerException when {@code radial == null}
+	 * @throws NullPointerException when {@code angular == null}
+	 * @since                       0.0.1
+	 */
+	protected AbstractPolarForm(final @NonNull N radial, final @NonNull N angular) {
+		this.radial = requireNonNull(radial, "radial");
+		this.angular = requireNonNull(angular, "angular");
+	}
 
-    /**
-     * Radial
-     *
-     * @return radial
-     * @since 0.0.1
-     */
-    public final @NotNull N getRadial() {
-        return radial;
-    }
+	/**
+	 * Radial
+	 *
+	 * @return radial
+	 * @since  0.0.1
+	 */
+	public final @NonNull N getRadial() {
+		return radial;
+	}
 
-    /**
-     * Angular
-     *
-     * @return angular
-     * @since 0.0.1
-     */
-    public final @NotNull N getAngular() {
-        return angular;
-    }
+	/**
+	 * Angular
+	 *
+	 * @return angular
+	 * @since  0.0.1
+	 */
+	public final @NonNull N getAngular() {
+		return angular;
+	}
 
-    /**
-     * Returns if this is equal by comparing to other
-     *
-     * @param other other
-     * @return {@link Boolean}
-     * @throws NullPointerException when {@code other == null}
-     * @since 0.0.1
-     */
-    public abstract boolean equalsByComparing(@NotNull T other);
+	/**
+	 * Returns if this is equal by comparing to other
+	 *
+	 * @param  other                other
+	 * @return                      {@link Boolean}
+	 * @throws NullPointerException when {@code other == null}
+	 * @since                       0.0.1
+	 */
+	public abstract boolean equalsByComparing(@NonNull T other);
 
-    /**
-     * Returns if this is not equal by comparing to other
-     *
-     * @param other other
-     * @return {@link Boolean}
-     * @throws NullPointerException when {@code other == null}
-     * @since 0.0.1
-     */
-    public final boolean doesNotEqualByComparing(final @NotNull T other) {
-        requireNonNull(other, "other");
-        return !equalsByComparing(other);
-    }
+	/**
+	 * Returns if this is not equal by comparing to other
+	 *
+	 * @param  other                other
+	 * @return                      {@link Boolean}
+	 * @throws NullPointerException when {@code other == null}
+	 * @since                       0.0.1
+	 */
+	public final boolean doesNotEqualByComparing(final @NonNull T other) {
+		requireNonNull(other, "other");
+		return !equalsByComparing(other);
+	}
 
-    @Override
-    public final int hashCode() {
-        return Objects.hash(radial, angular);
-    }
+	@Override
+	public final int hashCode() {
+		return Objects.hash(radial, angular);
+	}
 
-    @Override
-    public final boolean equals(final @Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final var other = (AbstractPolarForm<?, ?>) obj;
-        return radial.equals(other.getRadial()) && angular.equals(other.getAngular());
-    }
+	@Override
+	public final boolean equals(final @Nullable Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		final var other = (AbstractPolarForm<?, ?>) obj;
+		return radial.equals(other.getRadial()) && angular.equals(other.getAngular());
+	}
 
-    @Override
-    public final @NotNull String toString() {
-        return getClass().getSimpleName() + "(radial=" + radial + ", angular=" + angular + ")";
-    }
+	@Override
+	public final @NonNull String toString() {
+		return getClass().getSimpleName() + "(radial=" + radial + ", angular=" + angular + ")";
+	}
 }

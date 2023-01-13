@@ -8,8 +8,8 @@ import java.math.BigInteger;
 import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Base class for complex numbers
@@ -19,314 +19,314 @@ import org.jetbrains.annotations.Nullable;
  * @param <Q> type of quotient
  * @param <A> type of absolute value
  * @param <P> type of polar form
- * @since 0.0.1
+ * @since     0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractComplex<N extends Number, T extends AbstractComplex<N, T, Q, A, P>, Q, A, P>
-    extends Number {
-    @Serial
-    private static final long serialVersionUID = 1L;
+		extends Number {
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Real part
-     *
-     * @since 0.0.1
-     */
-    private final @NotNull N real;
+	/**
+	 * Real part
+	 *
+	 * @since 0.0.1
+	 */
+	private final @NonNull N real;
 
-    /**
-     * Imaginary part
-     *
-     * @since 0.0.1
-     */
-    private final @NotNull N imaginary;
+	/**
+	 * Imaginary part
+	 *
+	 * @since 0.0.1
+	 */
+	private final @NonNull N imaginary;
 
-    /**
-     * Constructor
-     *
-     * @param real real part
-     * @param imaginary imaginary part
-     * @throws NullPointerException when {@code real == null}
-     * @throws NullPointerException when {@code imaginary == null}
-     * @since 0.0.1
-     */
-    protected AbstractComplex(final @NotNull N real, final @NotNull N imaginary) {
-        this.real = requireNonNull(real, "real");
-        this.imaginary = requireNonNull(imaginary, "imaginary");
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param  real                 real part
+	 * @param  imaginary            imaginary part
+	 * @throws NullPointerException when {@code real == null}
+	 * @throws NullPointerException when {@code imaginary == null}
+	 * @since                       0.0.1
+	 */
+	protected AbstractComplex(final @NonNull N real, final @NonNull N imaginary) {
+		this.real = requireNonNull(real, "real");
+		this.imaginary = requireNonNull(imaginary, "imaginary");
+	}
 
-    /**
-     * Indicates if this is invertible
-     *
-     * @return {@link Boolean}
-     * @since 0.0.1
-     */
-    public abstract boolean isInvertible();
+	/**
+	 * Indicates if this is invertible
+	 *
+	 * @return {@link Boolean}
+	 * @since  0.0.1
+	 */
+	public abstract boolean isInvertible();
 
-    /**
-     * Indicates if this is not invertible
-     *
-     * @return {@link Boolean}
-     * @since 0.0.1
-     */
-    public final boolean isNotInvertible() {
-        return !isInvertible();
-    }
+	/**
+	 * Indicates if this is not invertible
+	 *
+	 * @return {@link Boolean}
+	 * @since  0.0.1
+	 */
+	public final boolean isNotInvertible() {
+		return !isInvertible();
+	}
 
-    /**
-     * Returns the sum of this and the summand
-     *
-     * @param summand summand
-     * @return sum
-     * @throws NullPointerException when {@code summand == null}
-     * @since 0.0.1
-     */
-    public abstract @NotNull T add(@NotNull T summand);
+	/**
+	 * Returns the sum of this and the summand
+	 *
+	 * @param  summand              summand
+	 * @return                      sum
+	 * @throws NullPointerException when {@code summand == null}
+	 * @since                       0.0.1
+	 */
+	public abstract @NonNull T add(@NonNull T summand);
 
-    /**
-     * Returns the difference of this and the subtrahend
-     *
-     * @param subtrahend subtrahend
-     * @return difference
-     * @throws NullPointerException when {@code subtrahend == null}
-     * @since 0.0.1
-     */
-    public abstract @NotNull T subtract(@NotNull T subtrahend);
+	/**
+	 * Returns the difference of this and the subtrahend
+	 *
+	 * @param  subtrahend           subtrahend
+	 * @return                      difference
+	 * @throws NullPointerException when {@code subtrahend == null}
+	 * @since                       0.0.1
+	 */
+	public abstract @NonNull T subtract(@NonNull T subtrahend);
 
-    /**
-     * Returns the product of this and the factor
-     *
-     * @param factor factor
-     * @return product
-     * @throws NullPointerException when {@code factor == null}
-     * @since 0.0.1
-     */
-    public abstract @NotNull T multiply(@NotNull T factor);
+	/**
+	 * Returns the product of this and the factor
+	 *
+	 * @param  factor               factor
+	 * @return                      product
+	 * @throws NullPointerException when {@code factor == null}
+	 * @since                       0.0.1
+	 */
+	public abstract @NonNull T multiply(@NonNull T factor);
 
-    /**
-     * Returns the quotient of this and the divisor
-     *
-     * @param divisor divisor
-     * @return quotient
-     * @throws NullPointerException when {@code divisor == null}
-     * @throws NullPointerException when divisor is not invertible
-     * @since 0.0.1
-     */
-    public abstract @NotNull Q divide(@NotNull T divisor);
+	/**
+	 * Returns the quotient of this and the divisor
+	 *
+	 * @param  divisor              divisor
+	 * @return                      quotient
+	 * @throws NullPointerException when {@code divisor == null}
+	 * @throws NullPointerException when divisor is not invertible
+	 * @since                       0.0.1
+	 */
+	public abstract @NonNull Q divide(@NonNull T divisor);
 
-    /**
-     * Returns the power raised by the exponent
-     *
-     * @param exponent exponent
-     * @return power
-     * @since 0.0.1
-     */
-    public abstract @NotNull Q pow(int exponent);
+	/**
+	 * Returns the power raised by the exponent
+	 *
+	 * @param  exponent exponent
+	 * @return          power
+	 * @since           0.0.1
+	 */
+	public abstract @NonNull Q pow(int exponent);
 
-    /**
-     * Returns the negated
-     *
-     * @return negated
-     * @since 0.0.1
-     */
-    public abstract @NotNull T negate();
+	/**
+	 * Returns the negated
+	 *
+	 * @return negated
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull T negate();
 
-    /**
-     * Returns the inverted
-     *
-     * @return inverted
-     * @since 0.0.1
-     */
-    public abstract @NotNull Q invert();
+	/**
+	 * Returns the inverted
+	 *
+	 * @return inverted
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull Q invert();
 
-    /**
-     * Returns the square of the absolute value
-     *
-     * @return square of the absolute value
-     * @since 0.0.1
-     */
-    public abstract @NotNull N absPow2();
+	/**
+	 * Returns the square of the absolute value
+	 *
+	 * @return square of the absolute value
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull N absPow2();
 
-    /**
-     * Returns the absolute value
-     *
-     * @return absolute value
-     * @since 0.0.1
-     */
-    public abstract @NotNull A abs();
+	/**
+	 * Returns the absolute value
+	 *
+	 * @return absolute value
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull A abs();
 
-    /**
-     * Returns the conjugated
-     *
-     * @return conjugated
-     * @since 0.0.1
-     */
-    public abstract @NotNull T conjugate();
+	/**
+	 * Returns the conjugated
+	 *
+	 * @return conjugated
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull T conjugate();
 
-    /**
-     * Returns the argument
-     *
-     * @return argument
-     * @since 0.0.1
-     */
-    public abstract @NotNull A argument();
+	/**
+	 * Returns the argument
+	 *
+	 * @return argument
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull A argument();
 
-    @Override
-    public final int intValue() {
-        return real.intValue();
-    }
+	@Override
+	public final int intValue() {
+		return real.intValue();
+	}
 
-    @Override
-    public final long longValue() {
-        return real.longValue();
-    }
+	@Override
+	public final long longValue() {
+		return real.longValue();
+	}
 
-    @Override
-    public final float floatValue() {
-        return real.floatValue();
-    }
+	@Override
+	public final float floatValue() {
+		return real.floatValue();
+	}
 
-    @Override
-    public final double doubleValue() {
-        return real.doubleValue();
-    }
+	@Override
+	public final double doubleValue() {
+		return real.doubleValue();
+	}
 
-    /**
-     * Returns this as {@link BigInteger}
-     *
-     * @return {@link BigInteger}
-     * @since 0.0.1
-     */
-    public abstract @NotNull BigInteger toBigInteger();
+	/**
+	 * Returns this as {@link BigInteger}
+	 *
+	 * @return {@link BigInteger}
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull BigInteger toBigInteger();
 
-    /**
-     * Returns this as {@link BigDecimal}
-     *
-     * @return {@link BigDecimal}
-     * @since 0.0.1
-     */
-    public abstract @NotNull BigDecimal toBigDecimal();
+	/**
+	 * Returns this as {@link BigDecimal}
+	 *
+	 * @return {@link BigDecimal}
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull BigDecimal toBigDecimal();
 
-    /**
-     * Returns this as polar form
-     *
-     * @return polar form
-     * @since 0.0.1
-     */
-    public abstract @NotNull P toPolarForm();
+	/**
+	 * Returns this as polar form
+	 *
+	 * @return polar form
+	 * @since  0.0.1
+	 */
+	public abstract @NonNull P toPolarForm();
 
-    /**
-     * Returns if this is equal by comparing to other
-     *
-     * @param other other
-     * @return {@link Boolean}
-     * @throws NullPointerException when {@code other == null}
-     * @since 0.0.1
-     */
-    public abstract boolean equalsByComparing(@NotNull T other);
+	/**
+	 * Returns if this is equal by comparing to other
+	 *
+	 * @param  other                other
+	 * @return                      {@link Boolean}
+	 * @throws NullPointerException when {@code other == null}
+	 * @since                       0.0.1
+	 */
+	public abstract boolean equalsByComparing(@NonNull T other);
 
-    /**
-     * Returns if this is not equal by comparing to other
-     *
-     * @param other other
-     * @return {@link Boolean}
-     * @throws NullPointerException when {@code other == null}
-     * @since 0.0.1
-     */
-    public final boolean doesNotEqualByComparing(final @NotNull T other) {
-        requireNonNull(other, "other");
-        return !equalsByComparing(other);
-    }
+	/**
+	 * Returns if this is not equal by comparing to other
+	 *
+	 * @param  other                other
+	 * @return                      {@link Boolean}
+	 * @throws NullPointerException when {@code other == null}
+	 * @since                       0.0.1
+	 */
+	public final boolean doesNotEqualByComparing(final @NonNull T other) {
+		requireNonNull(other, "other");
+		return !equalsByComparing(other);
+	}
 
-    /**
-     * Binary + operator for Groovy and Kotlin
-     *
-     * @param summand summand
-     * @return sum
-     * @throws NullPointerException when {@code summand == null}
-     * @since 0.0.1
-     */
-    public final @NotNull T plus(final @NotNull T summand) {
-        requireNonNull(summand, "summand");
-        return add(summand);
-    }
+	/**
+	 * Binary + operator for Groovy and Kotlin
+	 *
+	 * @param  summand              summand
+	 * @return                      sum
+	 * @throws NullPointerException when {@code summand == null}
+	 * @since                       0.0.1
+	 */
+	public final @NonNull T plus(final @NonNull T summand) {
+		requireNonNull(summand, "summand");
+		return add(summand);
+	}
 
-    /**
-     * Binary - operator for Groovy and Kotlin
-     *
-     * @param subtrahend subtrahend
-     * @return difference
-     * @throws NullPointerException when {@code subtrahend == null}
-     * @since 0.0.1
-     */
-    public final @NotNull T minus(final @NotNull T subtrahend) {
-        requireNonNull(subtrahend, "subtrahend");
-        return subtract(subtrahend);
-    }
+	/**
+	 * Binary - operator for Groovy and Kotlin
+	 *
+	 * @param  subtrahend           subtrahend
+	 * @return                      difference
+	 * @throws NullPointerException when {@code subtrahend == null}
+	 * @since                       0.0.1
+	 */
+	public final @NonNull T minus(final @NonNull T subtrahend) {
+		requireNonNull(subtrahend, "subtrahend");
+		return subtract(subtrahend);
+	}
 
-    /**
-     * Binary / operator for Groovy and Kotlin
-     *
-     * @param divisor divisor
-     * @return quotient
-     * @throws NullPointerException when {@code divisor == null}
-     * @since 0.0.1
-     */
-    public final @NotNull Q div(final @NotNull T divisor) {
-        requireNonNull(divisor, "divisor");
-        return divide(divisor);
-    }
+	/**
+	 * Binary / operator for Groovy and Kotlin
+	 *
+	 * @param  divisor              divisor
+	 * @return                      quotient
+	 * @throws NullPointerException when {@code divisor == null}
+	 * @since                       0.0.1
+	 */
+	public final @NonNull Q div(final @NonNull T divisor) {
+		requireNonNull(divisor, "divisor");
+		return divide(divisor);
+	}
 
-    /**
-     * Binary ** operator for Groovy
-     *
-     * @param exponent exponent
-     * @return power
-     * @since 0.0.1
-     */
-    public final @NotNull Q power(final int exponent) {
-        return pow(exponent);
-    }
+	/**
+	 * Binary ** operator for Groovy
+	 *
+	 * @param  exponent exponent
+	 * @return          power
+	 * @since           0.0.1
+	 */
+	public final @NonNull Q power(final int exponent) {
+		return pow(exponent);
+	}
 
-    /**
-     * Real
-     *
-     * @return real
-     * @since 0.0.1
-     */
-    public final @NotNull N getReal() {
-        return real;
-    }
+	/**
+	 * Real
+	 *
+	 * @return real
+	 * @since  0.0.1
+	 */
+	public final @NonNull N getReal() {
+		return real;
+	}
 
-    /**
-     * Imaginary
-     *
-     * @return imaginary
-     * @since 0.0.1
-     */
-    public final @NotNull N getImaginary() {
-        return imaginary;
-    }
+	/**
+	 * Imaginary
+	 *
+	 * @return imaginary
+	 * @since  0.0.1
+	 */
+	public final @NonNull N getImaginary() {
+		return imaginary;
+	}
 
-    @Override
-    public final int hashCode() {
-        return Objects.hash(real, imaginary);
-    }
+	@Override
+	public final int hashCode() {
+		return Objects.hash(real, imaginary);
+	}
 
-    @Override
-    public final boolean equals(final @Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        final AbstractComplex<?, ?, ?, ?, ?> other = (AbstractComplex<?, ?, ?, ?, ?>) obj;
-        return real.equals(other.getReal()) && imaginary.equals(other.getImaginary());
-    }
+	@Override
+	public final boolean equals(final @Nullable Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		final AbstractComplex<?, ?, ?, ?, ?> other = (AbstractComplex<?, ?, ?, ?, ?>) obj;
+		return real.equals(other.getReal()) && imaginary.equals(other.getImaginary());
+	}
 
-    @Override
-    public final @NotNull String toString() {
-        return getClass().getSimpleName() + "(real=" + real + ", imaginary=" + imaginary + ")";
-    }
+	@Override
+	public final @NonNull String toString() {
+		return getClass().getSimpleName() + "(real=" + real + ", imaginary=" + imaginary + ")";
+	}
 }

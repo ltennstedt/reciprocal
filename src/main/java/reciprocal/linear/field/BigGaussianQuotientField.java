@@ -7,7 +7,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 import reciprocal.number.complex.BigComplex;
 import reciprocal.number.complex.BigGaussian;
 
@@ -18,66 +18,66 @@ import reciprocal.number.complex.BigGaussian;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigGaussianQuotientField implements QuotientField<BigGaussian, BigComplex, BigDecimal> {
-    /**
-     * Instance
-     *
-     * @since 0.0.1
-     */
-    public static final @NotNull BigGaussianQuotientField INSTANCE = new BigGaussianQuotientField();
+	/**
+	 * Instance
+	 *
+	 * @since 0.0.1
+	 */
+	public static final @NonNull BigGaussianQuotientField INSTANCE = new BigGaussianQuotientField();
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private BigGaussianQuotientField() {
-    }
+	private BigGaussianQuotientField() {
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigGaussian, @NotNull BigGaussian, @NotNull BigGaussian> getAddition() {
-        return BigGaussian::add;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigGaussian, @NonNull BigGaussian, @NonNull BigGaussian> getAddition() {
+		return BigGaussian::add;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigGaussian, @NotNull BigGaussian, @NotNull BigGaussian> getSubtraction() {
-        return BigGaussian::subtract;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigGaussian, @NonNull BigGaussian, @NonNull BigGaussian> getSubtraction() {
+		return BigGaussian::subtract;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigGaussian, @NotNull BigGaussian, @NotNull BigGaussian> getMultiplication() {
-        return BigGaussian::multiply;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigGaussian, @NonNull BigGaussian, @NonNull BigGaussian> getMultiplication() {
+		return BigGaussian::multiply;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigGaussian, @NotNull BigGaussian, @NotNull BigComplex> getDivision() {
-        return BigGaussian::divide;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigGaussian, @NonNull BigGaussian, @NonNull BigComplex> getDivision() {
+		return BigGaussian::divide;
+	}
 
-    @Override
-    public @NotNull BiFunction<@NotNull BigGaussian, @NotNull Integer, @NotNull BigComplex> getPower() {
-        return BigGaussian::pow;
-    }
+	@Override
+	public @NonNull BiFunction<@NonNull BigGaussian, @NonNull Integer, @NonNull BigComplex> getPower() {
+		return BigGaussian::pow;
+	}
 
-    @Override
-    public @NotNull Function<@NotNull BigGaussian, @NotNull BigGaussian> getNegation() {
-        return BigGaussian::negate;
-    }
+	@Override
+	public @NonNull Function<@NonNull BigGaussian, @NonNull BigGaussian> getNegation() {
+		return BigGaussian::negate;
+	}
 
-    @Override
-    public @NotNull BiPredicate<@NotNull BigGaussian, @NotNull BigGaussian> getEqualityByComparing() {
-        return BigGaussian::equalsByComparing;
-    }
+	@Override
+	public @NonNull BiPredicate<@NonNull BigGaussian, @NonNull BigGaussian> getEqualityByComparing() {
+		return BigGaussian::equalsByComparing;
+	}
 
-    @Override
-    public @NotNull Function<@NotNull BigGaussian, @NotNull BigDecimal> getAbsOperator() {
-        return BigGaussian::abs;
-    }
+	@Override
+	public @NonNull Function<@NonNull BigGaussian, @NonNull BigDecimal> getAbsOperator() {
+		return BigGaussian::abs;
+	}
 
-    @Override
-    public @NotNull BigGaussian getZero() {
-        return BigGaussian.ZERO;
-    }
+	@Override
+	public @NonNull BigGaussian getZero() {
+		return BigGaussian.ZERO;
+	}
 
-    @Override
-    public @NotNull BigGaussian getOne() {
-        return BigGaussian.ONE;
-    }
+	@Override
+	public @NonNull BigGaussian getOne() {
+		return BigGaussian.ONE;
+	}
 }
