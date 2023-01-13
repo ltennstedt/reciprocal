@@ -1,11 +1,8 @@
 .project
 .classpath
 **/.settings/
-**/*.iml
-.idea/
 target/
 **/bin/
-**/out/
 pages/
 .checkstyle
 .pmd

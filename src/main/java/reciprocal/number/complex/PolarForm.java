@@ -5,33 +5,33 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serial;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * Immutable implementation of the polar form of a complex number which uses {@link Double} as type for its
- * coordinates
+ * Immutable implementation of the polar form of a complex number which uses
+ * {@link Double} as type for its coordinates
  *
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class PolarForm extends AbstractPolarForm<Double, PolarForm> {
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructor
-     *
-     * @param radial radial
-     * @param angular angular
-     * @since 0.0.1
-     */
-    public PolarForm(final double radial, final double angular) {
-        super(radial, angular);
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param radial  radial
+	 * @param angular angular
+	 * @since         0.0.1
+	 */
+	public PolarForm(final double radial, final double angular) {
+		super(radial, angular);
+	}
 
-    @Override
-    public boolean equalsByComparing(final @NotNull PolarForm other) {
-        requireNonNull(other, "other");
-        return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
-    }
+	@Override
+	public boolean equalsByComparing(final @NonNull PolarForm other) {
+		requireNonNull(other, "other");
+		return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
+	}
 }
