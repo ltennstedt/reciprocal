@@ -1,17 +1,16 @@
 package reciprocal.number.complex;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a complex number which uses {@link BigDecimal} as type for its real and imaginary part
@@ -51,7 +50,7 @@ public final class BigComplex extends AbstractComplex<BigDecimal, BigComplex, Bi
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
      * @throws NullPointerException when {@code real == null}
      * @throws NullPointerException when {@code imaginary == null}

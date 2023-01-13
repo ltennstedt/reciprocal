@@ -1,16 +1,15 @@
 package reciprocal.number.complex;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for complex numbers
@@ -28,13 +27,24 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Real part
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N real;
+
+    /**
+     * Imaginary part
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N imaginary;
 
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
      * @throws NullPointerException when {@code real == null}
      * @throws NullPointerException when {@code imaginary == null}
@@ -223,7 +233,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public final boolean doesNotEqualByComparing(@NotNull final T other) {
+    public final boolean doesNotEqualByComparing(final @NotNull T other) {
         requireNonNull(other, "other");
         return !equalsByComparing(other);
     }
@@ -236,7 +246,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code summand == null}
      * @since 0.0.1
      */
-    public final @NotNull T plus(@NotNull final T summand) {
+    public final @NotNull T plus(final @NotNull T summand) {
         requireNonNull(summand, "summand");
         return add(summand);
     }
@@ -249,7 +259,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code subtrahend == null}
      * @since 0.0.1
      */
-    public final @NotNull T minus(@NotNull final T subtrahend) {
+    public final @NotNull T minus(final @NotNull T subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         return subtract(subtrahend);
     }
@@ -262,7 +272,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code divisor == null}
      * @since 0.0.1
      */
-    public final @NotNull Q div(@NotNull final T divisor) {
+    public final @NotNull Q div(final @NotNull T divisor) {
         requireNonNull(divisor, "divisor");
         return divide(divisor);
     }

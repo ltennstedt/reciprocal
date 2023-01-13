@@ -1,15 +1,14 @@
 package reciprocal.geometry;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for rectangles
@@ -23,14 +22,25 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Length
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N length;
+
+    /**
+     * Width
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N width;
 
     /**
      * Constructor
      *
      * @param length length
-     * @param width  width
+     * @param width width
      * @throws NullPointerException when {@code length == null}
      * @throws NullPointerException when {@code width == null}
      * @since 0.0.1

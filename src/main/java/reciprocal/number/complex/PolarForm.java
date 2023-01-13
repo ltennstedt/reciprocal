@@ -1,12 +1,11 @@
 package reciprocal.number.complex;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.Serial;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Immutable implementation of the polar form of a complex number which uses {@link Double} as type for its
@@ -22,7 +21,7 @@ public final class PolarForm extends AbstractPolarForm<Double, PolarForm> {
     /**
      * Constructor
      *
-     * @param radial  radial
+     * @param radial radial
      * @param angular angular
      * @since 0.0.1
      */

@@ -1,10 +1,9 @@
 package reciprocal.geometry;
 
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
 
 import java.io.Serial;
-
-import static com.google.common.base.Preconditions.checkArgument;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a rectangle which uses {@link Double} as type for its length and width
@@ -19,7 +18,7 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
      * Constructor
      *
      * @param length length
-     * @param width  width
+     * @param width width
      * @throws IllegalArgumentException when {@code length <= 0}
      * @throws IllegalArgumentException when {@code width <= 0}
      * @since 0.0.1

@@ -1,15 +1,14 @@
 package reciprocal.number.complex;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for polar forms
@@ -24,13 +23,24 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Radial
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N radial;
+
+    /**
+     * Angular
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N angular;
 
     /**
      * Constructor
      *
-     * @param radial  radial
+     * @param radial radial
      * @param angular angular
      * @throws NullPointerException when {@code radial == null}
      * @throws NullPointerException when {@code angular == null}

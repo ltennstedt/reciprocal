@@ -1,15 +1,14 @@
 package reciprocal.number.complex;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a complex number which uses {@link Double} as type for its real and imaginary part
@@ -48,7 +47,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
      * @since 0.0.1
      */

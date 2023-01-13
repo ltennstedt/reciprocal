@@ -1,13 +1,9 @@
 package reciprocal.number.fraction;
 
-import com.google.common.math.LongMath;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import reciprocal.linear.field.LongQuotientField;
-import reciprocal.linear.field.QuotientField;
-import reciprocal.number.complex.Complex;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
+import com.google.common.math.LongMath;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,9 +11,12 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import reciprocal.linear.field.LongQuotientField;
+import reciprocal.linear.field.QuotientField;
+import reciprocal.number.complex.Complex;
 
 /**
  * Immutable implementation of a fraction which uses {@link Long} as type for its numerator and denominator
@@ -58,7 +57,7 @@ public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
     /**
      * Constructor
      *
-     * @param numerator   numerator
+     * @param numerator numerator
      * @param denominator denominator
      * @throws IllegalArgumentException when {@code denominator == 0}
      * @since 0.0.1

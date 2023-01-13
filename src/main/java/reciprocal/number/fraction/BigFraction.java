@@ -1,12 +1,9 @@
 package reciprocal.number.fraction;
 
-import com.google.common.math.BigIntegerMath;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import reciprocal.linear.field.BigIntegerQuotientField;
-import reciprocal.linear.field.QuotientField;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
+import com.google.common.math.BigIntegerMath;
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,9 +12,11 @@ import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import reciprocal.linear.field.BigIntegerQuotientField;
+import reciprocal.linear.field.QuotientField;
 
 /**
  * Immutable implementation of a fraction which uses {@link BigFraction} as type for its numerator and denominator
@@ -58,7 +57,7 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
      * Constructor
      *
      * @param numerator numerator
-     * @throws NullPointerException     when {@code numerator == null}
+     * @throws NullPointerException when {@code numerator == null}
      * @throws IllegalArgumentException when {@code denominator == 0}
      * @since 0.0.1
      */
@@ -69,10 +68,10 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
     /**
      * Constructor
      *
-     * @param numerator   numerator
+     * @param numerator numerator
      * @param denominator denominator
-     * @throws NullPointerException     when {@code numerator == null}
-     * @throws NullPointerException     when {@code denominator == null}
+     * @throws NullPointerException when {@code numerator == null}
+     * @throws NullPointerException when {@code denominator == null}
      * @throws IllegalArgumentException when {@code denominator == 0}
      * @since 0.0.1
      */

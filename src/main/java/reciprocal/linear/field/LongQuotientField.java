@@ -1,14 +1,13 @@
 package reciprocal.linear.field;
 
 import com.google.common.math.LongMath;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.Serial;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Quotient field for {@link Long Longs}

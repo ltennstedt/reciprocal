@@ -1,18 +1,17 @@
 package reciprocal.number.fraction;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import reciprocal.linear.field.QuotientField;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.function.BiFunction;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.linear.field.QuotientField;
 
 /**
  * Base class for fractions
@@ -29,13 +28,24 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Numerator
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N numerator;
+
+    /**
+     * Denominator
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N denominator;
 
     /**
      * All arguments Constructor
      *
-     * @param numerator   numerator
+     * @param numerator numerator
      * @param denominator denominator
      * @throws NullPointerException when {@code numerator == null}
      * @throws NullPointerException when {@code denominator == null}
@@ -279,7 +289,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public final boolean greaterThanOrEqualTo(@NotNull final T other) {
+    public final boolean greaterThanOrEqualTo(final @NotNull T other) {
         requireNonNull(other, "other");
         return !lessThanOrEqualTo(other) || equivalent(other);
     }
@@ -292,7 +302,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public final boolean lessThan(@NotNull final T other) {
+    public final boolean lessThan(final @NotNull T other) {
         requireNonNull(other, "other");
         return !greaterThanOrEqualTo(other);
     }
@@ -305,7 +315,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public final boolean greaterThan(@NotNull final T other) {
+    public final boolean greaterThan(final @NotNull T other) {
         requireNonNull(other, "other");
         return !lessThanOrEqualTo(other);
     }
@@ -319,7 +329,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @since 0.0.1
      */
     @SuppressWarnings("unchecked")
-    public final @NotNull T min(@NotNull final T other) {
+    public final @NotNull T min(final @NotNull T other) {
         requireNonNull(other, "other");
         return greaterThan(other) ? other : (T) this;
     }
@@ -333,7 +343,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @since 0.0.1
      */
     @SuppressWarnings("unchecked")
-    public @NotNull T max(@NotNull final T other) {
+    public @NotNull T max(final @NotNull T other) {
         requireNonNull(other, "other");
         return lessThan(other) ? other : (T) this;
     }
@@ -397,7 +407,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code number == null}
      * @since 0.0.1
      */
-    public final boolean equivalent(@NotNull final T other) {
+    public final boolean equivalent(final @NotNull T other) {
         requireNonNull(other, "other");
         return normalize().reduce().equals(other.normalize().reduce());
     }
@@ -462,7 +472,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code summand == null}
      * @since 0.0.1
      */
-    public final @NotNull T plus(@NotNull final T summand) {
+    public final @NotNull T plus(final @NotNull T summand) {
         requireNonNull(summand, "summand");
         return add(summand);
     }
@@ -475,7 +485,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code subtrahend == null}
      * @since 0.0.1
      */
-    public final @NotNull T minus(@NotNull final T subtrahend) {
+    public final @NotNull T minus(final @NotNull T subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         return subtract(subtrahend);
     }
@@ -488,7 +498,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code divisor == null}
      * @since 0.0.1
      */
-    public final @NotNull T div(@NotNull final T divisor) {
+    public final @NotNull T div(final @NotNull T divisor) {
         requireNonNull(divisor, "divisor");
         return divide(divisor);
     }

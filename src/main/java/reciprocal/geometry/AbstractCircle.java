@@ -1,15 +1,14 @@
 package reciprocal.geometry;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for circles
@@ -24,6 +23,11 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Radius
+     *
+     * @since 0.0.1
+     */
     private final @NotNull N radius;
 
     /**
@@ -33,7 +37,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      * @throws NullPointerException when {@code radius == null}
      * @since 0.0.1
      */
-    protected AbstractCircle(@NotNull final N radius) {
+    protected AbstractCircle(final @NotNull N radius) {
         this.radius = requireNonNull(radius, "radius");
     }
 

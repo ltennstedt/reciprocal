@@ -1,15 +1,14 @@
 package reciprocal.linear.vector;
 
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.lang3.Validate;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import reciprocal.linear.field.QuotientField;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import org.apache.commons.lang3.Validate;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.linear.field.QuotientField;
 
 /**
  * Base class for vectors
@@ -31,13 +30,18 @@ public abstract class AbstractVector<
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Entries
+     *
+     * @since 0.0.1
+     */
     private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
 
     /**
      * Constructor
      *
      * @param entries entries
-     * @throws NullPointerException     when {@code entries == null}
+     * @throws NullPointerException when {@code entries == null}
      * @throws IllegalArgumentException when one element in entries is null
      * @since 0.0.1
      */

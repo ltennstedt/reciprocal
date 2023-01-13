@@ -1,15 +1,14 @@
 package reciprocal.geometry;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a circle which uses {@link Double} as type for its radius
@@ -49,7 +48,7 @@ public final class Circle extends AbstractCircle<Double, Circle> {
     }
 
     @Override
-    public int compareTo(@NotNull final Circle o) {
+    public int compareTo(final @NotNull Circle o) {
         return CircleComparator.INSTANCE.compare(this, o);
     }
 

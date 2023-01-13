@@ -1,12 +1,11 @@
 package reciprocal.geometry;
 
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
 
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.MathContext;
-
-import static com.google.common.base.Preconditions.checkArgument;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a rectangle which uses {@link Double} as type for its length and width
@@ -21,9 +20,9 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
      * Constructor
      *
      * @param length length
-     * @param width  width
-     * @throws NullPointerException     when {@code length == null}
-     * @throws NullPointerException     when {@code width == null}
+     * @param width width
+     * @throws NullPointerException when {@code length == null}
+     * @throws NullPointerException when {@code width == null}
      * @throws IllegalArgumentException when {@code length <= 0}
      * @throws IllegalArgumentException when {@code width <= 0}
      * @since 0.0.1

@@ -1,10 +1,9 @@
 package reciprocal;
 
+import java.math.BigDecimal;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
-
-import java.math.BigDecimal;
 
 /**
  * Class for global constants
