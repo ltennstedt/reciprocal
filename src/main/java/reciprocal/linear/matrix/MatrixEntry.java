@@ -1,20 +1,19 @@
 package reciprocal.linear.matrix;
 
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Entry for matrices
  *
- * @param <E>         type of element
- * @param rowIndex    row index
+ * @param <E> type of element
+ * @param rowIndex row index
  * @param columnIndex column index
- * @param element     element
+ * @param element element
  * @since 0.0.1
  */
 public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NotNull E element) implements Serializable {
@@ -24,12 +23,12 @@ public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NotN
     /**
      * Constructor
      *
-     * @param rowIndex    row index
+     * @param rowIndex row index
      * @param columnIndex column index
-     * @param element     element
+     * @param element element
      * @throws IllegalArgumentException when {@code rowIndex <= 0}
      * @throws IllegalArgumentException when {@code columnIndex <= 0}
-     * @throws NullPointerException     when {@code element == null}
+     * @throws NullPointerException when {@code element == null}
      * @since 0.0.1
      */
     public MatrixEntry {

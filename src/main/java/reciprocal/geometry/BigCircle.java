@@ -1,17 +1,16 @@
 package reciprocal.geometry;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import reciprocal.ReciprocalUtils;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Comparator;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
+import reciprocal.ReciprocalUtils;
 
 /**
  * Immutable implementation of a circle which uses {@link BigDecimal} as type for its radius
@@ -26,7 +25,7 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
      * Constructor
      *
      * @param radius radius
-     * @throws NullPointerException     when {@code radius == null}
+     * @throws NullPointerException when {@code radius == null}
      * @throws IllegalArgumentException when {@code radius <= 0}
      * @since 0.0.1
      */

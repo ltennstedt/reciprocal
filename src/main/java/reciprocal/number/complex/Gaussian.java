@@ -1,17 +1,16 @@
 package reciprocal.number.complex;
 
-import com.google.common.math.LongMath;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
+import com.google.common.math.LongMath;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a Gaussian integer which uses {@link Long} as type for its real and imaginary part
@@ -78,7 +77,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
      * @since 0.0.1
      */

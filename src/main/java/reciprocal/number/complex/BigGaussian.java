@@ -1,18 +1,17 @@
 package reciprocal.number.complex;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Set;
-
-import static com.google.common.base.Preconditions.checkArgument;
-import static java.util.Objects.requireNonNull;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a Gaussian integer which uses {@link BigInteger} as type for its real and imaginary part
@@ -80,7 +79,7 @@ public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, 
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
      * @throws NullPointerException when {@code real == null}
      * @throws NullPointerException when {@code imaginary == null}

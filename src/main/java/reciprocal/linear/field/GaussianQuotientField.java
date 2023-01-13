@@ -1,15 +1,14 @@
 package reciprocal.linear.field;
 
+import java.io.Serial;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.Complex;
 import reciprocal.number.complex.Gaussian;
-
-import java.io.Serial;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
 
 /**
  * Quotient field for {@link Gaussian Gaussians}
