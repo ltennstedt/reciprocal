@@ -16,25 +16,25 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigPolarForm extends AbstractPolarForm<BigDecimal, BigPolarForm> {
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor
-	 *
-	 * @param  radial               radial
-	 * @param  angular              angular
-	 * @throws NullPointerException when {@code radial == null}
-	 * @throws NullPointerException when {@code angular == null}
-	 * @since                       0.0.1
-	 */
-	public BigPolarForm(final @NonNull BigDecimal radial, final @NonNull BigDecimal angular) {
-		super(radial, angular);
-	}
+    /**
+     * Constructor
+     *
+     * @param  radial               radial
+     * @param  angular              angular
+     * @throws NullPointerException when {@code radial == null}
+     * @throws NullPointerException when {@code angular == null}
+     * @since                       0.0.1
+     */
+    public BigPolarForm(final @NonNull BigDecimal radial, final @NonNull BigDecimal angular) {
+        super(radial, angular);
+    }
 
-	@Override
-	public boolean equalsByComparing(final @NonNull BigPolarForm other) {
-		requireNonNull(other, "other");
-		return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
-	}
+    @Override
+    public boolean equalsByComparing(final @NonNull BigPolarForm other) {
+        requireNonNull(other, "other");
+        return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
+    }
 }

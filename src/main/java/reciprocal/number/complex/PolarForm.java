@@ -15,23 +15,23 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class PolarForm extends AbstractPolarForm<Double, PolarForm> {
-	@Serial
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor
-	 *
-	 * @param radial  radial
-	 * @param angular angular
-	 * @since         0.0.1
-	 */
-	public PolarForm(final double radial, final double angular) {
-		super(radial, angular);
-	}
+    /**
+     * Constructor
+     *
+     * @param radial  radial
+     * @param angular angular
+     * @since         0.0.1
+     */
+    public PolarForm(final double radial, final double angular) {
+        super(radial, angular);
+    }
 
-	@Override
-	public boolean equalsByComparing(final @NonNull PolarForm other) {
-		requireNonNull(other, "other");
-		return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
-	}
+    @Override
+    public boolean equalsByComparing(final @NonNull PolarForm other) {
+        requireNonNull(other, "other");
+        return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
+    }
 }
