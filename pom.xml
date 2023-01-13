@@ -168,6 +168,19 @@
                     </rules>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.kordamp.maven</groupId>
+                <artifactId>pomchecker-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <executions>
+                    <execution>
+                        <id>check-release</id>
+                        <goals>
+                            <goal>check-maven-central</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <reporting>
