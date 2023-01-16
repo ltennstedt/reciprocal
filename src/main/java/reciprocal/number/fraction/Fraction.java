@@ -27,7 +27,7 @@ import reciprocal.number.complex.Complex;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class Fraction extends AbstractFraction<Long, Fraction, Double> {
+public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fraction, @NotNull Double> {
     /**
      * 0
      *

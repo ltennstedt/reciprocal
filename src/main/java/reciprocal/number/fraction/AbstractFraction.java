@@ -23,7 +23,7 @@ import reciprocal.linear.field.QuotientField;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractFraction<N extends Number, T extends AbstractFraction<N, T, Q>, Q extends Number>
-        extends Number implements Comparable<T> {
+    extends Number implements Comparable<T> {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -168,8 +168,8 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public final @NotNull T add(final @NotNull T summand) {
         requireNonNull(summand, "summand");
         final var num = getQuotientField().getAddition().apply(
-                getQuotientField().getMultiplication().apply(summand.getDenominator(), numerator),
-                getQuotientField().getMultiplication().apply(denominator, summand.getNumerator()));
+            getQuotientField().getMultiplication().apply(summand.getDenominator(), numerator),
+            getQuotientField().getMultiplication().apply(denominator, summand.getNumerator()));
         final var den = getQuotientField().getMultiplication().apply(denominator, summand.getDenominator());
         return getConstructor().apply(num, den);
     }
@@ -185,8 +185,8 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public final @NotNull T subtract(final @NotNull T subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var num = getQuotientField().getSubtraction().apply(
-                getQuotientField().getMultiplication().apply(subtrahend.getDenominator(), numerator),
-                getQuotientField().getMultiplication().apply(denominator, subtrahend.getNumerator()));
+            getQuotientField().getMultiplication().apply(subtrahend.getDenominator(), numerator),
+            getQuotientField().getMultiplication().apply(denominator, subtrahend.getNumerator()));
         final var den = getQuotientField().getMultiplication().apply(denominator, subtrahend.getDenominator());
         return getConstructor().apply(num, den);
     }

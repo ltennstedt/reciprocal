@@ -17,7 +17,8 @@ import reciprocal.number.complex.BigGaussian;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class BigGaussianQuotientField implements QuotientField<BigGaussian, BigComplex, BigDecimal> {
+public final class BigGaussianQuotientField implements
+    QuotientField<@NotNull BigGaussian, @NotNull BigComplex, @NotNull BigDecimal> {
     /**
      * Instance
      *

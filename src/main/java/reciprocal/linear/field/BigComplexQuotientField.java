@@ -16,7 +16,8 @@ import reciprocal.number.complex.BigComplex;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class BigComplexQuotientField implements QuotientField<BigComplex, BigComplex, BigDecimal> {
+public final class BigComplexQuotientField implements
+    QuotientField<@NotNull BigComplex, @NotNull BigComplex, @NotNull BigDecimal> {
     /**
      * Instance
      *

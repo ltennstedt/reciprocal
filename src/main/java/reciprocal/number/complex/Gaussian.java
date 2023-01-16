@@ -19,7 +19,8 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Double, PolarForm> {
+public final class Gaussian extends AbstractComplex<@NotNull Long, @NotNull Gaussian, @NotNull Complex,
+    @NotNull Double, @NotNull PolarForm> {
     /**
      * 0
      *

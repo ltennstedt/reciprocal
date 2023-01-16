@@ -59,7 +59,7 @@ public final class Circle extends AbstractCircle<Double, Circle> {
      * @since 0.0.1
      */
     @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class CircleComparator implements Comparator<Circle>, Serializable {
+    public static final class CircleComparator implements Comparator<@NotNull Circle>, Serializable {
         /**
          * Instance
          *

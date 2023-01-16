@@ -16,7 +16,8 @@ import reciprocal.number.complex.Gaussian;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class GaussianQuotientField implements QuotientField<Gaussian, Complex, Double> {
+public final class GaussianQuotientField implements
+    QuotientField<@NotNull Gaussian, @NotNull Complex, @NotNull Double> {
     /**
      * Instance
      *

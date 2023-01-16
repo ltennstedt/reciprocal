@@ -17,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class Complex extends AbstractComplex<Double, Complex, Complex, Double, PolarForm> {
+public final class Complex extends AbstractComplex<@NotNull Double, @NotNull Complex, @NotNull Complex,
+    @NotNull Double, @NotNull PolarForm> {
     /**
      * 0
      *

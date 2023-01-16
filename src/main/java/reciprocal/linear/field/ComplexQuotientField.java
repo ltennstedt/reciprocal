@@ -15,7 +15,7 @@ import reciprocal.number.complex.Complex;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class ComplexQuotientField implements QuotientField<Complex, Complex, Double> {
+public final class ComplexQuotientField implements QuotientField<@NotNull Complex, @NotNull Complex, @NotNull Double> {
     /**
      * Instance
      *

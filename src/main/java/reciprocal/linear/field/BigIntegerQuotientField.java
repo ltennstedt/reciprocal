@@ -17,7 +17,8 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class BigIntegerQuotientField implements QuotientField<BigInteger, BigDecimal, BigInteger> {
+public final class BigIntegerQuotientField implements
+    QuotientField<@NotNull BigInteger, @NotNull BigDecimal, @NotNull BigInteger> {
     /**
      * Instance
      *

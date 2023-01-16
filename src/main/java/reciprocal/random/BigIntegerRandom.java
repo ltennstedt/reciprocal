@@ -30,7 +30,7 @@ public final class BigIntegerRandom extends AbstractRandom<@NotNull BigInteger> 
      * @param seed seed
      * @since 0.0.1
      */
-    public BigIntegerRandom(final int seed) {
+    public BigIntegerRandom(final long seed) {
         super(seed);
     }
 

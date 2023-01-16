@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<N, C>>
-        implements Comparable<C>, Serializable {
+    implements Comparable<C>, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

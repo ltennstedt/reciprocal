@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class BigPolarForm extends AbstractPolarForm<BigDecimal, BigPolarForm> {
+public final class BigPolarForm extends AbstractPolarForm<@NotNull BigDecimal, @NotNull BigPolarForm> {
     @Serial
     private static final long serialVersionUID = 1L;
 

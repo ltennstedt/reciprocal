@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class PolarForm extends AbstractPolarForm<Double, PolarForm> {
+public final class PolarForm extends AbstractPolarForm<@NotNull Double, @NotNull PolarForm> {
     @Serial
     private static final long serialVersionUID = 1L;
 

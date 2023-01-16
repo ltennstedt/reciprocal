@@ -23,7 +23,7 @@ import reciprocal.linear.field.QuotientField;
  * @since 0.0.1
  */
 public abstract class AbstractVector<E extends Number, Q extends Number, V extends AbstractVector<E, Q, V, N, A>,
-        N extends Number, A extends Number> implements Serializable {
+    N extends Number, A extends Number> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -47,7 +47,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
         Validate.noNullElements(entries, "expected all elements in entries not to be null but entries = %s", entries);
         final List<Integer> expectedIndices = Stream.iterate(1, i -> i + 1).limit(getSize()).toList();
         checkArgument(getIndices().equals(expectedIndices), "expected indices == expectedIndices but %s != %s",
-                getIndices(), expectedIndices);
+            getIndices(), expectedIndices);
         this.entries = List.copyOf(entries.stream().sorted().toList());
     }
 

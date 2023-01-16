@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class DoubleQuotientField implements QuotientField<Double, Double, Double> {
+public final class DoubleQuotientField implements QuotientField<@NotNull Double, @NotNull Double, @NotNull Double> {
     /**
      * Instance
      *

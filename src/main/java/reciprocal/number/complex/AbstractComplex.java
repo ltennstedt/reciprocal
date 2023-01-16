@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractComplex<N extends Number, T extends AbstractComplex<N, T, Q, A, P>, Q, A, P>
-        extends Number {
+    extends Number {
     @Serial
     private static final long serialVersionUID = 1L;
 
