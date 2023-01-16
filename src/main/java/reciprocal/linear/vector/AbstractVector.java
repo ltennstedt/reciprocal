@@ -35,26 +35,6 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
     private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
 
     /**
-     * Indices
-     *
-     * @return indices
-     * @since 0.0.1
-     */
-    public @NotNull List<@NotNull Integer> getIndices() {
-        return entries.stream().map(VectorEntry::index).toList();
-    }
-
-    /**
-     * Elements
-     *
-     * @return elements
-     * @since 0.0.1
-     */
-    public @NotNull List<@NotNull E> getElements() {
-        return entries.stream().map(VectorEntry::element).toList();
-    }
-
-    /**
      * Constructor
      *
      * @param entries entries
@@ -72,6 +52,26 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
     }
 
     /**
+     * Indices
+     *
+     * @return indices
+     * @since 0.0.1
+     */
+    public final @NotNull List<@NotNull Integer> getIndices() {
+        return entries.stream().map(VectorEntry::index).toList();
+    }
+
+    /**
+     * Elements
+     *
+     * @return elements
+     * @since 0.0.1
+     */
+    public final @NotNull List<@NotNull E> getElements() {
+        return entries.stream().map(VectorEntry::element).toList();
+    }
+
+    /**
      * Quotient field
      *
      * @return quotient field
@@ -85,7 +85,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * @return size
      * @since 0.0.1
      */
-    public int getSize() {
+    public final int getSize() {
         return entries.size();
     }
 

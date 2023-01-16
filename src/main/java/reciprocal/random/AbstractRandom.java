@@ -38,13 +38,14 @@ public abstract class AbstractRandom<N extends Number> {
      * @param seed seed
      * @since 0.0.1
      */
-    protected AbstractRandom(final int seed) {
+    protected AbstractRandom(final long seed) {
         random = new Random(seed);
     }
 
     /**
      * Constructor
      *
+     * @param random {@link Random}
      * @throws NullPointerException if {@code random == null}
      * @since 0.0.1
      */
@@ -68,7 +69,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code bound < 1}
      * @since 0.0.1
      */
-    public abstract @NotNull N next(final long bound);
+    public abstract @NotNull N next(long bound);
 
     /**
      * Returns the next number
@@ -79,7 +80,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code origin >= bound}
      * @since 0.0.1
      */
-    public abstract @NotNull N next(final long origin, final long bound);
+    public abstract @NotNull N next(long origin, long bound);
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -97,7 +98,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code limit < 0}
      * @since 0.0.1
      */
-    public abstract @NotNull Stream<@NotNull N> numbers(final long limit);
+    public abstract @NotNull Stream<@NotNull N> numbers(long limit);
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -108,7 +109,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code origin >= bound}
      * @since 0.0.1
      */
-    public abstract @NotNull Stream<@NotNull N> numbers(final long origin, final long bound);
+    public abstract @NotNull Stream<@NotNull N> numbers(long origin, long bound);
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -121,7 +122,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code origin >= bound}
      * @since 0.0.1
      */
-    public abstract @NotNull Stream<@NotNull N> numbers(final long limit, final long origin, final long bound);
+    public abstract @NotNull Stream<@NotNull N> numbers(long limit, long origin, long bound);
 
     /**
      * {@link Random}
