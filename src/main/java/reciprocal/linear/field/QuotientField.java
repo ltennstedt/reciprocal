@@ -24,8 +24,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return addition
      * @since 0.0.1
      */
-    @NotNull
-    BiFunction<@NotNull E, @NotNull E, @NotNull E> getAddition();
+    @NotNull BiFunction<@NotNull E, @NotNull E, @NotNull E> getAddition();
 
     /**
      * Subtraction
@@ -33,8 +32,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return subtraction
      * @since 0.0.1
      */
-    @NotNull
-    BiFunction<@NotNull E, @NotNull E, @NotNull E> getSubtraction();
+    @NotNull BiFunction<@NotNull E, @NotNull E, @NotNull E> getSubtraction();
 
     /**
      * Multiplication
@@ -42,8 +40,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return multiplication
      * @since 0.0.1
      */
-    @NotNull
-    BiFunction<@NotNull E, @NotNull E, @NotNull E> getMultiplication();
+    @NotNull BiFunction<@NotNull E, @NotNull E, @NotNull E> getMultiplication();
 
     /**
      * Division
@@ -51,8 +48,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return division
      * @since 0.0.1
      */
-    @NotNull
-    BiFunction<@NotNull E, @NotNull E, @NotNull Q> getDivision();
+    @NotNull BiFunction<@NotNull E, @NotNull E, @NotNull Q> getDivision();
 
     /**
      * Power
@@ -60,8 +56,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return power
      * @since 0.0.1
      */
-    @NotNull
-    BiFunction<@NotNull E, @NotNull Integer, @NotNull Q> getPower();
+    @NotNull BiFunction<@NotNull E, @NotNull Integer, @NotNull Q> getPower();
 
     /**
      * Negation
@@ -69,8 +64,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return negation
      * @since 0.0.1
      */
-    @NotNull
-    Function<@NotNull E, @NotNull E> getNegation();
+    @NotNull Function<@NotNull E, @NotNull E> getNegation();
 
     /**
      * Equality by comparing
@@ -78,8 +72,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return equality by comparing
      * @since 0.0.1
      */
-    @NotNull
-    BiPredicate<@NotNull E, @NotNull E> getEqualityByComparing();
+    @NotNull BiPredicate<@NotNull E, @NotNull E> getEqualityByComparing();
 
     /**
      * Absolute value operator
@@ -87,8 +80,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return absolute value operator
      * @since 0.0.1
      */
-    @NotNull
-    Function<@NotNull E, @NotNull A> getAbsOperator();
+    @NotNull Function<@NotNull E, @NotNull A> getAbsOperator();
 
     /**
      * 0
@@ -96,8 +88,7 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return 0
      * @since 0.0.1
      */
-    @NotNull
-    E getZero();
+    @NotNull E getZero();
 
     /**
      * 1
@@ -105,6 +96,5 @@ public interface QuotientField<E extends Number, Q extends Number, A extends Num
      * @return 1
      * @since 0.0.1
      */
-    @NotNull
-    E getOne();
+    @NotNull E getOne();
 }

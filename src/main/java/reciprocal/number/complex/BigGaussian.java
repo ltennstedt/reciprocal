@@ -125,11 +125,11 @@ public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, 
         checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
         final var den = new BigDecimal(divisor.getReal().pow(2).add(divisor.getImaginary().pow(2)));
         final var re = new BigDecimal(
-            getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary())))
-            .divide(den, MathContext.DECIMAL128);
+                getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary())))
+                .divide(den, MathContext.DECIMAL128);
         final var im = new BigDecimal(
-            getImaginary().multiply(divisor.getReal()).subtract(getReal().multiply(divisor.getImaginary())))
-            .divide(den, MathContext.DECIMAL128);
+                getImaginary().multiply(divisor.getReal()).subtract(getReal().multiply(divisor.getImaginary())))
+                .divide(den, MathContext.DECIMAL128);
         return new BigComplex(re, im);
     }
 
@@ -174,7 +174,7 @@ public final class BigGaussian extends AbstractComplex<BigInteger, BigGaussian, 
     public @NotNull BigDecimal argument() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = BigDecimalMath.acos(new BigDecimal(getReal()).divide(abs(), MathContext.DECIMAL128),
-            MathContext.DECIMAL128);
+                MathContext.DECIMAL128);
         return getImaginary().compareTo(BigInteger.ZERO) < 0 ? acos.negate() : acos;
     }
 

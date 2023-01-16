@@ -324,10 +324,16 @@
             <version>3.24.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <description>Mathematical library for the JVM</description>
     <url>https://github.com/ltennstedt/reciprocal</url>
-    <inceptionYear>2022</inceptionYear>
+    <inceptionYear>2023</inceptionYear>
     <licenses>
         <license>
             <name>The MIT License</name>

@@ -48,7 +48,7 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
      * @since 0.0.1
      */
     public static final Stream<BigFraction> UNITS = Stream.iterate(ONE,
-        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
+            bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -78,7 +78,7 @@ public final class BigFraction extends AbstractFraction<BigInteger, BigFraction,
     public BigFraction(final @NotNull BigInteger numerator, final @NotNull BigInteger denominator) {
         super(numerator, denominator);
         checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
-            "denominator expected not to be 0 but denominator=%s", denominator);
+                "denominator expected not to be 0 but denominator=%s", denominator);
     }
 
     @Override

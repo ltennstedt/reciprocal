@@ -73,10 +73,10 @@ class Class {
 
         // classic builders for vectors and matrices with a fluent API        
         LongVector.ofSize(5)
-            .computationOfAbsent(i -> new Random().nextLong())
-            .set(2, 1L)
-            .set(4, 2L)
-            .build();
+                .computationOfAbsent(i -> new Random().nextLong())
+                .set(2, 1L)
+                .set(4, 2L)
+                .build();
     }
 }
 ```
@@ -89,7 +89,8 @@ class Class {
   [SpotBugs](https://spotbugs.github.io/), [SonarLint](https://www.sonarlint.org/) and
   [SonarCloud](https://sonarcloud.io/)
 * High code coverage with the help of [JUnit](https://junit.org/junit5/), [AssertJ](https://assertj.github.io/doc/),
-  [JaCoCo](https://www.jacoco.org/jacoco/) and [SonarCloud](https://sonarcloud.io/)
+  [Mockito](https://site.mockito.org/), [JaCoCo](https://www.jacoco.org/jacoco/) and
+  [SonarCloud](https://sonarcloud.io/)
 * Stay up-to-date with versions of libraries and plugins
 * Object-oriented design with functional abstraction
 * Being [Kotlin](https://www.kotlinlang.org/) and [Groovy](https://groovy-lang.org/) friendly

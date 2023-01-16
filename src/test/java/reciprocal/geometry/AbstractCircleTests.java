@@ -9,8 +9,8 @@ class AbstractCircleTests {
     @Test
     void constructor_should_throw_Exception_when_radius_is_null() {
         assertThatThrownBy(() -> new BigCircle(null))
-            .isExactlyInstanceOf(NullPointerException.class)
-            .hasMessage("radius").hasNoCause();
+                .isExactlyInstanceOf(NullPointerException.class)
+                .hasMessage("radius").hasNoCause();
     }
 
     @Test
