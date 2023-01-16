@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import org.apache.commons.lang3.Validate;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reciprocal.linear.field.QuotientField;
 
 /**
@@ -18,10 +18,10 @@ import reciprocal.linear.field.QuotientField;
  * @param <V> this
  * @param <N> norm
  * @param <A> absolute value of element
- * @since     0.0.1
+ * @since 0.0.1
  */
 public abstract class AbstractVector<E extends Number, Q extends Number, V extends AbstractVector<E, Q, V, N, A>,
-        N extends Number, A extends Number> implements Serializable {
+    N extends Number, A extends Number> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -30,17 +30,17 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      *
      * @since 0.0.1
      */
-    private final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries;
+    private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
 
     /**
      * Constructor
      *
-     * @param  entries                  entries
-     * @throws NullPointerException     when {@code entries == null}
+     * @param entries entries
+     * @throws NullPointerException when {@code entries == null}
      * @throws IllegalArgumentException when one element in entries is null
-     * @since                           0.0.1
+     * @since 0.0.1
      */
-    protected AbstractVector(final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries) {
+    protected AbstractVector(final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries) {
         Validate.noNullElements(entries, "expected all elements in entries not to be null but entries = %s", entries);
         this.entries = ImmutableList.copyOf(entries);
     }
@@ -49,17 +49,17 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * Quotient field
      *
      * @return quotient field
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    protected abstract @NonNull QuotientField<@NonNull E, @NonNull Q, @NonNull A> getQuotientField();
+    protected abstract @NotNull QuotientField<@NotNull E, @NotNull Q, @NotNull A> getQuotientField();
 
     /**
      * Entries
      *
      * @return entries
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    public final @NonNull List<@NonNull VectorEntry<@NonNull E>> getEntries() {
+    public final @NotNull List<@NotNull VectorEntry<@NotNull E>> getEntries() {
         return List.copyOf(entries);
     }
 
@@ -81,7 +81,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "(entries=" + entries + ")";
     }
 }

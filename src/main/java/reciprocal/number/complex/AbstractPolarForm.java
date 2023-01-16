@@ -7,15 +7,15 @@ import java.io.Serializable;
 import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for polar forms
  *
  * @param <N> type of number
  * @param <T> type of this
- * @since     0.0.1
+ * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractPolarForm<N extends Number, T extends AbstractPolarForm<N, T>> implements Serializable {
@@ -27,25 +27,25 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      *
      * @since 0.0.1
      */
-    private final @NonNull N radial;
+    private final @NotNull N radial;
 
     /**
      * Angular
      *
      * @since 0.0.1
      */
-    private final @NonNull N angular;
+    private final @NotNull N angular;
 
     /**
      * Constructor
      *
-     * @param  radial               radial
-     * @param  angular              angular
+     * @param radial radial
+     * @param angular angular
      * @throws NullPointerException when {@code radial == null}
      * @throws NullPointerException when {@code angular == null}
-     * @since                       0.0.1
+     * @since 0.0.1
      */
-    protected AbstractPolarForm(final @NonNull N radial, final @NonNull N angular) {
+    protected AbstractPolarForm(final @NotNull N radial, final @NotNull N angular) {
         this.radial = requireNonNull(radial, "radial");
         this.angular = requireNonNull(angular, "angular");
     }
@@ -54,9 +54,9 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * Radial
      *
      * @return radial
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    public final @NonNull N getRadial() {
+    public final @NotNull N getRadial() {
         return radial;
     }
 
@@ -64,31 +64,31 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * Angular
      *
      * @return angular
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    public final @NonNull N getAngular() {
+    public final @NotNull N getAngular() {
         return angular;
     }
 
     /**
      * Returns if this is equal by comparing to other
      *
-     * @param  other                other
-     * @return                      {@link Boolean}
+     * @param other other
+     * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
-     * @since                       0.0.1
+     * @since 0.0.1
      */
-    public abstract boolean equalsByComparing(@NonNull T other);
+    public abstract boolean equalsByComparing(@NotNull T other);
 
     /**
      * Returns if this is not equal by comparing to other
      *
-     * @param  other                other
-     * @return                      {@link Boolean}
+     * @param other other
+     * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
-     * @since                       0.0.1
+     * @since 0.0.1
      */
-    public final boolean doesNotEqualByComparing(final @NonNull T other) {
+    public final boolean doesNotEqualByComparing(final @NotNull T other) {
         requireNonNull(other, "other");
         return !equalsByComparing(other);
     }
@@ -111,7 +111,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "(radial=" + radial + ", angular=" + angular + ")";
     }
 }

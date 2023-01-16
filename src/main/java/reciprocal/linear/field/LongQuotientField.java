@@ -7,7 +7,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Quotient field for {@link Long Longs}
@@ -21,7 +21,7 @@ public final class LongQuotientField implements QuotientField<Long, Double, Long
      *
      * @since 0.0.1
      */
-    public static final @NonNull LongQuotientField INSTANCE = new LongQuotientField();
+    public static final @NotNull LongQuotientField INSTANCE = new LongQuotientField();
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -30,52 +30,52 @@ public final class LongQuotientField implements QuotientField<Long, Double, Long
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Long, @NonNull Long, @NonNull Long> getAddition() {
+    public @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Long> getAddition() {
         return Long::sum;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Long, @NonNull Long, @NonNull Long> getSubtraction() {
+    public @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Long> getSubtraction() {
         return (x, y) -> x - y;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Long, @NonNull Long, @NonNull Long> getMultiplication() {
+    public @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Long> getMultiplication() {
         return (x, y) -> x * y;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Long, @NonNull Long, @NonNull Double> getDivision() {
+    public @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Double> getDivision() {
         return (x, y) -> x.doubleValue() / y.doubleValue();
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Long, @NonNull Integer, @NonNull Double> getPower() {
+    public @NotNull BiFunction<@NotNull Long, @NotNull Integer, @NotNull Double> getPower() {
         return (x, k) -> (double) LongMath.pow(x, k);
     }
 
     @Override
-    public @NonNull Function<@NonNull Long, @NonNull Long> getNegation() {
+    public @NotNull Function<@NotNull Long, @NotNull Long> getNegation() {
         return x -> -x;
     }
 
     @Override
-    public @NonNull BiPredicate<@NonNull Long, @NonNull Long> getEqualityByComparing() {
+    public @NotNull BiPredicate<@NotNull Long, @NotNull Long> getEqualityByComparing() {
         return (x, y) -> (long) x == y;
     }
 
     @Override
-    public @NonNull Function<@NonNull Long, @NonNull Long> getAbsOperator() {
+    public @NotNull Function<@NotNull Long, @NotNull Long> getAbsOperator() {
         return Math::abs;
     }
 
     @Override
-    public @NonNull Long getZero() {
+    public @NotNull Long getZero() {
         return 0L;
     }
 
     @Override
-    public @NonNull Long getOne() {
+    public @NotNull Long getOne() {
         return 1L;
     }
 }

@@ -9,7 +9,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Quotient field for {@link BigInteger BigIntegers}
@@ -23,7 +23,7 @@ public final class BigIntegerQuotientField implements QuotientField<BigInteger, 
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigIntegerQuotientField INSTANCE = new BigIntegerQuotientField();
+    public static final @NotNull BigIntegerQuotientField INSTANCE = new BigIntegerQuotientField();
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -32,52 +32,52 @@ public final class BigIntegerQuotientField implements QuotientField<BigInteger, 
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigInteger> getAddition() {
+    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigInteger> getAddition() {
         return BigInteger::add;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigInteger> getSubtraction() {
+    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigInteger> getSubtraction() {
         return BigInteger::subtract;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigInteger> getMultiplication() {
+    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigInteger> getMultiplication() {
         return BigInteger::multiply;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull BigInteger, @NonNull BigInteger, @NonNull BigDecimal> getDivision() {
+    public @NotNull BiFunction<@NotNull BigInteger, @NotNull BigInteger, @NotNull BigDecimal> getDivision() {
         return (x, y) -> new BigDecimal(x).divide(new BigDecimal(y), MathContext.DECIMAL128);
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull BigInteger, @NonNull Integer, @NonNull BigDecimal> getPower() {
+    public @NotNull BiFunction<@NotNull BigInteger, @NotNull Integer, @NotNull BigDecimal> getPower() {
         return (x, k) -> new BigDecimal(x).pow(k);
     }
 
     @Override
-    public @NonNull Function<@NonNull BigInteger, @NonNull BigInteger> getNegation() {
+    public @NotNull Function<@NotNull BigInteger, @NotNull BigInteger> getNegation() {
         return BigInteger::negate;
     }
 
     @Override
-    public @NonNull BiPredicate<@NonNull BigInteger, @NonNull BigInteger> getEqualityByComparing() {
+    public @NotNull BiPredicate<@NotNull BigInteger, @NotNull BigInteger> getEqualityByComparing() {
         return (x, y) -> x.compareTo(y) == 0;
     }
 
     @Override
-    public @NonNull Function<@NonNull BigInteger, @NonNull BigInteger> getAbsOperator() {
+    public @NotNull Function<@NotNull BigInteger, @NotNull BigInteger> getAbsOperator() {
         return BigInteger::abs;
     }
 
     @Override
-    public @NonNull BigInteger getZero() {
+    public @NotNull BigInteger getZero() {
         return BigInteger.ZERO;
     }
 
     @Override
-    public @NonNull BigInteger getOne() {
+    public @NotNull BigInteger getOne() {
         return BigInteger.ONE;
     }
 }

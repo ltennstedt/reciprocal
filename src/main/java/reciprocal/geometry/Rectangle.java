@@ -3,7 +3,7 @@ package reciprocal.geometry;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.io.Serial;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a rectangle which uses {@link Double} as type for
@@ -18,11 +18,11 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
     /**
      * Constructor
      *
-     * @param  length                   length
-     * @param  width                    width
+     * @param length length
+     * @param width width
      * @throws IllegalArgumentException when {@code length <= 0}
      * @throws IllegalArgumentException when {@code width <= 0}
-     * @since                           0.0.1
+     * @since 0.0.1
      */
     public Rectangle(final double length, final double width) {
         super(length, width);
@@ -36,12 +36,12 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
     }
 
     @Override
-    public @NonNull Double getPerimeter() {
+    public @NotNull Double getPerimeter() {
         return 2.0D * (getLength() + getWidth());
     }
 
     @Override
-    public @NonNull Double getDiagonal() {
+    public @NotNull Double getDiagonal() {
         return Math.sqrt(Math.pow(getLength(), 2.0D) + Math.pow(getWidth(), 2.0D));
     }
 }

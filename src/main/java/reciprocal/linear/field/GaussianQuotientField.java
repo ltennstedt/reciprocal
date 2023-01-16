@@ -6,7 +6,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.Complex;
 import reciprocal.number.complex.Gaussian;
 
@@ -22,7 +22,7 @@ public final class GaussianQuotientField implements QuotientField<Gaussian, Comp
      *
      * @since 0.0.1
      */
-    public static final @NonNull GaussianQuotientField INSTANCE = new GaussianQuotientField();
+    public static final @NotNull GaussianQuotientField INSTANCE = new GaussianQuotientField();
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -31,52 +31,52 @@ public final class GaussianQuotientField implements QuotientField<Gaussian, Comp
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Gaussian, @NonNull Gaussian, @NonNull Gaussian> getAddition() {
+    public @NotNull BiFunction<@NotNull Gaussian, @NotNull Gaussian, @NotNull Gaussian> getAddition() {
         return Gaussian::add;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Gaussian, @NonNull Gaussian, @NonNull Gaussian> getSubtraction() {
+    public @NotNull BiFunction<@NotNull Gaussian, @NotNull Gaussian, @NotNull Gaussian> getSubtraction() {
         return Gaussian::subtract;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Gaussian, @NonNull Gaussian, @NonNull Gaussian> getMultiplication() {
+    public @NotNull BiFunction<@NotNull Gaussian, @NotNull Gaussian, @NotNull Gaussian> getMultiplication() {
         return Gaussian::multiply;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Gaussian, @NonNull Gaussian, @NonNull Complex> getDivision() {
+    public @NotNull BiFunction<@NotNull Gaussian, @NotNull Gaussian, @NotNull Complex> getDivision() {
         return Gaussian::divide;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Gaussian, @NonNull Integer, @NonNull Complex> getPower() {
+    public @NotNull BiFunction<@NotNull Gaussian, @NotNull Integer, @NotNull Complex> getPower() {
         return Gaussian::pow;
     }
 
     @Override
-    public @NonNull Function<@NonNull Gaussian, @NonNull Gaussian> getNegation() {
+    public @NotNull Function<@NotNull Gaussian, @NotNull Gaussian> getNegation() {
         return Gaussian::negate;
     }
 
     @Override
-    public @NonNull BiPredicate<@NonNull Gaussian, @NonNull Gaussian> getEqualityByComparing() {
+    public @NotNull BiPredicate<@NotNull Gaussian, @NotNull Gaussian> getEqualityByComparing() {
         return Gaussian::equalsByComparing;
     }
 
     @Override
-    public @NonNull Function<@NonNull Gaussian, @NonNull Double> getAbsOperator() {
+    public @NotNull Function<@NotNull Gaussian, @NotNull Double> getAbsOperator() {
         return Gaussian::abs;
     }
 
     @Override
-    public @NonNull Gaussian getZero() {
+    public @NotNull Gaussian getZero() {
         return Gaussian.ZERO;
     }
 
     @Override
-    public @NonNull Gaussian getOne() {
+    public @NotNull Gaussian getOne() {
         return Gaussian.ONE;
     }
 }

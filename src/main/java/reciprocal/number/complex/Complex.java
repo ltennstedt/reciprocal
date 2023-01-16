@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a complex number which uses {@link Double} as
@@ -23,14 +23,14 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex ZERO = new Complex(0.0D);
+    public static final @NotNull Complex ZERO = new Complex(0.0D);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex ONE = new Complex(1.0D);
+    public static final @NotNull Complex ONE = new Complex(1.0D);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -39,7 +39,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
      * Constructor
      *
      * @param real real part
-     * @since      0.0.1
+     * @since 0.0.1
      */
     public Complex(final double real) {
         this(real, 0.0D);
@@ -48,9 +48,9 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
-     * @since           0.0.1
+     * @since 0.0.1
      */
     public Complex(final double real, final double imaginary) {
         super(real, imaginary);
@@ -62,7 +62,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex add(final @NonNull Complex summand) {
+    public @NotNull Complex add(final @NotNull Complex summand) {
         requireNonNull(summand, "summand");
         final var re = getReal() + summand.getReal();
         final var im = getImaginary() + summand.getImaginary();
@@ -70,7 +70,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex subtract(final @NonNull Complex subtrahend) {
+    public @NotNull Complex subtract(final @NotNull Complex subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var re = getReal() - subtrahend.getReal();
         final var im = getImaginary() - subtrahend.getImaginary();
@@ -78,7 +78,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex multiply(final @NonNull Complex factor) {
+    public @NotNull Complex multiply(final @NotNull Complex factor) {
         requireNonNull(factor, "factor");
         final var re = getReal() * factor.getReal() - getImaginary() * factor.getImaginary();
         final var im = getReal() * factor.getImaginary() + getImaginary() * factor.getReal();
@@ -86,7 +86,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex divide(final @NonNull Complex divisor) {
+    public @NotNull Complex divide(final @NotNull Complex divisor) {
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
         final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);
@@ -96,7 +96,7 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex pow(final int exponent) {
+    public @NotNull Complex pow(final int exponent) {
         if (exponent < 0) {
             return multiply(pow(-exponent - 1)).invert();
         }
@@ -107,45 +107,45 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex negate() {
+    public @NotNull Complex negate() {
         return new Complex(-getReal(), -getImaginary());
     }
 
     @Override
-    public @NonNull Complex invert() {
+    public @NotNull Complex invert() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
 
     @Override
-    public @NonNull Double absPow2() {
+    public @NotNull Double absPow2() {
         return Math.pow(getReal(), 2.0D) + Math.pow(getImaginary(), 2.0D);
     }
 
     @Override
-    public @NonNull Double abs() {
+    public @NotNull Double abs() {
         return Math.sqrt(absPow2());
     }
 
     @Override
-    public @NonNull Complex conjugate() {
+    public @NotNull Complex conjugate() {
         return new Complex(getReal(), -getImaginary());
     }
 
     @Override
-    public @NonNull Double argument() {
+    public @NotNull Double argument() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = Math.acos(getReal() / abs());
         return getImaginary() < 0.0D ? -acos : acos;
     }
 
     @Override
-    public @NonNull BigInteger toBigInteger() {
+    public @NotNull BigInteger toBigInteger() {
         return BigInteger.valueOf(longValue());
     }
 
     @Override
-    public @NonNull BigDecimal toBigDecimal() {
+    public @NotNull BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(doubleValue());
     }
 
@@ -154,18 +154,18 @@ public final class Complex extends AbstractComplex<Double, Complex, Complex, Dou
      *
      * @return {@link BigComplex}
      */
-    public @NonNull BigComplex toBigComplex() {
+    public @NotNull BigComplex toBigComplex() {
         return new BigComplex(BigDecimal.valueOf(getReal()), BigDecimal.valueOf(getImaginary()));
     }
 
     @Override
-    public @NonNull PolarForm toPolarForm() {
+    public @NotNull PolarForm toPolarForm() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return new PolarForm(abs(), argument());
     }
 
     @Override
-    public boolean equalsByComparing(final @NonNull Complex other) {
+    public boolean equalsByComparing(final @NotNull Complex other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
     }

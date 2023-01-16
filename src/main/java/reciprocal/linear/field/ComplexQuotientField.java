@@ -6,7 +6,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.Complex;
 
 /**
@@ -21,7 +21,7 @@ public final class ComplexQuotientField implements QuotientField<Complex, Comple
      *
      * @since 0.0.1
      */
-    public static final @NonNull ComplexQuotientField INSTANCE = new ComplexQuotientField();
+    public static final @NotNull ComplexQuotientField INSTANCE = new ComplexQuotientField();
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -30,52 +30,52 @@ public final class ComplexQuotientField implements QuotientField<Complex, Comple
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Complex, @NonNull Complex, @NonNull Complex> getAddition() {
+    public @NotNull BiFunction<@NotNull Complex, @NotNull Complex, @NotNull Complex> getAddition() {
         return Complex::add;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Complex, @NonNull Complex, @NonNull Complex> getSubtraction() {
+    public @NotNull BiFunction<@NotNull Complex, @NotNull Complex, @NotNull Complex> getSubtraction() {
         return Complex::subtract;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Complex, @NonNull Complex, @NonNull Complex> getMultiplication() {
+    public @NotNull BiFunction<@NotNull Complex, @NotNull Complex, @NotNull Complex> getMultiplication() {
         return Complex::multiply;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Complex, @NonNull Complex, @NonNull Complex> getDivision() {
+    public @NotNull BiFunction<@NotNull Complex, @NotNull Complex, @NotNull Complex> getDivision() {
         return Complex::divide;
     }
 
     @Override
-    public @NonNull BiFunction<@NonNull Complex, @NonNull Integer, @NonNull Complex> getPower() {
+    public @NotNull BiFunction<@NotNull Complex, @NotNull Integer, @NotNull Complex> getPower() {
         return Complex::pow;
     }
 
     @Override
-    public @NonNull Function<@NonNull Complex, @NonNull Complex> getNegation() {
+    public @NotNull Function<@NotNull Complex, @NotNull Complex> getNegation() {
         return Complex::negate;
     }
 
     @Override
-    public @NonNull BiPredicate<@NonNull Complex, @NonNull Complex> getEqualityByComparing() {
+    public @NotNull BiPredicate<@NotNull Complex, @NotNull Complex> getEqualityByComparing() {
         return Complex::equalsByComparing;
     }
 
     @Override
-    public @NonNull Function<@NonNull Complex, @NonNull Double> getAbsOperator() {
+    public @NotNull Function<@NotNull Complex, @NotNull Double> getAbsOperator() {
         return Complex::abs;
     }
 
     @Override
-    public @NonNull Complex getZero() {
+    public @NotNull Complex getZero() {
         return Complex.ZERO;
     }
 
     @Override
-    public @NonNull Complex getOne() {
+    public @NotNull Complex getOne() {
         return Complex.ONE;
     }
 }

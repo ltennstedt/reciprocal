@@ -10,7 +10,7 @@ import java.math.BigInteger;
 import java.util.Set;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a Gaussian integer which uses {@link Long} as
@@ -25,42 +25,42 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian ZERO = new Gaussian(0L);
+    public static final @NotNull Gaussian ZERO = new Gaussian(0L);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian ONE = new Gaussian(1L);
+    public static final @NotNull Gaussian ONE = new Gaussian(1L);
 
     /**
      * i
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian IMAGINARY = new Gaussian(0L, 1L);
+    public static final @NotNull Gaussian IMAGINARY = new Gaussian(0L, 1L);
 
     /**
      * -1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian MINUS_ONE = ONE.negate();
+    public static final @NotNull Gaussian MINUS_ONE = ONE.negate();
 
     /**
      * -i
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian MINUS_IMAGINARY = IMAGINARY.negate();
+    public static final @NotNull Gaussian MINUS_IMAGINARY = IMAGINARY.negate();
 
     /**
      * Units
      *
      * @since 0.0.1
      */
-    public static final @NonNull Set<@NonNull Gaussian> UNITS = Set.of(ONE, IMAGINARY, MINUS_ONE, MINUS_IMAGINARY);
+    public static final @NotNull Set<@NotNull Gaussian> UNITS = Set.of(ONE, IMAGINARY, MINUS_ONE, MINUS_IMAGINARY);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -69,7 +69,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Constructor
      *
      * @param real real part
-     * @since      0.0.1
+     * @since 0.0.1
      */
     public Gaussian(final long real) {
         this(real, 0L);
@@ -78,9 +78,9 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     /**
      * Constructor
      *
-     * @param real      real part
+     * @param real real part
      * @param imaginary imaginary part
-     * @since           0.0.1
+     * @since 0.0.1
      */
     public Gaussian(final long real, final long imaginary) {
         super(real, imaginary);
@@ -92,7 +92,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     }
 
     @Override
-    public @NonNull Gaussian add(final @NonNull Gaussian summand) {
+    public @NotNull Gaussian add(final @NotNull Gaussian summand) {
         requireNonNull(summand, "summand");
         final var re = getReal() + summand.getReal();
         final var im = getImaginary() + summand.getImaginary();
@@ -100,7 +100,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     }
 
     @Override
-    public @NonNull Gaussian subtract(final @NonNull Gaussian subtrahend) {
+    public @NotNull Gaussian subtract(final @NotNull Gaussian subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var re = getReal() - subtrahend.getReal();
         final var im = getImaginary() - subtrahend.getImaginary();
@@ -108,7 +108,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     }
 
     @Override
-    public @NonNull Gaussian multiply(final @NonNull Gaussian factor) {
+    public @NotNull Gaussian multiply(final @NotNull Gaussian factor) {
         requireNonNull(factor, "factor");
         final var re = getReal() * factor.getReal() - getImaginary() * factor.getImaginary();
         final var im = getReal() * factor.getImaginary() + getImaginary() * factor.getReal();
@@ -116,7 +116,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex divide(final @NonNull Gaussian divisor) {
+    public @NotNull Complex divide(final @NotNull Gaussian divisor) {
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
         final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);
@@ -126,7 +126,7 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     }
 
     @Override
-    public @NonNull Complex pow(final int exponent) {
+    public @NotNull Complex pow(final int exponent) {
         if (exponent < 0) {
             return toComplex().multiply(pow(-exponent - 1)).invert();
         }
@@ -137,45 +137,45 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
     }
 
     @Override
-    public @NonNull Gaussian negate() {
+    public @NotNull Gaussian negate() {
         return new Gaussian(-getReal(), -getImaginary());
     }
 
     @Override
-    public @NonNull Complex invert() {
+    public @NotNull Complex invert() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
 
     @Override
-    public @NonNull Long absPow2() {
+    public @NotNull Long absPow2() {
         return LongMath.pow(getReal(), 2) + LongMath.pow(getImaginary(), 2);
     }
 
     @Override
-    public @NonNull Double abs() {
+    public @NotNull Double abs() {
         return Math.sqrt(absPow2());
     }
 
     @Override
-    public @NonNull Gaussian conjugate() {
+    public @NotNull Gaussian conjugate() {
         return new Gaussian(getReal(), -getImaginary());
     }
 
     @Override
-    public @NonNull Double argument() {
+    public @NotNull Double argument() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = Math.acos(getReal() / abs());
         return getImaginary() < 0.0D ? -acos : acos;
     }
 
     @Override
-    public @NonNull BigInteger toBigInteger() {
+    public @NotNull BigInteger toBigInteger() {
         return BigInteger.valueOf(longValue());
     }
 
     @Override
-    public @NonNull BigDecimal toBigDecimal() {
+    public @NotNull BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(doubleValue());
     }
 
@@ -183,9 +183,9 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Returns this as {@link Complex}
      *
      * @return {@link Complex}
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    public @NonNull Complex toComplex() {
+    public @NotNull Complex toComplex() {
         return new Complex(getReal(), getImaginary());
     }
 
@@ -193,9 +193,9 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Returns this as {@link BigGaussian}
      *
      * @return {@link BigGaussian}
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    public @NonNull BigGaussian toBigGaussian() {
+    public @NotNull BigGaussian toBigGaussian() {
         return new BigGaussian(BigInteger.valueOf(getReal()), BigInteger.valueOf(getImaginary()));
     }
 
@@ -203,20 +203,20 @@ public final class Gaussian extends AbstractComplex<Long, Gaussian, Complex, Dou
      * Returns this as {@link BigComplex}
      *
      * @return {@link BigComplex}
-     * @since  0.0.1
+     * @since 0.0.1
      */
-    public @NonNull BigComplex toBigComplex() {
+    public @NotNull BigComplex toBigComplex() {
         return new BigComplex(BigDecimal.valueOf(getReal()), BigDecimal.valueOf(getImaginary()));
     }
 
     @Override
-    public @NonNull PolarForm toPolarForm() {
+    public @NotNull PolarForm toPolarForm() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return new PolarForm(abs(), argument());
     }
 
     @Override
-    public boolean equalsByComparing(final @NonNull Gaussian other) {
+    public boolean equalsByComparing(final @NotNull Gaussian other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
     }

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="80d1d425-3198-42c9-8187-63d1e09b4b0f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/config/eclipse/cleanup.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/eclipse/formatter.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/eclipse/organizeimports.importorder" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/ReciprocalContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/ReciprocalContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/ReciprocalUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/ReciprocalUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/AbstractCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/AbstractCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/AbstractRectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/AbstractRectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/BigCircle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/BigCircle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/BigRectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/BigRectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/Circle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/geometry/Rectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigComplexQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigComplexQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigDecimalQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigDecimalQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigGaussianQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigGaussianQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigIntegerQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/BigIntegerQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/ComplexQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/ComplexQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/DoubleQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/DoubleQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/GaussianQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/GaussianQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/LongQuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/LongQuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/QuotientField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/field/QuotientField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/matrix/MatrixEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/matrix/MatrixEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/vector/AbstractVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/vector/AbstractVector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/linear/vector/VectorEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/linear/vector/VectorEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/AbstractComplex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/AbstractComplex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/AbstractPolarForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/AbstractPolarForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/BigComplex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/BigComplex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/BigGaussian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/BigGaussian.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/BigPolarForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/BigPolarForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/Complex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/Complex.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/Gaussian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/Gaussian.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/PolarForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/complex/PolarForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/fraction/AbstractFraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/fraction/AbstractFraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/fraction/BigFraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/fraction/BigFraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reciprocal/number/fraction/Fraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reciprocal/number/fraction/Fraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/reciprocal/ReciprocalContextTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/reciprocal/ReciprocalContextTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/reciprocal/number/fraction/FractionTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/reciprocal/number/fraction/FractionTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+    <option name="PARALLEL_COMPILATION" value="true" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+    <option name="myAllFileTypesSelected" value="false" />
+    <option name="mySelectedFileTypes">
+      <set>
+        <option value="EditorConfig" />
+        <option value="Groovy" />
+        <option value="HTML" />
+        <option value="JAVA" />
+        <option value="JSON" />
+        <option value="Kotlin" />
+        <option value="Markdown" />
+        <option value="Properties" />
+        <option value="RNG Compact" />
+        <option value="Shell Script" />
+        <option value="TOML" />
+        <option value="XHTML" />
+        <option value="XML" />
+      </set>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="ltennstedt" />
+        <option name="repository" value="reciprocal" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="07c15885-c69e-4c2b-84ec-6a1486952a2b" />
+        <option name="url" value="https://github.com/ltennstedt/reciprocal.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="KotlinCodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="alwaysUpdateSnapshots" value="true" />
+        <option name="mavenHome" value="$USER_HOME$/.sdkman/candidates/maven/current" />
+        <option name="printErrorStackTraces" value="true" />
+        <option name="useMavenConfig" value="true" />
+        <option name="usePluginRegistry" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="downloadAnnotationsAutomatically" value="true" />
+        <option name="downloadDocsAutomatically" value="true" />
+        <option name="downloadSourcesAutomatically" value="true" />
+        <option name="jdkForImporter" value="17" />
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="17" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="2KErsyAy78WQWfLiM7O4aNmfjo5" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;LombokPluginIS_LOMBOK_JPS_FIX_ENABLED&quot;: &quot;true&quot;,
+    &quot;LombokPluginIS_LOMBOK_VERSION_CHECK_Enabled&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.build.tools.auto.reload&quot;: &quot;ALL&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="reciprocal.geometry" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.reciprocal [-U,clean,install,site]">
+    <configuration name="AbstractCircleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="reciprocal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="reciprocal.geometry.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="reciprocal.geometry" />
+      <option name="MAIN_CLASS_NAME" value="reciprocal.geometry.AbstractCircleTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in reciprocal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="reciprocal" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="reciprocal [-U,clean,install,site]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="-U" />
+                <option value="clean" />
+                <option value="install" />
+                <option value="site" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.AbstractCircleTest" />
+      <item itemvalue="JUnit.All in reciprocal" />
+      <item itemvalue="Maven.reciprocal [-U,clean,install,site]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in reciprocal" />
+        <item itemvalue="JUnit.AbstractCircleTest" />
+        <item itemvalue="JUnit.All in reciprocal" />
+        <item itemvalue="JUnit.AbstractCircleTest" />
+        <item itemvalue="JUnit.All in reciprocal" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80d1d425-3198-42c9-8187-63d1e09b4b0f" name="Changes" comment="" />
+      <created>1673550794606</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673550794606</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Rewrite">
+      <created>1673563907901</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1673563907901</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Clean up">
+      <created>1673611727977</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673611727977</updated>
+    </task>
+    <task id="LOCAL-00003" summary="PomChecker Maven Plugin added">
+      <created>1673614283870</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1673614283870</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Properties for duplicated versions introduced">
+      <created>1673615438228</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1673615438228</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="dependabot.yml" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Rewrite" />
+    <MESSAGE value="Clean up" />
+    <MESSAGE value="PomChecker Maven Plugin added" />
+    <MESSAGE value="Properties for duplicated versions introduced" />
+    <option name="LAST_COMMIT_MESSAGE" value="Properties for duplicated versions introduced" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="reciprocal" type="b2602c69:ProjectViewProjectNode" />
+        <item name="reciprocal" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+</project>

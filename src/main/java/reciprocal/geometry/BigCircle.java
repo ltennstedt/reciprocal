@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Comparator;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 import reciprocal.ReciprocalUtils;
 
 /**
@@ -25,33 +25,33 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
     /**
      * Constructor
      *
-     * @param  radius                   radius
-     * @throws NullPointerException     when {@code radius == null}
+     * @param radius radius
+     * @throws NullPointerException when {@code radius == null}
      * @throws IllegalArgumentException when {@code radius <= 0}
-     * @since                           0.0.1
+     * @since 0.0.1
      */
-    public BigCircle(final @NonNull BigDecimal radius) {
+    public BigCircle(final @NotNull BigDecimal radius) {
         super(radius);
         checkArgument(radius.compareTo(BigDecimal.ZERO) > 0, "radius > 0 expected but radius = %s", radius);
     }
 
     @Override
-    public @NonNull BigDecimal getDiameter() {
+    public @NotNull BigDecimal getDiameter() {
         return BigDecimal.valueOf(2L).multiply(getRadius());
     }
 
     @Override
-    public @NonNull BigDecimal getCircumference() {
+    public @NotNull BigDecimal getCircumference() {
         return ReciprocalUtils.BIG_PI.multiply(getDiameter());
     }
 
     @Override
-    public @NonNull BigDecimal getArea() {
+    public @NotNull BigDecimal getArea() {
         return ReciprocalUtils.BIG_PI.multiply(getRadius().pow(2));
     }
 
     @Override
-    public int compareTo(final @NonNull BigCircle o) {
+    public int compareTo(final @NotNull BigCircle o) {
         return BigCircleComparator.INSTANCE.compare(this, o);
     }
 
@@ -67,7 +67,7 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
          *
          * @since 0.0.1
          */
-        public static final @NonNull BigCircleComparator INSTANCE = new BigCircleComparator();
+        public static final @NotNull BigCircleComparator INSTANCE = new BigCircleComparator();
 
         @Serial
         private static final long serialVersionUID = 1L;
@@ -76,7 +76,7 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
         }
 
         @Override
-        public int compare(final @NonNull BigCircle o1, final @NonNull BigCircle o2) {
+        public int compare(final @NotNull BigCircle o1, final @NotNull BigCircle o2) {
             requireNonNull(o1, "o1");
             requireNonNull(o2, "o2");
             return o1.getRadius().compareTo(o2.getRadius());
