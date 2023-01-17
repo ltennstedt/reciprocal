@@ -22,6 +22,8 @@ What reciprocal will provide:
 * Vectors and matrices
 * Determinant calculation
 * Polynomials
+* Circles and rectangles
+* Pseudorandom number generators
 * [Kotlin](https://github.com/ltennstedt/reciprocal-kotlin) module (separate JAR)
 * [Scala](https://scala-lang.org/) module (separate JAR)
 * Custom assertions for [AssertJ](https://assertj.github.io/doc/)
@@ -83,14 +85,16 @@ class Class {
 
 ## Goals
 
-* Complete Javadoc
+* Complete Javadoc, KDoc and ScalaDoc
 * Clean code
 * High code quality with the help of [Checkstyle](https://checkstyle.org/), [PMD](https://pmd.github.io/),
-  [SpotBugs](https://spotbugs.github.io/), [SonarLint](https://www.sonarlint.org/) and
+  [SpotBugs](https://spotbugs.github.io/), [detekt](https://detekt.dev/),
+  [ktlint](https://pinterest.github.io/ktlint/), [Scapegoat](https://github.com/scapegoat-scala/scapegoat),
+  [WartRemover](https://www.wartremover.org/), [SonarLint](https://www.sonarlint.org/) and
   [SonarCloud](https://sonarcloud.io/)
 * High code coverage with the help of [JUnit](https://junit.org/junit5/), [AssertJ](https://assertj.github.io/doc/),
-  [Mockito](https://site.mockito.org/), [JaCoCo](https://www.jacoco.org/jacoco/) and
-  [SonarCloud](https://sonarcloud.io/)
+  [Mockito](https://site.mockito.org/), [Kotest](https://kotest.io/), [ScalaTest](https://www.scalatest.org/),
+  [JaCoCo](https://www.jacoco.org/jacoco/) and [SonarCloud](https://sonarcloud.io/)
 * Stay up-to-date with versions of libraries and plugins
 * Object-oriented design with functional abstraction
 * Being [Kotlin](https://www.kotlinlang.org/) and [Groovy](https://groovy-lang.org/) friendly
