@@ -32,4 +32,30 @@ public record VectorEntry<E extends Number>(int index, @NotNull E element) imple
         checkArgument(index > 0, "expected index > 0 but index = %s", index);
         requireNonNull(element, "element");
     }
+
+    /**
+     * Returns a copy with new index
+     *
+     * @param newIndex new index
+     * @return copy
+     * @throws IllegalArgumentException when {@code newIndex < 1}
+     * @since 0.0.1
+     */
+    public @NotNull VectorEntry<@NotNull E> withIndex(final int newIndex) {
+        checkArgument(newIndex > 0, "expected newIndex > 0 but newIndex = %s", newIndex);
+        return new VectorEntry<>(newIndex, element);
+    }
+
+    /**
+     * Returns a copy with new element
+     *
+     * @param newElement new element
+     * @return copy
+     * @throws NullPointerException when {@code newElement == null}
+     * @since 0.0.1
+     */
+    public @NotNull VectorEntry<@NotNull E> withElement(final @NotNull E newElement) {
+        requireNonNull(newElement, "newElement");
+        return new VectorEntry<>(index, newElement);
+    }
 }

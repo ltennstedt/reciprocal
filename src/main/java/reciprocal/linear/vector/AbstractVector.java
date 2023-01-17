@@ -16,12 +16,11 @@ import org.jetbrains.annotations.Nullable;
  * Base class for vectors
  *
  * @param <E> element
- * @param <Q> quotient of element
  * @param <V> vector
  * @param <N> norm
  * @since 0.0.1
  */
-public abstract class AbstractVector<E extends Number, Q extends Number, V extends AbstractVector<E, Q, V, N>,
+public abstract class AbstractVector<E extends Number, V extends AbstractVector<E, V, N>,
     N extends Number> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -96,6 +95,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * @param summand summand
      * @return sum
      * @throws NullPointerException when {@code summand == null}
+     * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
     public abstract @NotNull V add(@NotNull V summand);
@@ -106,6 +106,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * @param subtrahend subtrahend
      * @return difference
      * @throws NullPointerException when {@code subtrahend == null}
+     * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
     public abstract @NotNull V subtract(@NotNull V subtrahend);
@@ -116,9 +117,10 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * @param other other
      * @return dot product
      * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
-    public abstract @NotNull V dotProduct(@NotNull V other);
+    public abstract @NotNull E dotProduct(@NotNull V other);
 
     /**
      * Returns the scalar product pof this and the scalar
@@ -128,7 +130,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * @throws NullPointerException when {@code scalar == null}
      * @since 0.0.1
      */
-    public abstract @NotNull V scalarMultiply(@NotNull V scalar);
+    public abstract @NotNull V scalarMultiply(@NotNull E scalar);
 
     /**
      * Returns the negated vector of this
@@ -144,6 +146,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
      * @param other other
      * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
     public abstract boolean orthogonalTo(@NotNull V other);
@@ -264,7 +267,7 @@ public abstract class AbstractVector<E extends Number, Q extends Number, V exten
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final var other = (AbstractVector<?, ?, ?, ?>) obj;
+        final var other = (AbstractVector<?, ?, ?>) obj;
         return entries.equals(other.getEntries());
     }
 
