@@ -24,7 +24,7 @@ What reciprocal will provide:
 * Polynomials
 * Circles and rectangles
 * Pseudorandom number generators
-* [Kotlin](https://github.com/ltennstedt/reciprocal-kotlin) module (separate JAR)
+* [Kotlin](https://kotlinlang.org/) module (separate JAR)
 * [Scala](https://scala-lang.org/) module (separate JAR)
 * Custom assertions for [AssertJ](https://assertj.github.io/doc/)
 * Custom matchers for [Kotest](https://kotest.io/)
