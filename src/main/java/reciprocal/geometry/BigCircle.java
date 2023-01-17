@@ -61,7 +61,7 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
      * @since 0.0.1
      */
     @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class BigCircleComparator implements Comparator<@NotNull BigCircle>, @NotNull Serializable {
+    public static final class BigCircleComparator implements Comparator<@NotNull BigCircle>, Serializable {
         /**
          * Instance
          *

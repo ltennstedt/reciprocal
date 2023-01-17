@@ -15,8 +15,6 @@ import java.util.stream.Stream;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
-import reciprocal.linear.field.BigIntegerQuotientField;
-import reciprocal.linear.field.QuotientField;
 
 /**
  * Immutable implementation of a fraction which uses {@link BigFraction} as type
@@ -83,6 +81,16 @@ public final class BigFraction extends
     }
 
     @Override
+    public boolean isInvertible() {
+        return getNumerator().compareTo(BigInteger.ZERO) != 0;
+    }
+
+    @Override
+    public boolean isUnit() {
+        return getNumerator().compareTo(BigInteger.ONE) == 0;
+    }
+
+    @Override
     public boolean isDyadic() {
         return BigIntegerMath.isPowerOfTwo(getDenominator());
     }
@@ -100,6 +108,49 @@ public final class BigFraction extends
     @Override
     public int getSignum() {
         return getNumerator().signum() * getDenominator().signum();
+    }
+
+    @Override
+    public @NotNull BigFraction add(final @NotNull BigFraction summand) {
+        requireNonNull(summand, "summand");
+        final var num =
+            summand.getDenominator().multiply(getNumerator())
+                .add(getDenominator().multiply(summand.getNumerator()));
+        final var den = getDenominator().multiply(summand.getDenominator());
+        return new BigFraction(num, den);
+    }
+
+    @Override
+    public @NotNull BigFraction subtract(final @NotNull BigFraction subtrahend) {
+        requireNonNull(subtrahend, "subtrahend");
+        final var num = subtrahend.getDenominator().multiply(getNumerator())
+            .subtract(getDenominator().multiply(subtrahend.getNumerator()));
+        final var den = getDenominator().multiply(subtrahend.getDenominator());
+        return new BigFraction(num, den);
+    }
+
+    @Override
+    public @NotNull BigFraction multiply(final @NotNull BigFraction factor) {
+        requireNonNull(factor, "factor");
+        return new BigFraction(
+            getNumerator().multiply(factor.getNumerator()),
+            getDenominator().multiply(factor.getDenominator())
+        );
+    }
+
+    @Override
+    public @NotNull BigFraction negate() {
+        return new BigFraction(getNumerator().negate(), getDenominator());
+    }
+
+    @Override
+    public @NotNull BigFraction abs() {
+        return new BigFraction(getNumerator().abs(), getDenominator().abs());
+    }
+
+    @Override
+    public @NotNull BigFraction expand(final @NotNull BigInteger number) {
+        return new BigFraction(number.multiply(getNumerator()), number.multiply(getDenominator()));
     }
 
     @Override
@@ -140,11 +191,6 @@ public final class BigFraction extends
     @Override
     public int compareTo(final @NotNull BigFraction o) {
         return BigFractionComparator.INSTANCE.compare(this, o);
-    }
-
-    @Override
-    protected @NotNull QuotientField<@NotNull BigInteger, @NotNull BigDecimal, @NotNull BigInteger> getQuotientField() {
-        return BigIntegerQuotientField.INSTANCE;
     }
 
     @Override

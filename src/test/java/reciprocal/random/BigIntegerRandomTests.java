@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,20 +19,20 @@ final class BigIntegerRandomTests {
     private BigIntegerRandom bigIntegerRandom;
 
     @Mock
-    private Random random;
+    private SecureRandom secureRandom;
 
     @Test
     void next_should_return_next_number() {
-        when(random.nextLong()).thenReturn(1L);
+        when(secureRandom.nextLong()).thenReturn(1L);
 
         final var actual = bigIntegerRandom.next();
 
-        verify(random).nextLong();
+        verify(secureRandom).nextLong();
         assertThat(actual).isOne();
     }
 
     @AfterEach
     void tearDown() {
-        verifyNoMoreInteractions(random);
+        verifyNoMoreInteractions(secureRandom);
     }
 }

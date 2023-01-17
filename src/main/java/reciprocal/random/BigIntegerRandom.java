@@ -3,7 +3,7 @@ package reciprocal.random;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import java.math.BigInteger;
-import java.util.Random;
+import java.security.SecureRandom;
 import java.util.stream.Stream;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
@@ -28,60 +28,62 @@ public final class BigIntegerRandom extends AbstractRandom<@NotNull BigInteger> 
      * Constructor
      *
      * @param seed seed
+     * @throws NullPointerException when {@code seed == null}
      * @since 0.0.1
      */
-    public BigIntegerRandom(final long seed) {
+    public BigIntegerRandom(final byte[] seed) {
         super(seed);
     }
 
     /**
      * Constructor
      *
-     * @param random {@link Random}
+     * @param secureRandom {@link SecureRandom}
+     * @throws NullPointerException when {@code secureRandom == null}
      * @since 0.0.1
      */
-    BigIntegerRandom(final @NotNull Random random) {
-        super(random);
+    BigIntegerRandom(final @NotNull SecureRandom secureRandom) {
+        super(secureRandom);
     }
 
     @Override
     public @NotNull BigInteger next() {
-        return BigInteger.valueOf(getRandom().nextLong());
+        return BigInteger.valueOf(getSecureRandom().nextLong());
     }
 
     @Override
     public @NotNull BigInteger next(final long bound) {
         checkArgument(bound > 0, "expected bound > 0 but bound = %s", bound);
-        return BigInteger.valueOf(getRandom().nextLong(bound));
+        return BigInteger.valueOf(getSecureRandom().nextLong(bound));
     }
 
     @Override
     public @NotNull BigInteger next(final long origin, final long bound) {
         checkArgument(bound > 0, "expected origin < bound but %s >= %s", origin, bound);
-        return BigInteger.valueOf(getRandom().nextLong(origin, bound));
+        return BigInteger.valueOf(getSecureRandom().nextLong(origin, bound));
     }
 
     @Override
     public @NotNull Stream<@NotNull BigInteger> numbers() {
-        return getRandom().longs().boxed().map(BigInteger::valueOf);
+        return getSecureRandom().longs().boxed().map(BigInteger::valueOf);
     }
 
     @Override
     public @NotNull Stream<@NotNull BigInteger> numbers(final long limit) {
         checkArgument(limit > -1, "expected limit > -1 but limit = %s", limit);
-        return getRandom().longs(limit).boxed().map(BigInteger::valueOf);
+        return getSecureRandom().longs(limit).boxed().map(BigInteger::valueOf);
     }
 
     @Override
     public @NotNull Stream<@NotNull BigInteger> numbers(final long origin, final long bound) {
         checkArgument(bound > 0, "expected origin < bound but %s >= %s", origin, bound);
-        return getRandom().longs(origin, bound).boxed().map(BigInteger::valueOf);
+        return getSecureRandom().longs(origin, bound).boxed().map(BigInteger::valueOf);
     }
 
     @Override
     public @NotNull Stream<@NotNull BigInteger> numbers(final long limit, final long origin, final long bound) {
         checkArgument(limit > -1, "expected limit > -1 but limit = %s", limit);
         checkArgument(bound > 0, "expected origin < bound but %s >= %s", origin, bound);
-        return getRandom().longs(limit, origin, bound).boxed().map(BigInteger::valueOf);
+        return getSecureRandom().longs(limit, origin, bound).boxed().map(BigInteger::valueOf);
     }
 }

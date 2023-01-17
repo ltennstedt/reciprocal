@@ -11,7 +11,6 @@ import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import reciprocal.linear.field.QuotientField;
 
 /**
  * Base class for fractions
@@ -61,9 +60,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @return {@link Boolean}
      * @since 0.0.1
      */
-    public final boolean isInvertible() {
-        return !getQuotientField().getEqualityByComparing().test(numerator, getQuotientField().getZero());
-    }
+    public abstract boolean isInvertible();
 
     /**
      * Indicates if this is not invertible
@@ -81,9 +78,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @return {@link Boolean}
      * @since 0.0.1
      */
-    public final boolean isUnit() {
-        return getQuotientField().getEqualityByComparing().test(numerator, getQuotientField().getOne());
-    }
+    public abstract boolean isUnit();
 
     /**
      * Indicates if this is not a unit
@@ -165,14 +160,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code summand == null}
      * @since 0.0.1
      */
-    public final @NotNull T add(final @NotNull T summand) {
-        requireNonNull(summand, "summand");
-        final var num = getQuotientField().getAddition().apply(
-            getQuotientField().getMultiplication().apply(summand.getDenominator(), numerator),
-            getQuotientField().getMultiplication().apply(denominator, summand.getNumerator()));
-        final var den = getQuotientField().getMultiplication().apply(denominator, summand.getDenominator());
-        return getConstructor().apply(num, den);
-    }
+    public abstract @NotNull T add(@NotNull T summand);
 
     /**
      * Returns the difference of this and the subtrahend
@@ -182,14 +170,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code subtrahend == null}
      * @since 0.0.1
      */
-    public final @NotNull T subtract(final @NotNull T subtrahend) {
-        requireNonNull(subtrahend, "subtrahend");
-        final var num = getQuotientField().getSubtraction().apply(
-            getQuotientField().getMultiplication().apply(subtrahend.getDenominator(), numerator),
-            getQuotientField().getMultiplication().apply(denominator, subtrahend.getNumerator()));
-        final var den = getQuotientField().getMultiplication().apply(denominator, subtrahend.getDenominator());
-        return getConstructor().apply(num, den);
-    }
+    public abstract @NotNull T subtract(@NotNull T subtrahend);
 
     /**
      * Returns the product of this and the factor
@@ -199,12 +180,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @throws NullPointerException when {@code factor == null}
      * @since 0.0.1
      */
-    public final @NotNull T multiply(final @NotNull T factor) {
-        requireNonNull(factor, "factor");
-        final var num = getQuotientField().getMultiplication().apply(numerator, factor.getNumerator());
-        final var den = getQuotientField().getMultiplication().apply(denominator, factor.getDenominator());
-        return getConstructor().apply(num, den);
-    }
+    public abstract @NotNull T multiply(@NotNull T factor);
 
     /**
      * Returns the quotient of this and the divisor
@@ -242,9 +218,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @return negated
      * @since 0.0.1
      */
-    public final @NotNull T negate() {
-        return getConstructor().apply(getQuotientField().getNegation().apply(numerator), denominator);
-    }
+    public abstract @NotNull T negate();
 
     /**
      * Returns the inverted
@@ -264,11 +238,17 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @return absolute value
      * @since 0.0.1
      */
-    public final @NotNull T abs() {
-        final var num = getQuotientField().getAbsOperator().apply(numerator);
-        final var den = getQuotientField().getAbsOperator().apply(denominator);
-        return getConstructor().apply(num, den);
-    }
+    public abstract @NotNull T abs();
+
+    /**
+     * Returns the expanded fraction
+     *
+     * @param number number
+     * @return expanded
+     * @throws NullPointerException when {@code number == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T expand(@NotNull N number);
 
     /**
      * Returns if this is less than or equal to other
@@ -384,21 +364,6 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NotNull T reduce();
 
     /**
-     * Returns this expanded by number
-     *
-     * @param number number
-     * @return expanded
-     * @throws NullPointerException when {@code number == null}
-     * @since 0.0.1
-     */
-    public final @NotNull T expand(final @NotNull N number) {
-        requireNonNull(number, "number");
-        final var num = getQuotientField().getMultiplication().apply(number, numerator);
-        final var den = getQuotientField().getMultiplication().apply(number, denominator);
-        return getConstructor().apply(num, den);
-    }
-
-    /**
      * Returns if this is equivalent to other
      *
      * @param other other
@@ -438,14 +403,6 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public final double doubleValue() {
         return toBigDecimal().doubleValue();
     }
-
-    /**
-     * Quotient field
-     *
-     * @return quotient field
-     * @since 0.0.1
-     */
-    protected abstract @NotNull QuotientField<@NotNull N, @NotNull Q, @NotNull N> getQuotientField();
 
     /**
      * 1

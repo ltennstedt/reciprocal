@@ -2,6 +2,8 @@ package reciprocal.random;
 
 import static java.util.Objects.requireNonNull;
 
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Stream;
 import org.apiguardian.api.API;
@@ -21,7 +23,7 @@ public abstract class AbstractRandom<N extends Number> {
      *
      * @since 0.0.1
      */
-    private final @NotNull Random random;
+    private final @NotNull SecureRandom secureRandom;
 
     /**
      * Constructor
@@ -29,28 +31,30 @@ public abstract class AbstractRandom<N extends Number> {
      * @since 0.0.1
      */
     protected AbstractRandom() {
-        random = new Random();
+        secureRandom = new SecureRandom();
     }
 
     /**
      * Constructor
      *
      * @param seed seed
+     * @throws NullPointerException when {@code seed == null}
      * @since 0.0.1
      */
-    protected AbstractRandom(final long seed) {
-        random = new Random(seed);
+    protected AbstractRandom(final byte[] seed) {
+        requireNonNull(seed, "seed");
+        secureRandom = new SecureRandom(Arrays.copyOf(seed, seed.length));
     }
 
     /**
      * Constructor
      *
-     * @param random {@link Random}
-     * @throws NullPointerException if {@code random == null}
+     * @param secureRandom {@link SecureRandom}
+     * @throws NullPointerException if {@code secureRandom == null}
      * @since 0.0.1
      */
-    protected AbstractRandom(final @NotNull Random random) {
-        this.random = requireNonNull(random, "random");
+    protected AbstractRandom(final @NotNull SecureRandom secureRandom) {
+        this.secureRandom = requireNonNull(secureRandom, "secureRandom");
     }
 
     /**
@@ -125,13 +129,13 @@ public abstract class AbstractRandom<N extends Number> {
     public abstract @NotNull Stream<@NotNull N> numbers(long limit, long origin, long bound);
 
     /**
-     * {@link Random}
+     * {@link SecureRandom}
      *
-     * @return {@link Random}
+     * @return {@link SecureRandom}
      * @since 0.0.1
      */
-    protected final @NotNull Random getRandom() {
-        return random;
+    protected @NotNull SecureRandom getSecureRandom() {
+        return secureRandom;
     }
 
     @Override

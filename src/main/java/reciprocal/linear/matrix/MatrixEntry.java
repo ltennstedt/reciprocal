@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NotNull E element) implements Serializable {
-
     @Serial
     private static final long serialVersionUID = 1L;
 

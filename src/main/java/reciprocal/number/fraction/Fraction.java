@@ -14,8 +14,6 @@ import java.util.function.BiFunction;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
-import reciprocal.linear.field.LongQuotientField;
-import reciprocal.linear.field.QuotientField;
 import reciprocal.number.complex.Complex;
 
 /**
@@ -69,6 +67,16 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
+    public boolean isInvertible() {
+        return getNumerator() != 0L;
+    }
+
+    @Override
+    public boolean isUnit() {
+        return getNumerator() == 1L;
+    }
+
+    @Override
     public boolean isDyadic() {
         return LongMath.isPowerOfTwo(getDenominator());
     }
@@ -94,6 +102,44 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
             return -1;
         }
         return 1;
+    }
+
+    @Override
+    public @NotNull Fraction add(final @NotNull Fraction summand) {
+        requireNonNull(summand, "summand");
+        final var num = summand.getDenominator() * getNumerator() + getDenominator() * summand.getNumerator();
+        final var den = getDenominator() * summand.getDenominator();
+        return new Fraction(num, den);
+    }
+
+    @Override
+    public @NotNull Fraction subtract(final @NotNull Fraction subtrahend) {
+        requireNonNull(subtrahend, "subtrahend");
+        final var num = subtrahend.getDenominator() * getNumerator() - getDenominator() * subtrahend.getNumerator();
+        final var den = getDenominator() * subtrahend.getDenominator();
+        return new Fraction(num, den);
+    }
+
+    @Override
+    public @NotNull Fraction multiply(final @NotNull Fraction factor) {
+        requireNonNull(factor, "factor");
+        return new Fraction(getNumerator() * factor.getNumerator(), getDenominator() * factor.getDenominator());
+    }
+
+    @Override
+    public @NotNull Fraction negate() {
+        return new Fraction(-getNumerator(), getDenominator());
+    }
+
+    @Override
+    public @NotNull Fraction abs() {
+        return new Fraction(Math.abs(getNumerator()), Math.abs(getDenominator()));
+    }
+
+    @Override
+    public @NotNull Fraction expand(final @NotNull Long number) {
+        requireNonNull(number, "number");
+        return new Fraction(number * getNumerator(), number * getDenominator());
     }
 
     @Override
@@ -151,23 +197,18 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
-    public int compareTo(final @NotNull Fraction o) {
-        return FractionComparator.INSTANCE.compare(this, o);
-    }
-
-    @Override
-    protected @NotNull QuotientField<@NotNull Long, @NotNull Double, @NotNull Long> getQuotientField() {
-        return LongQuotientField.INSTANCE;
-    }
-
-    @Override
     protected @NotNull Fraction getOne() {
         return ONE;
     }
 
     @Override
-    protected @NotNull BiFunction<Long, Long, Fraction> getConstructor() {
+    protected @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Fraction> getConstructor() {
         return Fraction::new;
+    }
+
+    @Override
+    public int compareTo(final @NotNull Fraction o) {
+        return FractionComparator.INSTANCE.compare(this, o);
     }
 
     /**
