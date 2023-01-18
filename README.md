@@ -14,7 +14,8 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=ltennstedt_reciprocal&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=ltennstedt_reciprocal)
 
 reciprocal is a free software library for the [JVM](https://www.java.com/) which provides or will provide
-implementations of fractions, complex numbers, vectors, matrices and polynomials and their arithmetic.
+implementations of fractions, complex numbers, vectors, matrices, polynomials and geomtric shapes and their arithmetic
+and properties.
 
 What reciprocal will provide:
 
@@ -36,7 +37,8 @@ What reciprocal will not provide:
 
 ## Building
 
-A JDK in version 17 and [Maven](https://maven.apache.org) in version 3.8 is needed to build this project.
+A [JDK](https://adoptium.net/) in version 17 and [Maven](https://maven.apache.org) in version 3.8 is needed to
+build this project.
 
 ```shell script
 mvn install
