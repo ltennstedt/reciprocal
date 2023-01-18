@@ -1,13 +1,13 @@
 package reciprocal.linear.vector;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.Validate.noNullElements;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,10 +42,14 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     protected AbstractVector(final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries) {
-        noNullElements(entries, "expected all elements in entries not to be null but entries = %s", entries);
+        noNullElements(entries, "all elements in entries expected not to be null but entries = %s", entries);
         final List<Integer> expectedIndices = Stream.iterate(1, i -> i + 1).limit(getSize()).toList();
-        checkArgument(getIndices().equals(expectedIndices), "expected indices == expectedIndices but %s != %s",
-            getIndices(), expectedIndices);
+        checkArgument(
+            getIndices().equals(expectedIndices),
+            "indices == expectedIndices expected but %s != %s",
+            getIndices(),
+            expectedIndices
+        );
         this.entries = List.copyOf(entries.stream().sorted().toList());
     }
 
@@ -237,7 +241,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     public final @NotNull E get(final int index) {
-        checkArgument(index > 0 && index <= getSize(), "expected 0 < index <= %s but index = %s", getSize(), index);
+        checkArgument(index > 0 && index <= getSize(), "0 < index <= %s expected but index = %s", getSize(), index);
         return entries.get(index).element();
     }
 
@@ -256,7 +260,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
 
     @Override
     public final int hashCode() {
-        return Objects.hash(entries);
+        return hash(entries);
     }
 
     @Override

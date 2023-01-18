@@ -1,10 +1,11 @@
 package reciprocal.polynomial;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.hash;
 import static org.apache.commons.lang3.Validate.noNullElements;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +27,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      *
      * @param coefficients coefficients
      * @throws NullPointerException when {@code coefficients == null}
-     * @throws IllegalArgumentException when {@code coefficent == null} for one coefficient in coefficients
+     * @throws IllegalArgumentException when {@code coefficient == null} for one coefficient in coefficients
      * @since 0.0.1
      */
     protected AbstractPolynomial(final @NotNull List<@NotNull N> coefficients) {
@@ -92,7 +93,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
     }
 
     /**
-     * Indicates if {@code this} isquartic
+     * Indicates if {@code this} is quartic
      *
      * @return {@link Boolean}
      * @since 0.0.1
@@ -129,12 +130,12 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @since 0.0.1
      */
     public @NotNull List<@NotNull N> getCoefficients() {
-        return coefficients;
+        return Collections.unmodifiableList(coefficients);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(coefficients);
+        return hash(coefficients);
     }
 
     @Override
@@ -151,6 +152,6 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "{coefficients=" + coefficients + '}';
+        return getClass().getSimpleName() + "{coefficients=" + coefficients + "}";
     }
 }

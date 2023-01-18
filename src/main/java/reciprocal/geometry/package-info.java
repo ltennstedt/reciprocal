@@ -1,5 +1,5 @@
 /**
- * Geometry shapes like circles and rectangle
+ * Geometric shapes
  *
  * @since 0.0.1
  */

@@ -13,7 +13,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable implementation of a Gaussian integer which uses {@link Long} as
+ * Immutable implementation of a Gaussian integer that uses {@link Long} as
  * type for its real and imaginary part
  *
  * @since 0.0.1
@@ -119,7 +119,7 @@ public final class Gaussian extends AbstractComplex<@NotNull Long, @NotNull Gaus
     @Override
     public @NotNull Complex divide(final @NotNull Gaussian divisor) {
         requireNonNull(divisor, "divisor");
-        checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
+        checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
         final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);
         final var re = (getReal() + divisor.getReal() + getImaginary() * divisor.getImaginary()) / den;
         final var im = (getImaginary() * divisor.getReal() - getReal() * divisor.getImaginary()) / den;

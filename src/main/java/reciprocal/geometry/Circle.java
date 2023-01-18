@@ -11,7 +11,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable implementation of a circle which uses {@link Double} as type for
+ * Immutable implementation of a circle that uses {@link Double} as type for
  * its radius
  *
  * @since 0.0.1
@@ -54,7 +54,7 @@ public final class Circle extends AbstractCircle<Double, Circle> {
     }
 
     /**
-     * Comparator which rejects null
+     * Comparator
      *
      * @since 0.0.1
      */

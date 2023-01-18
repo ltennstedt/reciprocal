@@ -56,7 +56,7 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
     }
 
     /**
-     * Comparator which rejects null
+     * Comparator
      *
      * @since 0.0.1
      */

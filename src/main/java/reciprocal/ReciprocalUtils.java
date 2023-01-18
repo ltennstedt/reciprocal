@@ -6,7 +6,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Class for global constants
+ * Global constants
  *
  * @since 0.0.1
  */

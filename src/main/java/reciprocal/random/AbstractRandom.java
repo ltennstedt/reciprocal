@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.stream.Stream;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
@@ -13,13 +12,13 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Base class for pseudorandom number generators
  *
- * @param <N> type of number
+ * @param <N> {@link Number}
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractRandom<N extends Number> {
     /**
-     * {@link Random}
+     * {@link SecureRandom}
      *
      * @since 0.0.1
      */
@@ -58,7 +57,7 @@ public abstract class AbstractRandom<N extends Number> {
     }
 
     /**
-     * Returns the next number
+     * Returns the next pseudorandom number
      *
      * @return next number
      * @since 0.0.1
@@ -66,7 +65,7 @@ public abstract class AbstractRandom<N extends Number> {
     public abstract @NotNull N next();
 
     /**
-     * Returns the next number
+     * Returns the next pseudorandom number
      *
      * @param bound bound
      * @return next number
@@ -76,7 +75,7 @@ public abstract class AbstractRandom<N extends Number> {
     public abstract @NotNull N next(long bound);
 
     /**
-     * Returns the next number
+     * Returns the next pseudorandom number
      *
      * @param origin origin
      * @param bound bound
@@ -134,12 +133,12 @@ public abstract class AbstractRandom<N extends Number> {
      * @return {@link SecureRandom}
      * @since 0.0.1
      */
-    protected @NotNull SecureRandom getSecureRandom() {
+    protected final @NotNull SecureRandom getSecureRandom() {
         return secureRandom;
     }
 
     @Override
     public final @NotNull String toString() {
-        return "AbstractRandom{random=random}";
+        return getClass().getSimpleName() + "{secureRandom=" + secureRandom + "}";
     }
 }

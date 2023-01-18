@@ -30,10 +30,12 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
      */
     public BigRectangle(final @NotNull BigDecimal length, final @NotNull BigDecimal width) {
         super(length, width);
-        checkArgument(length.compareTo(BigDecimal.ZERO) > 0, "length expected to be greater than 0 but length = %s",
-            length);
-        checkArgument(width.compareTo(BigDecimal.ZERO) > 0, "width expected to be greater than 0 but width = %s",
-            width);
+        checkArgument(
+            length.compareTo(BigDecimal.ZERO) > 0, "length expected to be greater than 0 but length = %s", length
+        );
+        checkArgument(
+            width.compareTo(BigDecimal.ZERO) > 0, "width expected to be greater than 0 but width = %s", width
+        );
     }
 
     @Override

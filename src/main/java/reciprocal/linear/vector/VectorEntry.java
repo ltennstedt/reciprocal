@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Entry for vectors
  *
- * @param <E> type of element
+ * @param <E> element
  * @param index index
  * @param element element
  * @since 0.0.1
@@ -29,7 +29,7 @@ public record VectorEntry<E extends Number>(int index, @NotNull E element) imple
      * @since 0.0.1
      */
     public VectorEntry {
-        checkArgument(index > 0, "expected index > 0 but index = %s", index);
+        checkArgument(index > 0, "index > 0 expected but index = %s", index);
         requireNonNull(element, "element");
     }
 
@@ -42,7 +42,7 @@ public record VectorEntry<E extends Number>(int index, @NotNull E element) imple
      * @since 0.0.1
      */
     public @NotNull VectorEntry<@NotNull E> withIndex(final int newIndex) {
-        checkArgument(newIndex > 0, "expected newIndex > 0 but newIndex = %s", newIndex);
+        checkArgument(newIndex > 0, "newIndex > 0 expected but newIndex = %s", newIndex);
         return new VectorEntry<>(newIndex, element);
     }
 

@@ -8,7 +8,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable data class holding a scale and a MathContext
+ * Context
  *
  * @param scale scale
  * @param mathContext {@link MathContext}

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.Complex;
 
 /**
- * Immutable implementation of a fraction which uses {@link Long} as type for
+ * Immutable implementation of a fraction that uses {@link Long} as type for
  * its numerator and denominator
  * <p>
  * The returned Fractions of most methods are neither normalized nor reduced.
@@ -212,7 +212,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     /**
-     * Comparator which rejects null
+     * Comparator
      *
      * @since 0.0.1
      */

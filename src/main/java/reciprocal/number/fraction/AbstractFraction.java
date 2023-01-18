@@ -1,11 +1,11 @@
 package reciprocal.number.fraction;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.function.BiFunction;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @param <N> {@link Number}
  * @param <T> {@link AbstractFraction}
- * @param <Q> type of quotient of N
+ * @param <Q> quotient
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
@@ -492,7 +492,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
 
     @Override
     public final int hashCode() {
-        return Objects.hash(numerator, denominator);
+        return hash(numerator, denominator);
     }
 
     @Override
@@ -509,6 +509,6 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
 
     @Override
     public final @NotNull String toString() {
-        return getClass().getSimpleName() + "(numerator=" + numerator + ", denominator=" + denominator + ")";
+        return getClass().getSimpleName() + "{numerator=" + numerator + ", denominator=" + denominator + "}";
     }
 }

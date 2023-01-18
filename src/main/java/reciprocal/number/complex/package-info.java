@@ -1,5 +1,5 @@
 /**
- * Complex and Gaussian numbers and polar form
+ * Complex and Gaussian numbers and polar forms
  *
  * @since 0.0.1
  */

@@ -14,7 +14,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable implementation of a Gaussian integer which uses {@link BigInteger}
+ * Immutable implementation of a Gaussian integer that uses {@link BigInteger}
  * as type for its real and imaginary part
  *
  * @since 0.0.1
@@ -123,7 +123,7 @@ public final class BigGaussian extends AbstractComplex<@NotNull BigInteger, @Not
     @Override
     public @NotNull BigComplex divide(final @NotNull BigGaussian divisor) {
         requireNonNull(divisor, "divisor");
-        checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
+        checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
         final var den = new BigDecimal(divisor.getReal().pow(2).add(divisor.getImaginary().pow(2)));
         final var re = new BigDecimal(
             getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary())))

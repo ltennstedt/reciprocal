@@ -1,10 +1,10 @@
 package reciprocal.number.complex;
 
+import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Base class for polar forms
  *
- * @param <N> type of number
- * @param <T> type of this
+ * @param <N> number
+ * @param <T> this
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
@@ -95,7 +95,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
 
     @Override
     public final int hashCode() {
-        return Objects.hash(radial, angular);
+        return hash(radial, angular);
     }
 
     @Override
@@ -112,6 +112,6 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
 
     @Override
     public final @NotNull String toString() {
-        return getClass().getSimpleName() + "(radial=" + radial + ", angular=" + angular + ")";
+        return getClass().getSimpleName() + "{radial=" + radial + ", angular=" + angular + "}";
     }
 }

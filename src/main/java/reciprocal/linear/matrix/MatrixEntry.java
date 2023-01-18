@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Entry for matrices
  *
- * @param <E> type of element
+ * @param <E> element
  * @param rowIndex row index
  * @param columnIndex column index
  * @param element element
@@ -32,8 +32,8 @@ public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NotN
      * @since 0.0.1
      */
     public MatrixEntry {
-        checkArgument(rowIndex > 0, "expected rowIndex > 0 but rowIndex = %s", rowIndex);
-        checkArgument(columnIndex > 0, "expected columnIndex > 0 but columnIndex = %s", columnIndex);
+        checkArgument(rowIndex > 0, "rowIndex > 0 expected but rowIndex = %s", rowIndex);
+        checkArgument(columnIndex > 0, "columnIndex > 0 expected but columnIndex = %s", columnIndex);
         requireNonNull(element, "element");
     }
 }

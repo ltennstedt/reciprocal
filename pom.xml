@@ -206,6 +206,11 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${plugin.surefire.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
@@ -269,6 +274,23 @@
                             <report>dependency-updates-report</report>
                             <report>plugin-updates-report</report>
                             <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <version>2.3</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <version>2.12.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>github-report</report>
                         </reports>
                     </reportSet>
                 </reportSets>
@@ -360,6 +382,11 @@
         <system>GitHub</system>
         <url>https://github.com/ltennstedt/reciprocal/actions</url>
     </ciManagement>
+    <scm>
+        <connection>scm:git:https://github.com/ltennstedt/reciprocal.git</connection>
+        <developerConnection>scm:git:https://github.com/ltennstedt/reciprocal.git</developerConnection>
+        <url>scm:git:https://github.com/ltennstedt/reciprocal.git</url>
+    </scm>
     <distributionManagement>
         <repository>
             <id>github</id>

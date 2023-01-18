@@ -1,10 +1,10 @@
 package reciprocal.geometry;
 
+import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Base class for circles
  *
- * @param <N> type of the number
- * @param <C> type of the circle
+ * @param <N> number
+ * @param <C> circle
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
@@ -77,7 +77,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
 
     @Override
     public final int hashCode() {
-        return Objects.hash(radius);
+        return hash(radius);
     }
 
     @Override
@@ -94,6 +94,6 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
 
     @Override
     public final @NotNull String toString() {
-        return getClass().getSimpleName() + "(radius=" + radius + ")";
+        return getClass().getSimpleName() + "{radius=" + radius + "}";
     }
 }

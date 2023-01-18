@@ -8,7 +8,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable implementation of the polar form of a complex number which uses
+ * Immutable implementation of the polar form of a complex number that uses
  * {@link Double} as type for its coordinates
  *
  * @since 0.0.1

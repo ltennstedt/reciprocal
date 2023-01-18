@@ -1,11 +1,11 @@
 package reciprocal.number.complex;
 
+import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Objects;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
@@ -14,11 +14,11 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Base class for complex numbers
  *
- * @param <N> type of number
- * @param <T> type of this
- * @param <Q> type of quotient
- * @param <A> type of absolute value
- * @param <P> type of polar form
+ * @param <N> {@link Number}
+ * @param <T> {@link AbstractComplex}
+ * @param <Q> quotient
+ * @param <A> absolute value
+ * @param <P> {@link AbstractPolarForm}
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
@@ -310,7 +310,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
 
     @Override
     public final int hashCode() {
-        return Objects.hash(real, imaginary);
+        return hash(real, imaginary);
     }
 
     @Override
@@ -327,6 +327,6 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
 
     @Override
     public final @NotNull String toString() {
-        return getClass().getSimpleName() + "(real=" + real + ", imaginary=" + imaginary + ")";
+        return getClass().getSimpleName() + "{real=" + real + ", imaginary=" + imaginary + "}";
     }
 }

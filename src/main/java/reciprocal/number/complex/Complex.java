@@ -11,7 +11,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable implementation of a complex number which uses {@link Double} as
+ * Immutable implementation of a complex number that uses {@link Double} as
  * type for its real and imaginary part
  *
  * @since 0.0.1

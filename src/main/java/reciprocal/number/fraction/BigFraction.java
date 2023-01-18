@@ -17,7 +17,7 @@ import org.apiguardian.api.API.Status;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Immutable implementation of a fraction which uses {@link BigFraction} as type
+ * Immutable implementation of a fraction that uses {@link BigFraction} as type
  * for its numerator and denominator
  * <p>
  * The returned Fractions of most methods are neither normalized nor reduced.
@@ -46,8 +46,10 @@ public final class BigFraction extends
      *
      * @since 0.0.1
      */
-    public static final Stream<BigFraction> UNITS = Stream.iterate(ONE,
-        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
+    public static final Stream<BigFraction> UNITS = Stream.iterate(
+        ONE,
+        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE))
+    );
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -77,7 +79,7 @@ public final class BigFraction extends
     public BigFraction(final @NotNull BigInteger numerator, final @NotNull BigInteger denominator) {
         super(numerator, denominator);
         checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
-            "denominator expected not to be 0 but denominator=%s", denominator);
+            "denominator expected not to be 0 but denominator = %s", denominator);
     }
 
     @Override
@@ -204,7 +206,7 @@ public final class BigFraction extends
     }
 
     /**
-     * Comparator which rejects null
+     * Comparator
      *
      * @since 0.0.1
      */
