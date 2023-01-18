@@ -24,8 +24,8 @@ What reciprocal will provide:
 * Polynomials
 * Circles and rectangles
 * Pseudorandom number generators
-* [Kotlin](https://kotlinlang.org/) module (separate JAR)
-* [Scala](https://scala-lang.org/) module (separate JAR)
+* [Kotlin](https://kotlinlang.org/) module
+* [Scala](https://scala-lang.org/) module
 * Custom assertions for [AssertJ](https://assertj.github.io/doc/)
 * Custom matchers for [Kotest](https://kotest.io/)
 
@@ -41,6 +41,12 @@ A JDK in version 17 and [Maven](https://maven.apache.org) in version 3.8 is need
 ```shell script
 mvn install
 ```
+
+## Development
+
+I recommend the Community Edition of [IntelliJ IDEA](https://www.jetbrains.com/) for this project because of the
+support of [Java](https://www.java.com/), [Groovy](https://groovy-lang.org/), [Kotlin](https://www.kotlinlang.org/) and
+[Scala](https://scala-lang.org/).
 
 ## Implementation details
 
@@ -97,7 +103,8 @@ class Class {
   [JaCoCo](https://www.jacoco.org/jacoco/) and [SonarCloud](https://sonarcloud.io/)
 * Stay up-to-date with versions of libraries and plugins
 * Object-oriented design with functional abstraction
-* Being [Kotlin](https://www.kotlinlang.org/) and [Groovy](https://groovy-lang.org/) friendly
+* Being [Groovy](https://groovy-lang.org/), [Kotlin](https://www.kotlinlang.org/) and [Scala](https://scala-lang.org/)
+  friendly
 * Use nullability annotations as much as possible
 
 ## Links
