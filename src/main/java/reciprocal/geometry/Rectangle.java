@@ -1,6 +1,8 @@
 package reciprocal.geometry;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+import static reciprocal.precondition.RectanglePreconditions.checkLength;
+import static reciprocal.precondition.RectanglePreconditions.checkWidth;
 
 import java.io.Serial;
 import org.jetbrains.annotations.NotNull;
@@ -26,8 +28,8 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
      */
     public Rectangle(final double length, final double width) {
         super(length, width);
-        checkArgument(length > 0.0D, "length > 0 expected but length = %s", length);
-        checkArgument(width > 0.0D, "width > 0 expected but width = %s", width);
+        checkLength(length > 0.0D, length);
+        checkWidth(width > 0.0D, width);
     }
 
     @Override
@@ -43,5 +45,19 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
     @Override
     public @NotNull Double getDiagonal() {
         return Math.sqrt(Math.pow(getLength(), 2.0D) + Math.pow(getWidth(), 2.0D));
+    }
+
+    @Override
+    public @NotNull Rectangle widthLength(final @NotNull Double newLength) {
+        requireNonNull(newLength, "newLength");
+        checkLength(newLength > 0.0D, newLength);
+        return new Rectangle(newLength, getWidth());
+    }
+
+    @Override
+    public @NotNull Rectangle widthWidth(final @NotNull Double newWidth) {
+        requireNonNull(newWidth, "newWidth");
+        checkWidth(newWidth > 0.0D, newWidth);
+        return new Rectangle(getLength(), newWidth);
     }
 }

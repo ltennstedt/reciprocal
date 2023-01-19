@@ -75,6 +75,28 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
     public abstract @NotNull N getDiagonal();
 
     /**
+     * Returns a copy with new length
+     *
+     * @param newLength length
+     * @return copy
+     * @throws NullPointerException when {@code newLength == null}
+     * @throws IllegalArgumentException when {@code newLength <= 0}
+     * @since 0.0.1
+     */
+    public abstract @NotNull R widthLength(@NotNull N newLength);
+
+    /**
+     * Returns a copy with new width
+     *
+     * @param newWidth width
+     * @return copy
+     * @throws NullPointerException when {@code newWidth == null}
+     * @throws IllegalArgumentException when {@code newWidth <= 0}
+     * @since 0.0.1
+     */
+    public abstract @NotNull R widthWidth(@NotNull N newWidth);
+
+    /**
      * Length
      *
      * @return length

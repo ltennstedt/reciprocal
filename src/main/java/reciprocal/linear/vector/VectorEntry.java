@@ -36,7 +36,7 @@ public record VectorEntry<E extends Number>(int index, @NotNull E element) imple
     /**
      * Returns a copy with new index
      *
-     * @param newIndex new index
+     * @param newIndex index
      * @return copy
      * @throws IllegalArgumentException when {@code newIndex < 1}
      * @since 0.0.1
@@ -49,7 +49,7 @@ public record VectorEntry<E extends Number>(int index, @NotNull E element) imple
     /**
      * Returns a copy with new element
      *
-     * @param newElement new element
+     * @param newElement element
      * @return copy
      * @throws NullPointerException when {@code newElement == null}
      * @since 0.0.1

@@ -1,7 +1,7 @@
 package reciprocal.geometry;
 
-import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
+import static reciprocal.precondition.CirclePreconditions.checkRadius;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
      */
     public BigCircle(final @NotNull BigDecimal radius) {
         super(radius);
-        checkArgument(radius.compareTo(BigDecimal.ZERO) > 0, "radius > 0 expected but radius = %s", radius);
+        checkRadius(radius.compareTo(BigDecimal.ZERO) > 0, radius);
     }
 
     @Override
