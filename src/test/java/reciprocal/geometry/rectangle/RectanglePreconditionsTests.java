@@ -48,9 +48,8 @@ final class RectanglePreconditionsTests {
 
     @Test
     void checkNewWidth_should_throw_Exception_when_b_is_false() {
-        assertThatThrownBy(() -> checkNewWidth(false, 0))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("newWidth > 0 expected but newWidth = 0")
-            .hasNoCause();
+        assertThatThrownBy(() -> checkNewWidth(false, 0)).isExactlyInstanceOf(IllegalArgumentException.class)
+            .hasMessage("newWidth > 0 expected but newWidth = 0").hasNoCause();
     }
 
     @Test

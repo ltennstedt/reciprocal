@@ -48,7 +48,7 @@ mvn install
 
 I recommend the Community Edition of [IntelliJ IDEA](https://www.jetbrains.com/) for this project because of the
 support of [Java](https://www.java.com/), [Groovy](https://groovy-lang.org/), [Kotlin](https://www.kotlinlang.org/) and
-[Scala](https://scala-lang.org/).
+[Scala](https://scala-lang.org/). Configuration files are located in the config directory.
 
 ## Implementation details
 

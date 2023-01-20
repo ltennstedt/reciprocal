@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 final class MatrixPreconditionsTests {
     @Test
     void checkRowIndex_should_throw_Exception_when_rowIndex_is_0() {
-        assertThatThrownBy(() -> checkRowIndex(0))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("rowIndex > 0 expected but rowIndex = 0")
-            .hasNoCause();
+        assertThatThrownBy(() -> checkRowIndex(0)).isExactlyInstanceOf(IllegalArgumentException.class)
+            .hasMessage("rowIndex > 0 expected but rowIndex = 0").hasNoCause();
     }
 
     @Test
@@ -22,10 +21,8 @@ final class MatrixPreconditionsTests {
 
     @Test
     void checkColumnIndex_should_throw_Exception_when_columnIndex_is_0() {
-        assertThatThrownBy(() -> checkColumnIndex(0))
-            .isExactlyInstanceOf(IllegalArgumentException.class)
-            .hasMessage("columnIndex > 0 expected but columnIndex = 0")
-            .hasNoCause();
+        assertThatThrownBy(() -> checkColumnIndex(0)).isExactlyInstanceOf(IllegalArgumentException.class)
+            .hasMessage("columnIndex > 0 expected but columnIndex = 0").hasNoCause();
     }
 
     @Test

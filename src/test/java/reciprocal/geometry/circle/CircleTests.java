@@ -27,8 +27,8 @@ final class CircleTests {
 
     @Test
     void compareTo_should_throw_Exception_when_o_is_null() {
-        assertThatThrownBy(() -> new Circle(1.0D).compareTo(null)).isExactlyInstanceOf(
-            NullPointerException.class).hasMessage("o").hasNoCause();
+        assertThatThrownBy(() -> new Circle(1.0D).compareTo(null))
+            .isExactlyInstanceOf(NullPointerException.class).hasMessage("o").hasNoCause();
     }
 
     @Test

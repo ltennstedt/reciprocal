@@ -34,8 +34,8 @@ final class BigCircleTests {
 
     @Test
     void compareTo_should_throw_Exception_when_o_is_null() {
-        assertThatThrownBy(() -> new BigCircle(BigDecimal.ONE).compareTo(null)).isExactlyInstanceOf(
-            NullPointerException.class).hasMessage("o").hasNoCause();
+        assertThatThrownBy(() -> new BigCircle(BigDecimal.ONE).compareTo(null))
+            .isExactlyInstanceOf(NullPointerException.class).hasMessage("o").hasNoCause();
     }
 
     @Test
