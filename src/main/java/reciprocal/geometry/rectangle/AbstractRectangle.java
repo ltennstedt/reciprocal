@@ -1,4 +1,4 @@
-package reciprocal.geometry;
+package reciprocal.geometry.rectangle;
 
 import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
@@ -83,7 +83,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @throws IllegalArgumentException when {@code newLength <= 0}
      * @since 0.0.1
      */
-    public abstract @NotNull R widthLength(@NotNull N newLength);
+    public abstract @NotNull R withLength(@NotNull N newLength);
 
     /**
      * Returns a copy with new width
@@ -94,7 +94,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @throws IllegalArgumentException when {@code newWidth <= 0}
      * @since 0.0.1
      */
-    public abstract @NotNull R widthWidth(@NotNull N newWidth);
+    public abstract @NotNull R withWidth(@NotNull N newWidth);
 
     /**
      * Length

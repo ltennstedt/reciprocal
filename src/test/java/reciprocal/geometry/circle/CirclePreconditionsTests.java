@@ -1,18 +1,12 @@
-package reciprocal.precondition;
+package reciprocal.geometry.circle;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static reciprocal.precondition.CirclePreconditions.checkRadius;
+import static reciprocal.geometry.circle.CirclePreconditions.checkRadius;
 
 import org.junit.jupiter.api.Test;
 
 final class CirclePreconditionsTests {
-    @Test
-    void checkRadius_should_throw_Exception_when_radius_is_null() {
-        assertThatThrownBy(() -> checkRadius(true, null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("radius").hasNoCause();
-    }
-
     @Test
     void checkRadius_should_throw_Exception_when_b_is_false() {
         assertThatThrownBy(() -> checkRadius(false, 0))

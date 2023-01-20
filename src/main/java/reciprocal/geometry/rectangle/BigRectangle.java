@@ -1,8 +1,10 @@
-package reciprocal.geometry;
+package reciprocal.geometry.rectangle;
 
 import static java.util.Objects.requireNonNull;
-import static reciprocal.precondition.RectanglePreconditions.checkLength;
-import static reciprocal.precondition.RectanglePreconditions.checkWidth;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkLength;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewLength;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewWidth;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkWidth;
 
 import java.io.Serial;
 import java.math.BigDecimal;
@@ -51,17 +53,30 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
         return getLength().pow(2).add(getWidth().pow(2)).sqrt(MathContext.DECIMAL128);
     }
 
+    /**
+     * Returns diagonal
+     *
+     * @param mathContext {@link MathContext}
+     * @return diagonal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigDecimal getDiagonal(final @NotNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return getLength().pow(2).add(getWidth().pow(2)).sqrt(mathContext);
+    }
+
     @Override
-    public @NotNull BigRectangle widthLength(final @NotNull BigDecimal newLength) {
+    public @NotNull BigRectangle withLength(final @NotNull BigDecimal newLength) {
         requireNonNull(newLength, "newLength");
-        checkLength(newLength.compareTo(BigDecimal.ZERO) > 0, newLength);
+        checkNewLength(newLength.compareTo(BigDecimal.ZERO) > 0, newLength);
         return new BigRectangle(newLength, getWidth());
     }
 
     @Override
-    public @NotNull BigRectangle widthWidth(final @NotNull BigDecimal newWidth) {
+    public @NotNull BigRectangle withWidth(final @NotNull BigDecimal newWidth) {
         requireNonNull(newWidth, "newWidth");
-        checkWidth(newWidth.compareTo(BigDecimal.ZERO) > 0, newWidth);
+        checkNewWidth(newWidth.compareTo(BigDecimal.ZERO) > 0, newWidth);
         return new BigRectangle(getLength(), newWidth);
     }
 }

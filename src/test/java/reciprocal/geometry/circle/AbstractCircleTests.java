@@ -1,4 +1,4 @@
-package reciprocal.geometry;
+package reciprocal.geometry.circle;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

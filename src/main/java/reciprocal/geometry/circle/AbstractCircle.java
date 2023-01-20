@@ -1,4 +1,4 @@
-package reciprocal.geometry;
+package reciprocal.geometry.circle;
 
 import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;

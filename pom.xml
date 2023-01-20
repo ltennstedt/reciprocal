@@ -367,8 +367,6 @@
             <id>ltennstedt</id>
             <name>Lars Tennstedt</name>
             <roles>
-                <role>owner</role>
-                <role>architect</role>
                 <role>developer</role>
             </roles>
             <timezone>Europe/Berlin</timezone>
@@ -385,7 +383,7 @@
     <scm>
         <connection>scm:git:https://github.com/ltennstedt/reciprocal.git</connection>
         <developerConnection>scm:git:https://github.com/ltennstedt/reciprocal.git</developerConnection>
-        <url>scm:git:https://github.com/ltennstedt/reciprocal.git</url>
+        <url>https://github.com/ltennstedt/reciprocal</url>
     </scm>
     <distributionManagement>
         <repository>

@@ -1,8 +1,10 @@
-package reciprocal.geometry;
+package reciprocal.geometry.rectangle;
 
 import static java.util.Objects.requireNonNull;
-import static reciprocal.precondition.RectanglePreconditions.checkLength;
-import static reciprocal.precondition.RectanglePreconditions.checkWidth;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkLength;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewLength;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewWidth;
+import static reciprocal.geometry.rectangle.RectanglePreconditions.checkWidth;
 
 import java.io.Serial;
 import org.jetbrains.annotations.NotNull;
@@ -48,16 +50,16 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
     }
 
     @Override
-    public @NotNull Rectangle widthLength(final @NotNull Double newLength) {
+    public @NotNull Rectangle withLength(final @NotNull Double newLength) {
         requireNonNull(newLength, "newLength");
-        checkLength(newLength > 0.0D, newLength);
+        checkNewLength(newLength > 0.0D, newLength);
         return new Rectangle(newLength, getWidth());
     }
 
     @Override
-    public @NotNull Rectangle widthWidth(final @NotNull Double newWidth) {
+    public @NotNull Rectangle withWidth(final @NotNull Double newWidth) {
         requireNonNull(newWidth, "newWidth");
-        checkWidth(newWidth > 0.0D, newWidth);
+        checkNewWidth(newWidth > 0.0D, newWidth);
         return new Rectangle(getLength(), newWidth);
     }
 }

@@ -1,7 +1,7 @@
-package reciprocal.geometry;
+package reciprocal.geometry.circle;
 
 import static java.util.Objects.requireNonNull;
-import static reciprocal.precondition.CirclePreconditions.checkRadius;
+import static reciprocal.geometry.circle.CirclePreconditions.checkRadius;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -50,6 +50,7 @@ public final class Circle extends AbstractCircle<Double, Circle> {
 
     @Override
     public int compareTo(final @NotNull Circle o) {
+        requireNonNull(o, "o");
         return CircleComparator.INSTANCE.compare(this, o);
     }
 
