@@ -1,7 +1,7 @@
 package reciprocal.number.fraction;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +16,8 @@ final class FractionTests {
 
     @Test
     void required_arguments_constructor_should_throw_an_Exception_when_denominator_is_0() {
-        assertThatThrownBy(() -> new Fraction(1L, 0L)).isExactlyInstanceOf(IllegalArgumentException.class)
-            .hasMessage("denominator expected not to be 0 but denominator = 0").hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new Fraction(1L, 0L))
+            .withMessage("denominator expected not to be 0 but denominator = 0").withNoCause();
     }
 
     @Test

@@ -1,7 +1,8 @@
 package reciprocal.geometry.rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -10,16 +11,14 @@ import org.junit.jupiter.api.Test;
 final class BigRectangleTests {
     @Test
     void constructor_should_throw_Exception_when_length_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ZERO, BigDecimal.ONE))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("length > 0 expected but length = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new BigRectangle(BigDecimal.ZERO, BigDecimal.ONE))
+            .withMessage("length > 0 expected but length = 0").withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_width_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ZERO))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("width > 0 expected but width = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ZERO))
+            .withMessage("width > 0 expected but width = 0").withNoCause();
     }
 
     @Test
@@ -46,8 +45,10 @@ final class BigRectangleTests {
 
     @Test
     void getDiagonal_should_throw_Exception_when_mathContext_is_null() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).getDiagonal(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("mathContext").hasNoCause();
+        assertThatNullPointerException()
+            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).getDiagonal(null))
+            .withMessage("mathContext")
+            .withNoCause();
     }
 
     @Test
@@ -58,15 +59,17 @@ final class BigRectangleTests {
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_null() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("newLength").hasNoCause();
+        assertThatNullPointerException()
+            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(null))
+            .withMessage("newLength")
+            .withNoCause();
     }
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(BigDecimal.ZERO))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("newLength > 0 expected but newLength = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException()
+            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(BigDecimal.ZERO))
+            .withMessage("newLength > 0 expected but newLength = 0").withNoCause();
     }
 
     @Test
@@ -77,15 +80,16 @@ final class BigRectangleTests {
 
     @Test
     void withWidth_should_throw_Exception_when_newWidth_is_null() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("newWidth").hasNoCause();
+        assertThatNullPointerException()
+            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(null)).withMessage("newWidth")
+            .withNoCause();
     }
 
     @Test
     void withWidth_should_throw_Exception_when_newWidth_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(BigDecimal.ZERO))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("newWidth > 0 expected but newWidth = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException()
+            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(BigDecimal.ZERO))
+            .withMessage("newWidth > 0 expected but newWidth = 0").withNoCause();
     }
 
     @Test

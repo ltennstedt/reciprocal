@@ -43,7 +43,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      */
     protected AbstractVector(final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries) {
         noNullElements(entries, "all elements in entries expected not to be null but entries = %s", entries);
-        final List<Integer> expectedIndices = Stream.iterate(1, i -> i + 1).limit(getSize()).toList();
+        final var expectedIndices = Stream.iterate(1, i -> i + 1).limit(getSize()).toList();
         checkArgument(
             getIndices().equals(expectedIndices),
             "indices == expectedIndices expected but %s != %s",

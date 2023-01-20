@@ -1,7 +1,7 @@
 package reciprocal.geometry.circle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Nested;
@@ -11,8 +11,7 @@ import reciprocal.geometry.circle.BigCircle.BigCircleComparator;
 final class BigCircleTests {
     @Test
     void constructor_should_throw_Exception_when_radius_is_null() {
-        assertThatThrownBy(() -> new BigCircle(null)).isExactlyInstanceOf(NullPointerException.class)
-            .hasMessage("radius").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new BigCircle(null)).withMessage("radius").withNoCause();
     }
 
     @Test
@@ -34,8 +33,8 @@ final class BigCircleTests {
 
     @Test
     void compareTo_should_throw_Exception_when_o_is_null() {
-        assertThatThrownBy(() -> new BigCircle(BigDecimal.ONE).compareTo(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("o").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new BigCircle(BigDecimal.ONE).compareTo(null))
+            .withMessage("o").withNoCause();
     }
 
     @Test
@@ -57,14 +56,16 @@ final class BigCircleTests {
     final class BigCircleComparatorTests {
         @Test
         void compare_should_throw_Exception_when_o1_is_null() {
-            assertThatThrownBy(() -> BigCircleComparator.INSTANCE.compare(null, null))
-                .isExactlyInstanceOf(NullPointerException.class).hasMessage("o1").hasNoCause();
+            assertThatNullPointerException().isThrownBy(() -> BigCircleComparator.INSTANCE.compare(null, null))
+                .withMessage("o1").withNoCause();
         }
 
         @Test
         void compare_should_throw_Exception_when_o2_is_null() {
-            assertThatThrownBy(() -> BigCircleComparator.INSTANCE.compare(new BigCircle(BigDecimal.ONE), null))
-                .isExactlyInstanceOf(NullPointerException.class).hasMessage("o2").hasNoCause();
+            assertThatNullPointerException()
+                .isThrownBy(() -> BigCircleComparator.INSTANCE.compare(new BigCircle(BigDecimal.ONE), null))
+                .withMessage("o2")
+                .withNoCause();
         }
     }
 }

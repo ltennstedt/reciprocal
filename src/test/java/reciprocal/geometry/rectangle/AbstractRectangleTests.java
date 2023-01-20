@@ -2,7 +2,7 @@ package reciprocal.geometry.rectangle;
 
 import static java.util.Objects.hash;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
@@ -10,14 +10,14 @@ import org.junit.jupiter.api.Test;
 final class AbstractRectangleTests {
     @Test
     void constructor_should_throw_Exception_when_length_is_null() {
-        assertThatThrownBy(() -> new BigRectangle(null, null)).isExactlyInstanceOf(NullPointerException.class)
-            .hasMessage("length").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new BigRectangle(null, null)).withMessage("length")
+            .withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_width_is_null() {
-        assertThatThrownBy(() -> new BigRectangle(BigDecimal.ONE, null)).isExactlyInstanceOf(NullPointerException.class)
-            .hasMessage("width").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new BigRectangle(BigDecimal.ONE, null)).withMessage("width")
+            .withNoCause();
     }
 
     @Test

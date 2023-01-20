@@ -1,7 +1,7 @@
 package reciprocal.geometry.rectangle;
 
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static reciprocal.geometry.rectangle.RectanglePreconditions.checkLength;
 import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewLength;
 import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewWidth;
@@ -12,48 +12,45 @@ import org.junit.jupiter.api.Test;
 final class RectanglePreconditionsTests {
     @Test
     void checkLength_should_throw_Exception_when_b_is_false() {
-        assertThatThrownBy(() -> checkLength(false, 0))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("length > 0 expected but length = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> checkLength(false, 0))
+            .withMessage("length > 0 expected but length = 0").withNoCause();
     }
 
     @Test
     void checkLength_should_not_throw_Exception_when_b_is_true() {
-        assertThatCode(() -> checkLength(true, 1)).doesNotThrowAnyException();
+        assertThatNoException().isThrownBy(() -> checkLength(true, 1));
     }
 
     @Test
     void checkWidth_should_throw_Exception_when_b_is_false() {
-        assertThatThrownBy(() -> checkWidth(false, 0))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("width > 0 expected but width = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> checkWidth(false, 0))
+            .withMessage("width > 0 expected but width = 0").withNoCause();
     }
 
     @Test
     void checkWidth_should_not_throw_Exception_when_b_is_true() {
-        assertThatCode(() -> checkWidth(true, 1)).doesNotThrowAnyException();
+        assertThatNoException().isThrownBy(() -> checkWidth(true, 1));
     }
 
     @Test
     void checkNewLength_should_throw_Exception_when_b_is_false() {
-        assertThatThrownBy(() -> checkNewLength(false, 0))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("newLength > 0 expected but newLength = 0")
-            .hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> checkNewLength(false, 0))
+            .withMessage("newLength > 0 expected but newLength = 0").withNoCause();
     }
 
     @Test
     void checkNewLength_should_not_throw_Exception_when_b_is_true() {
-        assertThatCode(() -> checkNewLength(true, 1)).doesNotThrowAnyException();
+        assertThatNoException().isThrownBy(() -> checkNewLength(true, 1));
     }
 
     @Test
     void checkNewWidth_should_throw_Exception_when_b_is_false() {
-        assertThatThrownBy(() -> checkNewWidth(false, 0)).isExactlyInstanceOf(IllegalArgumentException.class)
-            .hasMessage("newWidth > 0 expected but newWidth = 0").hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> checkNewWidth(false, 0))
+            .withMessage("newWidth > 0 expected but newWidth = 0").withNoCause();
     }
 
     @Test
     void checkNewWidth_should_not_throw_Exception_when_b_is_true() {
-        assertThatCode(() -> checkNewWidth(true, 1)).doesNotThrowAnyException();
+        assertThatNoException().isThrownBy(() -> checkNewWidth(true, 1));
     }
 }

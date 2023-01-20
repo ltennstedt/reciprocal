@@ -1,21 +1,22 @@
 package reciprocal.geometry.rectangle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import org.junit.jupiter.api.Test;
 
 final class RectangleTests {
     @Test
     void constructor_should_throw_Exception_when_length_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new Rectangle(0.0D, 1.0D)).isExactlyInstanceOf(IllegalArgumentException.class)
-            .hasMessage("length > 0 expected but length = 0.0").hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new Rectangle(0.0D, 1.0D))
+            .withMessage("length > 0 expected but length = 0.0").withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_width_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new Rectangle(1.0D, 0.0D)).isExactlyInstanceOf(IllegalArgumentException.class)
-            .hasMessage("width > 0 expected but width = 0.0").hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new Rectangle(1.0D, 0.0D))
+            .withMessage("width > 0 expected but width = 0.0").withNoCause();
     }
 
     @Test
@@ -40,15 +41,14 @@ final class RectangleTests {
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_null() {
-        assertThatThrownBy(() -> new Rectangle(1.0D, 1.0D).withLength(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("newLength").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new Rectangle(1.0D, 1.0D).withLength(null))
+            .withMessage("newLength").withNoCause();
     }
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new Rectangle(1.0D, 1.0D).withLength(0.0D))
-            .isExactlyInstanceOf(IllegalArgumentException.class)
-            .hasMessage("newLength > 0 expected but newLength = 0.0").hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new Rectangle(1.0D, 1.0D).withLength(0.0D))
+            .withMessage("newLength > 0 expected but newLength = 0.0").withNoCause();
     }
 
     @Test
@@ -58,15 +58,14 @@ final class RectangleTests {
 
     @Test
     void withWidth_should_throw_Exception_when_newWidth_is_null() {
-        assertThatThrownBy(() -> new Rectangle(1.0D, 1.0D).withWidth(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("newWidth").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new Rectangle(1.0D, 1.0D).withWidth(null))
+            .withMessage("newWidth").withNoCause();
     }
 
     @Test
     void withWidth_should_throw_Exception_when_newWidth_is_less_than_or_equal_to_0() {
-        assertThatThrownBy(() -> new Rectangle(1.0D, 1.0D).withWidth(0.0D))
-            .isExactlyInstanceOf(IllegalArgumentException.class).hasMessage("newWidth > 0 expected but newWidth = 0.0")
-            .hasNoCause();
+        assertThatIllegalArgumentException().isThrownBy(() -> new Rectangle(1.0D, 1.0D).withWidth(0.0D))
+            .withMessage("newWidth > 0 expected but newWidth = 0.0").withNoCause();
     }
 
     @Test

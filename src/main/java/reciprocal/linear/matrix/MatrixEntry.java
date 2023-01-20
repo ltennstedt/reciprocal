@@ -2,6 +2,8 @@ package reciprocal.linear.matrix;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
+import static reciprocal.linear.matrix.MatrixPreconditions.checkColumnIndex;
+import static reciprocal.linear.matrix.MatrixPreconditions.checkRowIndex;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -32,8 +34,8 @@ public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NotN
      * @since 0.0.1
      */
     public MatrixEntry {
-        checkArgument(rowIndex > 0, "rowIndex > 0 expected but rowIndex = %s", rowIndex);
-        checkArgument(columnIndex > 0, "columnIndex > 0 expected but columnIndex = %s", columnIndex);
+        checkRowIndex(rowIndex);
+        checkColumnIndex(columnIndex);
         requireNonNull(element, "element");
     }
 

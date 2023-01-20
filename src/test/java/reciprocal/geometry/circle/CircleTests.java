@@ -1,7 +1,7 @@
 package reciprocal.geometry.circle;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -15,20 +15,18 @@ final class CircleTests {
 
     @Test
     void getCircumference_should_return_circumference() {
-        assertThat(new Circle(1.0D).getCircumference())
-            .isEqualByComparingTo(6.283185307179586D);
+        assertThat(new Circle(1.0D).getCircumference()).isEqualByComparingTo(6.283185307179586D);
     }
 
     @Test
     void getArea_should_return_area() {
-        assertThat(new Circle(1.0D).getArea())
-            .isEqualByComparingTo(3.141592653589793D);
+        assertThat(new Circle(1.0D).getArea()).isEqualByComparingTo(3.141592653589793D);
     }
 
     @Test
     void compareTo_should_throw_Exception_when_o_is_null() {
-        assertThatThrownBy(() -> new Circle(1.0D).compareTo(null))
-            .isExactlyInstanceOf(NullPointerException.class).hasMessage("o").hasNoCause();
+        assertThatNullPointerException().isThrownBy(() -> new Circle(1.0D).compareTo(null)).withMessage("o")
+            .withNoCause();
     }
 
     @Test
@@ -50,14 +48,14 @@ final class CircleTests {
     final class CircleComparatorTests {
         @Test
         void compare_should_throw_Exception_when_o1_is_null() {
-            assertThatThrownBy(() -> CircleComparator.INSTANCE.compare(null, null))
-                .isExactlyInstanceOf(NullPointerException.class).hasMessage("o1").hasNoCause();
+            assertThatNullPointerException().isThrownBy(() -> CircleComparator.INSTANCE.compare(null, null))
+                .withMessage("o1").withNoCause();
         }
 
         @Test
         void compare_should_throw_Exception_when_o2_is_null() {
-            assertThatThrownBy(() -> CircleComparator.INSTANCE.compare(new Circle(1.0D), null))
-                .isExactlyInstanceOf(NullPointerException.class).hasMessage("o2").hasNoCause();
+            assertThatNullPointerException().isThrownBy(() -> CircleComparator.INSTANCE.compare(new Circle(1.0D), null))
+                .withMessage("o2").withNoCause();
         }
     }
 }
