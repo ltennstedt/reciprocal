@@ -317,14 +317,14 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          *
          * @param size size
          * @throws IllegalArgumentException when {@code size < 1}
-         * @throws NullPointerException when {@code computationForAbsent == null}
+         * @throws NullPointerException when {@code computationOfAbsentees == null}
          * @since 0.0.1
          */
         protected AbstractVectorBuilder(final int size, final @NonNull IntFunction<@NonNull E> computationOfAbsentees) {
             checkArgument(size > 0, "size > 0 expected but size = %s", size);
             this.size = size;
             entries = new ArrayList<>(size);
-            this.computationOfAbsentees = requireNonNull(computationOfAbsentees, "computationForAbsent");
+            this.computationOfAbsentees = requireNonNull(computationOfAbsentees, "computationOfAbsentees");
         }
 
         /**
@@ -338,7 +338,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @throws NullPointerException when {@code element == null}
          * @since 0.0.1
          */
-        public final @NonNull B put(final int index, final @NonNull E element) {
+        public final @NonNull B set(final int index, final @NonNull E element) {
             checkArgument(index > 0 && index <= size, "0 < index <= size expected but index = %s", index);
             checkArgument(entries.stream().map(VectorEntry::index).noneMatch(i -> i == index), "index already exists");
             requireNonNull(element, "element");
@@ -347,14 +347,16 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         }
 
         /**
-         * Sets computation for absent
+         * Sets computation of absentees
          *
-         * @param newComputationForAbsent computation for absent
+         * @param newComputationOfAbsentees computation of absentees
          * @return {@code this}
          * @since 0.0.1
          */
-        public final @NonNull B computationForAbsent(final @NonNull IntFunction<@NonNull E> newComputationForAbsent) {
-            computationOfAbsentees = requireNonNull(newComputationForAbsent, "newComputationForAbsent");
+        public final @NonNull B computationOfAbsentees(
+                final @NonNull IntFunction<@NonNull E> newComputationOfAbsentees
+        ) {
+            computationOfAbsentees = requireNonNull(newComputationOfAbsentees, "newComputationOfAbsentees");
             return (B) this;
         }
 
@@ -388,11 +390,6 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
             return computationOfAbsentees;
         }
 
-        @Override
-        public final @NonNull String toString() {
-            return getClass().getSimpleName() + "{size=" + size + ", entries=" + entries + "}";
-        }
-
         /**
          * Computes and returns entries
          *
@@ -405,6 +402,11 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
                             getEntries().stream().filter(e -> e.index() == i).findAny()
                                     .orElse(new VectorEntry<>(i, getComputationOfAbsentees().apply(i)))
                     ).toList();
+        }
+
+        @Override
+        public final @NonNull String toString() {
+            return getClass().getSimpleName() + "{size=" + size + ", entries=" + entries + "}";
         }
     }
 }

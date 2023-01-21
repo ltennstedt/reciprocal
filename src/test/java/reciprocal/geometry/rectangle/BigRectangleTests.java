@@ -12,13 +12,13 @@ final class BigRectangleTests {
     @Test
     void constructor_should_throw_Exception_when_length_is_less_than_or_equal_to_0() {
         assertThatIllegalArgumentException().isThrownBy(() -> new BigRectangle(BigDecimal.ZERO, BigDecimal.ONE))
-            .withMessage("length > 0 expected but length = 0").withNoCause();
+                .withMessage("length > 0 expected but length = 0").withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_width_is_less_than_or_equal_to_0() {
         assertThatIllegalArgumentException().isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ZERO))
-            .withMessage("width > 0 expected but width = 0").withNoCause();
+                .withMessage("width > 0 expected but width = 0").withNoCause();
     }
 
     @Test
@@ -34,67 +34,68 @@ final class BigRectangleTests {
     @Test
     void getPerimeter_should_return_perimeter() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN).getPerimeter())
-            .isEqualByComparingTo(BigDecimal.valueOf(22L));
+                .isEqualByComparingTo(BigDecimal.valueOf(22L));
     }
 
     @Test
     void getDiagonal_should_return_diagonal() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN).getDiagonal())
-            .isEqualByComparingTo(new BigDecimal("10.04987562112089027021926491275958"));
+                .isEqualByComparingTo(new BigDecimal("10.04987562112089027021926491275958"));
     }
 
     @Test
     void getDiagonal_should_throw_Exception_when_mathContext_is_null() {
         assertThatNullPointerException()
-            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).getDiagonal(null))
-            .withMessage("mathContext")
-            .withNoCause();
+                .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).getDiagonal(null))
+                .withMessage("mathContext")
+                .withNoCause();
     }
 
     @Test
     void getDiagonal_with_MathContext_should_return_diagonal() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN).getDiagonal(MathContext.DECIMAL32))
-            .isEqualByComparingTo(new BigDecimal("10.04988"));
+                .isEqualByComparingTo(new BigDecimal("10.04988"));
     }
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_null() {
         assertThatNullPointerException()
-            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(null))
-            .withMessage("newLength")
-            .withNoCause();
+                .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(null))
+                .withMessage("newLength")
+                .withNoCause();
     }
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_less_than_or_equal_to_0() {
         assertThatIllegalArgumentException()
-            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(BigDecimal.ZERO))
-            .withMessage("newLength > 0 expected but newLength = 0").withNoCause();
+                .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(BigDecimal.ZERO))
+                .withMessage("newLength > 0 expected but newLength = 0").withNoCause();
     }
 
     @Test
     void withLength_should_return_copy_with_new_length() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(BigDecimal.TEN))
-            .isEqualTo(new BigRectangle(BigDecimal.TEN, BigDecimal.ONE));
+                .isEqualTo(new BigRectangle(BigDecimal.TEN, BigDecimal.ONE));
     }
 
     @Test
     void withWidth_should_throw_Exception_when_newWidth_is_null() {
         assertThatNullPointerException()
-            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(null)).withMessage("newWidth")
-            .withNoCause();
+                .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(null))
+                .withMessage("newWidth")
+                .withNoCause();
     }
 
     @Test
     void withWidth_should_throw_Exception_when_newWidth_is_less_than_or_equal_to_0() {
         assertThatIllegalArgumentException()
-            .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(BigDecimal.ZERO))
-            .withMessage("newWidth > 0 expected but newWidth = 0").withNoCause();
+                .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(BigDecimal.ZERO))
+                .withMessage("newWidth > 0 expected but newWidth = 0").withNoCause();
     }
 
     @Test
     void withWidth_should_return_copy_with_new_width() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(BigDecimal.TEN))
-            .isEqualTo(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN));
+                .isEqualTo(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN));
     }
 }

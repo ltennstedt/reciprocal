@@ -13,7 +13,7 @@ final class RectanglePreconditionsTests {
     @Test
     void checkLength_should_throw_Exception_when_b_is_false() {
         assertThatIllegalArgumentException().isThrownBy(() -> checkLength(false, 0))
-            .withMessage("length > 0 expected but length = 0").withNoCause();
+                .withMessage("length > 0 expected but length = 0").withNoCause();
     }
 
     @Test
@@ -24,7 +24,7 @@ final class RectanglePreconditionsTests {
     @Test
     void checkWidth_should_throw_Exception_when_b_is_false() {
         assertThatIllegalArgumentException().isThrownBy(() -> checkWidth(false, 0))
-            .withMessage("width > 0 expected but width = 0").withNoCause();
+                .withMessage("width > 0 expected but width = 0").withNoCause();
     }
 
     @Test
@@ -35,7 +35,7 @@ final class RectanglePreconditionsTests {
     @Test
     void checkNewLength_should_throw_Exception_when_b_is_false() {
         assertThatIllegalArgumentException().isThrownBy(() -> checkNewLength(false, 0))
-            .withMessage("newLength > 0 expected but newLength = 0").withNoCause();
+                .withMessage("newLength > 0 expected but newLength = 0").withNoCause();
     }
 
     @Test
@@ -46,7 +46,7 @@ final class RectanglePreconditionsTests {
     @Test
     void checkNewWidth_should_throw_Exception_when_b_is_false() {
         assertThatIllegalArgumentException().isThrownBy(() -> checkNewWidth(false, 0))
-            .withMessage("newWidth > 0 expected but newWidth = 0").withNoCause();
+                .withMessage("newWidth > 0 expected but newWidth = 0").withNoCause();
     }
 
     @Test

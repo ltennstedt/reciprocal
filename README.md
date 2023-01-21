@@ -75,10 +75,10 @@ class Class {
         }
 
         // classic builders for vectors and matrices with a fluent API        
-        LongVector.ofSize(5)
-                .computationOfAbsent(i -> new SecureRandom().nextLong())
-                .set(2, 1L)
-                .set(4, 2L)
+        LongVector.ofSize(3)
+                .computationOfAbsentees(i -> new SecureRandom().nextLong()) // default: i -> 0L
+                .set(1, 1L)
+                .set(3, 2L)
                 .build();
     }
 }

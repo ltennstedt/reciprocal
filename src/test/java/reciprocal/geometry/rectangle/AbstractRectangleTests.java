@@ -11,13 +11,13 @@ final class AbstractRectangleTests {
     @Test
     void constructor_should_throw_Exception_when_length_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new BigRectangle(null, null)).withMessage("length")
-            .withNoCause();
+                .withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_width_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new BigRectangle(BigDecimal.ONE, null)).withMessage("width")
-            .withNoCause();
+                .withNoCause();
     }
 
     @Test

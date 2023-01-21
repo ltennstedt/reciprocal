@@ -26,7 +26,7 @@ final class CircleTests {
     @Test
     void compareTo_should_throw_Exception_when_o_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new Circle(1.0D).compareTo(null)).withMessage("o")
-            .withNoCause();
+                .withNoCause();
     }
 
     @Test
@@ -49,13 +49,13 @@ final class CircleTests {
         @Test
         void compare_should_throw_Exception_when_o1_is_null() {
             assertThatNullPointerException().isThrownBy(() -> CircleComparator.INSTANCE.compare(null, null))
-                .withMessage("o1").withNoCause();
+                    .withMessage("o1").withNoCause();
         }
 
         @Test
         void compare_should_throw_Exception_when_o2_is_null() {
             assertThatNullPointerException().isThrownBy(() -> CircleComparator.INSTANCE.compare(new Circle(1.0D), null))
-                .withMessage("o2").withNoCause();
+                    .withMessage("o2").withNoCause();
         }
     }
 }

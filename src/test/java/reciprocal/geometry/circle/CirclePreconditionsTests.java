@@ -10,7 +10,7 @@ final class CirclePreconditionsTests {
     @Test
     void checkRadius_should_throw_Exception_when_b_is_false() {
         assertThatIllegalArgumentException().isThrownBy(() -> checkRadius(false, 0))
-            .withMessage("radius > 0 expected but radius = 0").withNoCause();
+                .withMessage("radius > 0 expected but radius = 0").withNoCause();
     }
 
     @Test
