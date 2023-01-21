@@ -316,6 +316,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * Constructor
          *
          * @param size size
+         * @param computationOfAbsentees computation of absentees
          * @throws IllegalArgumentException when {@code size < 1}
          * @throws NullPointerException when {@code computationOfAbsentees == null}
          * @since 0.0.1
