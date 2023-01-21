@@ -7,8 +7,12 @@ import static org.apache.commons.lang3.Validate.noNullElements;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.IntFunction;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.builder.Builder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -278,5 +282,114 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     @Override
     public final @NotNull String toString() {
         return getClass().getSimpleName() + "{entries=" + entries + "}";
+    }
+
+    /**
+     * Builder for vectors
+     *
+     * @param <E> element
+     * @param <V> vector
+     * @param <B> builder
+     * @since 0.0.1
+     */
+    public abstract static class AbstractVectorBuilder
+        <E extends Number, V extends AbstractVector<E, V, ?>, B extends AbstractVectorBuilder<E, V, B>> implements
+        Builder<V> {
+        /**
+         * Size
+         *
+         * @since 0.0.1
+         */
+        private final int size;
+
+        /**
+         * Entries
+         *
+         * @since 0.0.1
+         */
+        private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
+
+        private @NotNull IntFunction<@NotNull E> computationForAbsent;
+
+        /**
+         * Constructor
+         *
+         * @param size size
+         * @throws IllegalArgumentException when {@code size < 1}
+         * @throws NullPointerException when {@code computationForAbsent == null}
+         * @since 0.0.1
+         */
+        protected AbstractVectorBuilder(final int size, final @NotNull IntFunction<@NotNull E> computationForAbsent) {
+            checkArgument(size > 0, "size > 0 expected but size = %s", size);
+            this.size = size;
+            entries = new ArrayList<>(size);
+            this.computationForAbsent = requireNonNull(computationForAbsent, "computationForAbsent");
+        }
+
+        /**
+         * Puts element on index
+         *
+         * @param index index
+         * @param element element
+         * @return {@code this}
+         * @throws IllegalArgumentException when {@code index < 1 || index > size}
+         * @throws IllegalArgumentException when index already exists
+         * @throws NullPointerException when {@code element == null}
+         * @since 0.0.1
+         */
+        public final @NotNull B put(final int index, final @NotNull E element) {
+            checkArgument(index > 0 && index <= size, "0 < index <= size expected but index = %s", index);
+            checkArgument(entries.stream().map(VectorEntry::index).noneMatch(i -> i == index), "index already exists");
+            requireNonNull(element, "element");
+            entries.add(new VectorEntry<>(index, element));
+            return (B) this;
+        }
+
+        /**
+         * Sets computation for absent
+         *
+         * @param newComputationForAbsent computation for absent
+         * @return {@code this}
+         * @since 0.0.1
+         */
+        public final @NotNull B computationForAbsent(final @NotNull IntFunction<@NotNull E> newComputationForAbsent) {
+            computationForAbsent = requireNonNull(newComputationForAbsent, "newComputationForAbsent");
+            return (B) this;
+        }
+
+        /**
+         * Size
+         *
+         * @return size
+         * @since 0.0.1
+         */
+        protected final int getSize() {
+            return size;
+        }
+
+        /**
+         * Entries
+         *
+         * @return entries
+         * @since 0.0.1
+         */
+        protected final @NotNull List<@NotNull VectorEntry<@NotNull E>> getEntries() {
+            return Collections.unmodifiableList(entries);
+        }
+
+        /**
+         * Computation for absent
+         *
+         * @return computation for absent
+         * @since 0.0.1
+         */
+        protected final @NotNull IntFunction<@NotNull E> getComputationForAbsent() {
+            return computationForAbsent;
+        }
+
+        @Override
+        public final @NotNull String toString() {
+            return getClass().getSimpleName() + "{size=" + size + ", entries=" + entries + "}";
+        }
     }
 }

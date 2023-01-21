@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.util.List;
+import java.util.stream.IntStream;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -27,6 +28,19 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
      */
     public LongVector(final @NotNull List<@NotNull VectorEntry<@NotNull Long>> entries) {
         super(entries);
+    }
+
+    /**
+     * Returns a {@link LongVectorBuilder}
+     *
+     * @param size size
+     * @return {@link LongVectorBuilder}
+     * @throws IllegalArgumentException when {@code size < 1}
+     * @since 0.0.1
+     */
+    public static LongVectorBuilder ofSize(final int size) {
+        checkArgument(size > 0, "size > 0 expected but size = %s", size);
+        return new LongVectorBuilder(size);
     }
 
     @Override
@@ -110,5 +124,33 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
     @Override
     public @NotNull Double maxNorm() {
         return getElements().stream().map(Math::abs).max(Long::compareTo).map(Long::doubleValue).orElseThrow();
+    }
+
+    /**
+     * Builder for {@link LongVector LongVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class LongVectorBuilder extends AbstractVectorBuilder<Long, LongVector, LongVectorBuilder> {
+        /**
+         * Constructor
+         *
+         * @param size size
+         * @throws IllegalArgumentException when {@code size < 1}
+         * @since 0.0.1
+         */
+        public LongVectorBuilder(final int size) {
+            super(size, i -> 0L);
+        }
+
+        @Override
+        public LongVector build() {
+            final var entries = IntStream.iterate(1, i -> i + 1).boxed().limit(getSize())
+                .map(i ->
+                    getEntries().stream().filter(e -> e.index() == i).findAny()
+                        .orElse(new VectorEntry<>(i, getComputationForAbsent().apply(i)))
+                ).toList();
+            return new LongVector(entries);
+        }
     }
 }
