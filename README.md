@@ -25,10 +25,9 @@ What reciprocal will provide:
 * Polynomials
 * Circles and rectangles
 * Pseudorandom number generators
-* [Kotlin](https://kotlinlang.org/) module
-* [Scala](https://scala-lang.org/) module
+* [Kotlin](https://kotlinlang.org/) module (separate repository)
+* [Scala](https://scala-lang.org/) module (separate repository)
 * Custom assertions for [AssertJ](https://assertj.github.io/doc/)
-* Custom matchers for [Kotest](https://kotest.io/)
 
 What reciprocal will not provide:
 
@@ -41,14 +40,8 @@ A [JDK](https://adoptium.net/) in version 17 and [Maven](https://maven.apache.or
 build this project.
 
 ```shell script
-mvn install
+mvn install site
 ```
-
-## Development
-
-I recommend the Community Edition of [IntelliJ IDEA](https://www.jetbrains.com/) for this project because of the
-support of [Java](https://www.java.com/), [Groovy](https://groovy-lang.org/), [Kotlin](https://www.kotlinlang.org/) and
-[Scala](https://scala-lang.org/). Configuration files are located in the config directory.
 
 ## Implementation details
 
@@ -93,16 +86,14 @@ class Class {
 
 ## Goals
 
-* Complete Javadoc, KDoc and ScalaDoc
+* Complete Javadoc
 * Clean code
 * High code quality with the help of [Checkstyle](https://checkstyle.org/), [PMD](https://pmd.github.io/),
-  [SpotBugs](https://spotbugs.github.io/), [detekt](https://detekt.dev/),
-  [ktlint](https://pinterest.github.io/ktlint/), [Scapegoat](https://github.com/scapegoat-scala/scapegoat),
-  [WartRemover](https://www.wartremover.org/), [SonarLint](https://www.sonarlint.org/) and
+  [SpotBugs](https://spotbugs.github.io/),  [SonarLint](https://www.sonarlint.org/) and
   [SonarCloud](https://sonarcloud.io/)
 * High code coverage with the help of [JUnit](https://junit.org/junit5/), [AssertJ](https://assertj.github.io/doc/),
-  [Mockito](https://site.mockito.org/), [Kotest](https://kotest.io/), [ScalaTest](https://www.scalatest.org/),
-  [JaCoCo](https://www.jacoco.org/jacoco/) and [SonarCloud](https://sonarcloud.io/)
+  [Mockito](https://site.mockito.org/), [JaCoCo](https://www.jacoco.org/jacoco/) and
+  [SonarCloud](https://sonarcloud.io/)
 * Stay up-to-date with versions of libraries and plugins
 * Object-oriented design with functional abstraction
 * Being [Groovy](https://groovy-lang.org/), [Kotlin](https://www.kotlinlang.org/) and [Scala](https://scala-lang.org/)
