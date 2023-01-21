@@ -16,17 +16,8 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructor
-     *
-     * @param entries entries
-     * @throws NullPointerException when {@code entries == null}
-     * @throws IllegalArgumentException when one element in entries is null
-     * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
-     * @since 0.0.1
-     */
-    public LongVector(final @NonNull List<@NonNull VectorEntry<@NonNull Long>> entries) {
-        super(entries);
+    LongVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull Long>> entries) {
+        super(size, entries);
     }
 
     /**
@@ -50,9 +41,8 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
                 getSize(),
                 summand.getSize()
         );
-        return new LongVector(
-                getEntries().stream().map(e -> e.withElement(e.element() + summand.get(e.index()))).toList()
-        );
+        return new LongVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element() + summand.get(e.index()))).toList());
     }
 
     @Override
@@ -64,9 +54,8 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
                 getSize(),
                 subtrahend.getSize()
         );
-        return new LongVector(
-                getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.get(e.index()))).toList()
-        );
+        return new LongVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.get(e.index()))).toList());
     }
 
     @Override
@@ -84,12 +73,12 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Override
     public @NonNull LongVector scalarMultiply(final @NonNull Long scalar) {
         requireNonNull(scalar, "scalar");
-        return new LongVector(getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
+        return new LongVector(getSize(), getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
     public @NonNull LongVector negate() {
-        return new LongVector(getEntries().stream().map(e -> e.withElement(-e.element())).toList());
+        return new LongVector(getSize(), getEntries().stream().map(e -> e.withElement(-e.element())).toList());
     }
 
     @Override
@@ -136,7 +125,7 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
 
         @Override
         public LongVector build() {
-            return new LongVector(computeEntries());
+            return new LongVector(getSize(), computeEntries());
         }
     }
 }

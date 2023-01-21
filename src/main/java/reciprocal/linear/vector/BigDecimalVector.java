@@ -19,17 +19,8 @@ public final class BigDecimalVector
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructor
-     *
-     * @param entries entries
-     * @throws NullPointerException when {@code entries == null}
-     * @throws IllegalArgumentException when one element in entries is null
-     * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
-     * @since 0.0.1
-     */
-    public BigDecimalVector(final @NonNull List<@NonNull VectorEntry<@NonNull BigDecimal>> entries) {
-        super(entries);
+    BigDecimalVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull BigDecimal>> entries) {
+        super(size, entries);
     }
 
     /**
@@ -53,9 +44,8 @@ public final class BigDecimalVector
                 getSize(),
                 summand.getSize()
         );
-        return new BigDecimalVector(
-                getEntries().stream().map(e -> e.withElement(e.element().add(summand.get(e.index())))).toList()
-        );
+        return new BigDecimalVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element().add(summand.get(e.index())))).toList());
     }
 
     @Override
@@ -70,10 +60,9 @@ public final class BigDecimalVector
                 getSize(),
                 summand.getSize()
         );
-        return new BigDecimalVector(
+        return new BigDecimalVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(e.element().add(summand.get(e.index()), mathContext)))
-                        .toList()
-        );
+                        .toList());
     }
 
     @Override
@@ -85,9 +74,9 @@ public final class BigDecimalVector
                 getSize(),
                 subtrahend.getSize()
         );
-        return new BigDecimalVector(
-                getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index())))).toList()
-        );
+        return new BigDecimalVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index()))))
+                        .toList());
     }
 
     @Override
@@ -102,11 +91,10 @@ public final class BigDecimalVector
                 getSize(),
                 subtrahend.getSize()
         );
-        return new BigDecimalVector(
+        return new BigDecimalVector(getSize(),
                 getEntries().stream()
                         .map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index()), mathContext)))
-                        .toList()
-        );
+                        .toList());
     }
 
     @Override
@@ -140,7 +128,7 @@ public final class BigDecimalVector
     @Override
     public @NonNull BigDecimalVector scalarMultiply(final @NonNull BigDecimal scalar) {
         requireNonNull(scalar, "scalar");
-        return new BigDecimalVector(
+        return new BigDecimalVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
     }
 
@@ -149,19 +137,20 @@ public final class BigDecimalVector
                                                     final @NonNull MathContext mathContext) {
         requireNonNull(scalar, "scalar");
         requireNonNull(mathContext, "mathContext");
-        return new BigDecimalVector(
+        return new BigDecimalVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element(), mathContext))).toList());
     }
 
     @Override
     public @NonNull BigDecimalVector negate() {
-        return new BigDecimalVector(getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
+        return new BigDecimalVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
     }
 
     @Override
     public @NonNull BigDecimalVector negate(final @NonNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
-        return new BigDecimalVector(
+        return new BigDecimalVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(e.element().negate(mathContext))).toList());
     }
 
@@ -250,7 +239,7 @@ public final class BigDecimalVector
 
         @Override
         public @NonNull BigDecimalVector build() {
-            return new BigDecimalVector(computeEntries());
+            return new BigDecimalVector(getSize(), computeEntries());
         }
     }
 }

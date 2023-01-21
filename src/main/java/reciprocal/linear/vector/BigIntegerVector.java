@@ -20,17 +20,8 @@ public final class BigIntegerVector
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructor
-     *
-     * @param entries entries
-     * @throws NullPointerException when {@code entries == null}
-     * @throws IllegalArgumentException when one element in entries is null
-     * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
-     * @since 0.0.1
-     */
-    public BigIntegerVector(final @NonNull List<@NonNull VectorEntry<@NonNull BigInteger>> entries) {
-        super(entries);
+    BigIntegerVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull BigInteger>> entries) {
+        super(size, entries);
     }
 
     @Override
@@ -42,7 +33,7 @@ public final class BigIntegerVector
                 getSize(),
                 summand.getSize()
         );
-        return new BigIntegerVector(
+        return new BigIntegerVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(e.element().add(summand.get(e.index())))).toList()
         );
     }
@@ -56,9 +47,9 @@ public final class BigIntegerVector
                 getSize(),
                 subtrahend.getSize()
         );
-        return new BigIntegerVector(
-                getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index())))).toList()
-        );
+        return new BigIntegerVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index()))))
+                        .toList());
     }
 
     @Override
@@ -77,13 +68,14 @@ public final class BigIntegerVector
     @Override
     public @NonNull BigIntegerVector scalarMultiply(final @NonNull BigInteger scalar) {
         requireNonNull(scalar, "scalar");
-        return new BigIntegerVector(
+        return new BigIntegerVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
     }
 
     @Override
     public @NonNull BigIntegerVector negate() {
-        return new BigIntegerVector(getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
+        return new BigIntegerVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
     }
 
     @Override
@@ -146,7 +138,7 @@ public final class BigIntegerVector
 
         @Override
         public BigIntegerVector build() {
-            return new BigIntegerVector(computeEntries());
+            return new BigIntegerVector(getSize(), computeEntries());
         }
     }
 }

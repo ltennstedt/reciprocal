@@ -4,12 +4,60 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.function.IntFunction;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import reciprocal.linear.vector.LongVector.LongVectorBuilder;
 
 final class AbstractVectorTests {
+    @Test
+    void constructor_should_throw_Exception_when_size_is_less_than_1() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new LongVector(0, Collections.emptyList()))
+                .withMessage("size > 0 expected but size = 0").withNoCause();
+    }
+
+    @Test
+    void constructor_should_throw_Exception_when_entries_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> new LongVector(1, null)).withMessage("entries").withNoCause();
+    }
+
+    @Test
+    void constructor_should_throw_Exception_when_entries_contains_null() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new LongVector(1, Collections.singletonList(null)))
+                .withMessage("all entries expected not to be null but entries = [null]").withNoCause();
+    }
+
+    @Test
+    void constructor_should_throw_Exception_when_indices_are_incomplete() {
+        assertThatIllegalArgumentException().isThrownBy(() -> new LongVector(2, List.of(new VectorEntry<>(2, 0L))))
+                .withMessage("indices == (1..size) expected but indices = [2]").withNoCause();
+    }
+
+    @Test
+    void constructor_should_sort_entries() {
+        final var first = new VectorEntry<>(1, 0L);
+        final var second = new VectorEntry<>(2, 0L);
+
+        assertThat(new LongVector(2, List.of(second, first)).getEntries()).containsExactly(first, second);
+    }
+
+    @Test
+    void getIndices_should_return_indices() {
+        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getIndices()).containsExactly(1);
+    }
+
+    @Test
+    void getElements_should_return_elements() {
+        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getElements()).containsExactly(0L);
+    }
+
+    @Test
+    void getSize_should_return_size() {
+        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getSize()).isOne();
+    }
+
     @Nested
     final class AbstractVectorBuilderTests {
         @Test

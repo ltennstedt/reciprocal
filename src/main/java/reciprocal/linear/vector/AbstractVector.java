@@ -9,6 +9,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.IntFunction;
 import java.util.stream.IntStream;
@@ -40,22 +41,22 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     /**
      * Constructor
      *
+     * @param size size
      * @param entries entries
+     * @throws IllegalArgumentException when {@code size < 1}
      * @throws NullPointerException when {@code entries == null}
      * @throws IllegalArgumentException when one element in entries is null
      * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
      * @since 0.0.1
      */
-    protected AbstractVector(final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries) {
-        noNullElements(entries, "all elements in entries expected not to be null but entries = %s", entries);
-        final var expectedIndices = Stream.iterate(1, i -> i + 1).limit(getSize()).toList();
-        checkArgument(
-                getIndices().equals(expectedIndices),
-                "indices == expectedIndices expected but %s != %s",
-                getIndices(),
-                expectedIndices
-        );
-        this.entries = List.copyOf(entries.stream().sorted().toList());
+    protected AbstractVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries) {
+        checkArgument(size > 0, "size > 0 expected but size = %s", size);
+        requireNonNull(entries, "entries");
+        noNullElements(entries, "all entries expected not to be null but entries = %s", entries);
+        final var indices = entries.stream().map(VectorEntry::index).sorted().toList();
+        final var expectedIndices = Stream.iterate(1, i -> i + 1).limit(size).toList();
+        checkArgument(indices.equals(expectedIndices), "indices == (1..size) expected but indices = %s", indices);
+        this.entries = entries.stream().sorted(Comparator.comparingInt(VectorEntry::index)).toList();
     }
 
     /**
@@ -95,7 +96,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     public final @NonNull List<@NonNull VectorEntry<@NonNull E>> getEntries() {
-        return entries;
+        return List.copyOf(entries);
     }
 
     /**

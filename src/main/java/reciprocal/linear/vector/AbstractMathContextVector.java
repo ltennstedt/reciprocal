@@ -24,14 +24,17 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     /**
      * Constructor
      *
+     * @param size size
      * @param vectorEntries entries
+     * @throws IllegalArgumentException when {@code size < 1}
      * @throws NullPointerException when {@code entries == null}
      * @throws IllegalArgumentException when one element in entries is null
      * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
      * @since 0.0.1
      */
-    protected AbstractMathContextVector(final @NonNull List<@NonNull VectorEntry<@NonNull E>> vectorEntries) {
-        super(vectorEntries);
+    protected AbstractMathContextVector(final int size,
+                                        final @NonNull List<@NonNull VectorEntry<@NonNull E>> vectorEntries) {
+        super(size, vectorEntries);
     }
 
     /**

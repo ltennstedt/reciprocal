@@ -16,17 +16,8 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Constructor
-     *
-     * @param entries entries
-     * @throws NullPointerException when {@code entries == null}
-     * @throws IllegalArgumentException when one element in entries is null
-     * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
-     * @since 0.0.1
-     */
-    public DoubleVector(final @NonNull List<@NonNull VectorEntry<@NonNull Double>> entries) {
-        super(entries);
+    DoubleVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull Double>> entries) {
+        super(size, entries);
     }
 
     @Override
@@ -38,7 +29,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
                 getSize(),
                 summand.getSize()
         );
-        return new DoubleVector(
+        return new DoubleVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(e.element() + summand.get(e.index()))).toList()
         );
     }
@@ -52,7 +43,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
                 getSize(),
                 subtrahend.getSize()
         );
-        return new DoubleVector(
+        return new DoubleVector(getSize(),
                 getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.get(e.index()))).toList()
         );
     }
@@ -72,12 +63,13 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Override
     public @NonNull DoubleVector scalarMultiply(final @NonNull Double scalar) {
         requireNonNull(scalar, "scalar");
-        return new DoubleVector(getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
+        return new DoubleVector(getSize(),
+                getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
     public @NonNull DoubleVector negate() {
-        return new DoubleVector(getEntries().stream().map(e -> e.withElement(-e.element())).toList());
+        return new DoubleVector(getSize(), getEntries().stream().map(e -> e.withElement(-e.element())).toList());
     }
 
     @Override
@@ -125,7 +117,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
 
         @Override
         public DoubleVector build() {
-            return new DoubleVector(computeEntries());
+            return new DoubleVector(getSize(), computeEntries());
         }
     }
 }
