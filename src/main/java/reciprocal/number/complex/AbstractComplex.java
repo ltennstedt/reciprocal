@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Base class for complex numbers
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractComplex<N extends Number, T extends AbstractComplex<N, T, Q, A, P>, Q, A, P>
-    extends Number {
+        extends Number {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -32,14 +32,14 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      *
      * @since 0.0.1
      */
-    private final @NotNull N real;
+    private final @NonNull N real;
 
     /**
      * Imaginary part
      *
      * @since 0.0.1
      */
-    private final @NotNull N imaginary;
+    private final @NonNull N imaginary;
 
     /**
      * Constructor
@@ -50,7 +50,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code imaginary == null}
      * @since 0.0.1
      */
-    protected AbstractComplex(final @NotNull N real, final @NotNull N imaginary) {
+    protected AbstractComplex(final @NonNull N real, final @NonNull N imaginary) {
         this.real = requireNonNull(real, "real");
         this.imaginary = requireNonNull(imaginary, "imaginary");
     }
@@ -81,7 +81,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code summand == null}
      * @since 0.0.1
      */
-    public abstract @NotNull T add(@NotNull T summand);
+    public abstract @NonNull T add(@NonNull T summand);
 
     /**
      * Returns the difference of this and the subtrahend
@@ -91,7 +91,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code subtrahend == null}
      * @since 0.0.1
      */
-    public abstract @NotNull T subtract(@NotNull T subtrahend);
+    public abstract @NonNull T subtract(@NonNull T subtrahend);
 
     /**
      * Returns the product of this and the factor
@@ -101,7 +101,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code factor == null}
      * @since 0.0.1
      */
-    public abstract @NotNull T multiply(@NotNull T factor);
+    public abstract @NonNull T multiply(@NonNull T factor);
 
     /**
      * Returns the quotient of this and the divisor
@@ -112,7 +112,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when divisor is not invertible
      * @since 0.0.1
      */
-    public abstract @NotNull Q divide(@NotNull T divisor);
+    public abstract @NonNull Q divide(@NonNull T divisor);
 
     /**
      * Returns the power raised by the exponent
@@ -121,7 +121,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return power
      * @since 0.0.1
      */
-    public abstract @NotNull Q pow(int exponent);
+    public abstract @NonNull Q pow(int exponent);
 
     /**
      * Returns the negated
@@ -129,7 +129,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return negated
      * @since 0.0.1
      */
-    public abstract @NotNull T negate();
+    public abstract @NonNull T negate();
 
     /**
      * Returns the inverted
@@ -137,7 +137,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return inverted
      * @since 0.0.1
      */
-    public abstract @NotNull Q invert();
+    public abstract @NonNull Q invert();
 
     /**
      * Returns the square of the absolute value
@@ -145,7 +145,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return square of the absolute value
      * @since 0.0.1
      */
-    public abstract @NotNull N absPow2();
+    public abstract @NonNull N absPow2();
 
     /**
      * Returns the absolute value
@@ -153,7 +153,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return absolute value
      * @since 0.0.1
      */
-    public abstract @NotNull A abs();
+    public abstract @NonNull A abs();
 
     /**
      * Returns the conjugated
@@ -161,7 +161,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return conjugated
      * @since 0.0.1
      */
-    public abstract @NotNull T conjugate();
+    public abstract @NonNull T conjugate();
 
     /**
      * Returns the argument
@@ -169,7 +169,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return argument
      * @since 0.0.1
      */
-    public abstract @NotNull A argument();
+    public abstract @NonNull A argument();
 
     @Override
     public final int intValue() {
@@ -197,7 +197,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return {@link BigInteger}
      * @since 0.0.1
      */
-    public abstract @NotNull BigInteger toBigInteger();
+    public abstract @NonNull BigInteger toBigInteger();
 
     /**
      * Returns this as {@link BigDecimal}
@@ -205,7 +205,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return {@link BigDecimal}
      * @since 0.0.1
      */
-    public abstract @NotNull BigDecimal toBigDecimal();
+    public abstract @NonNull BigDecimal toBigDecimal();
 
     /**
      * Returns this as polar form
@@ -213,7 +213,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return polar form
      * @since 0.0.1
      */
-    public abstract @NotNull P toPolarForm();
+    public abstract @NonNull P toPolarForm();
 
     /**
      * Returns if this is equal by comparing to other
@@ -223,7 +223,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public abstract boolean equalsByComparing(@NotNull T other);
+    public abstract boolean equalsByComparing(@NonNull T other);
 
     /**
      * Returns if this is not equal by comparing to other
@@ -233,7 +233,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public final boolean doesNotEqualByComparing(final @NotNull T other) {
+    public final boolean doesNotEqualByComparing(final @NonNull T other) {
         requireNonNull(other, "other");
         return !equalsByComparing(other);
     }
@@ -246,7 +246,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code summand == null}
      * @since 0.0.1
      */
-    public final @NotNull T plus(final @NotNull T summand) {
+    public final @NonNull T plus(final @NonNull T summand) {
         requireNonNull(summand, "summand");
         return add(summand);
     }
@@ -259,7 +259,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code subtrahend == null}
      * @since 0.0.1
      */
-    public final @NotNull T minus(final @NotNull T subtrahend) {
+    public final @NonNull T minus(final @NonNull T subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         return subtract(subtrahend);
     }
@@ -272,7 +272,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @throws NullPointerException when {@code divisor == null}
      * @since 0.0.1
      */
-    public final @NotNull Q div(final @NotNull T divisor) {
+    public final @NonNull Q div(final @NonNull T divisor) {
         requireNonNull(divisor, "divisor");
         return divide(divisor);
     }
@@ -284,7 +284,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return power
      * @since 0.0.1
      */
-    public final @NotNull Q power(final int exponent) {
+    public final @NonNull Q power(final int exponent) {
         return pow(exponent);
     }
 
@@ -294,7 +294,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return real
      * @since 0.0.1
      */
-    public final @NotNull N getReal() {
+    public final @NonNull N getReal() {
         return real;
     }
 
@@ -304,7 +304,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @return imaginary
      * @since 0.0.1
      */
-    public final @NotNull N getImaginary() {
+    public final @NonNull N getImaginary() {
         return imaginary;
     }
 
@@ -326,7 +326,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     }
 
     @Override
-    public final @NotNull String toString() {
+    public final @NonNull String toString() {
         return getClass().getSimpleName() + "{real=" + real + ", imaginary=" + imaginary + "}";
     }
 }

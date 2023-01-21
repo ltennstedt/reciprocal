@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Base class for polynomials
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractPolynomial<N extends Number, P extends AbstractPolynomial<N, P>> {
-    private final @NotNull List<@NotNull N> coefficients;
+    private final @NonNull List<@NonNull N> coefficients;
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @throws IllegalArgumentException when {@code coefficient == null} for one coefficient in coefficients
      * @since 0.0.1
      */
-    protected AbstractPolynomial(final @NotNull List<@NotNull N> coefficients) {
+    protected AbstractPolynomial(final @NonNull List<@NonNull N> coefficients) {
         this.coefficients = noNullElements(List.copyOf(coefficients));
     }
 
@@ -108,7 +108,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @return derivative
      * @since 0.0.1
      */
-    public abstract @NotNull List<@NotNull N> getDerivative();
+    public abstract @NonNull List<@NonNull N> getDerivative();
 
     /**
      * Returns the coefficient of a given index
@@ -118,7 +118,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @throws IllegalArgumentException when {@code index < 0}
      * @since 0.0.1
      */
-    public final @NotNull N get(final int index) {
+    public final @NonNull N get(final int index) {
         checkArgument(index > -1, "expected index > -1 but index = %s", index);
         return coefficients.get(index);
     }
@@ -129,7 +129,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @return coefficients
      * @since 0.0.1
      */
-    public @NotNull List<@NotNull N> getCoefficients() {
+    public @NonNull List<@NonNull N> getCoefficients() {
         return Collections.unmodifiableList(coefficients);
     }
 

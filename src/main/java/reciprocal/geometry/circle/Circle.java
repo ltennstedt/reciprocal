@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Immutable implementation of a circle that uses {@link Double} as type for
@@ -34,22 +34,22 @@ public final class Circle extends AbstractCircle<Double, Circle> {
     }
 
     @Override
-    public @NotNull Double getDiameter() {
+    public @NonNull Double getDiameter() {
         return 2.0D * getRadius();
     }
 
     @Override
-    public @NotNull Double getCircumference() {
+    public @NonNull Double getCircumference() {
         return Math.PI * getDiameter();
     }
 
     @Override
-    public @NotNull Double getArea() {
+    public @NonNull Double getArea() {
         return Math.PI * Math.pow(getRadius(), 2.0D);
     }
 
     @Override
-    public int compareTo(final @NotNull Circle o) {
+    public int compareTo(final @NonNull Circle o) {
         requireNonNull(o, "o");
         return CircleComparator.INSTANCE.compare(this, o);
     }
@@ -60,13 +60,13 @@ public final class Circle extends AbstractCircle<Double, Circle> {
      * @since 0.0.1
      */
     @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-    public static final class CircleComparator implements Comparator<@NotNull Circle>, Serializable {
+    public static final class CircleComparator implements Comparator<@NonNull Circle>, Serializable {
         /**
          * Instance
          *
          * @since 0.0.1
          */
-        public static final @NotNull CircleComparator INSTANCE = new CircleComparator();
+        public static final @NonNull CircleComparator INSTANCE = new CircleComparator();
 
         @Serial
         private static final long serialVersionUID = 1L;
@@ -75,7 +75,7 @@ public final class Circle extends AbstractCircle<Double, Circle> {
         }
 
         @Override
-        public int compare(final @NotNull Circle o1, final @NotNull Circle o2) {
+        public int compare(final @NonNull Circle o1, final @NonNull Circle o2) {
             requireNonNull(o1, "o1");
             requireNonNull(o2, "o2");
             return o1.getRadius().compareTo(o2.getRadius());

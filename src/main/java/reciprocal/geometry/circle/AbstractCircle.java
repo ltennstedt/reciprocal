@@ -7,8 +7,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Base class for circles
@@ -28,7 +28,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      *
      * @since 0.0.1
      */
-    private final @NotNull N radius;
+    private final @NonNull N radius;
 
     /**
      * Constructor
@@ -37,7 +37,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      * @throws NullPointerException when {@code radius == null}
      * @since 0.0.1
      */
-    protected AbstractCircle(final @NotNull N radius) {
+    protected AbstractCircle(final @NonNull N radius) {
         this.radius = requireNonNull(radius, "radius");
     }
 
@@ -47,7 +47,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      * @return diameter
      * @since 0.0.1
      */
-    public abstract @NotNull N getDiameter();
+    public abstract @NonNull N getDiameter();
 
     /**
      * Circumference
@@ -55,7 +55,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      * @return circumference
      * @since 0.0.1
      */
-    public abstract @NotNull N getCircumference();
+    public abstract @NonNull N getCircumference();
 
     /**
      * Area
@@ -63,7 +63,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      * @return area
      * @since 0.0.1
      */
-    public abstract @NotNull N getArea();
+    public abstract @NonNull N getArea();
 
     /**
      * Radius
@@ -71,7 +71,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
      * @return radius
      * @since 0.0.1
      */
-    public final @NotNull N getRadius() {
+    public final @NonNull N getRadius() {
         return radius;
     }
 
@@ -93,7 +93,7 @@ public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<
     }
 
     @Override
-    public final @NotNull String toString() {
+    public final @NonNull String toString() {
         return getClass().getSimpleName() + "{radius=" + radius + "}";
     }
 }

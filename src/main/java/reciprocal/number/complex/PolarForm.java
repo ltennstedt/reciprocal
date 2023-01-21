@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serial;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Immutable implementation of the polar form of a complex number that uses
@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class PolarForm extends AbstractPolarForm<@NotNull Double, @NotNull PolarForm> {
+public final class PolarForm extends AbstractPolarForm<@NonNull Double, @NonNull PolarForm> {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public final class PolarForm extends AbstractPolarForm<@NotNull Double, @NotNull
     }
 
     @Override
-    public boolean equalsByComparing(final @NotNull PolarForm other) {
+    public boolean equalsByComparing(final @NonNull PolarForm other) {
         requireNonNull(other, "other");
         return getRadial().compareTo(other.getRadial()) == 0 && getAngular().compareTo(other.getAngular()) == 0;
     }

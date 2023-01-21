@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.function.BiFunction;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 import reciprocal.number.complex.Complex;
 
 /**
@@ -25,20 +25,20 @@ import reciprocal.number.complex.Complex;
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fraction, @NotNull Double> {
+public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fraction, @NonNull Double> {
     /**
      * 0
      *
      * @since 0.0.1
      */
-    public static final @NotNull Fraction ZERO = new Fraction(0L);
+    public static final @NonNull Fraction ZERO = new Fraction(0L);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NotNull Fraction ONE = new Fraction(1L);
+    public static final @NonNull Fraction ONE = new Fraction(1L);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -105,7 +105,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
-    public @NotNull Fraction add(final @NotNull Fraction summand) {
+    public @NonNull Fraction add(final @NonNull Fraction summand) {
         requireNonNull(summand, "summand");
         final var num = summand.getDenominator() * getNumerator() + getDenominator() * summand.getNumerator();
         final var den = getDenominator() * summand.getDenominator();
@@ -113,7 +113,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
-    public @NotNull Fraction subtract(final @NotNull Fraction subtrahend) {
+    public @NonNull Fraction subtract(final @NonNull Fraction subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var num = subtrahend.getDenominator() * getNumerator() - getDenominator() * subtrahend.getNumerator();
         final var den = getDenominator() * subtrahend.getDenominator();
@@ -121,29 +121,29 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
-    public @NotNull Fraction multiply(final @NotNull Fraction factor) {
+    public @NonNull Fraction multiply(final @NonNull Fraction factor) {
         requireNonNull(factor, "factor");
         return new Fraction(getNumerator() * factor.getNumerator(), getDenominator() * factor.getDenominator());
     }
 
     @Override
-    public @NotNull Fraction negate() {
+    public @NonNull Fraction negate() {
         return new Fraction(-getNumerator(), getDenominator());
     }
 
     @Override
-    public @NotNull Fraction abs() {
+    public @NonNull Fraction abs() {
         return new Fraction(Math.abs(getNumerator()), Math.abs(getDenominator()));
     }
 
     @Override
-    public @NotNull Fraction expand(final @NotNull Long number) {
+    public @NonNull Fraction expand(final @NonNull Long number) {
         requireNonNull(number, "number");
         return new Fraction(number * getNumerator(), number * getDenominator());
     }
 
     @Override
-    public boolean lessThanOrEqualTo(final @NotNull Fraction other) {
+    public boolean lessThanOrEqualTo(final @NonNull Fraction other) {
         requireNonNull(other, "other");
         final var normalized = normalize();
         final var normalizedOther = other.normalize();
@@ -153,7 +153,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
-    public @NotNull Fraction normalize() {
+    public @NonNull Fraction normalize() {
         if (getSignum() < 0 && getNumerator().compareTo(0L) > 0) {
             return new Fraction(-getNumerator(), Math.abs(getDenominator()));
         }
@@ -167,13 +167,13 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     }
 
     @Override
-    public @NotNull Fraction reduce() {
+    public @NonNull Fraction reduce() {
         final var gcd = LongMath.gcd(getNumerator(), getDenominator());
         return new Fraction(getNumerator() / gcd, getDenominator() / gcd);
     }
 
     @Override
-    public @NotNull BigDecimal toBigDecimal() {
+    public @NonNull BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(getNumerator()).divide(BigDecimal.valueOf(getDenominator()), MathContext.DECIMAL128);
     }
 
@@ -182,7 +182,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
      *
      * @return {@link BigFraction}
      */
-    public @NotNull BigFraction toBigFraction() {
+    public @NonNull BigFraction toBigFraction() {
         return new BigFraction(BigInteger.valueOf(getNumerator()), BigInteger.valueOf(getDenominator()));
     }
 
@@ -192,22 +192,22 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
      * @return {@link Complex}
      * @since 0.0.1
      */
-    public @NotNull Complex toComplex() {
+    public @NonNull Complex toComplex() {
         return new Complex(doubleValue());
     }
 
     @Override
-    protected @NotNull Fraction getOne() {
+    protected @NonNull Fraction getOne() {
         return ONE;
     }
 
     @Override
-    protected @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Fraction> getConstructor() {
+    protected @NonNull BiFunction<@NonNull Long, @NonNull Long, @NonNull Fraction> getConstructor() {
         return Fraction::new;
     }
 
     @Override
-    public int compareTo(final @NotNull Fraction o) {
+    public int compareTo(final @NonNull Fraction o) {
         return FractionComparator.INSTANCE.compare(this, o);
     }
 
@@ -232,7 +232,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
         }
 
         @Override
-        public int compare(final @NotNull Fraction o1, final @NotNull Fraction o2) {
+        public int compare(final @NonNull Fraction o1, final @NonNull Fraction o2) {
             requireNonNull(o1, "o1");
             requireNonNull(o2, "o2");
             if (o1.lessThan(o2)) {

@@ -7,7 +7,7 @@ import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewWidth
 import static reciprocal.geometry.rectangle.RectanglePreconditions.checkWidth;
 
 import java.io.Serial;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Immutable implementation of a rectangle which uses {@link Double} as type for
@@ -40,24 +40,24 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
     }
 
     @Override
-    public @NotNull Double getPerimeter() {
+    public @NonNull Double getPerimeter() {
         return 2.0D * (getLength() + getWidth());
     }
 
     @Override
-    public @NotNull Double getDiagonal() {
+    public @NonNull Double getDiagonal() {
         return Math.sqrt(Math.pow(getLength(), 2.0D) + Math.pow(getWidth(), 2.0D));
     }
 
     @Override
-    public @NotNull Rectangle withLength(final @NotNull Double newLength) {
+    public @NonNull Rectangle withLength(final @NonNull Double newLength) {
         requireNonNull(newLength, "newLength");
         checkNewLength(newLength > 0.0D, newLength);
         return new Rectangle(newLength, getWidth());
     }
 
     @Override
-    public @NotNull Rectangle withWidth(final @NotNull Double newWidth) {
+    public @NonNull Rectangle withWidth(final @NonNull Double newWidth) {
         requireNonNull(newWidth, "newWidth");
         checkNewWidth(newWidth > 0.0D, newWidth);
         return new Rectangle(getLength(), newWidth);

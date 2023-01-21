@@ -14,8 +14,8 @@ import java.util.function.IntFunction;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.Builder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * Base class for vectors
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * @since 0.0.1
  */
 public abstract class AbstractVector<E extends Number, V extends AbstractVector<E, V, N>,
-    N extends Number> implements Serializable {
+        N extends Number> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      *
      * @since 0.0.1
      */
-    private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
+    private final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries;
 
     /**
      * Constructor
@@ -46,14 +46,14 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
      * @since 0.0.1
      */
-    protected AbstractVector(final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries) {
+    protected AbstractVector(final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries) {
         noNullElements(entries, "all elements in entries expected not to be null but entries = %s", entries);
         final var expectedIndices = Stream.iterate(1, i -> i + 1).limit(getSize()).toList();
         checkArgument(
-            getIndices().equals(expectedIndices),
-            "indices == expectedIndices expected but %s != %s",
-            getIndices(),
-            expectedIndices
+                getIndices().equals(expectedIndices),
+                "indices == expectedIndices expected but %s != %s",
+                getIndices(),
+                expectedIndices
         );
         this.entries = List.copyOf(entries.stream().sorted().toList());
     }
@@ -64,7 +64,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return indices
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull Integer> getIndices() {
+    public final @NonNull List<@NonNull Integer> getIndices() {
         return entries.stream().map(VectorEntry::index).toList();
     }
 
@@ -74,7 +74,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return elements
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull E> getElements() {
+    public final @NonNull List<@NonNull E> getElements() {
         return entries.stream().map(VectorEntry::element).toList();
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return entries
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull VectorEntry<@NotNull E>> getEntries() {
+    public final @NonNull List<@NonNull VectorEntry<@NonNull E>> getEntries() {
         return entries;
     }
 
@@ -107,7 +107,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
-    public abstract @NotNull V add(@NotNull V summand);
+    public abstract @NonNull V add(@NonNull V summand);
 
     /**
      * Returns the difference of this and the subtrahend
@@ -118,7 +118,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
-    public abstract @NotNull V subtract(@NotNull V subtrahend);
+    public abstract @NonNull V subtract(@NonNull V subtrahend);
 
     /**
      * Returns the dot product of this and other
@@ -129,7 +129,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
-    public abstract @NotNull E dotProduct(@NotNull V other);
+    public abstract @NonNull E dotProduct(@NonNull V other);
 
     /**
      * Returns the scalar product pof this and the scalar
@@ -139,7 +139,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws NullPointerException when {@code scalar == null}
      * @since 0.0.1
      */
-    public abstract @NotNull V scalarMultiply(@NotNull E scalar);
+    public abstract @NonNull V scalarMultiply(@NonNull E scalar);
 
     /**
      * Returns the negated vector of this
@@ -147,7 +147,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return negated vector
      * @since 0.0.1
      */
-    public abstract @NotNull V negate();
+    public abstract @NonNull V negate();
 
     /**
      * Returns if this is orthogonal to other
@@ -158,7 +158,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
-    public abstract boolean orthogonalTo(@NotNull V other);
+    public abstract boolean orthogonalTo(@NonNull V other);
 
     /**
      * Returns the taxicab norm
@@ -166,7 +166,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return taxicab norm
      * @since 0.0.1
      */
-    public abstract @NotNull N taxicabNorm();
+    public abstract @NonNull N taxicabNorm();
 
     /**
      * Returns the square of the euclidean norm
@@ -174,7 +174,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return square of the euclidean norm
      * @since 0.0.1
      */
-    public abstract @NotNull N euclideanNormPow2();
+    public abstract @NonNull N euclideanNormPow2();
 
     /**
      * Returns the euclidean norm
@@ -182,7 +182,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return euclidean norm
      * @since 0.0.1
      */
-    public abstract @NotNull N euclideanNorm();
+    public abstract @NonNull N euclideanNorm();
 
     /**
      * Returns the maximum norm
@@ -190,7 +190,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return max norm
      * @since 0.0.1
      */
-    public abstract @NotNull N maxNorm();
+    public abstract @NonNull N maxNorm();
 
     /**
      * Returns the taxicab distance to other
@@ -201,7 +201,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
-    public final @NotNull N taxicabDistance(final @NotNull V other) {
+    public final @NonNull N taxicabDistance(final @NonNull V other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return subtract(other).taxicabNorm();
@@ -216,7 +216,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException if sizes are not equal
      * @since 0.0.1
      */
-    public final @NotNull N euclideanDistance(final @NotNull V other) {
+    public final @NonNull N euclideanDistance(final @NonNull V other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return subtract(other).euclideanNorm();
@@ -231,7 +231,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException if sizes are not equal
      * @since 0.0.1
      */
-    public final @NotNull N maxDistance(final @NotNull V other) {
+    public final @NonNull N maxDistance(final @NonNull V other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return subtract(other).maxNorm();
@@ -245,7 +245,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when {@code index < 1 || index > size}
      * @since 0.0.1
      */
-    public final @NotNull E get(final int index) {
+    public final @NonNull E get(final int index) {
         checkArgument(index > 0 && index <= getSize(), "0 < index <= %s expected but index = %s", getSize(), index);
         return entries.get(index).element();
     }
@@ -258,7 +258,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws NullPointerException when {@code element == null}
      * @since 0.0.1
      */
-    public final boolean contains(final @NotNull E element) {
+    public final boolean contains(final @NonNull E element) {
         requireNonNull(element, "element");
         return entries.stream().map(VectorEntry::element).anyMatch(e -> e.equals(element));
     }
@@ -281,7 +281,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     @Override
-    public final @NotNull String toString() {
+    public final @NonNull String toString() {
         return getClass().getSimpleName() + "{entries=" + entries + "}";
     }
 
@@ -294,8 +294,8 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     public abstract static class AbstractVectorBuilder
-        <E extends Number, V extends AbstractVector<E, V, ?>, B extends AbstractVectorBuilder<E, V, B>> implements
-        Builder<V> {
+            <E extends Number, V extends AbstractVector<E, V, ?>, B extends AbstractVectorBuilder<E, V, B>> implements
+            Builder<V> {
         /**
          * Size
          *
@@ -308,9 +308,9 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          *
          * @since 0.0.1
          */
-        private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
+        private final @NonNull List<@NonNull VectorEntry<@NonNull E>> entries;
 
-        private @NotNull IntFunction<@NotNull E> computationOfAbsentees;
+        private @NonNull IntFunction<@NonNull E> computationOfAbsentees;
 
         /**
          * Constructor
@@ -320,7 +320,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @throws NullPointerException when {@code computationForAbsent == null}
          * @since 0.0.1
          */
-        protected AbstractVectorBuilder(final int size, final @NotNull IntFunction<@NotNull E> computationOfAbsentees) {
+        protected AbstractVectorBuilder(final int size, final @NonNull IntFunction<@NonNull E> computationOfAbsentees) {
             checkArgument(size > 0, "size > 0 expected but size = %s", size);
             this.size = size;
             entries = new ArrayList<>(size);
@@ -338,7 +338,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @throws NullPointerException when {@code element == null}
          * @since 0.0.1
          */
-        public final @NotNull B put(final int index, final @NotNull E element) {
+        public final @NonNull B put(final int index, final @NonNull E element) {
             checkArgument(index > 0 && index <= size, "0 < index <= size expected but index = %s", index);
             checkArgument(entries.stream().map(VectorEntry::index).noneMatch(i -> i == index), "index already exists");
             requireNonNull(element, "element");
@@ -353,7 +353,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @return {@code this}
          * @since 0.0.1
          */
-        public final @NotNull B computationForAbsent(final @NotNull IntFunction<@NotNull E> newComputationForAbsent) {
+        public final @NonNull B computationForAbsent(final @NonNull IntFunction<@NonNull E> newComputationForAbsent) {
             computationOfAbsentees = requireNonNull(newComputationForAbsent, "newComputationForAbsent");
             return (B) this;
         }
@@ -374,7 +374,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @return entries
          * @since 0.0.1
          */
-        protected final @NotNull List<@NotNull VectorEntry<@NotNull E>> getEntries() {
+        protected final @NonNull List<@NonNull VectorEntry<@NonNull E>> getEntries() {
             return Collections.unmodifiableList(entries);
         }
 
@@ -384,12 +384,12 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @return computation for absent
          * @since 0.0.1
          */
-        protected final @NotNull IntFunction<@NotNull E> getComputationOfAbsentees() {
+        protected final @NonNull IntFunction<@NonNull E> getComputationOfAbsentees() {
             return computationOfAbsentees;
         }
 
         @Override
-        public final @NotNull String toString() {
+        public final @NonNull String toString() {
             return getClass().getSimpleName() + "{size=" + size + ", entries=" + entries + "}";
         }
 
@@ -399,12 +399,12 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @return entries
          * @since 0.0.1
          */
-        protected @NotNull List<@NotNull VectorEntry<@NotNull E>> computeEntries() {
+        protected @NonNull List<@NonNull VectorEntry<@NonNull E>> computeEntries() {
             return IntStream.iterate(1, i -> i + 1).boxed().limit(getSize())
-                .map(i ->
-                    getEntries().stream().filter(e -> e.index() == i).findAny()
-                        .orElse(new VectorEntry<>(i, getComputationOfAbsentees().apply(i)))
-                ).toList();
+                    .map(i ->
+                            getEntries().stream().filter(e -> e.index() == i).findAny()
+                                    .orElse(new VectorEntry<>(i, getComputationOfAbsentees().apply(i)))
+                    ).toList();
         }
     }
 }

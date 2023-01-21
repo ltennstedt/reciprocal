@@ -9,7 +9,7 @@ import static reciprocal.geometry.rectangle.RectanglePreconditions.checkWidth;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import org.jetbrains.annotations.NotNull;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Immutable implementation of a rectangle which uses {@link Double} as type for
@@ -32,7 +32,7 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
      * @throws IllegalArgumentException when {@code width <= 0}
      * @since 0.0.1
      */
-    public BigRectangle(final @NotNull BigDecimal length, final @NotNull BigDecimal width) {
+    public BigRectangle(final @NonNull BigDecimal length, final @NonNull BigDecimal width) {
         super(length, width);
         checkLength(length.compareTo(BigDecimal.ZERO) > 0, length);
         checkWidth(width.compareTo(BigDecimal.ZERO) > 0, width);
@@ -44,12 +44,12 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
     }
 
     @Override
-    public @NotNull BigDecimal getPerimeter() {
+    public @NonNull BigDecimal getPerimeter() {
         return BigDecimal.valueOf(2L).multiply(getLength().add(getWidth()));
     }
 
     @Override
-    public @NotNull BigDecimal getDiagonal() {
+    public @NonNull BigDecimal getDiagonal() {
         return getLength().pow(2).add(getWidth().pow(2)).sqrt(MathContext.DECIMAL128);
     }
 
@@ -61,20 +61,20 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NotNull BigDecimal getDiagonal(final @NotNull MathContext mathContext) {
+    public @NonNull BigDecimal getDiagonal(final @NonNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return getLength().pow(2).add(getWidth().pow(2)).sqrt(mathContext);
     }
 
     @Override
-    public @NotNull BigRectangle withLength(final @NotNull BigDecimal newLength) {
+    public @NonNull BigRectangle withLength(final @NonNull BigDecimal newLength) {
         requireNonNull(newLength, "newLength");
         checkNewLength(newLength.compareTo(BigDecimal.ZERO) > 0, newLength);
         return new BigRectangle(newLength, getWidth());
     }
 
     @Override
-    public @NotNull BigRectangle withWidth(final @NotNull BigDecimal newWidth) {
+    public @NonNull BigRectangle withWidth(final @NonNull BigDecimal newWidth) {
         requireNonNull(newWidth, "newWidth");
         checkNewWidth(newWidth.compareTo(BigDecimal.ZERO) > 0, newWidth);
         return new BigRectangle(getLength(), newWidth);
