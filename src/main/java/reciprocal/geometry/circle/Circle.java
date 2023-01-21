@@ -1,7 +1,7 @@
 package reciprocal.geometry.circle;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
-import static reciprocal.geometry.circle.CirclePreconditions.checkRadius;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -30,7 +30,7 @@ public final class Circle extends AbstractCircle<Double, Circle> {
      */
     public Circle(final double radius) {
         super(radius);
-        checkRadius(radius > 0.0D, radius);
+        checkArgument(radius > 0.0D, "radius > 0 expected but radius = %s", radius);
     }
 
     @Override

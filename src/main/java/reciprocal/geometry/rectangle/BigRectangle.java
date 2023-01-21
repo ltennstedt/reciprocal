@@ -1,10 +1,7 @@
 package reciprocal.geometry.rectangle;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
-import static reciprocal.geometry.rectangle.RectanglePreconditions.checkLength;
-import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewLength;
-import static reciprocal.geometry.rectangle.RectanglePreconditions.checkNewWidth;
-import static reciprocal.geometry.rectangle.RectanglePreconditions.checkWidth;
 
 import java.io.Serial;
 import java.math.BigDecimal;
@@ -34,8 +31,8 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
      */
     public BigRectangle(final @NonNull BigDecimal length, final @NonNull BigDecimal width) {
         super(length, width);
-        checkLength(length.compareTo(BigDecimal.ZERO) > 0, length);
-        checkWidth(width.compareTo(BigDecimal.ZERO) > 0, width);
+        checkArgument(length.compareTo(BigDecimal.ZERO) > 0, "length > 0 expected but length = %s", length);
+        checkArgument(width.compareTo(BigDecimal.ZERO) > 0, "width > 0 expected but width = %s", width);
     }
 
     @Override
@@ -69,14 +66,14 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
     @Override
     public @NonNull BigRectangle withLength(final @NonNull BigDecimal newLength) {
         requireNonNull(newLength, "newLength");
-        checkNewLength(newLength.compareTo(BigDecimal.ZERO) > 0, newLength);
+        checkArgument(newLength.compareTo(BigDecimal.ZERO) > 0, "newLength > 0 expected but newLength = %s", newLength);
         return new BigRectangle(newLength, getWidth());
     }
 
     @Override
     public @NonNull BigRectangle withWidth(final @NonNull BigDecimal newWidth) {
         requireNonNull(newWidth, "newWidth");
-        checkNewWidth(newWidth.compareTo(BigDecimal.ZERO) > 0, newWidth);
+        checkArgument(newWidth.compareTo(BigDecimal.ZERO) > 0, "newWidth > 0 expected but newWidth = %s", newWidth);
         return new BigRectangle(getLength(), newWidth);
     }
 }
