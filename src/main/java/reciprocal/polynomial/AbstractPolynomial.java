@@ -14,13 +14,13 @@ import org.eclipse.jdt.annotation.Nullable;
 /**
  * Base class for polynomials
  *
- * @param <N> type of number
- * @param <P> type of polynomial
+ * @param <C> coefficient
+ * @param <P> polynomial
  * @since 0.0.1
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
-public abstract class AbstractPolynomial<N extends Number, P extends AbstractPolynomial<N, P>> {
-    private final @NonNull List<@NonNull N> coefficients;
+public abstract class AbstractPolynomial<C extends Number, P extends AbstractPolynomial<C, P>> {
+    private final @NonNull List<@NonNull C> coefficients;
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @throws IllegalArgumentException when {@code coefficient == null} for one coefficient in coefficients
      * @since 0.0.1
      */
-    protected AbstractPolynomial(final @NonNull List<@NonNull N> coefficients) {
+    protected AbstractPolynomial(final @NonNull List<@NonNull C> coefficients) {
         this.coefficients = noNullElements(List.copyOf(coefficients));
     }
 
@@ -108,7 +108,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @return derivative
      * @since 0.0.1
      */
-    public abstract @NonNull List<@NonNull N> getDerivative();
+    public abstract @NonNull List<@NonNull C> getDerivative();
 
     /**
      * Returns the coefficient of a given index
@@ -118,7 +118,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @throws IllegalArgumentException when {@code index < 0}
      * @since 0.0.1
      */
-    public final @NonNull N get(final int index) {
+    public final @NonNull C get(final int index) {
         checkArgument(index > -1, "expected index > -1 but index = %s", index);
         return coefficients.get(index);
     }
@@ -129,17 +129,17 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
      * @return coefficients
      * @since 0.0.1
      */
-    public @NonNull List<@NonNull N> getCoefficients() {
+    public final @NonNull List<@NonNull C> getCoefficients() {
         return Collections.unmodifiableList(coefficients);
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return hash(coefficients);
     }
 
     @Override
-    public boolean equals(final @Nullable Object obj) {
+    public final boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -151,7 +151,7 @@ public abstract class AbstractPolynomial<N extends Number, P extends AbstractPol
     }
 
     @Override
-    public String toString() {
+    public final @NonNull String toString() {
         return getClass().getSimpleName() + "{coefficients=" + coefficients + "}";
     }
 }
