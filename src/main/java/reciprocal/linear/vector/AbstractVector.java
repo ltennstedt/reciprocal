@@ -310,7 +310,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          */
         private final @NotNull List<@NotNull VectorEntry<@NotNull E>> entries;
 
-        private @NotNull IntFunction<@NotNull E> computationForAbsent;
+        private @NotNull IntFunction<@NotNull E> computationOfAbsentees;
 
         /**
          * Constructor
@@ -320,11 +320,11 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @throws NullPointerException when {@code computationForAbsent == null}
          * @since 0.0.1
          */
-        protected AbstractVectorBuilder(final int size, final @NotNull IntFunction<@NotNull E> computationForAbsent) {
+        protected AbstractVectorBuilder(final int size, final @NotNull IntFunction<@NotNull E> computationOfAbsentees) {
             checkArgument(size > 0, "size > 0 expected but size = %s", size);
             this.size = size;
             entries = new ArrayList<>(size);
-            this.computationForAbsent = requireNonNull(computationForAbsent, "computationForAbsent");
+            this.computationOfAbsentees = requireNonNull(computationOfAbsentees, "computationForAbsent");
         }
 
         /**
@@ -354,7 +354,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @since 0.0.1
          */
         public final @NotNull B computationForAbsent(final @NotNull IntFunction<@NotNull E> newComputationForAbsent) {
-            computationForAbsent = requireNonNull(newComputationForAbsent, "newComputationForAbsent");
+            computationOfAbsentees = requireNonNull(newComputationForAbsent, "newComputationForAbsent");
             return (B) this;
         }
 
@@ -384,8 +384,8 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @return computation for absent
          * @since 0.0.1
          */
-        protected final @NotNull IntFunction<@NotNull E> getComputationForAbsent() {
-            return computationForAbsent;
+        protected final @NotNull IntFunction<@NotNull E> getComputationOfAbsentees() {
+            return computationOfAbsentees;
         }
 
         @Override
@@ -403,7 +403,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
             return IntStream.iterate(1, i -> i + 1).boxed().limit(getSize())
                 .map(i ->
                     getEntries().stream().filter(e -> e.index() == i).findAny()
-                        .orElse(new VectorEntry<>(i, getComputationForAbsent().apply(i)))
+                        .orElse(new VectorEntry<>(i, getComputationOfAbsentees().apply(i)))
                 ).toList();
         }
     }
