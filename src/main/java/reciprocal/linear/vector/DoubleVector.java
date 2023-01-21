@@ -111,4 +111,21 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
     public @NotNull Double maxNorm() {
         return getElements().stream().map(Math::abs).max(Double::compareTo).orElseThrow();
     }
+
+    /**
+     * Builder for {@link DoubleVector DoubleVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class DoubleVectorBuilder
+        extends AbstractVectorBuilder<Double, DoubleVector, DoubleVector.DoubleVectorBuilder> {
+        DoubleVectorBuilder(final int size) {
+            super(size, i -> 0.0D);
+        }
+
+        @Override
+        public DoubleVector build() {
+            return new DoubleVector(computeEntries());
+        }
+    }
 }

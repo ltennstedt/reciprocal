@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.IntFunction;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.builder.Builder;
 import org.jetbrains.annotations.NotNull;
@@ -390,6 +391,20 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         @Override
         public final @NotNull String toString() {
             return getClass().getSimpleName() + "{size=" + size + ", entries=" + entries + "}";
+        }
+
+        /**
+         * Computes and returns entries
+         *
+         * @return entries
+         * @since 0.0.1
+         */
+        protected @NotNull List<@NotNull VectorEntry<@NotNull E>> computeEntries() {
+            return IntStream.iterate(1, i -> i + 1).boxed().limit(getSize())
+                .map(i ->
+                    getEntries().stream().filter(e -> e.index() == i).findAny()
+                        .orElse(new VectorEntry<>(i, getComputationForAbsent().apply(i)))
+                ).toList();
         }
     }
 }

@@ -132,4 +132,21 @@ public final class BigIntegerVector
         return getElements().stream().map(BigInteger::abs).max(BigInteger::compareTo).map(BigDecimal::new)
             .orElseThrow();
     }
+
+    /**
+     * Builder for {@link BigIntegerVector BigIntegerVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class BigIntegerVectorBuilder extends
+        AbstractVectorBuilder<@NotNull BigInteger, @NotNull BigIntegerVector, @NotNull BigIntegerVectorBuilder> {
+        BigIntegerVectorBuilder(final int size) {
+            super(size, i -> BigInteger.ZERO);
+        }
+
+        @Override
+        public BigIntegerVector build() {
+            return new BigIntegerVector(computeEntries());
+        }
+    }
 }

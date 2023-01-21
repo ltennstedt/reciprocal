@@ -32,6 +32,18 @@ public final class BigDecimalVector
         super(entries);
     }
 
+    /**
+     * Returns {@link BigDecimalVectorBuilder}
+     *
+     * @param size size
+     * @return {@link BigDecimalVectorBuilder}
+     * @throws IllegalArgumentException when {@code size < 1}
+     * @since 0.0.1
+     */
+    public static BigDecimalVectorBuilder ofSize(final int size) {
+        return new BigDecimalVectorBuilder(size);
+    }
+
     @Override
     public @NotNull BigDecimalVector add(final @NotNull BigDecimalVector summand) {
         requireNonNull(summand, "summand");
@@ -221,5 +233,22 @@ public final class BigDecimalVector
     public @NotNull BigDecimal maxNorm(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return getElements().stream().map(a -> a.abs(mathContext)).max(BigDecimal::compareTo).orElseThrow();
+    }
+
+    /**
+     * Builder for {@link BigDecimalVector BigDecimalVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class BigDecimalVectorBuilder extends
+        AbstractVectorBuilder<@NotNull BigDecimal, @NotNull BigDecimalVector, @NotNull BigDecimalVectorBuilder> {
+        BigDecimalVectorBuilder(final int size) {
+            super(size, i -> BigDecimal.ZERO);
+        }
+
+        @Override
+        public @NotNull BigDecimalVector build() {
+            return new BigDecimalVector(computeEntries());
+        }
     }
 }
