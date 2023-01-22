@@ -45,7 +45,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @param entries entries
      * @throws IllegalArgumentException when {@code size < 1}
      * @throws NullPointerException when {@code entries == null}
-     * @throws IllegalArgumentException when one element in entries is null
+     * @throws IllegalArgumentException when one entry in entries is null
      * @throws IllegalArgumentException when {@code index < 1 || size < index} for one index
      * @since 0.0.1
      */
