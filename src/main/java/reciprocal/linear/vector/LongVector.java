@@ -35,12 +35,8 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Override
     public @NonNull LongVector add(final @NonNull LongVector summand) {
         requireNonNull(summand, "summand");
-        checkArgument(
-            getSize() == summand.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            summand.getSize()
-        );
+        checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
+            summand.getSize());
         return new LongVector(getSize(),
             getEntries().stream().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList());
     }

@@ -23,12 +23,8 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Override
     public @NonNull DoubleVector add(final @NonNull DoubleVector summand) {
         requireNonNull(summand, "summand");
-        checkArgument(
-            getSize() == summand.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            summand.getSize()
-        );
+        checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
+            summand.getSize());
         return new DoubleVector(getSize(),
             getEntries().stream().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList()
         );
@@ -37,12 +33,8 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Override
     public @NonNull DoubleVector subtract(final @NonNull DoubleVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
-        checkArgument(
-            getSize() == subtrahend.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            subtrahend.getSize()
-        );
+        checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
+            subtrahend.getSize());
         return new DoubleVector(getSize(),
             getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList()
         );
@@ -51,12 +43,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Override
     public @NonNull Double dotProduct(final @NonNull DoubleVector other) {
         requireNonNull(other, "other");
-        checkArgument(
-            getSize() == other.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            other.getSize()
-        );
+        checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Double::sum)
             .orElseThrow();
     }
@@ -76,12 +63,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Override
     public boolean orthogonalTo(final @NonNull DoubleVector other) {
         requireNonNull(other, "other");
-        checkArgument(
-            getSize() == other.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            other.getSize()
-        );
+        checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return dotProduct(other) == 0L;
     }
 
