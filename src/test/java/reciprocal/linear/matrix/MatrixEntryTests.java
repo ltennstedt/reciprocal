@@ -10,25 +10,25 @@ final class MatrixEntryTests {
     @Test
     void constructor_should_throw_Exception_when_rowIndex_is_less_than_1() {
         assertThatIllegalArgumentException().isThrownBy(() -> new MatrixEntry<>(0, 0, 0))
-                .withMessage("rowIndex > 0 expected but rowIndex = 0").withNoCause();
+            .withMessage("rowIndex > 0 expected but rowIndex = 0").withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_columnIndex_is_less_than_1() {
         assertThatIllegalArgumentException().isThrownBy(() -> new MatrixEntry<>(1, 0, 0))
-                .withMessage("columnIndex > 0 expected but columnIndex = 0").withNoCause();
+            .withMessage("columnIndex > 0 expected but columnIndex = 0").withNoCause();
     }
 
     @Test
     void constructor_should_throw_Exception_when_element_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new MatrixEntry<Integer>(1, 1, null)).withMessage("element")
-                .withNoCause();
+            .withNoCause();
     }
 
     @Test
     void withRowIndex_should_throw_Exception_when_newRowIndex_is_less_than_1() {
         assertThatIllegalArgumentException().isThrownBy(() -> new MatrixEntry<>(1, 1, 0).withRowIndex(0))
-                .withMessage("newRowIndex > 0 expected but newRowIndex = 0").withNoCause();
+            .withMessage("newRowIndex > 0 expected but newRowIndex = 0").withNoCause();
     }
 
     @Test
@@ -39,7 +39,7 @@ final class MatrixEntryTests {
     @Test
     void withColumnIndex_should_throw_Exception_when_newColumnIndex_is_less_than_1() {
         assertThatIllegalArgumentException().isThrownBy(() -> new MatrixEntry<>(1, 1, 0).withColumnIndex(0))
-                .withMessage("newColumnIndex > 0 expected but newColumnIndex = 0").withNoCause();
+            .withMessage("newColumnIndex > 0 expected but newColumnIndex = 0").withNoCause();
     }
 
     @Test
@@ -50,7 +50,7 @@ final class MatrixEntryTests {
     @Test
     void withElement_should_throw_Exception_when_newElement_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new MatrixEntry<>(1, 1, 0).withElement(null))
-                .withMessage("newElement").withNoCause();
+            .withMessage("newElement").withNoCause();
     }
 
     @Test

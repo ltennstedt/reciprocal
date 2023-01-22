@@ -26,7 +26,7 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigFraction extends
-        AbstractFraction<@NonNull BigInteger, @NonNull BigFraction, @NonNull BigDecimal> {
+    AbstractFraction<@NonNull BigInteger, @NonNull BigFraction, @NonNull BigDecimal> {
     /**
      * 0
      *
@@ -47,8 +47,8 @@ public final class BigFraction extends
      * @since 0.0.1
      */
     public static final Stream<BigFraction> UNITS = Stream.iterate(
-            ONE,
-            bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE))
+        ONE,
+        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE))
     );
 
     @Serial
@@ -79,7 +79,7 @@ public final class BigFraction extends
     public BigFraction(final @NonNull BigInteger numerator, final @NonNull BigInteger denominator) {
         super(numerator, denominator);
         checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
-                "denominator expected not to be 0 but denominator = %s", denominator);
+            "denominator expected not to be 0 but denominator = %s", denominator);
     }
 
     @Override
@@ -116,8 +116,8 @@ public final class BigFraction extends
     public @NonNull BigFraction add(final @NonNull BigFraction summand) {
         requireNonNull(summand, "summand");
         final var num =
-                summand.getDenominator().multiply(getNumerator())
-                        .add(getDenominator().multiply(summand.getNumerator()));
+            summand.getDenominator().multiply(getNumerator())
+                .add(getDenominator().multiply(summand.getNumerator()));
         final var den = getDenominator().multiply(summand.getDenominator());
         return new BigFraction(num, den);
     }
@@ -126,7 +126,7 @@ public final class BigFraction extends
     public @NonNull BigFraction subtract(final @NonNull BigFraction subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var num = subtrahend.getDenominator().multiply(getNumerator())
-                .subtract(getDenominator().multiply(subtrahend.getNumerator()));
+            .subtract(getDenominator().multiply(subtrahend.getNumerator()));
         final var den = getDenominator().multiply(subtrahend.getDenominator());
         return new BigFraction(num, den);
     }
@@ -135,8 +135,8 @@ public final class BigFraction extends
     public @NonNull BigFraction multiply(final @NonNull BigFraction factor) {
         requireNonNull(factor, "factor");
         return new BigFraction(
-                getNumerator().multiply(factor.getNumerator()),
-                getDenominator().multiply(factor.getDenominator())
+            getNumerator().multiply(factor.getNumerator()),
+            getDenominator().multiply(factor.getDenominator())
         );
     }
 

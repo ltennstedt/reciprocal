@@ -24,13 +24,13 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     public @NonNull DoubleVector add(final @NonNull DoubleVector summand) {
         requireNonNull(summand, "summand");
         checkArgument(
-                getSize() == summand.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                summand.getSize()
+            getSize() == summand.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            summand.getSize()
         );
         return new DoubleVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element() + summand.get(e.index()))).toList()
+            getEntries().stream().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList()
         );
     }
 
@@ -38,13 +38,13 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     public @NonNull DoubleVector subtract(final @NonNull DoubleVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         checkArgument(
-                getSize() == subtrahend.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                subtrahend.getSize()
+            getSize() == subtrahend.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            subtrahend.getSize()
         );
         return new DoubleVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.get(e.index()))).toList()
+            getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList()
         );
     }
 
@@ -52,19 +52,20 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     public @NonNull Double dotProduct(final @NonNull DoubleVector other) {
         requireNonNull(other, "other");
         checkArgument(
-                getSize() == other.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                other.getSize()
+            getSize() == other.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            other.getSize()
         );
-        return getEntries().stream().map(e -> e.element() * other.get(e.index())).reduce(Double::sum).orElseThrow();
+        return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Double::sum)
+            .orElseThrow();
     }
 
     @Override
     public @NonNull DoubleVector scalarMultiply(final @NonNull Double scalar) {
         requireNonNull(scalar, "scalar");
         return new DoubleVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
+            getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
@@ -76,10 +77,10 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     public boolean orthogonalTo(final @NonNull DoubleVector other) {
         requireNonNull(other, "other");
         checkArgument(
-                getSize() == other.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                other.getSize()
+            getSize() == other.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            other.getSize()
         );
         return dotProduct(other) == 0L;
     }
@@ -110,7 +111,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
      * @since 0.0.1
      */
     public static final class DoubleVectorBuilder
-            extends AbstractVectorBuilder<Double, DoubleVector, DoubleVector.DoubleVectorBuilder> {
+        extends AbstractVectorBuilder<Double, DoubleVector, DoubleVector.DoubleVectorBuilder> {
         DoubleVectorBuilder(final int size) {
             super(size, i -> 0.0D);
         }

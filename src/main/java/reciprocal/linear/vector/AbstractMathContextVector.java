@@ -17,7 +17,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 0.0.1
  */
 public abstract class AbstractMathContextVector<E extends Number, V extends AbstractMathContextVector<E, V, N>, N extends Number>
-        extends AbstractVector<E, V, N> {
+    extends AbstractVector<E, V, N> {
     @Serial
     private static final long serialVersionUID = 1L;
 

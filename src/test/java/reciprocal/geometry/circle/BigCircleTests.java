@@ -22,19 +22,19 @@ final class BigCircleTests {
     @Test
     void getCircumference_should_return_circumference() {
         assertThat(new BigCircle(BigDecimal.ONE).getCircumference())
-                .isEqualByComparingTo(new BigDecimal("6.283185307179586"));
+            .isEqualByComparingTo(new BigDecimal("6.283185307179586"));
     }
 
     @Test
     void getArea_should_return_area() {
         assertThat(new BigCircle(BigDecimal.ONE).getArea())
-                .isEqualByComparingTo(new BigDecimal("3.141592653589793"));
+            .isEqualByComparingTo(new BigDecimal("3.141592653589793"));
     }
 
     @Test
     void compareTo_should_throw_Exception_when_o_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new BigCircle(BigDecimal.ONE).compareTo(null))
-                .withMessage("o").withNoCause();
+            .withMessage("o").withNoCause();
     }
 
     @Test
@@ -57,15 +57,15 @@ final class BigCircleTests {
         @Test
         void compare_should_throw_Exception_when_o1_is_null() {
             assertThatNullPointerException().isThrownBy(() -> BigCircleComparator.INSTANCE.compare(null, null))
-                    .withMessage("o1").withNoCause();
+                .withMessage("o1").withNoCause();
         }
 
         @Test
         void compare_should_throw_Exception_when_o2_is_null() {
             assertThatNullPointerException()
-                    .isThrownBy(() -> BigCircleComparator.INSTANCE.compare(new BigCircle(BigDecimal.ONE), null))
-                    .withMessage("o2")
-                    .withNoCause();
+                .isThrownBy(() -> BigCircleComparator.INSTANCE.compare(new BigCircle(BigDecimal.ONE), null))
+                .withMessage("o2")
+                .withNoCause();
         }
     }
 }

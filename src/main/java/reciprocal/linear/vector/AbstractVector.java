@@ -27,7 +27,7 @@ import org.eclipse.jdt.annotation.Nullable;
  * @since 0.0.1
  */
 public abstract class AbstractVector<E extends Number, V extends AbstractVector<E, V, N>,
-        N extends Number> implements Serializable {
+    N extends Number> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +55,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         noNullElements(entries, "all entries expected not to be null but entries = %s", entries);
         final var indices = entries.stream().map(VectorEntry::index).sorted().toList();
         final var expectedIndices = Stream.iterate(1, i -> i + 1).limit(size).toList();
-        checkArgument(indices.equals(expectedIndices), "indices == (1..size) expected but indices = %s", indices);
+        checkArgument(indices.equals(expectedIndices), "indices == (1..%s) expected but indices = %s", size, indices);
         this.entries = entries.stream().sorted(Comparator.comparingInt(VectorEntry::index)).toList();
     }
 
@@ -224,7 +224,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Returns the maximum distance to [other]
+     * Returns the maximum distance to other
      *
      * @param other other
      * @return max distance
@@ -246,9 +246,22 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @throws IllegalArgumentException when {@code index < 1 || index > size}
      * @since 0.0.1
      */
-    public final @NonNull E get(final int index) {
+    public final @NonNull E getElement(final int index) {
         checkArgument(index > 0 && index <= getSize(), "0 < index <= %s expected but index = %s", getSize(), index);
-        return entries.get(index).element();
+        return getEntry(index).element();
+    }
+
+    /**
+     * Returns the {@link VectorEntry} on the index
+     *
+     * @param index index
+     * @return {@link VectorEntry}
+     * @throws IllegalArgumentException when {@code index < 1 || index > size}
+     * @since 0.0.1
+     */
+    public final @NonNull VectorEntry<@NonNull E> getEntry(final int index) {
+        checkArgument(index > 0 && index <= getSize(), "0 < index <= %s expected but index = %s", getSize(), index);
+        return entries.get(index - 1);
     }
 
     /**
@@ -277,8 +290,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        final var other = (AbstractVector<?, ?, ?>) obj;
-        return entries.equals(other.getEntries());
+        return entries.equals(((AbstractVector<?, ?, ?>) obj).getEntries());
     }
 
     @Override
@@ -295,8 +307,8 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     public abstract static class AbstractVectorBuilder
-            <E extends Number, V extends AbstractVector<E, V, ?>, B extends AbstractVectorBuilder<E, V, B>> implements
-            Builder<V> {
+        <E extends Number, V extends AbstractVector<E, V, ?>, B extends AbstractVectorBuilder<E, V, B>> implements
+        Builder<V> {
         /**
          * Size
          *
@@ -356,7 +368,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @since 0.0.1
          */
         public final @NonNull B computationOfAbsentees(
-                final @NonNull IntFunction<@NonNull E> newComputationOfAbsentees
+            final @NonNull IntFunction<@NonNull E> newComputationOfAbsentees
         ) {
             computationOfAbsentees = requireNonNull(newComputationOfAbsentees, "newComputationOfAbsentees");
             return (B) this;
@@ -400,10 +412,10 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          */
         protected @NonNull List<@NonNull VectorEntry<@NonNull E>> computeEntries() {
             return IntStream.iterate(1, i -> i + 1).boxed().limit(getSize())
-                    .map(i ->
-                            getEntries().stream().filter(e -> e.index() == i).findAny()
-                                    .orElse(new VectorEntry<>(i, getComputationOfAbsentees().apply(i)))
-                    ).toList();
+                .map(i ->
+                    getEntries().stream().filter(e -> e.index() == i).findAny()
+                        .orElse(new VectorEntry<>(i, getComputationOfAbsentees().apply(i)))
+                ).toList();
         }
 
         @Override

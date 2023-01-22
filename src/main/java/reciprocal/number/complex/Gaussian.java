@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaussian, @NonNull Complex,
-        @NonNull Double, @NonNull PolarForm> {
+    @NonNull Double, @NonNull PolarForm> {
     /**
      * 0
      *

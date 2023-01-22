@@ -20,7 +20,7 @@ import org.eclipse.jdt.annotation.NonNull;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonNull BigComplex, @NonNull BigComplex,
-        @NonNull BigDecimal, @NonNull BigPolarForm> {
+    @NonNull BigDecimal, @NonNull BigPolarForm> {
     /**
      * 0
      *
@@ -97,9 +97,9 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
         final var den = divisor.getReal().pow(2).add(divisor.getImaginary().pow(2));
         final var re = getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary()))
-                .divide(den, MathContext.DECIMAL128);
+            .divide(den, MathContext.DECIMAL128);
         final var im = getImaginary().multiply(divisor.getReal()).subtract(getReal().multiply(divisor.getImaginary()))
-                .divide(den, MathContext.DECIMAL128);
+            .divide(den, MathContext.DECIMAL128);
         return new BigComplex(re, im);
     }
 

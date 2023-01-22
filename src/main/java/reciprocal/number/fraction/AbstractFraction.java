@@ -22,7 +22,7 @@ import org.eclipse.jdt.annotation.Nullable;
  */
 @API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractFraction<N extends Number, T extends AbstractFraction<N, T, Q>, Q extends Number>
-        extends Number implements Comparable<T> {
+    extends Number implements Comparable<T> {
     @Serial
     private static final long serialVersionUID = 1L;
 

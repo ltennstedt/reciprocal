@@ -15,7 +15,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 0.0.1
  */
 public final class BigDecimalVector
-        extends AbstractMathContextVector<@NonNull BigDecimal, @NonNull BigDecimalVector, @NonNull BigDecimal> {
+    extends AbstractMathContextVector<@NonNull BigDecimal, @NonNull BigDecimalVector, @NonNull BigDecimal> {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -39,75 +39,75 @@ public final class BigDecimalVector
     public @NonNull BigDecimalVector add(final @NonNull BigDecimalVector summand) {
         requireNonNull(summand, "summand");
         checkArgument(
-                getSize() == summand.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                summand.getSize()
+            getSize() == summand.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            summand.getSize()
         );
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element().add(summand.get(e.index())))).toList());
+            getEntries().stream().map(e -> e.withElement(e.element().add(summand.getElement(e.index())))).toList());
     }
 
     @Override
     public @NonNull BigDecimalVector add(
-            final @NonNull BigDecimalVector summand,
-            final @NonNull MathContext mathContext
+        final @NonNull BigDecimalVector summand,
+        final @NonNull MathContext mathContext
     ) {
         requireNonNull(summand, "summand");
         checkArgument(
-                getSize() == summand.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                summand.getSize()
+            getSize() == summand.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            summand.getSize()
         );
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element().add(summand.get(e.index()), mathContext)))
-                        .toList());
+            getEntries().stream().map(e -> e.withElement(e.element().add(summand.getElement(e.index()), mathContext)))
+                .toList());
     }
 
     @Override
     public @NonNull BigDecimalVector subtract(final @NonNull BigDecimalVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         checkArgument(
-                getSize() == subtrahend.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                subtrahend.getSize()
+            getSize() == subtrahend.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            subtrahend.getSize()
         );
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index()))))
-                        .toList());
+            getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))
+                .toList());
     }
 
     @Override
     public @NonNull BigDecimalVector subtract(
-            final @NonNull BigDecimalVector subtrahend,
-            final @NonNull MathContext mathContext
+        final @NonNull BigDecimalVector subtrahend,
+        final @NonNull MathContext mathContext
     ) {
         requireNonNull(subtrahend, "subtrahend");
         checkArgument(
-                getSize() == subtrahend.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                subtrahend.getSize()
+            getSize() == subtrahend.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            subtrahend.getSize()
         );
         return new BigDecimalVector(getSize(),
-                getEntries().stream()
-                        .map(e -> e.withElement(e.element().subtract(subtrahend.get(e.index()), mathContext)))
-                        .toList());
+            getEntries().stream()
+                .map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()), mathContext)))
+                .toList());
     }
 
     @Override
     public @NonNull BigDecimal dotProduct(final @NonNull BigDecimalVector other) {
         requireNonNull(other, "other");
         checkArgument(
-                getSize() == other.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                other.getSize()
+            getSize() == other.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            other.getSize()
         );
-        return getEntries().stream().map(e -> e.element().multiply(other.get(e.index()))).reduce(BigDecimal::add)
-                .orElseThrow();
+        return getEntries().stream().map(e -> e.element().multiply(other.getElement(e.index()))).reduce(BigDecimal::add)
+            .orElseThrow();
     }
 
     @Override
@@ -115,21 +115,21 @@ public final class BigDecimalVector
                                           final @NonNull MathContext mathContext) {
         requireNonNull(other, "other");
         checkArgument(
-                getSize() == other.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                other.getSize()
+            getSize() == other.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            other.getSize()
         );
-        return getEntries().stream().map(e -> e.element().multiply(other.get(e.index()), mathContext))
-                .reduce((a, b) -> a.add(b, mathContext))
-                .orElseThrow();
+        return getEntries().stream().map(e -> e.element().multiply(other.getElement(e.index()), mathContext))
+            .reduce((a, b) -> a.add(b, mathContext))
+            .orElseThrow();
     }
 
     @Override
     public @NonNull BigDecimalVector scalarMultiply(final @NonNull BigDecimal scalar) {
         requireNonNull(scalar, "scalar");
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
+            getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
     }
 
     @Override
@@ -138,30 +138,30 @@ public final class BigDecimalVector
         requireNonNull(scalar, "scalar");
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element(), mathContext))).toList());
+            getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element(), mathContext))).toList());
     }
 
     @Override
     public @NonNull BigDecimalVector negate() {
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
+            getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
     }
 
     @Override
     public @NonNull BigDecimalVector negate(final @NonNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),
-                getEntries().stream().map(e -> e.withElement(e.element().negate(mathContext))).toList());
+            getEntries().stream().map(e -> e.withElement(e.element().negate(mathContext))).toList());
     }
 
     @Override
     public boolean orthogonalTo(final @NonNull BigDecimalVector other) {
         requireNonNull(other, "other");
         checkArgument(
-                getSize() == other.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                other.getSize()
+            getSize() == other.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            other.getSize()
         );
         return dotProduct(other).compareTo(BigDecimal.ZERO) == 0;
     }
@@ -171,10 +171,10 @@ public final class BigDecimalVector
         requireNonNull(other, "other");
         requireNonNull(mathContext, "mathContext");
         checkArgument(
-                getSize() == other.getSize(),
-                "equal sizes expected but %s != %s",
-                getSize(),
-                other.getSize()
+            getSize() == other.getSize(),
+            "equal sizes expected but %s != %s",
+            getSize(),
+            other.getSize()
         );
         return dotProduct(other, mathContext).compareTo(BigDecimal.ZERO) == 0;
     }
@@ -188,7 +188,7 @@ public final class BigDecimalVector
     public @NonNull BigDecimal taxicabNorm(final @NonNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return getElements().stream().map(a -> a.abs(mathContext)).reduce((a, b) -> a.add(b, mathContext))
-                .orElseThrow();
+            .orElseThrow();
     }
 
     @Override
@@ -200,7 +200,7 @@ public final class BigDecimalVector
     public @NonNull BigDecimal euclideanNormPow2(final @NonNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return getElements().stream().map(e -> e.multiply(e, mathContext)).reduce((a, b) -> a.add(b, mathContext))
-                .orElseThrow();
+            .orElseThrow();
     }
 
     @Override
@@ -232,7 +232,7 @@ public final class BigDecimalVector
      * @since 0.0.1
      */
     public static final class BigDecimalVectorBuilder extends
-            AbstractVectorBuilder<@NonNull BigDecimal, @NonNull BigDecimalVector, @NonNull BigDecimalVectorBuilder> {
+        AbstractVectorBuilder<@NonNull BigDecimal, @NonNull BigDecimalVector, @NonNull BigDecimalVectorBuilder> {
         BigDecimalVectorBuilder(final int size) {
             super(size, i -> BigDecimal.ZERO);
         }
