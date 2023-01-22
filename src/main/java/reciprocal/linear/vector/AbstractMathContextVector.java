@@ -45,7 +45,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @return sum
      * @throws NullPointerException when {@code summand == null}
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException when sizes are not equal
+     * @throws IllegalArgumentException when sizes are unequal
      * @since 0.0.1
      */
     public abstract V add(@NonNull V summand, @NonNull MathContext mathContext);
@@ -58,7 +58,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @return difference
      * @throws NullPointerException when {@code summand == null}
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException when sizes are not equal
+     * @throws IllegalArgumentException when sizes are unequal
      * @since 0.0.1
      */
     public abstract V subtract(@NonNull V subtrahend, @NonNull MathContext mathContext);
@@ -71,7 +71,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @return dot product
      * @throws NullPointerException when {@code other == null}
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException when sizes are not equal
+     * @throws IllegalArgumentException when sizes are unequal
      * @since 0.0.1
      */
     public abstract E dotProduct(@NonNull V other, @NonNull MathContext mathContext);
@@ -106,7 +106,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException when sizes are not equal
+     * @throws IllegalArgumentException when sizes are unequal
      * @since 0.0.1
      */
     public abstract boolean orthogonalTo(@NonNull V other, @NonNull MathContext mathContext);
@@ -158,14 +158,14 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return taxicab distance
      * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are unequal
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException when sizes are not equal
      * @since 0.0.1
      */
     public final @NonNull N taxicabDistance(final @NonNull V other, final @NonNull MathContext mathContext) {
         requireNonNull(other, "other");
-        requireNonNull(mathContext, "mathContext");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
+        requireNonNull(mathContext, "mathContext");
         return subtract(other, mathContext).taxicabNorm(mathContext);
     }
 
@@ -176,14 +176,14 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return euclidean distance
      * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException if sizes are unequal
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException if sizes are not equal
      * @since 0.0.1
      */
     public final @NonNull N euclideanDistance(final @NonNull V other, final @NonNull MathContext mathContext) {
         requireNonNull(other, "other");
-        requireNonNull(mathContext, "mathContext");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
+        requireNonNull(mathContext, "mathContext");
         return subtract(other, mathContext).euclideanNorm(mathContext);
     }
 
@@ -194,14 +194,14 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return max distance
      * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException if sizes are unequal
      * @throws NullPointerException when {@code mathContext == null}
-     * @throws IllegalArgumentException if sizes are not equal
      * @since 0.0.1
      */
     public final @NonNull N maxDistance(final @NonNull V other, final @NonNull MathContext mathContext) {
         requireNonNull(other, "other");
-        requireNonNull(mathContext, "mathContext");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
+        requireNonNull(mathContext, "mathContext");
         return subtract(other, mathContext).maxNorm(mathContext);
     }
 }
