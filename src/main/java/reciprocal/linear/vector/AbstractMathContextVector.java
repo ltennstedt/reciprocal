@@ -44,8 +44,8 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return sum
      * @throws NullPointerException when {@code summand == null}
-     * @throws NullPointerException when {@code mathContext == null}
      * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
     public abstract V add(@NonNull V summand, @NonNull MathContext mathContext);
@@ -57,8 +57,8 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return difference
      * @throws NullPointerException when {@code summand == null}
-     * @throws NullPointerException when {@code mathContext == null}
      * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
     public abstract V subtract(@NonNull V subtrahend, @NonNull MathContext mathContext);
@@ -70,8 +70,8 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return dot product
      * @throws NullPointerException when {@code other == null}
-     * @throws NullPointerException when {@code mathContext == null}
      * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
     public abstract E dotProduct(@NonNull V other, @NonNull MathContext mathContext);
@@ -105,8 +105,8 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @param mathContext {@link MathContext}
      * @return {@link Boolean}
      * @throws NullPointerException when {@code other == null}
-     * @throws NullPointerException when {@code mathContext == null}
      * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
     public abstract boolean orthogonalTo(@NonNull V other, @NonNull MathContext mathContext);
