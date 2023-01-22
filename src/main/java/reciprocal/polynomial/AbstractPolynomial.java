@@ -2,9 +2,9 @@ package reciprocal.polynomial;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.Validate.noNullElements;
 
-import java.util.Collections;
 import java.util.List;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
@@ -31,7 +31,9 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
      * @since 0.0.1
      */
     protected AbstractPolynomial(final @NonNull List<@NonNull C> coefficients) {
-        this.coefficients = noNullElements(List.copyOf(coefficients));
+        requireNonNull(coefficients, "coefficients");
+        noNullElements(coefficients, "all coefficients expected not to be null but coefficients = %s", coefficients);
+        this.coefficients = List.copyOf(coefficients);
     }
 
     /**
@@ -130,7 +132,7 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
      * @since 0.0.1
      */
     public final @NonNull List<@NonNull C> getCoefficients() {
-        return Collections.unmodifiableList(coefficients);
+        return List.copyOf(coefficients);
     }
 
     @Override
