@@ -40,29 +40,27 @@ final class BigRectangleTests {
     @Test
     void getDiagonal_should_return_diagonal() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN).getDiagonal())
-            .isEqualByComparingTo(new BigDecimal("10.04987562112089027021926491275958"));
+            .isEqualByComparingTo("10.04987562112089027021926491275958");
     }
 
     @Test
     void getDiagonal_should_throw_Exception_when_mathContext_is_null() {
         assertThatNullPointerException()
             .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).getDiagonal(null))
-            .withMessage("mathContext")
-            .withNoCause();
+            .withMessage("mathContext").withNoCause();
     }
 
     @Test
     void getDiagonal_with_MathContext_should_return_diagonal() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN).getDiagonal(MathContext.DECIMAL32))
-            .isEqualByComparingTo(new BigDecimal("10.04988"));
+            .isEqualByComparingTo("10.04988");
     }
 
     @Test
     void withLength_should_throw_Exception_when_newLength_is_null() {
         assertThatNullPointerException()
             .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withLength(null))
-            .withMessage("newLength")
-            .withNoCause();
+            .withMessage("newLength").withNoCause();
     }
 
     @Test
@@ -82,8 +80,7 @@ final class BigRectangleTests {
     void withWidth_should_throw_Exception_when_newWidth_is_null() {
         assertThatNullPointerException()
             .isThrownBy(() -> new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).withWidth(null))
-            .withMessage("newWidth")
-            .withNoCause();
+            .withMessage("newWidth").withNoCause();
     }
 
     @Test

@@ -26,28 +26,38 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigComplex ZERO = new BigComplex(BigDecimal.ZERO);
+    public static final @NonNull BigComplex ZERO = ofReal(BigDecimal.ZERO);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigComplex ONE = new BigComplex(BigDecimal.ONE);
+    public static final @NonNull BigComplex ONE = ofReal(BigDecimal.ONE);
+
+    /**
+     * i
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull BigComplex I = ofImaginary(BigDecimal.ONE);
+
+    /**
+     * -1
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull BigComplex MINUS_ONE = ONE.negate();
+
+    /**
+     * -i
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull BigComplex MINUS_I = I.negate();
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Constructor
-     *
-     * @param real real part
-     * @throws NullPointerException when {@code real == null}
-     * @since 0.0.1
-     */
-    public BigComplex(final @NonNull BigDecimal real) {
-        this(real, BigDecimal.ZERO);
-    }
 
     /**
      * Constructor
@@ -60,6 +70,30 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
      */
     public BigComplex(final @NonNull BigDecimal real, final @NonNull BigDecimal imaginary) {
         super(real, imaginary);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param real real part
+     * @return real + 0 * i
+     * @throws NullPointerException when {@code real == null}
+     * @since 0.0.1
+     */
+    public static BigComplex ofReal(final @NonNull BigDecimal real) {
+        return new BigComplex(real, BigDecimal.ZERO);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param imaginary imaginary part
+     * @return 0 + imaginary * i
+     * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
+     */
+    public static BigComplex ofImaginary(final @NonNull BigDecimal imaginary) {
+        return new BigComplex(BigDecimal.ZERO, imaginary);
     }
 
     @Override
@@ -126,11 +160,6 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
     }
 
     @Override
-    public @NonNull BigDecimal absPow2() {
-        return getReal().pow(2).add(getImaginary().pow(2));
-    }
-
-    @Override
     public @NonNull BigDecimal abs() {
         return absPow2().sqrt(MathContext.DECIMAL128);
     }
@@ -167,5 +196,10 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
     public boolean equalsByComparing(final @NonNull BigComplex other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
+    }
+
+    @Override
+    protected @NonNull BigDecimal absPow2() {
+        return getReal().pow(2).add(getImaginary().pow(2));
     }
 }

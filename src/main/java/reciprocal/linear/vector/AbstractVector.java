@@ -100,7 +100,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Returns the sum of this and the summand
+     * Calculates the sum of this and the summand
      *
      * @param summand summand
      * @return sum
@@ -111,7 +111,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull V add(@NonNull V summand);
 
     /**
-     * Returns the difference of this and the subtrahend
+     * Calculates the difference of this and the subtrahend
      *
      * @param subtrahend subtrahend
      * @return difference
@@ -122,7 +122,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull V subtract(@NonNull V subtrahend);
 
     /**
-     * Returns the dot product of this and other
+     * Calculates the dot product of this and other
      *
      * @param other other
      * @return dot product
@@ -133,7 +133,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull E dotProduct(@NonNull V other);
 
     /**
-     * Returns the scalar product pof this and the scalar
+     * Calculates the scalar product pof this and the scalar
      *
      * @param scalar scalar
      * @return scalar product
@@ -143,7 +143,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull V scalarMultiply(@NonNull E scalar);
 
     /**
-     * Returns the negated vector of this
+     * Calculates the negated vector of this
      *
      * @return negated vector
      * @since 0.0.1
@@ -151,7 +151,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull V negate();
 
     /**
-     * Returns if this is orthogonal to other
+     * Calculates if this is orthogonal to other
      *
      * @param other other
      * @return {@link Boolean}
@@ -162,7 +162,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract boolean orthogonalTo(@NonNull V other);
 
     /**
-     * Returns the taxicab norm
+     * Calculates the taxicab norm
      *
      * @return taxicab norm
      * @since 0.0.1
@@ -170,15 +170,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull N taxicabNorm();
 
     /**
-     * Returns the square of the euclidean norm
-     *
-     * @return square of the euclidean norm
-     * @since 0.0.1
-     */
-    public abstract @NonNull N euclideanNormPow2();
-
-    /**
-     * Returns the euclidean norm
+     * Calculates the euclidean norm
      *
      * @return euclidean norm
      * @since 0.0.1
@@ -186,7 +178,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull N euclideanNorm();
 
     /**
-     * Returns the maximum norm
+     * Calculates the maximum norm
      *
      * @return max norm
      * @since 0.0.1
@@ -194,7 +186,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     public abstract @NonNull N maxNorm();
 
     /**
-     * Returns the taxicab distance to other
+     * Calculates the taxicab distance to other
      *
      * @param other other
      * @return taxicab distance
@@ -209,7 +201,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Returns the euclidean distance to other
+     * Calculates the euclidean distance to other
      *
      * @param other other
      * @return euclidean distance
@@ -224,7 +216,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Returns the maximum distance to other
+     * Calculates the maximum distance to other
      *
      * @param other other
      * @return max distance
@@ -239,7 +231,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Returns the element on the index
+     * Calculates the element on the index
      *
      * @param index index
      * @return element
@@ -252,7 +244,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Returns the {@link VectorEntry} on the index
+     * Calculates the {@link VectorEntry} on the index
      *
      * @param index index
      * @return {@link VectorEntry}
@@ -276,6 +268,14 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         requireNonNull(element, "element");
         return entries.stream().map(VectorEntry::element).anyMatch(e -> e.equals(element));
     }
+
+    /**
+     * Calculates the square of the euclidean norm
+     *
+     * @return square of the euclidean norm
+     * @since 0.0.1
+     */
+    protected abstract @NonNull N euclideanNormPow2();
 
     @Override
     public final int hashCode() {
@@ -342,7 +342,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         }
 
         /**
-         * Puts element on index
+         * Sets element
          *
          * @param index index
          * @param element element
@@ -368,8 +368,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
          * @since 0.0.1
          */
         public final @NonNull B computationOfAbsentees(
-            final @NonNull IntFunction<@NonNull E> newComputationOfAbsentees
-        ) {
+            final @NonNull IntFunction<@NonNull E> newComputationOfAbsentees) {
             computationOfAbsentees = requireNonNull(newComputationOfAbsentees, "newComputationOfAbsentees");
             return (B) this;
         }
@@ -405,7 +404,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         }
 
         /**
-         * Computes and returns entries
+         * Computes entries
          *
          * @return entries
          * @since 0.0.1

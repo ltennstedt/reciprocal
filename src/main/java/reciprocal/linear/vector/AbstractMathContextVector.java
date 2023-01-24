@@ -38,7 +38,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     }
 
     /**
-     * Returns the sum of this and the summand
+     * Calculates the sum of this and the summand
      *
      * @param summand summand
      * @param mathContext {@link MathContext}
@@ -51,7 +51,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract V add(@NonNull V summand, @NonNull MathContext mathContext);
 
     /**
-     * Returns the difference of this and the subtrahend
+     * Calculates the difference of this and the subtrahend
      *
      * @param subtrahend subtrahend
      * @param mathContext {@link MathContext}
@@ -64,7 +64,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract V subtract(@NonNull V subtrahend, @NonNull MathContext mathContext);
 
     /**
-     * Returns the dot product of this and other
+     * Calculates the dot product of this and other
      *
      * @param other other
      * @param mathContext {@link MathContext}
@@ -77,7 +77,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract E dotProduct(@NonNull V other, @NonNull MathContext mathContext);
 
     /**
-     * Returns the scalar product pof this and the scalar
+     * Calculates the scalar product pof this and the scalar
      *
      * @param scalar scalar
      * @param mathContext {@link MathContext}
@@ -89,7 +89,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract @NonNull V scalarMultiply(@NonNull E scalar, @NonNull MathContext mathContext);
 
     /**
-     * Returns the negated vector of this
+     * Calculates the negated vector of this
      *
      * @param mathContext {@link MathContext}
      * @return negated vector
@@ -99,7 +99,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract @NonNull V negate(@NonNull MathContext mathContext);
 
     /**
-     * Returns if this is orthogonal to other
+     * Calculates if this is orthogonal to other
      *
      * @param other other
      * @param mathContext {@link MathContext}
@@ -112,7 +112,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract boolean orthogonalTo(@NonNull V other, @NonNull MathContext mathContext);
 
     /**
-     * Returns the taxicab norm
+     * Calculates the taxicab norm
      *
      * @param mathContext {@link MathContext}
      * @return taxicab norm
@@ -122,17 +122,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract @NonNull N taxicabNorm(@NonNull MathContext mathContext);
 
     /**
-     * Returns the square of the euclidean norm
-     *
-     * @param mathContext {@link MathContext}
-     * @return square of the euclidean norm
-     * @throws NullPointerException when {@code mathContext == null}
-     * @since 0.0.1
-     */
-    public abstract @NonNull N euclideanNormPow2(@NonNull MathContext mathContext);
-
-    /**
-     * Returns the euclidean norm
+     * Calculates the euclidean norm
      *
      * @param mathContext {@link MathContext}
      * @return euclidean norm
@@ -142,7 +132,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract @NonNull N euclideanNorm(@NonNull MathContext mathContext);
 
     /**
-     * Returns the maximum norm
+     * Calculates the maximum norm
      *
      * @param mathContext {@link MathContext}
      * @return max norm
@@ -152,7 +142,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     public abstract @NonNull N maxNorm(@NonNull MathContext mathContext);
 
     /**
-     * Returns the taxicab distance to other
+     * Calculates the taxicab distance to other
      *
      * @param other other
      * @param mathContext {@link MathContext}
@@ -170,7 +160,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     }
 
     /**
-     * Returns the euclidean distance to other
+     * Calculates the euclidean distance to other
      *
      * @param other other
      * @param mathContext {@link MathContext}
@@ -188,7 +178,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
     }
 
     /**
-     * Returns the maximum distance to other
+     * Calculates the maximum distance to other
      *
      * @param other other
      * @param mathContext {@link MathContext}
@@ -204,4 +194,14 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
         requireNonNull(mathContext, "mathContext");
         return subtract(other, mathContext).maxNorm(mathContext);
     }
+
+    /**
+     * Calculates the square of the euclidean norm
+     *
+     * @param mathContext {@link MathContext}
+     * @return square of the euclidean norm
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    protected abstract @NonNull N euclideanNormPow2(@NonNull MathContext mathContext);
 }

@@ -32,39 +32,25 @@ public final class BigFraction extends
      *
      * @since 0.0.1
      */
-    public static final BigFraction ZERO = new BigFraction(BigInteger.ZERO);
+    public static final BigFraction ZERO = ofNumerator(BigInteger.ZERO);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final BigFraction ONE = new BigFraction(BigInteger.ONE);
+    public static final BigFraction ONE = ofNumerator(BigInteger.ONE);
 
     /**
      * Units
      *
      * @since 0.0.1
      */
-    public static final Stream<BigFraction> UNITS = Stream.iterate(
-        ONE,
-        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE))
-    );
+    public static final Stream<BigFraction> UNITS = Stream.iterate(ONE,
+        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Constructor
-     *
-     * @param numerator numerator
-     * @throws NullPointerException when {@code numerator == null}
-     * @throws IllegalArgumentException when {@code denominator == 0}
-     * @since 0.0.1
-     */
-    public BigFraction(final @NonNull BigInteger numerator) {
-        this(numerator, BigInteger.ONE);
-    }
 
     /**
      * Constructor
@@ -80,6 +66,31 @@ public final class BigFraction extends
         super(numerator, denominator);
         checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
             "denominator expected not to be 0 but denominator = %s", denominator);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param numerator numerator
+     * @return numerator / 1
+     * @throws NullPointerException when {@code numerator == null}
+     * @since 0.0.1
+     */
+    public static BigFraction ofNumerator(final @NonNull BigInteger numerator) {
+        return new BigFraction(numerator, BigInteger.ONE);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param denominator denominator
+     * @return 1 / denominator
+     * @throws NullPointerException when {@code denominator == null}
+     * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since 0.0.1
+     */
+    public static BigFraction ofDenominator(final @NonNull BigInteger denominator) {
+        return new BigFraction(BigInteger.ONE, denominator);
     }
 
     @Override

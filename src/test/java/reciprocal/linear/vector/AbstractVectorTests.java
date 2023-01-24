@@ -40,30 +40,38 @@ final class AbstractVectorTests {
     void constructor_should_sort_entries() {
         final var first = new VectorEntry<>(1, 0L);
         final var second = new VectorEntry<>(2, 0L);
+        final var vector = new LongVector(2, List.of(second, first));
 
-        assertThat(new LongVector(2, List.of(second, first)).getEntries()).containsExactly(first, second);
+        assertThat(vector.getEntries()).containsExactly(first, second);
     }
 
     @Test
     void getIndices_should_return_indices() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getIndices()).containsExactly(1);
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.getIndices()).containsExactly(1);
     }
 
     @Test
     void getElements_should_return_elements() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getElements()).containsExactly(0L);
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.getElements()).containsExactly(0L);
     }
 
     @Test
     void getSize_should_return_size() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getSize()).isOne();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.getSize()).isOne();
     }
 
     @Test
     void taxicabDistance_should_throw_Exception_when_other_is_null() {
-        assertThatNullPointerException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).taxicabDistance(null))
-            .withMessage("other").withNoCause();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatNullPointerException().isThrownBy(() -> vector.taxicabDistance(null)).withMessage("other")
+            .withNoCause();
     }
 
     @Test
@@ -85,9 +93,10 @@ final class AbstractVectorTests {
 
     @Test
     void euclideanDistance_should_throw_Exception_when_other_is_null() {
-        assertThatNullPointerException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).euclideanDistance(null))
-            .withMessage("other").withNoCause();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatNullPointerException().isThrownBy(() -> vector.euclideanDistance(null)).withMessage("other")
+            .withNoCause();
     }
 
     @Test
@@ -109,9 +118,9 @@ final class AbstractVectorTests {
 
     @Test
     void maxDistance_should_throw_Exception_when_other_is_null() {
-        assertThatNullPointerException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).maxDistance(null))
-            .withMessage("other").withNoCause();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatNullPointerException().isThrownBy(() -> vector.maxDistance(null)).withMessage("other").withNoCause();
     }
 
     @Test
@@ -133,67 +142,78 @@ final class AbstractVectorTests {
 
     @Test
     void getElement_should_throw_Exception_when_index_is_0() {
-        assertThatIllegalArgumentException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getElement(0))
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatIllegalArgumentException().isThrownBy(() -> vector.getElement(0))
             .withMessage("0 < index <= 1 expected but index = 0").withNoCause();
     }
 
     @Test
     void getElement_should_throw_Exception_when_index_is_2() {
-        assertThatIllegalArgumentException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getElement(2))
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatIllegalArgumentException().isThrownBy(() -> vector.getElement(2))
             .withMessage("0 < index <= 1 expected but index = 2").withNoCause();
     }
 
     @Test
     void getElement_should_return_element() {
-        assertThat(new LongVector(2, List.of(new VectorEntry<>(1, 0L), new VectorEntry<>(2, 1L))).getElement(1))
-            .isZero();
+        final var vector = new LongVector(2, List.of(new VectorEntry<>(1, 0L), new VectorEntry<>(2, 1L)));
+
+        assertThat(vector.getElement(1)).isZero();
     }
 
     @Test
     void getEntry_should_throw_Exception_when_index_is_0() {
-        assertThatIllegalArgumentException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getEntry(0))
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatIllegalArgumentException().isThrownBy(() -> vector.getEntry(0))
             .withMessage("0 < index <= 1 expected but index = 0").withNoCause();
     }
 
     @Test
     void getEntry_should_throw_Exception_when_index_is_2() {
-        assertThatIllegalArgumentException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).getEntry(2))
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatIllegalArgumentException().isThrownBy(() -> vector.getEntry(2))
             .withMessage("0 < index <= 1 expected but index = 2").withNoCause();
     }
 
     @Test
     void getEntry_should_return_entry() {
         final var entry = new VectorEntry<>(1, 0L);
+        final var vector = new LongVector(2, List.of(entry, new VectorEntry<>(2, 1L)));
 
-        assertThat(new LongVector(2, List.of(entry, new VectorEntry<>(2, 1L))).getEntry(1)).isSameAs(entry);
+        assertThat(vector.getEntry(1)).isSameAs(entry);
     }
 
     @Test
     void contains_should_throw_Exception_when_element_is_null() {
-        assertThatNullPointerException()
-            .isThrownBy(() -> new LongVector(1, List.of(new VectorEntry<>(1, 0L))).contains(null))
-            .withMessage("element").withNoCause();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThatNullPointerException().isThrownBy(() -> vector.contains(null)).withMessage("element").withNoCause();
     }
 
     @Test
     void contains_should_return_false_when_element_is_not_present() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).contains(1L)).isFalse();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.contains(1L)).isFalse();
     }
 
     @Test
     void contains_should_return_true_when_element_is_present() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).contains(0L)).isTrue();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.contains(0L)).isTrue();
     }
 
     @Test
     void hashCode_should_return_hashCode() {
         final var entries = List.of(new VectorEntry<>(1, 0L));
+        final var vector = new LongVector(1, entries);
 
-        assertThat(new LongVector(1, entries).hashCode()).isEqualByComparingTo(hash(entries));
+        assertThat(vector.hashCode()).isEqualByComparingTo(hash(entries));
     }
 
     @Test
@@ -205,34 +225,39 @@ final class AbstractVectorTests {
 
     @Test
     void equals_should_return_false_when_obj_is_null() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).equals(null)).isFalse();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.equals(null)).isFalse();
     }
 
     @Test
     void equals_should_return_false_when_classes_are_not_the_same() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))).equals(new Object())).isFalse();
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector.equals(new Object())).isFalse();
     }
 
     @Test
     void equals_should_return_false_when_entries_are_unequal() {
-        final var longVector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
         final var obj = new LongVector(1, List.of(new VectorEntry<>(1, 1L)));
 
-        assertThat(longVector.equals(obj)).isFalse();
+        assertThat(vector.equals(obj)).isFalse();
     }
 
     @Test
     void equals_should_return_true_when_entries_are_equal() {
-        final var longVector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
         final var obj = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
 
-        assertThat(longVector.equals(obj)).isTrue();
+        assertThat(vector.equals(obj)).isTrue();
     }
 
     @Test
     void toString_should_return_toString() {
-        assertThat(new LongVector(1, List.of(new VectorEntry<>(1, 0L))))
-            .hasToString("LongVector{entries=[VectorEntry[index=1, element=0]]}");
+        final var vector = new LongVector(1, List.of(new VectorEntry<>(1, 0L)));
+
+        assertThat(vector).hasToString("LongVector{entries=[VectorEntry[index=1, element=0]]}");
     }
 
     @Nested

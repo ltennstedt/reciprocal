@@ -153,7 +153,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract int getSignum();
 
     /**
-     * Returns the sum of this and the summand
+     * Calculates the sum of this and the summand
      *
      * @param summand summand
      * @return sum
@@ -163,7 +163,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T add(@NonNull T summand);
 
     /**
-     * Returns the difference of this and the subtrahend
+     * Calculates the difference of this and the subtrahend
      *
      * @param subtrahend subtrahend
      * @return difference
@@ -173,7 +173,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T subtract(@NonNull T subtrahend);
 
     /**
-     * Returns the product of this and the factor
+     * Calculates the product of this and the factor
      *
      * @param factor factor
      * @return product
@@ -183,7 +183,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T multiply(@NonNull T factor);
 
     /**
-     * Returns the quotient of this and the divisor
+     * Calculates the quotient of this and the divisor
      *
      * @param divisor divisor
      * @return quotient
@@ -196,7 +196,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns the power of this raised by the exponent
+     * Calculates the power of this raised by the exponent
      *
      * @param exponent exponent
      * @return power
@@ -213,7 +213,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns the negated
+     * Calculates the negated
      *
      * @return negated
      * @since 0.0.1
@@ -221,7 +221,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T negate();
 
     /**
-     * Returns the inverted
+     * Calculates the inverted
      *
      * @return inverted
      * @throws IllegalStateException if this is not invertible
@@ -233,7 +233,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns the absolute value
+     * Calculates the absolute value
      *
      * @return absolute value
      * @since 0.0.1
@@ -241,7 +241,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T abs();
 
     /**
-     * Returns the expanded fraction
+     * Calculates the expanded fraction
      *
      * @param number number
      * @return expanded
@@ -300,7 +300,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns the minimum of this and other
+     * Calculates the minimum of this and other
      *
      * @param other other
      * @return minimum
@@ -314,7 +314,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns the maximum of this and other
+     * Calculates the maximum of this and other
      *
      * @param other other
      * @return minimum
@@ -328,7 +328,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns this incremented by 1
+     * Calculates this incremented by 1
      *
      * @return increment
      * @since 0.0.1
@@ -338,7 +338,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns this decremented by 1
+     * Calculates this decremented by 1
      *
      * @return decrement
      * @since 0.0.1
@@ -348,7 +348,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Returns the normalized
+     * Calculates the normalized fraction
      *
      * @return normalized
      * @since 0.0.1
@@ -356,7 +356,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T normalize();
 
     /**
-     * Returns the reduced
+     * Calculates the reduced fraction
      *
      * @return reduced
      * @since 0.0.1

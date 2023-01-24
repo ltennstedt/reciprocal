@@ -202,7 +202,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
     }
 
     /**
-     * Computes and returns the negated
+     * Calculates the negated
      *
      * @return negated
      * @since 0.0.1
@@ -210,7 +210,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
     public abstract @NonNull M negate();
 
     /**
-     * Computes and returns the transpose
+     * Calculates the transpose
      *
      * @return transpose
      * @since 0.0.1

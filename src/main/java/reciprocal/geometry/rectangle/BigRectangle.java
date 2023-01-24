@@ -51,7 +51,7 @@ public final class BigRectangle extends AbstractRectangle<BigDecimal, BigRectang
     }
 
     /**
-     * Returns diagonal
+     * Calculates diagonal
      *
      * @param mathContext {@link MathContext}
      * @return diagonal

@@ -73,11 +73,6 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     }
 
     @Override
-    public @NonNull Double euclideanNormPow2() {
-        return getElements().stream().map(e -> e * e).reduce(Double::sum).orElseThrow();
-    }
-
-    @Override
     public @NonNull Double euclideanNorm() {
         return Math.sqrt(euclideanNormPow2());
     }
@@ -85,6 +80,11 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     @Override
     public @NonNull Double maxNorm() {
         return getElements().stream().map(Math::abs).max(Double::compareTo).orElseThrow();
+    }
+
+    @Override
+    protected @NonNull Double euclideanNormPow2() {
+        return getElements().stream().map(e -> e * e).reduce(Double::sum).orElseThrow();
     }
 
     /**

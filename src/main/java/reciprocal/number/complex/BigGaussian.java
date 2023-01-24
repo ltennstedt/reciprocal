@@ -27,21 +27,21 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian ZERO = new BigGaussian(BigInteger.ZERO);
+    public static final @NonNull BigGaussian ZERO = ofReal(BigInteger.ZERO);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian ONE = new BigGaussian(BigInteger.ONE);
+    public static final @NonNull BigGaussian ONE = ofReal(BigInteger.ONE);
 
     /**
      * i
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian IMAGINARY = new BigGaussian(BigInteger.ZERO, BigInteger.ONE);
+    public static final @NonNull BigGaussian I = ofImaginary(BigInteger.ONE);
 
     /**
      * -1
@@ -55,28 +55,17 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian MINUS_IMAGINARY = IMAGINARY.negate();
+    public static final @NonNull BigGaussian MINUS_I = I.negate();
 
     /**
      * Units
      *
      * @since 0.0.1
      */
-    public static final @NonNull Set<@NonNull BigGaussian> UNITS = Set.of(ONE, IMAGINARY, MINUS_ONE, MINUS_IMAGINARY);
+    public static final @NonNull Set<@NonNull BigGaussian> UNITS = Set.of(ONE, I, MINUS_ONE, MINUS_I);
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Constructor
-     *
-     * @param real real part
-     * @throws NullPointerException when {@code real == null}
-     * @since 0.0.1
-     */
-    public BigGaussian(final @NonNull BigInteger real) {
-        this(real, BigInteger.ZERO);
-    }
 
     /**
      * Constructor
@@ -89,6 +78,30 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      */
     public BigGaussian(final @NonNull BigInteger real, final @NonNull BigInteger imaginary) {
         super(real, imaginary);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param real real part
+     * @return real + 0 * i
+     * @throws NullPointerException when {@code real == null}
+     * @since 0.0.1
+     */
+    public static BigGaussian ofReal(final @NonNull BigInteger real) {
+        return new BigGaussian(real, BigInteger.ZERO);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param imaginary imaginary part
+     * @return 0 + imaginary * i
+     * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
+     */
+    public static BigGaussian ofImaginary(final @NonNull BigInteger imaginary) {
+        return new BigGaussian(BigInteger.ZERO, imaginary);
     }
 
     @Override
@@ -157,11 +170,6 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigInteger absPow2() {
-        return getReal().pow(2).add(getImaginary().pow(2));
-    }
-
-    @Override
     public @NonNull BigDecimal abs() {
         return new BigDecimal(absPow2()).sqrt(MathContext.DECIMAL128);
     }
@@ -209,5 +217,10 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     public boolean equalsByComparing(final @NonNull BigGaussian other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
+    }
+
+    @Override
+    protected @NonNull BigInteger absPow2() {
+        return getReal().pow(2).add(getImaginary().pow(2));
     }
 }

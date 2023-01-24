@@ -26,21 +26,21 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian ZERO = new Gaussian(0L);
+    public static final @NonNull Gaussian ZERO = ofReal(0L);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian ONE = new Gaussian(1L);
+    public static final @NonNull Gaussian ONE = ofReal(1L);
 
     /**
      * i
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian IMAGINARY = new Gaussian(0L, 1L);
+    public static final @NonNull Gaussian IMAGINARY = ofImaginary(1L);
 
     /**
      * -1
@@ -70,21 +70,33 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
      * Constructor
      *
      * @param real real part
-     * @since 0.0.1
-     */
-    public Gaussian(final long real) {
-        this(real, 0L);
-    }
-
-    /**
-     * Constructor
-     *
-     * @param real real part
      * @param imaginary imaginary part
      * @since 0.0.1
      */
     public Gaussian(final long real, final long imaginary) {
         super(real, imaginary);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param real real part
+     * @return real + 0 * i
+     * @since 0.0.1
+     */
+    public static @NonNull Gaussian ofReal(final long real) {
+        return new Gaussian(real, 0L);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param imaginary imaginary part
+     * @return 0 + imaginary * i
+     * @since 0.0.1
+     */
+    public static @NonNull Gaussian ofImaginary(final long imaginary) {
+        return new Gaussian(0L, imaginary);
     }
 
     @Override
@@ -146,11 +158,6 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
     public @NonNull Complex invert() {
         checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
-    }
-
-    @Override
-    public @NonNull Long absPow2() {
-        return LongMath.pow(getReal(), 2) + LongMath.pow(getImaginary(), 2);
     }
 
     @Override
@@ -220,5 +227,10 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
     public boolean equalsByComparing(final @NonNull Gaussian other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
+    }
+
+    @Override
+    protected @NonNull Long absPow2() {
+        return LongMath.pow(getReal(), 2) + LongMath.pow(getImaginary(), 2);
     }
 }

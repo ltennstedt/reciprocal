@@ -24,27 +24,38 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex ZERO = new Complex(0.0D);
+    public static final @NonNull Complex ZERO = ofReal(0.0D);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex ONE = new Complex(1.0D);
+    public static final @NonNull Complex ONE = ofReal(1.0D);
+
+    /**
+     * i
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull Complex I = ofImaginary(1.0D);
+
+    /**
+     * -1
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull Complex MINUS_ONE = ONE.negate();
+
+    /**
+     * -i
+     *
+     * @since 0.0.1
+     */
+    public static final @NonNull Complex MINUS_I = I.negate();
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Constructor
-     *
-     * @param real real part
-     * @since 0.0.1
-     */
-    public Complex(final double real) {
-        this(real, 0.0D);
-    }
 
     /**
      * Constructor
@@ -55,6 +66,28 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
      */
     public Complex(final double real, final double imaginary) {
         super(real, imaginary);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param real real part
+     * @return real + 0 * i
+     * @since 0.0.1
+     */
+    public static Complex ofReal(final double real) {
+        return new Complex(real, 0.0D);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param imaginary imaginary part
+     * @return 0 + imaginary * i
+     * @since 0.0.1
+     */
+    public static Complex ofImaginary(final double imaginary) {
+        return new Complex(0.0D, imaginary);
     }
 
     @Override
@@ -119,11 +152,6 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     }
 
     @Override
-    public @NonNull Double absPow2() {
-        return Math.pow(getReal(), 2.0D) + Math.pow(getImaginary(), 2.0D);
-    }
-
-    @Override
     public @NonNull Double abs() {
         return Math.sqrt(absPow2());
     }
@@ -169,5 +197,10 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     public boolean equalsByComparing(final @NonNull Complex other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
+    }
+
+    @Override
+    protected @NonNull Double absPow2() {
+        return Math.pow(getReal(), 2.0D) + Math.pow(getImaginary(), 2.0D);
     }
 }

@@ -78,18 +78,12 @@ public final class BigIntegerVector
     }
 
     @Override
-    public @NonNull BigDecimal euclideanNormPow2() {
-        return getElements().stream().map(e -> e.multiply(e)).reduce(BigInteger::add).map(BigDecimal::new)
-            .orElseThrow();
-    }
-
-    @Override
     public @NonNull BigDecimal euclideanNorm() {
         return euclideanNormPow2().sqrt(MathContext.UNLIMITED);
     }
 
     /**
-     * Returns the euclidean
+     * Calculates the Euclidean norm
      *
      * @param mathContext {@link MathContext}
      * @return euclidean norm
@@ -104,6 +98,12 @@ public final class BigIntegerVector
     @Override
     public @NonNull BigDecimal maxNorm() {
         return getElements().stream().map(BigInteger::abs).max(BigInteger::compareTo).map(BigDecimal::new)
+            .orElseThrow();
+    }
+
+    @Override
+    protected @NonNull BigDecimal euclideanNormPow2() {
+        return getElements().stream().map(e -> e.multiply(e)).reduce(BigInteger::add).map(BigDecimal::new)
             .orElseThrow();
     }
 

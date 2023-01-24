@@ -157,25 +157,12 @@ public final class BigDecimalVector
     }
 
     @Override
-    public @NonNull BigDecimal euclideanNormPow2() {
-        return getElements().stream().map(e -> e.multiply(e)).reduce(BigDecimal::add).orElseThrow();
-    }
-
-    @Override
-    public @NonNull BigDecimal euclideanNormPow2(final @NonNull MathContext mathContext) {
-        requireNonNull(mathContext, "mathContext");
-        return getElements().stream().map(e -> e.multiply(e, mathContext)).reduce((a, b) -> a.add(b, mathContext))
-            .orElseThrow();
-    }
-
-    @Override
     public @NonNull BigDecimal euclideanNorm() {
         return euclideanNormPow2().sqrt(MathContext.UNLIMITED);
     }
 
     @Override
     public @NonNull BigDecimal euclideanNorm(final @NonNull MathContext mathContext) {
-        requireNonNull(mathContext, "mathContext");
         requireNonNull(mathContext, "mathContext");
         return euclideanNormPow2(mathContext).sqrt(mathContext);
     }
@@ -189,6 +176,18 @@ public final class BigDecimalVector
     public @NonNull BigDecimal maxNorm(final @NonNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return getElements().stream().map(a -> a.abs(mathContext)).max(BigDecimal::compareTo).orElseThrow();
+    }
+
+    @Override
+    protected @NonNull BigDecimal euclideanNormPow2() {
+        return getElements().stream().map(e -> e.multiply(e)).reduce(BigDecimal::add).orElseThrow();
+    }
+
+    @Override
+    protected @NonNull BigDecimal euclideanNormPow2(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return getElements().stream().map(e -> e.multiply(e, mathContext)).reduce((a, b) -> a.add(b, mathContext))
+            .orElseThrow();
     }
 
     /**

@@ -31,27 +31,17 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
      *
      * @since 0.0.1
      */
-    public static final @NonNull Fraction ZERO = new Fraction(0L);
+    public static final @NonNull Fraction ZERO = ofNumerator(0L);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Fraction ONE = new Fraction(1L);
+    public static final @NonNull Fraction ONE = ofNumerator(1L);
 
     @Serial
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Constructor
-     *
-     * @param numerator numerator
-     * @since 0.0.1
-     */
-    public Fraction(final long numerator) {
-        this(numerator, 1L);
-    }
 
     /**
      * Constructor
@@ -63,7 +53,29 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
      */
     public Fraction(final long numerator, final long denominator) {
         super(numerator, denominator);
-        checkArgument(denominator != 0L, "denominator expected not to be 0 but denominator = %s", denominator);
+        checkArgument(denominator != 0L, "denominator != 0 expected but denominator = %s", denominator);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param numerator numerator
+     * @return numerator / 1
+     * @since 0.0.1
+     */
+    public static Fraction ofNumerator(final long numerator) {
+        return new Fraction(numerator, 1L);
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param denominator denominator
+     * @return 1 / denominator
+     * @since 0.0.1
+     */
+    public static Fraction ofDenominator(final long denominator) {
+        return new Fraction(1L, denominator);
     }
 
     @Override
@@ -193,7 +205,7 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
      * @since 0.0.1
      */
     public @NonNull Complex toComplex() {
-        return new Complex(doubleValue());
+        return Complex.ofReal(doubleValue());
     }
 
     @Override

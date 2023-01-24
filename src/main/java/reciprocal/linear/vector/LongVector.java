@@ -96,11 +96,6 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     }
 
     @Override
-    public @NonNull Double euclideanNormPow2() {
-        return getElements().stream().map(e -> e * e).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
-    }
-
-    @Override
     public @NonNull Double euclideanNorm() {
         return Math.sqrt(euclideanNormPow2());
     }
@@ -108,6 +103,11 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Override
     public @NonNull Double maxNorm() {
         return getElements().stream().map(Math::abs).max(Long::compareTo).map(Long::doubleValue).orElseThrow();
+    }
+
+    @Override
+    protected @NonNull Double euclideanNormPow2() {
+        return getElements().stream().map(e -> e * e).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
     }
 
     /**

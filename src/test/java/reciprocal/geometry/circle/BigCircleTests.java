@@ -21,14 +21,12 @@ final class BigCircleTests {
 
     @Test
     void getCircumference_should_return_circumference() {
-        assertThat(new BigCircle(BigDecimal.ONE).getCircumference())
-            .isEqualByComparingTo(new BigDecimal("6.283185307179586"));
+        assertThat(new BigCircle(BigDecimal.ONE).getCircumference()).isEqualByComparingTo("6.283185307179586");
     }
 
     @Test
     void getArea_should_return_area() {
-        assertThat(new BigCircle(BigDecimal.ONE).getArea())
-            .isEqualByComparingTo(new BigDecimal("3.141592653589793"));
+        assertThat(new BigCircle(BigDecimal.ONE).getArea()).isEqualByComparingTo("3.141592653589793");
     }
 
     @Test
@@ -64,8 +62,7 @@ final class BigCircleTests {
         void compare_should_throw_Exception_when_o2_is_null() {
             assertThatNullPointerException()
                 .isThrownBy(() -> BigCircleComparator.INSTANCE.compare(new BigCircle(BigDecimal.ONE), null))
-                .withMessage("o2")
-                .withNoCause();
+                .withMessage("o2").withNoCause();
         }
     }
 }

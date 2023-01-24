@@ -79,8 +79,7 @@ final class AbstractMathContextVectorTests {
         final var other = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.valueOf(3L)), new VectorEntry<>(2, BigDecimal.valueOf(4L))));
 
-        assertThat(vector.euclideanDistance(other, MathContext.DECIMAL32))
-            .isEqualByComparingTo(new BigDecimal("2.828427"));
+        assertThat(vector.euclideanDistance(other, MathContext.DECIMAL32)).isEqualByComparingTo("2.828427");
     }
 
     @Test

@@ -74,7 +74,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     }
 
     /**
-     * Returns the sum of this and the summand
+     * Calculates the sum of this and the summand
      *
      * @param summand summand
      * @return sum
@@ -84,7 +84,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T add(@NonNull T summand);
 
     /**
-     * Returns the difference of this and the subtrahend
+     * Calculates the difference of this and the subtrahend
      *
      * @param subtrahend subtrahend
      * @return difference
@@ -94,7 +94,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T subtract(@NonNull T subtrahend);
 
     /**
-     * Returns the product of this and the factor
+     * Calculates the product of this and the factor
      *
      * @param factor factor
      * @return product
@@ -104,7 +104,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T multiply(@NonNull T factor);
 
     /**
-     * Returns the quotient of this and the divisor
+     * Calculates the quotient of this and the divisor
      *
      * @param divisor divisor
      * @return quotient
@@ -115,7 +115,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull Q divide(@NonNull T divisor);
 
     /**
-     * Returns the power raised by the exponent
+     * Calculates the power raised by the exponent
      *
      * @param exponent exponent
      * @return power
@@ -124,7 +124,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull Q pow(int exponent);
 
     /**
-     * Returns the negated
+     * Calculates the negated
      *
      * @return negated
      * @since 0.0.1
@@ -132,7 +132,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T negate();
 
     /**
-     * Returns the inverted
+     * Calculates the inverted
      *
      * @return inverted
      * @since 0.0.1
@@ -140,15 +140,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull Q invert();
 
     /**
-     * Returns the square of the absolute value
-     *
-     * @return square of the absolute value
-     * @since 0.0.1
-     */
-    public abstract @NonNull N absPow2();
-
-    /**
-     * Returns the absolute value
+     * Calculates the absolute value
      *
      * @return absolute value
      * @since 0.0.1
@@ -156,7 +148,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull A abs();
 
     /**
-     * Returns the conjugated
+     * Calculates the conjugated
      *
      * @return conjugated
      * @since 0.0.1
@@ -164,7 +156,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T conjugate();
 
     /**
-     * Returns the argument
+     * Calculates the argument
      *
      * @return argument
      * @since 0.0.1
@@ -287,6 +279,14 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public final @NonNull Q power(final int exponent) {
         return pow(exponent);
     }
+
+    /**
+     * Calculates the square of the absolute value
+     *
+     * @return square of the absolute value
+     * @since 0.0.1
+     */
+    protected abstract @NonNull N absPow2();
 
     /**
      * Real
