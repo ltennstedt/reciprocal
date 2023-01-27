@@ -6,8 +6,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -21,7 +19,6 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <P> {@link AbstractPolarForm}
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractComplex<N extends Number, T extends AbstractComplex<N, T, Q, A, P>, Q, A, P>
     extends Number {
     @Serial
@@ -239,7 +236,6 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @since 0.0.1
      */
     public final @NonNull T plus(final @NonNull T summand) {
-        requireNonNull(summand, "summand");
         return add(summand);
     }
 
@@ -252,7 +248,6 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @since 0.0.1
      */
     public final @NonNull T minus(final @NonNull T subtrahend) {
-        requireNonNull(subtrahend, "subtrahend");
         return subtract(subtrahend);
     }
 
@@ -262,10 +257,10 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @param divisor divisor
      * @return quotient
      * @throws NullPointerException when {@code divisor == null}
+     * @throws IllegalArgumentException when divisor is not invertible
      * @since 0.0.1
      */
     public final @NonNull Q div(final @NonNull T divisor) {
-        requireNonNull(divisor, "divisor");
         return divide(divisor);
     }
 

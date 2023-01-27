@@ -98,7 +98,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
 
     @Override
     public boolean isInvertible() {
-        return doesNotEqualByComparing(ZERO);
+        return UNITS.contains(this);
     }
 
     @Override

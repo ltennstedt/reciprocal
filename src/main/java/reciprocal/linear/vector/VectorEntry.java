@@ -36,26 +36,25 @@ public record VectorEntry<E extends Number>(int index, @NonNull E element) imple
     /**
      * Returns a copy with new index
      *
-     * @param newIndex index
+     * @param index index
      * @return copy
-     * @throws IllegalArgumentException when {@code newIndex < 1}
+     * @throws IllegalArgumentException when {@code index < 1}
      * @since 0.0.1
      */
-    public @NonNull VectorEntry<@NonNull E> withIndex(final int newIndex) {
-        checkArgument(newIndex > 0, "newIndex > 0 expected but newIndex = %s", newIndex);
-        return new VectorEntry<>(newIndex, element);
+    public @NonNull VectorEntry<@NonNull E> withIndex(final int index) {
+        return new VectorEntry<>(index, element);
     }
 
     /**
      * Returns a copy with new element
      *
-     * @param newElement element
+     * @param element element
      * @return copy
-     * @throws NullPointerException when {@code newElement == null}
+     * @throws NullPointerException when {@code element == null}
      * @since 0.0.1
      */
-    public @NonNull VectorEntry<@NonNull E> withElement(final @NonNull E newElement) {
-        requireNonNull(newElement, "newElement");
-        return new VectorEntry<>(index, newElement);
+    public @NonNull VectorEntry<@NonNull E> withElement(final @NonNull E element) {
+        requireNonNull(element, "element");
+        return new VectorEntry<>(index, element);
     }
 }
