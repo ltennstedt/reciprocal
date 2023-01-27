@@ -46,7 +46,7 @@ public final class BigDecimalVector
 
     @Override
     public @NonNull BigDecimalVector add(final @NonNull BigDecimalVector summand,
-                                         final @NonNull MathContext mathContext) {
+        final @NonNull MathContext mathContext) {
         requireNonNull(summand, "summand");
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
@@ -91,7 +91,7 @@ public final class BigDecimalVector
 
     @Override
     public @NonNull BigDecimal dotProduct(final @NonNull BigDecimalVector other,
-                                          final @NonNull MathContext mathContext) {
+        final @NonNull MathContext mathContext) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         requireNonNull(mathContext, "mathContext");
@@ -109,7 +109,7 @@ public final class BigDecimalVector
 
     @Override
     public @NonNull BigDecimalVector scalarMultiply(final @NonNull BigDecimal scalar,
-                                                    final @NonNull MathContext mathContext) {
+        final @NonNull MathContext mathContext) {
         requireNonNull(scalar, "scalar");
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),

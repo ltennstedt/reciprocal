@@ -7,8 +7,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Comparator;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 import reciprocal.ReciprocalUtils;
 
@@ -61,7 +59,6 @@ public final class BigCircle extends AbstractCircle<BigDecimal, BigCircle> {
      *
      * @since 0.0.1
      */
-    @API(status = Status.EXPERIMENTAL, since = "0.0.1")
     public static final class BigCircleComparator implements Comparator<@NonNull BigCircle>, Serializable {
         /**
          * Instance

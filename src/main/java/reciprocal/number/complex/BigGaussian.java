@@ -9,8 +9,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Set;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -19,7 +17,6 @@ import org.eclipse.jdt.annotation.NonNull;
  *
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @NonNull BigGaussian, @NonNull BigComplex,
     @NonNull BigDecimal, @NonNull BigPolarForm> {
     /**

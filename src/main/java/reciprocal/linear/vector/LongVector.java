@@ -44,12 +44,8 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Override
     public @NonNull LongVector subtract(final @NonNull LongVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
-        checkArgument(
-            getSize() == subtrahend.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            subtrahend.getSize()
-        );
+        checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
+            subtrahend.getSize());
         return new LongVector(getSize(),
             getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList());
     }
@@ -57,12 +53,7 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Override
     public @NonNull Long dotProduct(final @NonNull LongVector other) {
         requireNonNull(other, "other");
-        checkArgument(
-            getSize() == other.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            other.getSize()
-        );
+        checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Long::sum)
             .orElseThrow();
     }
@@ -81,12 +72,7 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     @Override
     public boolean orthogonalTo(final @NonNull LongVector other) {
         requireNonNull(other, "other");
-        checkArgument(
-            getSize() == other.getSize(),
-            "equal sizes expected but %s != %s",
-            getSize(),
-            other.getSize()
-        );
+        checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return dotProduct(other) == 0L;
     }
 

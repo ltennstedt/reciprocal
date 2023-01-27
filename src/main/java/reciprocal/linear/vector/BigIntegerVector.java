@@ -24,6 +24,18 @@ public final class BigIntegerVector
         super(size, entries);
     }
 
+    /**
+     * Returns {@link BigIntegerVectorBuilder}
+     *
+     * @param size size
+     * @return {@link BigIntegerVectorBuilder}
+     * @throws IllegalArgumentException when {@code size < 1}
+     * @since 0.0.1
+     */
+    public static BigIntegerVectorBuilder ofSize(final int size) {
+        return new BigIntegerVectorBuilder(size);
+    }
+
     @Override
     public @NonNull BigIntegerVector add(final @NonNull BigIntegerVector summand) {
         requireNonNull(summand, "summand");

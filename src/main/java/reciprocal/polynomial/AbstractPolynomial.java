@@ -6,8 +6,6 @@ import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.Validate.noNullElements;
 
 import java.util.List;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -18,7 +16,6 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <P> polynomial
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractPolynomial<C extends Number, P extends AbstractPolynomial<C, P>> {
     private final @NonNull List<@NonNull C> coefficients;
 

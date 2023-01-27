@@ -20,6 +20,18 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
         super(size, entries);
     }
 
+    /**
+     * Returns {@link DoubleVectorBuilder}
+     *
+     * @param size size
+     * @return {@link DoubleVectorBuilder}
+     * @throws IllegalArgumentException when {@code size < 1}
+     * @since 0.0.1
+     */
+    public static DoubleVectorBuilder ofSize(final int size) {
+        return new DoubleVectorBuilder(size);
+    }
+
     @Override
     public @NonNull DoubleVector add(final @NonNull DoubleVector summand) {
         requireNonNull(summand, "summand");

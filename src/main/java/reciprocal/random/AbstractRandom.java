@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -15,7 +13,6 @@ import org.eclipse.jdt.annotation.NonNull;
  * @param <N> {@link Number}
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractRandom<N extends Number> {
     /**
      * {@link SecureRandom}

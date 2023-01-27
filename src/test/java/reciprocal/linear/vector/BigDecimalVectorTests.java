@@ -295,7 +295,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void orthogonalTo_should_return_false_when_vector_is_not_ortogonal_to_other() {
+    void orthogonalTo_should_return_false_when_vector_is_not_orthogonal_to_other() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ONE), new VectorEntry<>(2, BigDecimal.valueOf(2L))));
         final var other = new BigDecimalVector(2,
@@ -305,7 +305,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void orthogonalTo_should_return_true_when_vector_is_ortogonal_to_other() {
+    void orthogonalTo_should_return_true_when_vector_is_orthogonal_to_other() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ONE), new VectorEntry<>(2, BigDecimal.ZERO)));
         final var other = new BigDecimalVector(2,
@@ -331,7 +331,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void orthogonalTo_with_MathContext_should_return_false_when_vector_is_not_ortogonal_to_other() {
+    void orthogonalTo_with_MathContext_should_return_false_when_vector_is_not_orthogonal_to_other() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ONE), new VectorEntry<>(2, BigDecimal.valueOf(2L))));
         final var other = new BigDecimalVector(2,
@@ -341,7 +341,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void orthogonalTo_with_MathContext_should_return_true_when_vector_is_ortogonal_to_other() {
+    void orthogonalTo_with_MathContext_should_return_true_when_vector_is_orthogonal_to_other() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ONE), new VectorEntry<>(2, BigDecimal.ZERO)));
         final var other = new BigDecimalVector(2,

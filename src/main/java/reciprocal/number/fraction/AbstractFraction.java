@@ -7,8 +7,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.util.function.BiFunction;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -20,7 +18,6 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <Q> quotient
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractFraction<N extends Number, T extends AbstractFraction<N, T, Q>, Q extends Number>
     extends Number implements Comparable<T> {
     @Serial

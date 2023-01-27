@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 
@@ -17,7 +15,6 @@ import org.eclipse.jdt.annotation.Nullable;
  * @param <C> circle
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public abstract class AbstractCircle<N extends Number, C extends AbstractCircle<N, C>>
     implements Comparable<C>, Serializable {
     @Serial

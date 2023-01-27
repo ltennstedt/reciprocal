@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
@@ -14,7 +12,6 @@ import org.eclipse.jdt.annotation.NonNull;
  *
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class BigPolarForm extends AbstractPolarForm<@NonNull BigDecimal, @NonNull BigPolarForm> {
     @Serial
     private static final long serialVersionUID = 1L;

@@ -11,8 +11,6 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.eclipse.jdt.annotation.NonNull;
 import reciprocal.number.complex.Complex;
 
@@ -24,7 +22,6 @@ import reciprocal.number.complex.Complex;
  *
  * @since 0.0.1
  */
-@API(status = Status.EXPERIMENTAL, since = "0.0.1")
 public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fraction, @NonNull Double> {
     /**
      * 0
@@ -228,7 +225,6 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
      *
      * @since 0.0.1
      */
-    @API(status = Status.EXPERIMENTAL, since = "0.0.1")
     public static final class FractionComparator implements Comparator<Fraction>, Serializable {
         /**
          * Instance

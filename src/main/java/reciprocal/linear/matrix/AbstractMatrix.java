@@ -41,7 +41,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     protected AbstractMatrix(final int rowSize, final int columnSize,
-                             final @NonNull List<@NonNull MatrixEntry<@NonNull E>> entries) {
+        final @NonNull List<@NonNull MatrixEntry<@NonNull E>> entries) {
         checkArgument(rowSize > 0, "expected rowSize > 0 but rowSize = %s", rowSize);
         checkArgument(columnSize > 0, "expected columnSize > 0 but columnSize = %s", columnSize);
         requireNonNull(entries, "entries");

@@ -33,7 +33,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @since 0.0.1
      */
     protected AbstractMathContextVector(final int size,
-                                        final @NonNull List<@NonNull VectorEntry<@NonNull E>> vectorEntries) {
+        final @NonNull List<@NonNull VectorEntry<@NonNull E>> vectorEntries) {
         super(size, vectorEntries);
     }
 
