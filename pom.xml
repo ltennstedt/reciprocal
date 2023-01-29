@@ -192,6 +192,7 @@
                 <configuration>
                     <show>protected</show>
                     <nohelp>true</nohelp>
+                    <linksource>true</linksource>
                 </configuration>
                 <reportSets>
                     <reportSet>
@@ -203,11 +204,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>${plugin.surefire.version}</version>
-                <configuration>
-                    <linkXRef>false</linkXRef>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -227,9 +230,6 @@
                 <version>3.2.0</version>
                 <configuration>
                     <configLocation>config/checkstyle/config.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <linkXRef>false</linkXRef>
                 </configuration>
                 <reportSets>
                     <reportSet>
@@ -245,7 +245,6 @@
                 <version>3.19.0</version>
                 <configuration>
                     <minimumTokens>100</minimumTokens>
-                    <linkXRef>false</linkXRef>
                     <rulesets>
                         <ruleset>config/pmd/ruleset.xml</ruleset>
                     </rulesets>
