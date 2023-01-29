@@ -1,6 +1,7 @@
 package reciprocal.number.complex;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 import static java.util.Objects.requireNonNull;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
@@ -101,8 +102,23 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
     @Override
     public @NonNull BigComplex add(final @NonNull BigComplex summand) {
         requireNonNull(summand, "summand");
-        final var re = getReal().add(summand.getReal());
-        final var im = getImaginary().add(summand.getImaginary());
+        return new BigComplex(getReal().add(summand.getReal()), getImaginary().add(summand.getImaginary()));
+    }
+
+    /**
+     * Calculates the sum
+     *
+     * @param summand summand
+     * @param mathContext {@link MathContext}
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     */
+    public @NonNull BigComplex add(final @NonNull BigComplex summand, final @NonNull MathContext mathContext) {
+        requireNonNull(summand, "summand");
+        requireNonNull(mathContext, "mathContext");
+        final var re = getReal().add(summand.getReal(), mathContext);
+        final var im = getImaginary().add(summand.getImaginary(), mathContext);
         return new BigComplex(re, im);
     }
 
@@ -114,11 +130,48 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         return new BigComplex(re, im);
     }
 
+    /**
+     * Calculates the difference
+     *
+     * @param subtrahend subtrahend
+     * @param mathContext {@link MathContext}
+     * @return sum
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     */
+    public @NonNull BigComplex subtract(final @NonNull BigComplex subtrahend, final @NonNull MathContext mathContext) {
+        requireNonNull(subtrahend, "subtrahend");
+        requireNonNull(mathContext, "mathContext");
+        final var re = getReal().subtract(subtrahend.getReal(), mathContext);
+        final var im = getImaginary().subtract(subtrahend.getImaginary(), mathContext);
+        return new BigComplex(re, im);
+    }
+
     @Override
     public @NonNull BigComplex multiply(final @NonNull BigComplex factor) {
         requireNonNull(factor, "factor");
         final var re = getReal().multiply(factor.getReal()).subtract(getImaginary().multiply(factor.getImaginary()));
         final var im = getReal().multiply(factor.getImaginary()).add(getImaginary().multiply(factor.getReal()));
+        return new BigComplex(re, im);
+    }
+
+    /**
+     * Calculates the product
+     *
+     * @param factor factor
+     * @param mathContext {@link MathContext}
+     * @return product
+     * @throws NullPointerException when {@code factor == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex multiply(final @NonNull BigComplex factor, final @NonNull MathContext mathContext) {
+        requireNonNull(factor, "factor");
+        requireNonNull(mathContext, "mathContext");
+        final var re = getReal().multiply(factor.getReal(), mathContext)
+            .subtract(getImaginary().multiply(factor.getImaginary(), mathContext), mathContext);
+        final var im = getReal().multiply(factor.getImaginary(), mathContext)
+            .add(getImaginary().multiply(factor.getReal(), mathContext), mathContext);
         return new BigComplex(re, im);
     }
 
@@ -134,6 +187,30 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         return new BigComplex(re, im);
     }
 
+    /**
+     * Calculates the quotient
+     *
+     * @param divisor divisor
+     * @param mathContext {@link MathContext}
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @throws IllegalArgumentException when divisor is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex divide(final @NonNull BigComplex divisor, final @NonNull MathContext mathContext) {
+        requireNonNull(divisor, "divisor");
+        checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
+        requireNonNull(mathContext, "mathContext");
+        final var den =
+            divisor.getReal().pow(2, mathContext).add(divisor.getImaginary().pow(2, mathContext), mathContext);
+        final var re = getReal().multiply(divisor.getReal(), mathContext)
+            .add(getImaginary().multiply(divisor.getImaginary(), mathContext), mathContext).divide(den, mathContext);
+        final var im = getImaginary().multiply(divisor.getReal(), mathContext)
+            .subtract(getReal().multiply(divisor.getImaginary(), mathContext), mathContext).divide(den, mathContext);
+        return new BigComplex(re, im);
+    }
+
     @Override
     public @NonNull BigComplex pow(final int exponent) {
         if (exponent < 0) {
@@ -142,12 +219,45 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         if (exponent > 0) {
             return multiply(pow(exponent - 1));
         }
-        return ZERO;
+        return ONE;
+    }
+
+    /**
+     * Calculates the power
+     *
+     * @param exponent exponent
+     * @param mathContext {@link MathContext}
+     * @return power
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex pow(final int exponent, final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        if (exponent < 0) {
+            return multiply(pow(-exponent - 1, mathContext), mathContext).invert(mathContext);
+        }
+        if (exponent > 0) {
+            return multiply(pow(exponent - 1, mathContext), mathContext);
+        }
+        return ONE;
     }
 
     @Override
     public @NonNull BigComplex negate() {
         return new BigComplex(getReal().negate(), getImaginary().negate());
+    }
+
+    /**
+     * Calculates the negated
+     *
+     * @param mathContext {@link MathContext}
+     * @return negated
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex negate(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return new BigComplex(getReal().negate(mathContext), getImaginary().negate(mathContext));
     }
 
     @Override
@@ -156,9 +266,36 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         return ONE.divide(this);
     }
 
+    /**
+     * Calculates the inverted
+     *
+     * @param mathContext {@link MathContext}
+     * @return inverted
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex invert(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        return ONE.divide(this, mathContext);
+    }
+
     @Override
     public @NonNull BigDecimal abs() {
         return absPow2().sqrt(MathContext.DECIMAL128);
+    }
+
+    /**
+     * Calculates the absolute value
+     *
+     * @param mathContext {@link MathContext}
+     * @return absolute value
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigDecimal abs(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return absPow2(mathContext).sqrt(mathContext);
     }
 
     @Override
@@ -166,11 +303,40 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         return new BigComplex(getReal(), getImaginary().negate());
     }
 
+    /**
+     * Calculates the conjugated
+     *
+     * @param mathContext {@link MathContext}
+     * @return conjugated
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex conjugate(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return new BigComplex(getReal(), getImaginary().negate(mathContext));
+    }
+
     @Override
     public @NonNull BigDecimal argument() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = BigDecimalMath.acos(getReal().divide(abs(), MathContext.DECIMAL128), MathContext.DECIMAL128);
         return getImaginary().compareTo(BigDecimal.ZERO) < 0 ? acos.negate() : acos;
+    }
+
+    /**
+     * Calculates the argument
+     *
+     * @param mathContext {@link MathContext}
+     * @return argument
+     * @throws IllegalStateException when this is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigDecimal argument(final @NonNull MathContext mathContext) {
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
+        requireNonNull(mathContext, "mathContext");
+        final var acos = BigDecimalMath.acos(getReal().divide(abs(), mathContext), mathContext);
+        return getImaginary().compareTo(BigDecimal.ZERO) < 0 ? acos.negate(mathContext) : acos;
     }
 
     @Override
@@ -189,6 +355,21 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
         return new BigPolarForm(abs(), argument());
     }
 
+    /**
+     * Returns this as polar form
+     *
+     * @param mathContext {@link MathContext}
+     * @return polar form
+     * @throws IllegalStateException when this is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigPolarForm toPolarForm(final @NonNull MathContext mathContext) {
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
+        requireNonNull(mathContext, "mathContext");
+        return new BigPolarForm(abs(mathContext), argument(mathContext));
+    }
+
     @Override
     public boolean equalsByComparing(final @NonNull BigComplex other) {
         requireNonNull(other, "other");
@@ -198,5 +379,9 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
     @Override
     protected @NonNull BigDecimal absPow2() {
         return getReal().pow(2).add(getImaginary().pow(2));
+    }
+
+    private BigDecimal absPow2(final MathContext mathContext) {
+        return getReal().pow(2, mathContext).add(getImaginary().pow(2, mathContext), mathContext);
     }
 }

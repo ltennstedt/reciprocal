@@ -86,7 +86,6 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @since 0.0.1
      */
     public final boolean doesNotEqualByComparing(final @NonNull T other) {
-        requireNonNull(other, "other");
         return !equalsByComparing(other);
     }
 

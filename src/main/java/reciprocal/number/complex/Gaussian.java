@@ -37,7 +37,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian IMAGINARY = ofImaginary(1L);
+    public static final @NonNull Gaussian I = ofImaginary(1L);
 
     /**
      * -1
@@ -51,14 +51,14 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
      *
      * @since 0.0.1
      */
-    public static final @NonNull Gaussian MINUS_IMAGINARY = IMAGINARY.negate();
+    public static final @NonNull Gaussian MINUS_I = I.negate();
 
     /**
      * Units
      *
      * @since 0.0.1
      */
-    public static final @NonNull Set<@NonNull Gaussian> UNITS = Set.of(ONE, IMAGINARY, MINUS_ONE, MINUS_IMAGINARY);
+    public static final @NonNull Set<@NonNull Gaussian> UNITS = Set.of(ONE, I, MINUS_ONE, MINUS_I);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -130,7 +130,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
         final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);
-        final var re = (getReal() + divisor.getReal() + getImaginary() * divisor.getImaginary()) / den;
+        final var re = (getReal() * divisor.getReal() + getImaginary() * divisor.getImaginary()) / den;
         final var im = (getImaginary() * divisor.getReal() - getReal() * divisor.getImaginary()) / den;
         return new Complex(re, im);
     }
@@ -143,7 +143,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
         if (exponent > 0) {
             return toComplex().multiply(pow(exponent - 1));
         }
-        return Complex.ZERO;
+        return Complex.ONE;
     }
 
     @Override

@@ -71,7 +71,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     }
 
     /**
-     * Calculates the sum of this and the summand
+     * Calculates the sum
      *
      * @param summand summand
      * @return sum
@@ -81,7 +81,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T add(@NonNull T summand);
 
     /**
-     * Calculates the difference of this and the subtrahend
+     * Calculates the difference
      *
      * @param subtrahend subtrahend
      * @return difference
@@ -91,7 +91,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T subtract(@NonNull T subtrahend);
 
     /**
-     * Calculates the product of this and the factor
+     * Calculates the product
      *
      * @param factor factor
      * @return product
@@ -101,7 +101,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull T multiply(@NonNull T factor);
 
     /**
-     * Calculates the quotient of this and the divisor
+     * Calculates the quotient
      *
      * @param divisor divisor
      * @return quotient
@@ -112,7 +112,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull Q divide(@NonNull T divisor);
 
     /**
-     * Calculates the power raised by the exponent
+     * Calculates the power
      *
      * @param exponent exponent
      * @return power
@@ -156,6 +156,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * Calculates the argument
      *
      * @return argument
+     * @throws IllegalStateException when this is not invertible
      * @since 0.0.1
      */
     public abstract @NonNull A argument();
@@ -200,6 +201,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * Returns this as polar form
      *
      * @return polar form
+     * @throws IllegalStateException when this is not invertible
      * @since 0.0.1
      */
     public abstract @NonNull P toPolarForm();
@@ -223,7 +225,6 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
      * @since 0.0.1
      */
     public final boolean doesNotEqualByComparing(final @NonNull T other) {
-        requireNonNull(other, "other");
         return !equalsByComparing(other);
     }
 

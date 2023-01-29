@@ -150,7 +150,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract int getSignum();
 
     /**
-     * Calculates the sum of this and the summand
+     * Calculates the sum
      *
      * @param summand summand
      * @return sum
@@ -160,7 +160,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T add(@NonNull T summand);
 
     /**
-     * Calculates the difference of this and the subtrahend
+     * Calculates the difference
      *
      * @param subtrahend subtrahend
      * @return difference
@@ -170,7 +170,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T subtract(@NonNull T subtrahend);
 
     /**
-     * Calculates the product of this and the factor
+     * Calculates the product
      *
      * @param factor factor
      * @return product
@@ -180,7 +180,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T multiply(@NonNull T factor);
 
     /**
-     * Calculates the quotient of this and the divisor
+     * Calculates the quotient
      *
      * @param divisor divisor
      * @return quotient
@@ -193,7 +193,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     }
 
     /**
-     * Calculates the power of this raised by the exponent
+     * Calculates the power
      *
      * @param exponent exponent
      * @return power
@@ -238,7 +238,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     public abstract @NonNull T abs();
 
     /**
-     * Calculates the expanded fraction
+     * Calculates the expanded
      *
      * @param number number
      * @return expanded

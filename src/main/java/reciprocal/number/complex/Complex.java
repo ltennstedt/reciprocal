@@ -42,14 +42,14 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex MINUS_ONE = ONE.negate();
+    public static final @NonNull Complex MINUS_ONE = ofReal(1.0D);
 
     /**
      * -i
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex MINUS_I = I.negate();
+    public static final @NonNull Complex MINUS_I = ofImaginary(-1.0D);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -95,17 +95,13 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     @Override
     public @NonNull Complex add(final @NonNull Complex summand) {
         requireNonNull(summand, "summand");
-        final var re = getReal() + summand.getReal();
-        final var im = getImaginary() + summand.getImaginary();
-        return new Complex(re, im);
+        return new Complex(getReal() + summand.getReal(), getImaginary() + summand.getImaginary());
     }
 
     @Override
     public @NonNull Complex subtract(final @NonNull Complex subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
-        final var re = getReal() - subtrahend.getReal();
-        final var im = getImaginary() - subtrahend.getImaginary();
-        return new Complex(re, im);
+        return new Complex(getReal() - subtrahend.getReal(), getImaginary() - subtrahend.getImaginary());
     }
 
     @Override
@@ -121,7 +117,7 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
         final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);
-        final var re = (getReal() + divisor.getReal() + getImaginary() * divisor.getImaginary()) / den;
+        final var re = (getReal() * divisor.getReal() + getImaginary() * divisor.getImaginary()) / den;
         final var im = (getImaginary() * divisor.getReal() - getReal() * divisor.getImaginary()) / den;
         return new Complex(re, im);
     }
@@ -134,7 +130,7 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
         if (exponent > 0) {
             return multiply(pow(exponent - 1));
         }
-        return ZERO;
+        return ONE;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package reciprocal.number.complex;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 import static java.util.Objects.requireNonNull;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
@@ -206,7 +207,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
 
     @Override
     public @NonNull BigPolarForm toPolarForm() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return new BigPolarForm(abs(), argument());
     }
 
