@@ -35,7 +35,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void add_should_caculate_and_return_sum() {
+    void add_should_calculate_and_return_sum() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ZERO), new VectorEntry<>(2, BigDecimal.ONE)));
         final var summand = new BigDecimalVector(2,
@@ -73,7 +73,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void add_with_MathContext_should_caculate_and_return_sum() {
+    void add_with_MathContext_should_calculate_and_return_sum() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ZERO), new VectorEntry<>(2, BigDecimal.ONE)));
         final var summand = new BigDecimalVector(2,
@@ -103,7 +103,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void subtract_should_caculate_and_return_difference() {
+    void subtract_should_calculate_and_return_difference() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ZERO), new VectorEntry<>(2, BigDecimal.ONE)));
         final var subtrahend = new BigDecimalVector(2,
@@ -141,7 +141,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void subtract_with_MathContext_should_caculate_and_return_difference() {
+    void subtract_with_MathContext_should_calculate_and_return_difference() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ZERO), new VectorEntry<>(2, BigDecimal.ONE)));
         final var summand = new BigDecimalVector(2,
@@ -171,7 +171,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void dotProduct_should_caculate_and_return_dot_product() {
+    void dotProduct_should_calculate_and_return_dot_product() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ZERO), new VectorEntry<>(2, BigDecimal.ONE)));
         final var subtrahend = new BigDecimalVector(2,
@@ -207,7 +207,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void dotProduct_with_MathContext_should_caculate_and_return_dot_product() {
+    void dotProduct_with_MathContext_should_calculate_and_return_dot_product() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ZERO), new VectorEntry<>(2, BigDecimal.ONE)));
         final var summand = new BigDecimalVector(2,
@@ -225,7 +225,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void scalarMultiply_should_caculate_and_return_scalar_product() {
+    void scalarMultiply_should_calculate_and_return_scalar_product() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ONE), new VectorEntry<>(2, BigDecimal.valueOf(2L))));
         final BigDecimalVector expected = new BigDecimalVector(2,
@@ -251,7 +251,7 @@ final class BigDecimalVectorTests {
     }
 
     @Test
-    void scalarMultiply_with_MathContext_should_caculate_and_return_scalar_product() {
+    void scalarMultiply_with_MathContext_should_calculate_and_return_scalar_product() {
         final var vector = new BigDecimalVector(2,
             List.of(new VectorEntry<>(1, BigDecimal.ONE), new VectorEntry<>(2, BigDecimal.valueOf(2L))));
         final BigDecimalVector expected = new BigDecimalVector(2,

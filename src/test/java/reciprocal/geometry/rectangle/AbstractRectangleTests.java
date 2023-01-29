@@ -27,9 +27,9 @@ final class AbstractRectangleTests {
 
     @Test
     void equals_should_return_true_when_this_is_same_as_obj() {
-        final var reactangle = new Rectangle(1.0D, 1.0D);
+        final var rectangle = new Rectangle(1.0D, 1.0D);
 
-        assertThat(reactangle.equals(reactangle)).isTrue();
+        assertThat(rectangle.equals(rectangle)).isTrue();
     }
 
     @Test

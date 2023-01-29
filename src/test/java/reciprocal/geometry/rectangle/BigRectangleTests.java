@@ -22,12 +22,12 @@ final class BigRectangleTests {
     }
 
     @Test
-    void isSquare_ahould_return_false_when_rectangle_is_not_square() {
+    void isSquare_should_return_false_when_rectangle_is_not_square() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.TEN).isSquare()).isFalse();
     }
 
     @Test
-    void isSquare_ahould_return_true_when_rectangle_is_square() {
+    void isSquare_should_return_true_when_rectangle_is_square() {
         assertThat(new BigRectangle(BigDecimal.ONE, BigDecimal.ONE).isSquare()).isTrue();
     }
 
