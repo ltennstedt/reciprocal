@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serial;
 import java.math.MathContext;
 import java.util.List;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Base class for vectors with {@link MathContext}
@@ -33,7 +33,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @since 0.0.1
      */
     protected AbstractMathContextVector(final int size,
-        final @NonNull List<@NonNull VectorEntry<@NonNull E>> vectorEntries) {
+        final @NotNull List<@NotNull VectorEntry<@NotNull E>> vectorEntries) {
         super(size, vectorEntries);
     }
 
@@ -48,7 +48,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract V add(@NonNull V summand, @NonNull MathContext mathContext);
+    public abstract V add(@NotNull V summand, @NotNull MathContext mathContext);
 
     /**
      * Calculates the difference of this and the subtrahend
@@ -61,7 +61,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract V subtract(@NonNull V subtrahend, @NonNull MathContext mathContext);
+    public abstract V subtract(@NotNull V subtrahend, @NotNull MathContext mathContext);
 
     /**
      * Calculates the dot product of this and other
@@ -74,7 +74,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract E dotProduct(@NonNull V other, @NonNull MathContext mathContext);
+    public abstract E dotProduct(@NotNull V other, @NotNull MathContext mathContext);
 
     /**
      * Calculates the scalar product pof this and the scalar
@@ -86,7 +86,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract @NonNull V scalarMultiply(@NonNull E scalar, @NonNull MathContext mathContext);
+    public abstract @NotNull V scalarMultiply(@NotNull E scalar, @NotNull MathContext mathContext);
 
     /**
      * Calculates the negated vector of this
@@ -96,7 +96,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract @NonNull V negate(@NonNull MathContext mathContext);
+    public abstract @NotNull V negate(@NotNull MathContext mathContext);
 
     /**
      * Calculates if this is orthogonal to other
@@ -109,7 +109,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract boolean orthogonalTo(@NonNull V other, @NonNull MathContext mathContext);
+    public abstract boolean orthogonalTo(@NotNull V other, @NotNull MathContext mathContext);
 
     /**
      * Calculates the taxicab norm
@@ -119,7 +119,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract @NonNull N taxicabNorm(@NonNull MathContext mathContext);
+    public abstract @NotNull N taxicabNorm(@NotNull MathContext mathContext);
 
     /**
      * Calculates the euclidean norm
@@ -129,7 +129,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract @NonNull N euclideanNorm(@NonNull MathContext mathContext);
+    public abstract @NotNull N euclideanNorm(@NotNull MathContext mathContext);
 
     /**
      * Calculates the maximum norm
@@ -139,7 +139,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public abstract @NonNull N maxNorm(@NonNull MathContext mathContext);
+    public abstract @NotNull N maxNorm(@NotNull MathContext mathContext);
 
     /**
      * Calculates the taxicab distance to other
@@ -152,7 +152,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public final @NonNull N taxicabDistance(final @NonNull V other, final @NonNull MathContext mathContext) {
+    public final @NotNull N taxicabDistance(final @NotNull V other, final @NotNull MathContext mathContext) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         requireNonNull(mathContext, "mathContext");
@@ -170,7 +170,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public final @NonNull N euclideanDistance(final @NonNull V other, final @NonNull MathContext mathContext) {
+    public final @NotNull N euclideanDistance(final @NotNull V other, final @NotNull MathContext mathContext) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         requireNonNull(mathContext, "mathContext");
@@ -188,7 +188,7 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public final @NonNull N maxDistance(final @NonNull V other, final @NonNull MathContext mathContext) {
+    public final @NotNull N maxDistance(final @NotNull V other, final @NotNull MathContext mathContext) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         requireNonNull(mathContext, "mathContext");
@@ -203,5 +203,5 @@ public abstract class AbstractMathContextVector<E extends Number, V extends Abst
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    protected abstract @NonNull N euclideanNormPow2(@NonNull MathContext mathContext);
+    protected abstract @NotNull N euclideanNormPow2(@NotNull MathContext mathContext);
 }

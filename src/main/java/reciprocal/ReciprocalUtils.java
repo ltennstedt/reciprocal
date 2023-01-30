@@ -1,7 +1,7 @@
 package reciprocal;
 
 import java.math.BigDecimal;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Global constants
@@ -14,14 +14,14 @@ public final class ReciprocalUtils {
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigDecimal BIG_PI = BigDecimal.valueOf(Math.PI);
+    public static final @NotNull BigDecimal BIG_PI = BigDecimal.valueOf(Math.PI);
 
     /**
      * e
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigDecimal BIG_E = BigDecimal.valueOf(Math.E);
+    public static final @NotNull BigDecimal BIG_E = BigDecimal.valueOf(Math.E);
 
     private ReciprocalUtils() {
     }

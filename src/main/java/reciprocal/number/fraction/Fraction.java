@@ -11,7 +11,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.Complex;
 
 /**
@@ -22,20 +22,20 @@ import reciprocal.number.complex.Complex;
  *
  * @since 0.0.1
  */
-public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fraction, @NonNull Double> {
+public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fraction, @NotNull Double> {
     /**
      * 0
      *
      * @since 0.0.1
      */
-    public static final @NonNull Fraction ZERO = ofNumerator(0L);
+    public static final @NotNull Fraction ZERO = ofNumerator(0L);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Fraction ONE = ofNumerator(1L);
+    public static final @NotNull Fraction ONE = ofNumerator(1L);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -114,7 +114,7 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
     }
 
     @Override
-    public @NonNull Fraction add(final @NonNull Fraction summand) {
+    public @NotNull Fraction add(final @NotNull Fraction summand) {
         requireNonNull(summand, "summand");
         final var num = summand.getDenominator() * getNumerator() + getDenominator() * summand.getNumerator();
         final var den = getDenominator() * summand.getDenominator();
@@ -122,7 +122,7 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
     }
 
     @Override
-    public @NonNull Fraction subtract(final @NonNull Fraction subtrahend) {
+    public @NotNull Fraction subtract(final @NotNull Fraction subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var num = subtrahend.getDenominator() * getNumerator() - getDenominator() * subtrahend.getNumerator();
         final var den = getDenominator() * subtrahend.getDenominator();
@@ -130,29 +130,29 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
     }
 
     @Override
-    public @NonNull Fraction multiply(final @NonNull Fraction factor) {
+    public @NotNull Fraction multiply(final @NotNull Fraction factor) {
         requireNonNull(factor, "factor");
         return new Fraction(getNumerator() * factor.getNumerator(), getDenominator() * factor.getDenominator());
     }
 
     @Override
-    public @NonNull Fraction negate() {
+    public @NotNull Fraction negate() {
         return new Fraction(-getNumerator(), getDenominator());
     }
 
     @Override
-    public @NonNull Fraction abs() {
+    public @NotNull Fraction abs() {
         return new Fraction(Math.abs(getNumerator()), Math.abs(getDenominator()));
     }
 
     @Override
-    public @NonNull Fraction expand(final @NonNull Long number) {
+    public @NotNull Fraction expand(final @NotNull Long number) {
         requireNonNull(number, "number");
         return new Fraction(number * getNumerator(), number * getDenominator());
     }
 
     @Override
-    public boolean lessThanOrEqualTo(final @NonNull Fraction other) {
+    public boolean lessThanOrEqualTo(final @NotNull Fraction other) {
         requireNonNull(other, "other");
         final var normalized = normalize();
         final var normalizedOther = other.normalize();
@@ -162,7 +162,7 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
     }
 
     @Override
-    public @NonNull Fraction normalize() {
+    public @NotNull Fraction normalize() {
         if (getSignum() < 0 && getNumerator().compareTo(0L) > 0) {
             return new Fraction(-getNumerator(), Math.abs(getDenominator()));
         }
@@ -176,13 +176,13 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
     }
 
     @Override
-    public @NonNull Fraction reduce() {
+    public @NotNull Fraction reduce() {
         final var gcd = LongMath.gcd(getNumerator(), getDenominator());
         return new Fraction(getNumerator() / gcd, getDenominator() / gcd);
     }
 
     @Override
-    public @NonNull BigDecimal toBigDecimal() {
+    public @NotNull BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(getNumerator()).divide(BigDecimal.valueOf(getDenominator()), MathContext.DECIMAL128);
     }
 
@@ -191,7 +191,7 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
      *
      * @return {@link BigFraction}
      */
-    public @NonNull BigFraction toBigFraction() {
+    public @NotNull BigFraction toBigFraction() {
         return new BigFraction(BigInteger.valueOf(getNumerator()), BigInteger.valueOf(getDenominator()));
     }
 
@@ -201,22 +201,22 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
      * @return {@link Complex}
      * @since 0.0.1
      */
-    public @NonNull Complex toComplex() {
+    public @NotNull Complex toComplex() {
         return Complex.ofReal(doubleValue());
     }
 
     @Override
-    protected @NonNull Fraction getOne() {
+    protected @NotNull Fraction getOne() {
         return ONE;
     }
 
     @Override
-    protected @NonNull BiFunction<@NonNull Long, @NonNull Long, @NonNull Fraction> getConstructor() {
+    protected @NotNull BiFunction<@NotNull Long, @NotNull Long, @NotNull Fraction> getConstructor() {
         return Fraction::new;
     }
 
     @Override
-    public int compareTo(final @NonNull Fraction o) {
+    public int compareTo(final @NotNull Fraction o) {
         return FractionComparator.INSTANCE.compare(this, o);
     }
 
@@ -240,7 +240,7 @@ public final class Fraction extends AbstractFraction<@NonNull Long, @NonNull Fra
         }
 
         @Override
-        public int compare(final @NonNull Fraction o1, final @NonNull Fraction o2) {
+        public int compare(final @NotNull Fraction o1, final @NotNull Fraction o2) {
             requireNonNull(o1, "o1");
             requireNonNull(o2, "o2");
             if (o1.lessThan(o2)) {

@@ -7,7 +7,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a complex number that uses {@link Double} as
@@ -15,42 +15,42 @@ import org.eclipse.jdt.annotation.NonNull;
  *
  * @since 0.0.1
  */
-public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Complex, @NonNull Complex,
-    @NonNull Double, @NonNull PolarForm> {
+public final class Complex extends AbstractComplex<@NotNull Double, @NotNull Complex, @NotNull Complex,
+    @NotNull Double, @NotNull PolarForm> {
     /**
      * 0
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex ZERO = ofReal(0.0D);
+    public static final @NotNull Complex ZERO = ofReal(0.0D);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex ONE = ofReal(1.0D);
+    public static final @NotNull Complex ONE = ofReal(1.0D);
 
     /**
      * i
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex I = ofImaginary(1.0D);
+    public static final @NotNull Complex I = ofImaginary(1.0D);
 
     /**
      * -1
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex MINUS_ONE = ofReal(1.0D);
+    public static final @NotNull Complex MINUS_ONE = ofReal(1.0D);
 
     /**
      * -i
      *
      * @since 0.0.1
      */
-    public static final @NonNull Complex MINUS_I = ofImaginary(-1.0D);
+    public static final @NotNull Complex MINUS_I = ofImaginary(-1.0D);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -94,19 +94,19 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     }
 
     @Override
-    public @NonNull Complex add(final @NonNull Complex summand) {
+    public @NotNull Complex add(final @NotNull Complex summand) {
         requireNonNull(summand, "summand");
         return new Complex(getReal() + summand.getReal(), getImaginary() + summand.getImaginary());
     }
 
     @Override
-    public @NonNull Complex subtract(final @NonNull Complex subtrahend) {
+    public @NotNull Complex subtract(final @NotNull Complex subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         return new Complex(getReal() - subtrahend.getReal(), getImaginary() - subtrahend.getImaginary());
     }
 
     @Override
-    public @NonNull Complex multiply(final @NonNull Complex factor) {
+    public @NotNull Complex multiply(final @NotNull Complex factor) {
         requireNonNull(factor, "factor");
         final var re = getReal() * factor.getReal() - getImaginary() * factor.getImaginary();
         final var im = getReal() * factor.getImaginary() + getImaginary() * factor.getReal();
@@ -114,7 +114,7 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     }
 
     @Override
-    public @NonNull Complex divide(final @NonNull Complex divisor) {
+    public @NotNull Complex divide(final @NotNull Complex divisor) {
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "expected divisor to be invertible but divisor = %s", divisor);
         final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);
@@ -124,7 +124,7 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     }
 
     @Override
-    public @NonNull Complex pow(final int exponent) {
+    public @NotNull Complex pow(final int exponent) {
         if (exponent < 0) {
             return multiply(pow(-exponent - 1)).invert();
         }
@@ -135,35 +135,35 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
     }
 
     @Override
-    public @NonNull Complex negate() {
+    public @NotNull Complex negate() {
         return new Complex(-getReal(), -getImaginary());
     }
 
     @Override
-    public @NonNull Complex invert() {
+    public @NotNull Complex invert() {
         checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
 
     @Override
-    public @NonNull Double abs() {
+    public @NotNull Double abs() {
         return Math.sqrt(absPow2());
     }
 
     @Override
-    public @NonNull Complex conjugate() {
+    public @NotNull Complex conjugate() {
         return new Complex(getReal(), -getImaginary());
     }
 
     @Override
-    public @NonNull Double argument() {
+    public @NotNull Double argument() {
         checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = Math.acos(getReal() / abs());
         return getImaginary() < 0.0D ? -acos : acos;
     }
 
     @Override
-    public @NonNull BigInteger toBigInteger() {
+    public @NotNull BigInteger toBigInteger() {
         return toBigDecimal().toBigInteger();
     }
 
@@ -174,12 +174,12 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
      * @throws ArithmeticException when real part is not exact
      * @since 0.0.1
      */
-    public @NonNull BigInteger toBigIntegerExact() {
+    public @NotNull BigInteger toBigIntegerExact() {
         return toBigDecimal().toBigIntegerExact();
     }
 
     @Override
-    public @NonNull BigDecimal toBigDecimal() {
+    public @NotNull BigDecimal toBigDecimal() {
         return BigDecimal.valueOf(doubleValue());
     }
 
@@ -188,23 +188,23 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
      *
      * @return {@link BigComplex}
      */
-    public @NonNull BigComplex toBigComplex() {
+    public @NotNull BigComplex toBigComplex() {
         return new BigComplex(BigDecimal.valueOf(getReal()), BigDecimal.valueOf(getImaginary()));
     }
 
     @Override
-    public @NonNull PolarForm toPolarForm() {
+    public @NotNull PolarForm toPolarForm() {
         return new PolarForm(abs(), argument());
     }
 
     @Override
-    public boolean equalsByComparing(final @NonNull Complex other) {
+    public boolean equalsByComparing(final @NotNull Complex other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
     }
 
     @Override
-    protected @NonNull Double absPow2() {
+    protected @NotNull Double absPow2() {
         return Math.pow(getReal(), 2.0D) + Math.pow(getImaginary(), 2.0D);
     }
 }

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Entry for matrices
@@ -16,7 +16,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @param element element
  * @since 0.0.1
  */
-public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NonNull E element) implements Serializable {
+public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NotNull E element) implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -45,7 +45,7 @@ public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NonN
      * @throws IllegalArgumentException when {@code newIndex < 1}
      * @since 0.0.1
      */
-    public @NonNull MatrixEntry<@NonNull E> withRowIndex(final int newRowIndex) {
+    public @NotNull MatrixEntry<@NotNull E> withRowIndex(final int newRowIndex) {
         checkArgument(newRowIndex > 0, "newRowIndex > 0 expected but newRowIndex = %s", newRowIndex);
         return new MatrixEntry<>(newRowIndex, columnIndex, element);
     }
@@ -58,7 +58,7 @@ public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NonN
      * @throws IllegalArgumentException when {@code newColumnIndex < 1}
      * @since 0.0.1
      */
-    public @NonNull MatrixEntry<@NonNull E> withColumnIndex(final int newColumnIndex) {
+    public @NotNull MatrixEntry<@NotNull E> withColumnIndex(final int newColumnIndex) {
         checkArgument(newColumnIndex > 0, "newColumnIndex > 0 expected but newColumnIndex = %s", newColumnIndex);
         return new MatrixEntry<>(rowIndex, newColumnIndex, element);
     }
@@ -71,7 +71,7 @@ public record MatrixEntry<E extends Number>(int rowIndex, int columnIndex, @NonN
      * @throws NullPointerException when {@code newElement == null}
      * @since 0.0.1
      */
-    public @NonNull MatrixEntry<@NonNull E> withElement(final @NonNull E newElement) {
+    public @NotNull MatrixEntry<@NotNull E> withElement(final @NotNull E newElement) {
         requireNonNull(newElement, "newElement");
         return new MatrixEntry<>(rowIndex, columnIndex, newElement);
     }

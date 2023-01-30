@@ -5,18 +5,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.util.List;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a vector which uses {@link Long} as type for its elements
  *
  * @since 0.0.1
  */
-public final class LongVector extends AbstractVector<@NonNull Long, @NonNull LongVector, @NonNull Double> {
+public final class LongVector extends AbstractVector<@NotNull Long, @NotNull LongVector, @NotNull Double> {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    LongVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull Long>> entries) {
+    LongVector(final int size, final @NotNull List<@NotNull VectorEntry<@NotNull Long>> entries) {
         super(size, entries);
     }
 
@@ -33,7 +33,7 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     }
 
     @Override
-    public @NonNull LongVector add(final @NonNull LongVector summand) {
+    public @NotNull LongVector add(final @NotNull LongVector summand) {
         requireNonNull(summand, "summand");
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
@@ -42,7 +42,7 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     }
 
     @Override
-    public @NonNull LongVector subtract(final @NonNull LongVector subtrahend) {
+    public @NotNull LongVector subtract(final @NotNull LongVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
@@ -51,7 +51,7 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     }
 
     @Override
-    public @NonNull Long dotProduct(final @NonNull LongVector other) {
+    public @NotNull Long dotProduct(final @NotNull LongVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Long::sum)
@@ -59,40 +59,40 @@ public final class LongVector extends AbstractVector<@NonNull Long, @NonNull Lon
     }
 
     @Override
-    public @NonNull LongVector scalarMultiply(final @NonNull Long scalar) {
+    public @NotNull LongVector scalarMultiply(final @NotNull Long scalar) {
         requireNonNull(scalar, "scalar");
         return new LongVector(getSize(), getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
-    public @NonNull LongVector negate() {
+    public @NotNull LongVector negate() {
         return new LongVector(getSize(), getEntries().stream().map(e -> e.withElement(-e.element())).toList());
     }
 
     @Override
-    public boolean orthogonalTo(final @NonNull LongVector other) {
+    public boolean orthogonalTo(final @NotNull LongVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return dotProduct(other) == 0L;
     }
 
     @Override
-    public @NonNull Double taxicabNorm() {
+    public @NotNull Double taxicabNorm() {
         return getElements().stream().map(Math::abs).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
     }
 
     @Override
-    public @NonNull Double euclideanNorm() {
+    public @NotNull Double euclideanNorm() {
         return Math.sqrt(euclideanNormPow2());
     }
 
     @Override
-    public @NonNull Double maxNorm() {
+    public @NotNull Double maxNorm() {
         return getElements().stream().map(Math::abs).max(Long::compareTo).map(Long::doubleValue).orElseThrow();
     }
 
     @Override
-    protected @NonNull Double euclideanNormPow2() {
+    protected @NotNull Double euclideanNormPow2() {
         return getElements().stream().map(e -> e * e).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
     }
 

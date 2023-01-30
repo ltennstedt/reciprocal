@@ -3,7 +3,7 @@ package reciprocal;
 import static java.util.Objects.requireNonNull;
 
 import java.math.MathContext;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Context
@@ -12,7 +12,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @param mathContext {@link MathContext}
  * @since 0.0.1
  */
-public record ReciprocalContext(int scale, @NonNull MathContext mathContext) {
+public record ReciprocalContext(int scale, @NotNull MathContext mathContext) {
     /**
      * Constructor
      *

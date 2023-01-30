@@ -6,8 +6,8 @@ import static java.util.Objects.requireNonNull;
 import static org.apache.commons.lang3.Validate.noNullElements;
 
 import java.util.List;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for polynomials
@@ -17,7 +17,7 @@ import org.eclipse.jdt.annotation.Nullable;
  * @since 0.0.1
  */
 public abstract class AbstractPolynomial<C extends Number, P extends AbstractPolynomial<C, P>> {
-    private final @NonNull List<@NonNull C> coefficients;
+    private final @NotNull List<@NotNull C> coefficients;
 
     /**
      * Constructor
@@ -27,7 +27,7 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
      * @throws IllegalArgumentException when {@code coefficient == null} for one coefficient in coefficients
      * @since 0.0.1
      */
-    protected AbstractPolynomial(final @NonNull List<@NonNull C> coefficients) {
+    protected AbstractPolynomial(final @NotNull List<@NotNull C> coefficients) {
         requireNonNull(coefficients, "coefficients");
         noNullElements(coefficients, "all coefficients expected not to be null but coefficients = %s", coefficients);
         this.coefficients = List.copyOf(coefficients);
@@ -107,7 +107,7 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
      * @return derivative
      * @since 0.0.1
      */
-    public abstract @NonNull List<@NonNull C> getDerivative();
+    public abstract @NotNull List<@NotNull C> getDerivative();
 
     /**
      * Returns the coefficient of a given index
@@ -117,7 +117,7 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
      * @throws IllegalArgumentException when {@code index < 0}
      * @since 0.0.1
      */
-    public final @NonNull C get(final int index) {
+    public final @NotNull C get(final int index) {
         checkArgument(index > -1, "expected index > -1 but index = %s", index);
         return coefficients.get(index);
     }
@@ -128,7 +128,7 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
      * @return coefficients
      * @since 0.0.1
      */
-    public final @NonNull List<@NonNull C> getCoefficients() {
+    public final @NotNull List<@NotNull C> getCoefficients() {
         return List.copyOf(coefficients);
     }
 
@@ -150,7 +150,7 @@ public abstract class AbstractPolynomial<C extends Number, P extends AbstractPol
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "{coefficients=" + coefficients + "}";
     }
 }

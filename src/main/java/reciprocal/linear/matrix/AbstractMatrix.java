@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import reciprocal.linear.vector.AbstractVector;
 
 /**
@@ -24,7 +24,7 @@ import reciprocal.linear.vector.AbstractVector;
  * @since 0.0.1
  */
 public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<E, V, N>, M extends AbstractMatrix<E, V, M, N>, N extends Number> {
-    private final @NonNull List<@NonNull MatrixEntry<@NonNull E>> entries;
+    private final @NotNull List<@NotNull MatrixEntry<@NotNull E>> entries;
 
     /**
      * Constructor
@@ -41,7 +41,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     protected AbstractMatrix(final int rowSize, final int columnSize,
-        final @NonNull List<@NonNull MatrixEntry<@NonNull E>> entries) {
+        final @NotNull List<@NotNull MatrixEntry<@NotNull E>> entries) {
         checkArgument(rowSize > 0, "expected rowSize > 0 but rowSize = %s", rowSize);
         checkArgument(columnSize > 0, "expected columnSize > 0 but columnSize = %s", columnSize);
         requireNonNull(entries, "entries");
@@ -146,7 +146,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return row indices
      * @since 0.0.1
      */
-    public final @NonNull List<@NonNull Integer> getRowIndices() {
+    public final @NotNull List<@NotNull Integer> getRowIndices() {
         return entries.stream().map(MatrixEntry::rowIndex).distinct().toList();
     }
 
@@ -156,7 +156,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return column indices
      * @since 0.0.1
      */
-    public final @NonNull List<@NonNull Integer> getColumnIndices() {
+    public final @NotNull List<@NotNull Integer> getColumnIndices() {
         return entries.stream().map(MatrixEntry::columnIndex).distinct().toList();
     }
 
@@ -166,7 +166,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return elements
      * @since 0.0.1
      */
-    public final @NonNull Set<@NonNull E> getElements() {
+    public final @NotNull Set<@NotNull E> getElements() {
         return entries.stream().map(MatrixEntry::element).collect(Collectors.toSet());
     }
 
@@ -176,7 +176,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return diagonal elements
      * @since 0.0.1
      */
-    public final @NonNull Set<@NonNull E> getDiagonalElements() {
+    public final @NotNull Set<@NotNull E> getDiagonalElements() {
         return entries.stream().filter(e -> e.rowIndex() == e.columnIndex()).map(MatrixEntry::element)
             .collect(Collectors.toSet());
     }
@@ -207,7 +207,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return negated
      * @since 0.0.1
      */
-    public abstract @NonNull M negate();
+    public abstract @NotNull M negate();
 
     /**
      * Calculates the transpose
@@ -215,7 +215,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return transpose
      * @since 0.0.1
      */
-    public abstract @NonNull M transpose();
+    public abstract @NotNull M transpose();
 
     /**
      * Returns if {@code this} is equal to other by comparing
@@ -225,14 +225,14 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public abstract boolean equalsByComparing(@NonNull M other);
+    public abstract boolean equalsByComparing(@NotNull M other);
 
     /**
      * Entries
      *
      * @return entries
      */
-    public final @NonNull List<@NonNull MatrixEntry<@NonNull E>> getEntries() {
+    public final @NotNull List<@NotNull MatrixEntry<@NotNull E>> getEntries() {
         return List.copyOf(entries);
     }
 
@@ -253,7 +253,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "{entries=" + entries + "}";
     }
 }

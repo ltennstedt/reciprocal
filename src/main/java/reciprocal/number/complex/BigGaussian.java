@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Set;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a Gaussian integer that uses {@link BigInteger}
@@ -18,49 +18,49 @@ import org.eclipse.jdt.annotation.NonNull;
  *
  * @since 0.0.1
  */
-public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @NonNull BigGaussian, @NonNull BigComplex,
-    @NonNull BigDecimal, @NonNull BigPolarForm> {
+public final class BigGaussian extends AbstractComplex<@NotNull BigInteger, @NotNull BigGaussian, @NotNull BigComplex,
+    @NotNull BigDecimal, @NotNull BigPolarForm> {
     /**
      * 0
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian ZERO = ofReal(BigInteger.ZERO);
+    public static final @NotNull BigGaussian ZERO = ofReal(BigInteger.ZERO);
 
     /**
      * 1
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian ONE = ofReal(BigInteger.ONE);
+    public static final @NotNull BigGaussian ONE = ofReal(BigInteger.ONE);
 
     /**
      * i
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian I = ofImaginary(BigInteger.ONE);
+    public static final @NotNull BigGaussian I = ofImaginary(BigInteger.ONE);
 
     /**
      * -1
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian MINUS_ONE = ONE.negate();
+    public static final @NotNull BigGaussian MINUS_ONE = ONE.negate();
 
     /**
      * -i
      *
      * @since 0.0.1
      */
-    public static final @NonNull BigGaussian MINUS_I = I.negate();
+    public static final @NotNull BigGaussian MINUS_I = I.negate();
 
     /**
      * Units
      *
      * @since 0.0.1
      */
-    public static final @NonNull Set<@NonNull BigGaussian> UNITS = Set.of(ONE, I, MINUS_ONE, MINUS_I);
+    public static final @NotNull Set<@NotNull BigGaussian> UNITS = Set.of(ONE, I, MINUS_ONE, MINUS_I);
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -74,7 +74,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code imaginary == null}
      * @since 0.0.1
      */
-    public BigGaussian(final @NonNull BigInteger real, final @NonNull BigInteger imaginary) {
+    public BigGaussian(final @NotNull BigInteger real, final @NotNull BigInteger imaginary) {
         super(real, imaginary);
     }
 
@@ -86,7 +86,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code real == null}
      * @since 0.0.1
      */
-    public static BigGaussian ofReal(final @NonNull BigInteger real) {
+    public static BigGaussian ofReal(final @NotNull BigInteger real) {
         return new BigGaussian(real, BigInteger.ZERO);
     }
 
@@ -98,7 +98,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code imaginary == null}
      * @since 0.0.1
      */
-    public static BigGaussian ofImaginary(final @NonNull BigInteger imaginary) {
+    public static BigGaussian ofImaginary(final @NotNull BigInteger imaginary) {
         return new BigGaussian(BigInteger.ZERO, imaginary);
     }
 
@@ -108,7 +108,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigGaussian add(final @NonNull BigGaussian summand) {
+    public @NotNull BigGaussian add(final @NotNull BigGaussian summand) {
         requireNonNull(summand, "summand");
         final var re = getReal().add(summand.getReal());
         final var im = getImaginary().add(summand.getImaginary());
@@ -116,7 +116,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigGaussian subtract(final @NonNull BigGaussian subtrahend) {
+    public @NotNull BigGaussian subtract(final @NotNull BigGaussian subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var re = getReal().subtract(subtrahend.getReal());
         final var im = getImaginary().subtract(subtrahend.getImaginary());
@@ -124,7 +124,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigGaussian multiply(final @NonNull BigGaussian factor) {
+    public @NotNull BigGaussian multiply(final @NotNull BigGaussian factor) {
         requireNonNull(factor, "factor");
         final var re = getReal().multiply(factor.getReal()).subtract(getImaginary().multiply(factor.getImaginary()));
         final var im = getReal().multiply(factor.getImaginary()).add(getImaginary().multiply(factor.getReal()));
@@ -132,7 +132,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigComplex divide(final @NonNull BigGaussian divisor) {
+    public @NotNull BigComplex divide(final @NotNull BigGaussian divisor) {
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
         final var den = new BigDecimal(divisor.getReal().pow(2).add(divisor.getImaginary().pow(2)));
@@ -156,7 +156,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigComplex divide(final @NonNull BigGaussian divisor, final @NonNull MathContext mathContext) {
+    public @NotNull BigComplex divide(final @NotNull BigGaussian divisor, final @NotNull MathContext mathContext) {
         requireNonNull(divisor, "divisor");
         checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
         requireNonNull(mathContext, "mathContext");
@@ -171,7 +171,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigComplex pow(final int exponent) {
+    public @NotNull BigComplex pow(final int exponent) {
         if (exponent < 0) {
             return toBigComplex().multiply(pow(-exponent - 1)).invert();
         }
@@ -190,7 +190,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigComplex pow(final int exponent, final @NonNull MathContext mathContext) {
+    public @NotNull BigComplex pow(final int exponent, final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         if (exponent < 0) {
             return toBigComplex().multiply(pow(-exponent - 1, mathContext), mathContext).invert(mathContext);
@@ -202,12 +202,12 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigGaussian negate() {
+    public @NotNull BigGaussian negate() {
         return new BigGaussian(getReal().negate(), getImaginary().negate());
     }
 
     @Override
-    public @NonNull BigComplex invert() {
+    public @NotNull BigComplex invert() {
         checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
@@ -220,14 +220,14 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigComplex invert(final @NonNull MathContext mathContext) {
+    public @NotNull BigComplex invert(final @NotNull MathContext mathContext) {
         checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         requireNonNull(mathContext, "mathContext");
         return ONE.divide(this, mathContext);
     }
 
     @Override
-    public @NonNull BigDecimal abs() {
+    public @NotNull BigDecimal abs() {
         return new BigDecimal(absPow2()).sqrt(MathContext.DECIMAL128);
     }
 
@@ -239,18 +239,18 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigDecimal abs(final @NonNull MathContext mathContext) {
+    public @NotNull BigDecimal abs(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return new BigDecimal(absPow2()).sqrt(mathContext);
     }
 
     @Override
-    public @NonNull BigGaussian conjugate() {
+    public @NotNull BigGaussian conjugate() {
         return new BigGaussian(getReal(), getImaginary().negate());
     }
 
     @Override
-    public @NonNull BigDecimal argument() {
+    public @NotNull BigDecimal argument() {
         checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = BigDecimalMath.acos(new BigDecimal(getReal()).divide(abs(), MathContext.DECIMAL128),
             MathContext.DECIMAL128);
@@ -266,7 +266,7 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigDecimal argument(final @NonNull MathContext mathContext) {
+    public @NotNull BigDecimal argument(final @NotNull MathContext mathContext) {
         checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         requireNonNull(mathContext, "mathContext");
         final var acos =
@@ -275,12 +275,12 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
     }
 
     @Override
-    public @NonNull BigInteger toBigInteger() {
+    public @NotNull BigInteger toBigInteger() {
         return getReal();
     }
 
     @Override
-    public @NonNull BigDecimal toBigDecimal() {
+    public @NotNull BigDecimal toBigDecimal() {
         return new BigDecimal(getReal());
     }
 
@@ -290,12 +290,12 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @return {@link BigComplex}
      * @since 0.0.1
      */
-    public @NonNull BigComplex toBigComplex() {
+    public @NotNull BigComplex toBigComplex() {
         return new BigComplex(new BigDecimal(getReal()), new BigDecimal(getImaginary()));
     }
 
     @Override
-    public @NonNull BigPolarForm toPolarForm() {
+    public @NotNull BigPolarForm toPolarForm() {
         return new BigPolarForm(abs(), argument());
     }
 
@@ -308,19 +308,19 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigPolarForm toPolarForm(final @NonNull MathContext mathContext) {
+    public @NotNull BigPolarForm toPolarForm(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return new BigPolarForm(abs(mathContext), argument(mathContext));
     }
 
     @Override
-    public boolean equalsByComparing(final @NonNull BigGaussian other) {
+    public boolean equalsByComparing(final @NotNull BigGaussian other) {
         requireNonNull(other, "other");
         return getReal().compareTo(other.getReal()) == 0 && getImaginary().compareTo(other.getImaginary()) == 0;
     }
 
     @Override
-    protected @NonNull BigInteger absPow2() {
+    protected @NotNull BigInteger absPow2() {
         return getReal().pow(2).add(getImaginary().pow(2));
     }
 }

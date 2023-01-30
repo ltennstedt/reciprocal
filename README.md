@@ -25,9 +25,10 @@ What reciprocal will provide:
 * Polynomials
 * Circles and rectangles
 * Pseudorandom number generators
-* [Kotlin](https://kotlinlang.org/) module (separate repository)
-* [Scala](https://scala-lang.org/) module (separate repository)
+* [Kotlin](https://kotlinlang.org/)
+* [Scala](https://scala-lang.org/)
 * Custom assertions for [AssertJ](https://assertj.github.io/doc/)
+* Custom matchers for [Kotest](https://kotest.io/)
 
 What reciprocal will not provide:
 

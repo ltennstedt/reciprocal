@@ -12,7 +12,7 @@ import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a fraction that uses {@link BigFraction} as type
@@ -23,7 +23,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 0.0.1
  */
 public final class BigFraction extends
-    AbstractFraction<@NonNull BigInteger, @NonNull BigFraction, @NonNull BigDecimal> {
+    AbstractFraction<@NotNull BigInteger, @NotNull BigFraction, @NotNull BigDecimal> {
     /**
      * 0
      *
@@ -59,7 +59,7 @@ public final class BigFraction extends
      * @throws IllegalArgumentException when {@code denominator == 0}
      * @since 0.0.1
      */
-    public BigFraction(final @NonNull BigInteger numerator, final @NonNull BigInteger denominator) {
+    public BigFraction(final @NotNull BigInteger numerator, final @NotNull BigInteger denominator) {
         super(numerator, denominator);
         checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,
             "denominator expected not to be 0 but denominator = %s", denominator);
@@ -73,7 +73,7 @@ public final class BigFraction extends
      * @throws NullPointerException when {@code numerator == null}
      * @since 0.0.1
      */
-    public static BigFraction ofNumerator(final @NonNull BigInteger numerator) {
+    public static BigFraction ofNumerator(final @NotNull BigInteger numerator) {
         return new BigFraction(numerator, BigInteger.ONE);
     }
 
@@ -86,7 +86,7 @@ public final class BigFraction extends
      * @throws IllegalArgumentException when {@code denominator == 0}
      * @since 0.0.1
      */
-    public static BigFraction ofDenominator(final @NonNull BigInteger denominator) {
+    public static BigFraction ofDenominator(final @NotNull BigInteger denominator) {
         return new BigFraction(BigInteger.ONE, denominator);
     }
 
@@ -121,7 +121,7 @@ public final class BigFraction extends
     }
 
     @Override
-    public @NonNull BigFraction add(final @NonNull BigFraction summand) {
+    public @NotNull BigFraction add(final @NotNull BigFraction summand) {
         requireNonNull(summand, "summand");
         final var num =
             summand.getDenominator().multiply(getNumerator())
@@ -131,7 +131,7 @@ public final class BigFraction extends
     }
 
     @Override
-    public @NonNull BigFraction subtract(final @NonNull BigFraction subtrahend) {
+    public @NotNull BigFraction subtract(final @NotNull BigFraction subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         final var num = subtrahend.getDenominator().multiply(getNumerator())
             .subtract(getDenominator().multiply(subtrahend.getNumerator()));
@@ -140,7 +140,7 @@ public final class BigFraction extends
     }
 
     @Override
-    public @NonNull BigFraction multiply(final @NonNull BigFraction factor) {
+    public @NotNull BigFraction multiply(final @NotNull BigFraction factor) {
         requireNonNull(factor, "factor");
         return new BigFraction(
             getNumerator().multiply(factor.getNumerator()),
@@ -149,22 +149,22 @@ public final class BigFraction extends
     }
 
     @Override
-    public @NonNull BigFraction negate() {
+    public @NotNull BigFraction negate() {
         return new BigFraction(getNumerator().negate(), getDenominator());
     }
 
     @Override
-    public @NonNull BigFraction abs() {
+    public @NotNull BigFraction abs() {
         return new BigFraction(getNumerator().abs(), getDenominator().abs());
     }
 
     @Override
-    public @NonNull BigFraction expand(final @NonNull BigInteger number) {
+    public @NotNull BigFraction expand(final @NotNull BigInteger number) {
         return new BigFraction(number.multiply(getNumerator()), number.multiply(getDenominator()));
     }
 
     @Override
-    public boolean lessThanOrEqualTo(final @NonNull BigFraction other) {
+    public boolean lessThanOrEqualTo(final @NotNull BigFraction other) {
         requireNonNull(other, "other");
         final var normalized = normalize();
         final var normalizedOther = other.normalize();
@@ -174,7 +174,7 @@ public final class BigFraction extends
     }
 
     @Override
-    public @NonNull BigFraction normalize() {
+    public @NotNull BigFraction normalize() {
         if (getSignum() < 0 && getNumerator().compareTo(BigInteger.ZERO) > 0) {
             return new BigFraction(getNumerator().negate(), getDenominator().abs());
         }
@@ -188,28 +188,28 @@ public final class BigFraction extends
     }
 
     @Override
-    public @NonNull BigFraction reduce() {
+    public @NotNull BigFraction reduce() {
         final var gcd = getNumerator().gcd(getDenominator()).abs();
         return new BigFraction(getNumerator().divide(gcd), getDenominator().divide(gcd));
     }
 
     @Override
-    public @NonNull BigDecimal toBigDecimal() {
+    public @NotNull BigDecimal toBigDecimal() {
         return new BigDecimal(getNumerator()).divide(new BigDecimal(getDenominator()), MathContext.DECIMAL128);
     }
 
     @Override
-    public int compareTo(final @NonNull BigFraction o) {
+    public int compareTo(final @NotNull BigFraction o) {
         return BigFractionComparator.INSTANCE.compare(this, o);
     }
 
     @Override
-    protected @NonNull BigFraction getOne() {
+    protected @NotNull BigFraction getOne() {
         return ONE;
     }
 
     @Override
-    protected @NonNull BiFunction<BigInteger, BigInteger, BigFraction> getConstructor() {
+    protected @NotNull BiFunction<BigInteger, BigInteger, BigFraction> getConstructor() {
         return BigFraction::new;
     }
 
@@ -233,7 +233,7 @@ public final class BigFraction extends
         }
 
         @Override
-        public int compare(final @NonNull BigFraction o1, final @NonNull BigFraction o2) {
+        public int compare(final @NotNull BigFraction o1, final @NotNull BigFraction o2) {
             requireNonNull(o1, "o1");
             requireNonNull(o2, "o2");
             if (o1.lessThan(o2)) {

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Base class for pseudorandom number generators
@@ -19,7 +19,7 @@ public abstract class AbstractRandom<N extends Number> {
      *
      * @since 0.0.1
      */
-    private final @NonNull SecureRandom secureRandom;
+    private final @NotNull SecureRandom secureRandom;
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws NullPointerException if {@code secureRandom == null}
      * @since 0.0.1
      */
-    protected AbstractRandom(final @NonNull SecureRandom secureRandom) {
+    protected AbstractRandom(final @NotNull SecureRandom secureRandom) {
         this.secureRandom = requireNonNull(secureRandom, "secureRandom");
     }
 
@@ -59,7 +59,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @return next number
      * @since 0.0.1
      */
-    public abstract @NonNull N next();
+    public abstract @NotNull N next();
 
     /**
      * Returns the next pseudorandom number
@@ -69,7 +69,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code bound < 1}
      * @since 0.0.1
      */
-    public abstract @NonNull N next(long bound);
+    public abstract @NotNull N next(long bound);
 
     /**
      * Returns the next pseudorandom number
@@ -80,7 +80,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code origin >= bound}
      * @since 0.0.1
      */
-    public abstract @NonNull N next(long origin, long bound);
+    public abstract @NotNull N next(long origin, long bound);
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -88,7 +88,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @return {@link Stream} of pseudorandom numbers
      * @since 0.0.1
      */
-    public abstract @NonNull Stream<@NonNull N> numbers();
+    public abstract @NotNull Stream<@NotNull N> numbers();
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -98,7 +98,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code limit < 0}
      * @since 0.0.1
      */
-    public abstract @NonNull Stream<@NonNull N> numbers(long limit);
+    public abstract @NotNull Stream<@NotNull N> numbers(long limit);
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -109,7 +109,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code origin >= bound}
      * @since 0.0.1
      */
-    public abstract @NonNull Stream<@NonNull N> numbers(long origin, long bound);
+    public abstract @NotNull Stream<@NotNull N> numbers(long origin, long bound);
 
     /**
      * Returns a {@link Stream} of pseudorandom numbers
@@ -122,7 +122,7 @@ public abstract class AbstractRandom<N extends Number> {
      * @throws IllegalArgumentException if {@code origin >= bound}
      * @since 0.0.1
      */
-    public abstract @NonNull Stream<@NonNull N> numbers(long limit, long origin, long bound);
+    public abstract @NotNull Stream<@NotNull N> numbers(long limit, long origin, long bound);
 
     /**
      * {@link SecureRandom}
@@ -130,12 +130,12 @@ public abstract class AbstractRandom<N extends Number> {
      * @return {@link SecureRandom}
      * @since 0.0.1
      */
-    protected final @NonNull SecureRandom getSecureRandom() {
+    protected final @NotNull SecureRandom getSecureRandom() {
         return secureRandom;
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "{secureRandom=" + secureRandom + "}";
     }
 }

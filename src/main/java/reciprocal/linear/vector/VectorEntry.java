@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Entry for vectors
@@ -15,7 +15,7 @@ import org.eclipse.jdt.annotation.NonNull;
  * @param element element
  * @since 0.0.1
  */
-public record VectorEntry<E extends Number>(int index, @NonNull E element) implements Serializable {
+public record VectorEntry<E extends Number>(int index, @NotNull E element) implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -41,7 +41,7 @@ public record VectorEntry<E extends Number>(int index, @NonNull E element) imple
      * @throws IllegalArgumentException when {@code index < 1}
      * @since 0.0.1
      */
-    public @NonNull VectorEntry<@NonNull E> withIndex(final int index) {
+    public @NotNull VectorEntry<@NotNull E> withIndex(final int index) {
         return new VectorEntry<>(index, element);
     }
 
@@ -53,7 +53,7 @@ public record VectorEntry<E extends Number>(int index, @NonNull E element) imple
      * @throws NullPointerException when {@code element == null}
      * @since 0.0.1
      */
-    public @NonNull VectorEntry<@NonNull E> withElement(final @NonNull E element) {
+    public @NotNull VectorEntry<@NotNull E> withElement(final @NotNull E element) {
         requireNonNull(element, "element");
         return new VectorEntry<>(index, element);
     }

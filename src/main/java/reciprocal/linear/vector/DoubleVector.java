@@ -5,18 +5,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.util.List;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a vector which uses {@link Double} as type for its elements
  *
  * @since 0.0.1
  */
-public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull DoubleVector, @NonNull Double> {
+public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull DoubleVector, @NotNull Double> {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    DoubleVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull Double>> entries) {
+    DoubleVector(final int size, final @NotNull List<@NotNull VectorEntry<@NotNull Double>> entries) {
         super(size, entries);
     }
 
@@ -33,7 +33,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     }
 
     @Override
-    public @NonNull DoubleVector add(final @NonNull DoubleVector summand) {
+    public @NotNull DoubleVector add(final @NotNull DoubleVector summand) {
         requireNonNull(summand, "summand");
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
@@ -43,7 +43,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     }
 
     @Override
-    public @NonNull DoubleVector subtract(final @NonNull DoubleVector subtrahend) {
+    public @NotNull DoubleVector subtract(final @NotNull DoubleVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
@@ -53,7 +53,7 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     }
 
     @Override
-    public @NonNull Double dotProduct(final @NonNull DoubleVector other) {
+    public @NotNull Double dotProduct(final @NotNull DoubleVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Double::sum)
@@ -61,41 +61,41 @@ public final class DoubleVector extends AbstractVector<@NonNull Double, @NonNull
     }
 
     @Override
-    public @NonNull DoubleVector scalarMultiply(final @NonNull Double scalar) {
+    public @NotNull DoubleVector scalarMultiply(final @NotNull Double scalar) {
         requireNonNull(scalar, "scalar");
         return new DoubleVector(getSize(),
             getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
-    public @NonNull DoubleVector negate() {
+    public @NotNull DoubleVector negate() {
         return new DoubleVector(getSize(), getEntries().stream().map(e -> e.withElement(-e.element())).toList());
     }
 
     @Override
-    public boolean orthogonalTo(final @NonNull DoubleVector other) {
+    public boolean orthogonalTo(final @NotNull DoubleVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return dotProduct(other) == 0L;
     }
 
     @Override
-    public @NonNull Double taxicabNorm() {
+    public @NotNull Double taxicabNorm() {
         return getElements().stream().map(Math::abs).reduce(Double::sum).orElseThrow();
     }
 
     @Override
-    public @NonNull Double euclideanNorm() {
+    public @NotNull Double euclideanNorm() {
         return Math.sqrt(euclideanNormPow2());
     }
 
     @Override
-    public @NonNull Double maxNorm() {
+    public @NotNull Double maxNorm() {
         return getElements().stream().map(Math::abs).max(Double::compareTo).orElseThrow();
     }
 
     @Override
-    protected @NonNull Double euclideanNormPow2() {
+    protected @NotNull Double euclideanNormPow2() {
         return getElements().stream().map(e -> e * e).reduce(Double::sum).orElseThrow();
     }
 

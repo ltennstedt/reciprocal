@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for polar forms
@@ -19,8 +19,8 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final @NonNull N radial;
-    private final @NonNull N angular;
+    private final @NotNull N radial;
+    private final @NotNull N angular;
 
     /**
      * Constructor
@@ -31,7 +31,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @throws NullPointerException when {@code angular == null}
      * @since 0.0.1
      */
-    protected AbstractPolarForm(final @NonNull N radial, final @NonNull N angular) {
+    protected AbstractPolarForm(final @NotNull N radial, final @NotNull N angular) {
         this.radial = requireNonNull(radial, "radial");
         this.angular = requireNonNull(angular, "angular");
     }
@@ -42,7 +42,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @return radial
      * @since 0.0.1
      */
-    public final @NonNull N getRadial() {
+    public final @NotNull N getRadial() {
         return radial;
     }
 
@@ -52,7 +52,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @return angular
      * @since 0.0.1
      */
-    public final @NonNull N getAngular() {
+    public final @NotNull N getAngular() {
         return angular;
     }
 
@@ -64,7 +64,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public abstract boolean equalsByComparing(@NonNull T other);
+    public abstract boolean equalsByComparing(@NotNull T other);
 
     /**
      * Returns if this is not equal by comparing to other
@@ -74,7 +74,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
      * @throws NullPointerException when {@code other == null}
      * @since 0.0.1
      */
-    public final boolean doesNotEqualByComparing(final @NonNull T other) {
+    public final boolean doesNotEqualByComparing(final @NotNull T other) {
         return !equalsByComparing(other);
     }
 
@@ -96,7 +96,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "{radial=" + radial + ", angular=" + angular + "}";
     }
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a vector which uses {@link BigInteger} as type for its elements
@@ -16,11 +16,11 @@ import org.eclipse.jdt.annotation.NonNull;
  * @since 0.0.1
  */
 public final class BigIntegerVector
-    extends AbstractVector<@NonNull BigInteger, @NonNull BigIntegerVector, @NonNull BigDecimal> {
+    extends AbstractVector<@NotNull BigInteger, @NotNull BigIntegerVector, @NotNull BigDecimal> {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    BigIntegerVector(final int size, final @NonNull List<@NonNull VectorEntry<@NonNull BigInteger>> entries) {
+    BigIntegerVector(final int size, final @NotNull List<@NotNull VectorEntry<@NotNull BigInteger>> entries) {
         super(size, entries);
     }
 
@@ -37,7 +37,7 @@ public final class BigIntegerVector
     }
 
     @Override
-    public @NonNull BigIntegerVector add(final @NonNull BigIntegerVector summand) {
+    public @NotNull BigIntegerVector add(final @NotNull BigIntegerVector summand) {
         requireNonNull(summand, "summand");
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
@@ -47,7 +47,7 @@ public final class BigIntegerVector
     }
 
     @Override
-    public @NonNull BigIntegerVector subtract(final @NonNull BigIntegerVector subtrahend) {
+    public @NotNull BigIntegerVector subtract(final @NotNull BigIntegerVector subtrahend) {
         requireNonNull(subtrahend, "subtrahend");
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
@@ -57,7 +57,7 @@ public final class BigIntegerVector
     }
 
     @Override
-    public @NonNull BigInteger dotProduct(final @NonNull BigIntegerVector other) {
+    public @NotNull BigInteger dotProduct(final @NotNull BigIntegerVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return getEntries().stream().map(e -> e.element().multiply(other.getElement(e.index()))).reduce(BigInteger::add)
@@ -65,32 +65,32 @@ public final class BigIntegerVector
     }
 
     @Override
-    public @NonNull BigIntegerVector scalarMultiply(final @NonNull BigInteger scalar) {
+    public @NotNull BigIntegerVector scalarMultiply(final @NotNull BigInteger scalar) {
         requireNonNull(scalar, "scalar");
         return new BigIntegerVector(getSize(),
             getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
     }
 
     @Override
-    public @NonNull BigIntegerVector negate() {
+    public @NotNull BigIntegerVector negate() {
         return new BigIntegerVector(getSize(),
             getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
     }
 
     @Override
-    public boolean orthogonalTo(final @NonNull BigIntegerVector other) {
+    public boolean orthogonalTo(final @NotNull BigIntegerVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         return dotProduct(other).compareTo(BigInteger.ZERO) == 0;
     }
 
     @Override
-    public @NonNull BigDecimal taxicabNorm() {
+    public @NotNull BigDecimal taxicabNorm() {
         return getElements().stream().map(BigInteger::abs).reduce(BigInteger::add).map(BigDecimal::new).orElseThrow();
     }
 
     @Override
-    public @NonNull BigDecimal euclideanNorm() {
+    public @NotNull BigDecimal euclideanNorm() {
         return euclideanNormPow2().sqrt(MathContext.UNLIMITED);
     }
 
@@ -102,19 +102,19 @@ public final class BigIntegerVector
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
-    public @NonNull BigDecimal euclideanNorm(final @NonNull MathContext mathContext) {
+    public @NotNull BigDecimal euclideanNorm(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return euclideanNormPow2().sqrt(mathContext);
     }
 
     @Override
-    public @NonNull BigDecimal maxNorm() {
+    public @NotNull BigDecimal maxNorm() {
         return getElements().stream().map(BigInteger::abs).max(BigInteger::compareTo).map(BigDecimal::new)
             .orElseThrow();
     }
 
     @Override
-    protected @NonNull BigDecimal euclideanNormPow2() {
+    protected @NotNull BigDecimal euclideanNormPow2() {
         return getElements().stream().map(e -> e.multiply(e)).reduce(BigInteger::add).map(BigDecimal::new)
             .orElseThrow();
     }
@@ -125,7 +125,7 @@ public final class BigIntegerVector
      * @since 0.0.1
      */
     public static final class BigIntegerVectorBuilder extends
-        AbstractVectorBuilder<@NonNull BigInteger, @NonNull BigIntegerVector, @NonNull BigIntegerVectorBuilder> {
+        AbstractVectorBuilder<@NotNull BigInteger, @NotNull BigIntegerVector, @NotNull BigIntegerVectorBuilder> {
         BigIntegerVectorBuilder(final int size) {
             super(size, i -> BigInteger.ZERO);
         }

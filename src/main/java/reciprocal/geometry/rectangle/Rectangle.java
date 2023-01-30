@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
-import org.eclipse.jdt.annotation.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Immutable implementation of a rectangle which uses {@link Double} as type for
@@ -37,24 +37,24 @@ public final class Rectangle extends AbstractRectangle<Double, Rectangle> {
     }
 
     @Override
-    public @NonNull Double getPerimeter() {
+    public @NotNull Double getPerimeter() {
         return 2.0D * (getLength() + getWidth());
     }
 
     @Override
-    public @NonNull Double getDiagonal() {
+    public @NotNull Double getDiagonal() {
         return Math.sqrt(Math.pow(getLength(), 2.0D) + Math.pow(getWidth(), 2.0D));
     }
 
     @Override
-    public @NonNull Rectangle withLength(final @NonNull Double newLength) {
+    public @NotNull Rectangle withLength(final @NotNull Double newLength) {
         requireNonNull(newLength, "newLength");
         checkArgument(newLength > 0.0D, "newLength > 0 expected but newLength = %s", newLength);
         return new Rectangle(newLength, getWidth());
     }
 
     @Override
-    public @NonNull Rectangle withWidth(final @NonNull Double newWidth) {
+    public @NotNull Rectangle withWidth(final @NotNull Double newWidth) {
         requireNonNull(newWidth, "newWidth");
         checkArgument(newWidth > 0.0D, "newWidth > 0 expected but newWidth = %s", newWidth);
         return new Rectangle(getLength(), newWidth);

@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.io.Serializable;
-import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for rectangles
@@ -24,14 +24,14 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      *
      * @since 0.0.1
      */
-    private final @NonNull N length;
+    private final @NotNull N length;
 
     /**
      * Width
      *
      * @since 0.0.1
      */
-    private final @NonNull N width;
+    private final @NotNull N width;
 
     /**
      * Constructor
@@ -42,7 +42,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @throws NullPointerException when {@code width == null}
      * @since 0.0.1
      */
-    protected AbstractRectangle(final @NonNull N length, final @NonNull N width) {
+    protected AbstractRectangle(final @NotNull N length, final @NotNull N width) {
         this.length = requireNonNull(length, "length");
         this.width = requireNonNull(width, "width");
     }
@@ -61,7 +61,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @return perimeter
      * @since 0.0.1
      */
-    public abstract @NonNull N getPerimeter();
+    public abstract @NotNull N getPerimeter();
 
     /**
      * Diagonal
@@ -69,7 +69,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @return diagonal
      * @since 0.0.1
      */
-    public abstract @NonNull N getDiagonal();
+    public abstract @NotNull N getDiagonal();
 
     /**
      * Returns a copy with new length
@@ -80,7 +80,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @throws IllegalArgumentException when {@code newLength <= 0}
      * @since 0.0.1
      */
-    public abstract @NonNull R withLength(@NonNull N newLength);
+    public abstract @NotNull R withLength(@NotNull N newLength);
 
     /**
      * Returns a copy with new width
@@ -91,7 +91,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @throws IllegalArgumentException when {@code newWidth <= 0}
      * @since 0.0.1
      */
-    public abstract @NonNull R withWidth(@NonNull N newWidth);
+    public abstract @NotNull R withWidth(@NotNull N newWidth);
 
     /**
      * Length
@@ -99,7 +99,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @return length
      * @since 0.0.1
      */
-    public final @NonNull N getLength() {
+    public final @NotNull N getLength() {
         return length;
     }
 
@@ -109,7 +109,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
      * @return width
      * @since 0.0.1
      */
-    public final @NonNull N getWidth() {
+    public final @NotNull N getWidth() {
         return width;
     }
 
@@ -131,7 +131,7 @@ public abstract class AbstractRectangle<N extends Number, R extends AbstractRect
     }
 
     @Override
-    public final @NonNull String toString() {
+    public final @NotNull String toString() {
         return getClass().getSimpleName() + "{length=" + length + ", width=" + width + "}";
     }
 }
