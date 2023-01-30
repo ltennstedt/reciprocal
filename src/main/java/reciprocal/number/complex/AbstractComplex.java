@@ -24,18 +24,7 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Real part
-     *
-     * @since 0.0.1
-     */
     private final @NonNull N real;
-
-    /**
-     * Imaginary part
-     *
-     * @since 0.0.1
-     */
     private final @NonNull N imaginary;
 
     /**

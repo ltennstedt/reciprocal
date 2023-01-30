@@ -19,18 +19,7 @@ public abstract class AbstractPolarForm<N extends Number, T extends AbstractPola
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Radial
-     *
-     * @since 0.0.1
-     */
     private final @NonNull N radial;
-
-    /**
-     * Angular
-     *
-     * @since 0.0.1
-     */
     private final @NonNull N angular;
 
     /**

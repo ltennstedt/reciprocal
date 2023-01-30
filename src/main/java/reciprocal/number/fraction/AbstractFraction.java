@@ -23,18 +23,7 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Numerator
-     *
-     * @since 0.0.1
-     */
     private final @NonNull N numerator;
-
-    /**
-     * Denominator
-     *
-     * @since 0.0.1
-     */
     private final @NonNull N denominator;
 
     /**
