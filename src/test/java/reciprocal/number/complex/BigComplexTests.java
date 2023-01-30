@@ -1,6 +1,8 @@
 package reciprocal.number.complex;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatException;
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import java.math.BigDecimal;
@@ -257,5 +259,228 @@ final class BigComplexTests {
 
         assertThat(actual.getReal()).isOne();
         assertThat(actual.getImaginary()).isZero();
+    }
+
+    @Test
+    void negate_should_calculate_negated() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).negate();
+
+        assertThat(actual.getReal()).isEqualByComparingTo(BigDecimal.ONE.negate());
+        assertThat(actual.getImaginary()).isEqualByComparingTo(BigDecimal.valueOf(-2L));
+    }
+
+    @Test
+    void negate_with_MathContext_should_throw_Exception_when_mathContext_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ZERO.negate(null)).withMessage("mathContext")
+            .withNoCause();
+    }
+
+    @Test
+    void negate_with_MathContextshould_calculate_negated() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).negate(MathContext.DECIMAL32);
+
+        assertThat(actual.getReal()).isEqualByComparingTo(BigDecimal.ONE.negate());
+        assertThat(actual.getImaginary()).isEqualByComparingTo(BigDecimal.valueOf(-2L));
+    }
+
+    @Test
+    void invert_should_throw_Exception_when_this_is_not_invertible() {
+        assertThatIllegalStateException().isThrownBy(BigComplex.ZERO::invert)
+            .withMessage("this expected to be invertible but this = BigComplex{real=0, imaginary=0}").withNoCause();
+    }
+
+    @Test
+    void invert_should_calculate_inverted() {
+        final var actual = new BigComplex(BigDecimal.valueOf(2L), BigDecimal.valueOf(3L)).invert();
+
+        assertThat(actual.getReal()).isEqualByComparingTo("0.1538461538461538461538461538461538");
+        assertThat(actual.getImaginary()).isEqualByComparingTo("-0.2307692307692307692307692307692308");
+    }
+
+    @Test
+    void invert_with_MathContext_should_throw_Exception_when_mathContext_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ONE.invert(null)).withMessage("mathContext")
+            .withNoCause();
+    }
+
+    @Test
+    void invert_with_MathContext_should_throw_Exception_when_this_is_not_invertible() {
+        assertThatIllegalStateException().isThrownBy(() -> BigComplex.ZERO.invert(MathContext.DECIMAL32))
+            .withMessage("this expected to be invertible but this = BigComplex{real=0, imaginary=0}").withNoCause();
+    }
+
+    @Test
+    void invert_with_MathContext_should_calculate_inverted() {
+        final var actual = new BigComplex(BigDecimal.valueOf(2L), BigDecimal.valueOf(3L)).invert(MathContext.DECIMAL32);
+
+        assertThat(actual.getReal()).isEqualByComparingTo("0.1538462");
+        assertThat(actual.getImaginary()).isEqualByComparingTo("-0.2307692");
+    }
+
+    @Test
+    void abs_should_calculate_absolute_value() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).abs();
+
+        assertThat(actual).isEqualByComparingTo("2.236067977499789696409173668731276");
+    }
+
+    @Test
+    void abs_with_MathContext_should_throw_Exception_when_mathContext_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ZERO.abs(null)).withMessage("mathContext")
+            .withNoCause();
+    }
+
+    @Test
+    void abs_with_MathContext_should_calculate_absolute_value() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).abs(MathContext.DECIMAL32);
+
+        assertThat(actual).isEqualByComparingTo("2.236068");
+    }
+
+    @Test
+    void conjugate_should_calculate_conjugate() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).conjugate();
+
+        assertThat(actual.getReal()).isOne();
+        assertThat(actual.getImaginary()).isEqualByComparingTo(BigDecimal.valueOf(-2L));
+    }
+
+    @Test
+    void conjugate_with_MathContext_should_throw_Exception_when_mathContext_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ZERO.conjugate(null)).withMessage("mathContext")
+            .withNoCause();
+    }
+
+    @Test
+    void conjugate_with_MathContext_should_calculate_conjugate() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).conjugate(MathContext.DECIMAL32);
+
+        assertThat(actual.getReal()).isOne();
+        assertThat(actual.getImaginary()).isEqualByComparingTo(BigDecimal.valueOf(-2L));
+    }
+
+    @Test
+    void argument_should_throw_Exception_when_this_is_not_invertible() {
+        assertThatIllegalStateException().isThrownBy(BigComplex.ZERO::argument)
+            .withMessage("this expected to be invertible but this = BigComplex{real=0, imaginary=0}").withNoCause();
+    }
+
+    @Test
+    void argument_should_return_minus_acos_when_imaginary_is_less_than_0() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.ONE.negate()).argument();
+
+        assertThat(actual).isEqualByComparingTo("-0.7853981633974483096156608458198756");
+    }
+
+    @Test
+    void argument_should_return_acos_when_imaginary_is_greater_than_0() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.ONE).argument();
+
+        assertThat(actual).isEqualByComparingTo("0.7853981633974483096156608458198756");
+    }
+
+    @Test
+    void argument_with_MathContext_should_throw_Exception_when_this_is_not_invertible() {
+        assertThatIllegalStateException().isThrownBy(() -> BigComplex.ZERO.argument(MathContext.DECIMAL32))
+            .withMessage("this expected to be invertible but this = BigComplex{real=0, imaginary=0}").withNoCause();
+    }
+
+    @Test
+    void argument_with_MathContext_should_throw_Exception_when_mathContext_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ONE.argument(null)).withMessage("mathContext")
+            .withNoCause();
+    }
+
+    @Test
+    void argument_with_MathContext_should_return_minus_acos_when_imaginary_is_less_than_0() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.ONE.negate()).argument(MathContext.DECIMAL32);
+
+        assertThat(actual).isEqualByComparingTo("-0.7853981");
+    }
+
+    @Test
+    void argument_with_MathContext_should_return_acos_when_imaginary_is_greater_than_0() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.ONE).argument(MathContext.DECIMAL32);
+
+        assertThat(actual).isEqualByComparingTo("0.7853981");
+    }
+
+    @Test
+    void toBigInteger_should_return_this_as_BigInteger() {
+        assertThat(BigComplex.ONE.toBigInteger()).isOne();
+    }
+
+    @Test
+    void toBigIntegerExact_should_throw_Exception_when_real_is_not_an_exact_BigInteger() {
+        assertThatException().isThrownBy(() -> BigComplex.ofReal(new BigDecimal("0.5")).toBigIntegerExact())
+            .isExactlyInstanceOf(ArithmeticException.class);
+    }
+
+    @Test
+    void toBigIntegerExact_should_return_this_as_exact_BigInteger() {
+        assertThat(BigComplex.ONE.toBigIntegerExact()).isOne();
+    }
+
+    @Test
+    void toBigDecimal_should_return_this_as_exact_BigDecimal() {
+        assertThat(BigComplex.ONE.toBigDecimal()).isOne();
+    }
+
+    @Test
+    void toPolarForm_should_throw_Exception_when_this_is_not_invertible() {
+        assertThatIllegalStateException().isThrownBy(BigComplex.ZERO::toPolarForm)
+            .withMessage("this expected to be invertible but this = BigComplex{real=0, imaginary=0}").withNoCause();
+    }
+
+    @Test
+    void toPolarForm_should_calculate_PolarForm() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).toPolarForm();
+
+        assertThat(actual.getRadial()).isEqualByComparingTo("2.236067977499789696409173668731276");
+        assertThat(actual.getAngular()).isEqualByComparingTo("1.107148717794090503017065460178537");
+    }
+
+    @Test
+    void toPolarForm_with_MathContext_should_throw_Exception_when_this_is_not_invertible() {
+        assertThatIllegalStateException().isThrownBy(() -> BigComplex.ZERO.toPolarForm(MathContext.DECIMAL32))
+            .withMessage("this expected to be invertible but this = BigComplex{real=0, imaginary=0}").withNoCause();
+    }
+
+    @Test
+    void toPolarForm_with_MathContext_should_throw_Exception_when_mathContext_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ZERO.toPolarForm(null)).withMessage("mathContext")
+            .withNoCause();
+    }
+
+    @Test
+    void toPolarForm_with_MathContext_should_calculate_PolarForm() {
+        final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).toPolarForm(MathContext.DECIMAL32);
+
+        assertThat(actual.getRadial()).isEqualByComparingTo("2.236068");
+        assertThat(actual.getAngular()).isEqualByComparingTo("1.107149");
+    }
+
+    @Test
+    void equalsByComparing_should_throw_Exception_when_other_is_null() {
+        assertThatNullPointerException().isThrownBy(() -> BigComplex.ZERO.equalsByComparing(null)).withMessage("other")
+            .withNoCause();
+    }
+
+    @Test
+    void equalsByComparing_should_return_false_when_real_parts_are_unequal_by_comparing() {
+        assertThat(BigComplex.ZERO.equalsByComparing(BigComplex.ONE)).isFalse();
+    }
+
+    @Test
+    void equalsByComparing_should_return_false_when_imaginary_parts_are_unequal_by_comparing() {
+        assertThat(BigComplex.ZERO.equalsByComparing(BigComplex.I)).isFalse();
+    }
+
+    @Test
+    void equalsByComparing_should_return_true_when_this_is_this_is_equal_by_comparing_to_other() {
+        final var complex = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L));
+        final var other = new BigComplex(new BigDecimal("1.0"), new BigDecimal("2.0"));
+
+        assertThat(complex.equalsByComparing(other)).isTrue();
     }
 }

@@ -134,9 +134,9 @@ public abstract class AbstractComplex<N extends Number, T extends AbstractComple
     public abstract @NonNull A abs();
 
     /**
-     * Calculates the conjugated
+     * Calculates the conjugate
      *
-     * @return conjugated
+     * @return conjugate
      * @since 0.0.1
      */
     public abstract @NonNull T conjugate();

@@ -262,7 +262,7 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
 
     @Override
     public @NonNull BigComplex invert() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
 
@@ -275,8 +275,8 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
      * @since 0.0.1
      */
     public @NonNull BigComplex invert(final @NonNull MathContext mathContext) {
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         requireNonNull(mathContext, "mathContext");
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this, mathContext);
     }
 
@@ -304,10 +304,10 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
     }
 
     /**
-     * Calculates the conjugated
+     * Calculates the conjugate
      *
      * @param mathContext {@link MathContext}
-     * @return conjugated
+     * @return conjugate
      * @throws NullPointerException when {@code mathContext == null}
      * @since 0.0.1
      */
@@ -341,17 +341,27 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
 
     @Override
     public @NonNull BigInteger toBigInteger() {
-        return BigInteger.valueOf(longValue());
+        return getReal().toBigInteger();
+    }
+
+    /**
+     * Returns this as exact {@link BigInteger}
+     *
+     * @return {@link BigInteger}
+     * @throws ArithmeticException when real part is not an exact {@link BigInteger}
+     * @since 0.0.1
+     */
+    public @NonNull BigInteger toBigIntegerExact() {
+        return getReal().toBigIntegerExact();
     }
 
     @Override
     public @NonNull BigDecimal toBigDecimal() {
-        return BigDecimal.valueOf(doubleValue());
+        return getReal();
     }
 
     @Override
     public @NonNull BigPolarForm toPolarForm() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return new BigPolarForm(abs(), argument());
     }
 
@@ -365,8 +375,6 @@ public final class BigComplex extends AbstractComplex<@NonNull BigDecimal, @NonN
      * @since 0.0.1
      */
     public @NonNull BigPolarForm toPolarForm(final @NonNull MathContext mathContext) {
-        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
-        requireNonNull(mathContext, "mathContext");
         return new BigPolarForm(abs(mathContext), argument(mathContext));
     }
 
