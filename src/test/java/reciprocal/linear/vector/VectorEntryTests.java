@@ -20,7 +20,7 @@ final class VectorEntryTests {
     }
 
     @Test
-    void withIndex_should_throw_Exception_when_index_is_0() {
+    void withIndex_should_throw_Exception_when_newIndex_is_0() {
         final var entry = new VectorEntry<>(1, 0);
 
         assertThatIllegalArgumentException().isThrownBy(() -> entry.withIndex(0))
@@ -38,10 +38,11 @@ final class VectorEntryTests {
     }
 
     @Test
-    void withElement_should_throw_Exception_when_element_is_null() {
+    void withElement_should_throw_Exception_when_newElement_is_null() {
         final var entry = new VectorEntry<>(1, 0);
 
-        assertThatNullPointerException().isThrownBy(() -> entry.withElement(null)).withMessage("element").withNoCause();
+        assertThatNullPointerException().isThrownBy(() -> entry.withElement(null)).withMessage("newElement")
+            .withNoCause();
     }
 
     @Test
