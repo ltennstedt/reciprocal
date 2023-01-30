@@ -27,7 +27,7 @@ final class AbstractComplexTests {
 
     @Test
     void isNotInvertible_should_return_true_when_Gaussian_is_not_invertible() {
-        assertThat(new Gaussian(1L, 1L).isNotInvertible()).isTrue();
+        assertThat(Gaussian.ZERO.isNotInvertible()).isTrue();
     }
 
     @Test

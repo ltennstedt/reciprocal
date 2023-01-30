@@ -1,6 +1,7 @@
 package reciprocal.number.complex;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
@@ -140,7 +141,7 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
 
     @Override
     public @NonNull Complex invert() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
 
@@ -156,14 +157,25 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
 
     @Override
     public @NonNull Double argument() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = Math.acos(getReal() / abs());
         return getImaginary() < 0.0D ? -acos : acos;
     }
 
     @Override
     public @NonNull BigInteger toBigInteger() {
-        return BigInteger.valueOf(longValue());
+        return toBigDecimal().toBigInteger();
+    }
+
+    /**
+     * Returns this as exact {@link BigInteger}
+     *
+     * @return {@link BigInteger}
+     * @throws ArithmeticException when real part is not exact
+     * @since 0.0.1
+     */
+    public @NonNull BigInteger toBigIntegerExact() {
+        return toBigDecimal().toBigIntegerExact();
     }
 
     @Override
@@ -182,7 +194,6 @@ public final class Complex extends AbstractComplex<@NonNull Double, @NonNull Com
 
     @Override
     public @NonNull PolarForm toPolarForm() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
         return new PolarForm(abs(), argument());
     }
 

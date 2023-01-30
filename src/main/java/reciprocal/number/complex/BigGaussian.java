@@ -145,6 +145,31 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
         return new BigComplex(re, im);
     }
 
+    /**
+     * Calculates the quotient
+     *
+     * @param divisor divisor
+     * @param mathContext {@link MathContext}
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @throws NullPointerException when divisor is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex divide(final @NonNull BigGaussian divisor, final @NonNull MathContext mathContext) {
+        requireNonNull(divisor, "divisor");
+        checkArgument(divisor.isInvertible(), "divisor expected to be invertible but divisor = %s", divisor);
+        requireNonNull(mathContext, "mathContext");
+        final var den = new BigDecimal(divisor.getReal().pow(2).add(divisor.getImaginary().pow(2)));
+        final var re = new BigDecimal(
+            getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary())))
+            .divide(den, mathContext);
+        final var im = new BigDecimal(
+            getImaginary().multiply(divisor.getReal()).subtract(getReal().multiply(divisor.getImaginary())))
+            .divide(den, mathContext);
+        return new BigComplex(re, im);
+    }
+
     @Override
     public @NonNull BigComplex pow(final int exponent) {
         if (exponent < 0) {
@@ -153,7 +178,27 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
         if (exponent > 0) {
             return toBigComplex().multiply(pow(exponent - 1));
         }
-        return BigComplex.ZERO;
+        return BigComplex.ONE;
+    }
+
+    /**
+     * Calculates the power
+     *
+     * @param exponent exponent
+     * @param mathContext {@link MathContext}
+     * @return power
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex pow(final int exponent, final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        if (exponent < 0) {
+            return toBigComplex().multiply(pow(-exponent - 1, mathContext), mathContext).invert(mathContext);
+        }
+        if (exponent > 0) {
+            return toBigComplex().multiply(pow(exponent - 1, mathContext), mathContext);
+        }
+        return BigComplex.ONE;
     }
 
     @Override
@@ -163,13 +208,40 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
 
     @Override
     public @NonNull BigComplex invert() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
+    }
+
+    /**
+     * Calculates the inverted
+     *
+     * @param mathContext {@link MathContext}
+     * @return inverted
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigComplex invert(final @NonNull MathContext mathContext) {
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
+        requireNonNull(mathContext, "mathContext");
+        return ONE.divide(this, mathContext);
     }
 
     @Override
     public @NonNull BigDecimal abs() {
         return new BigDecimal(absPow2()).sqrt(MathContext.DECIMAL128);
+    }
+
+    /**
+     * Calculates the absolute value
+     *
+     * @param mathContext {@link MathContext}
+     * @return absolute value
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigDecimal abs(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return new BigDecimal(absPow2()).sqrt(mathContext);
     }
 
     @Override
@@ -179,20 +251,37 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
 
     @Override
     public @NonNull BigDecimal argument() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = BigDecimalMath.acos(new BigDecimal(getReal()).divide(abs(), MathContext.DECIMAL128),
             MathContext.DECIMAL128);
         return getImaginary().compareTo(BigInteger.ZERO) < 0 ? acos.negate() : acos;
     }
 
+    /**
+     * Calculates the argument
+     *
+     * @param mathContext {@link MathContext}
+     * @return argument
+     * @throws IllegalStateException when this is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigDecimal argument(final @NonNull MathContext mathContext) {
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
+        requireNonNull(mathContext, "mathContext");
+        final var acos =
+            BigDecimalMath.acos(new BigDecimal(getReal()).divide(abs(mathContext), mathContext), mathContext);
+        return getImaginary().compareTo(BigInteger.ZERO) < 0 ? acos.negate(mathContext) : acos;
+    }
+
     @Override
     public @NonNull BigInteger toBigInteger() {
-        return BigInteger.valueOf(longValue());
+        return getReal();
     }
 
     @Override
     public @NonNull BigDecimal toBigDecimal() {
-        return BigDecimal.valueOf(doubleValue());
+        return new BigDecimal(getReal());
     }
 
     /**
@@ -207,8 +296,21 @@ public final class BigGaussian extends AbstractComplex<@NonNull BigInteger, @Non
 
     @Override
     public @NonNull BigPolarForm toPolarForm() {
-        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return new BigPolarForm(abs(), argument());
+    }
+
+    /**
+     * Returns this as polar form
+     *
+     * @param mathContext {@link MathContext}
+     * @return polar form
+     * @throws IllegalStateException when this is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NonNull BigPolarForm toPolarForm(final @NonNull MathContext mathContext) {
+        requireNonNull(mathContext, "mathContext");
+        return new BigPolarForm(abs(mathContext), argument(mathContext));
     }
 
     @Override

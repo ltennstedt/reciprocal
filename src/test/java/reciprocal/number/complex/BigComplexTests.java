@@ -422,7 +422,7 @@ final class BigComplexTests {
     }
 
     @Test
-    void toBigDecimal_should_return_this_as_exact_BigDecimal() {
+    void toBigDecimal_should_return_this_as_BigDecimal() {
         assertThat(BigComplex.ONE.toBigDecimal()).isOne();
     }
 

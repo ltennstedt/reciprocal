@@ -1,6 +1,7 @@
 package reciprocal.number.complex;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 import static java.util.Objects.requireNonNull;
 
 import com.google.common.math.LongMath;
@@ -98,7 +99,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
 
     @Override
     public boolean isInvertible() {
-        return UNITS.contains(this);
+        return toComplex().isInvertible();
     }
 
     @Override
@@ -153,7 +154,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
 
     @Override
     public @NonNull Complex invert() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return ONE.divide(this);
     }
 
@@ -169,7 +170,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
 
     @Override
     public @NonNull Double argument() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         final var acos = Math.acos(getReal() / abs());
         return getImaginary() < 0.0D ? -acos : acos;
     }
@@ -216,7 +217,7 @@ public final class Gaussian extends AbstractComplex<@NonNull Long, @NonNull Gaus
 
     @Override
     public @NonNull PolarForm toPolarForm() {
-        checkArgument(isInvertible(), "this expected to be invertible but this = %s", this);
+        checkState(isInvertible(), "this expected to be invertible but this = %s", this);
         return new PolarForm(abs(), argument());
     }
 
