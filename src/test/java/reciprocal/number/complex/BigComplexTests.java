@@ -276,7 +276,7 @@ final class BigComplexTests {
     }
 
     @Test
-    void negate_with_MathContextshould_calculate_negated() {
+    void negate_with_MathContext_should_calculate_negated() {
         final var actual = new BigComplex(BigDecimal.ONE, BigDecimal.valueOf(2L)).negate(MathContext.DECIMAL32);
 
         assertThat(actual.getReal()).isEqualByComparingTo(BigDecimal.ONE.negate());

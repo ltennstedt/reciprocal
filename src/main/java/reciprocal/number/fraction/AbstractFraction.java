@@ -1,6 +1,7 @@
 package reciprocal.number.fraction;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
@@ -174,10 +175,12 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      * @param divisor divisor
      * @return quotient
      * @throws NullPointerException when {@code divisor == null}
+     * @throws IllegalArgumentException when divisor is not invertible
      * @since 0.0.1
      */
     public final @NotNull T divide(final @NotNull T divisor) {
         requireNonNull(divisor, "divisor");
+        checkArgument(divisor.isInvertible(), "this expected to be invertible but this = %s", this);
         return multiply(divisor.invert());
     }
 
@@ -186,14 +189,16 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
      *
      * @param exponent exponent
      * @return power
+     * @throws IllegalStateException when exponent is negative and this is not invertible
      * @since 0.0.1
      */
     public final @NotNull T pow(final int exponent) {
+        if (exponent < 0) {
+            checkState(isInvertible(), "this expected to be invertible but this = %s", this);
+            return multiply(pow(-exponent - 1)).invert();
+        }
         if (exponent > 0) {
             return multiply(pow(exponent - 1));
-        }
-        if (exponent < 0) {
-            return multiply(pow(-exponent - 1)).invert();
         }
         return getOne();
     }

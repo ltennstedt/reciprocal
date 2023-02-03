@@ -104,13 +104,10 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     public int getSignum() {
         final var numeratorCompareToZero = getNumerator().compareTo(0L);
         final var denominatorCompareToZero = getDenominator().compareTo(0L);
-        if (numeratorCompareToZero == 0 || denominatorCompareToZero == 0) {
+        if (numeratorCompareToZero == 0) {
             return 0;
         }
-        if (numeratorCompareToZero != denominatorCompareToZero) {
-            return -1;
-        }
-        return 1;
+        return numeratorCompareToZero == denominatorCompareToZero ? 1 : -1;
     }
 
     @Override
