@@ -98,6 +98,10 @@
                                     <type>regex</type>
                                     <version>.+-M\d</version>
                                 </ignoreVersion>
+                                <ignoreVersion>
+                                    <type>regex</type>
+                                    <version>.+\.M\d</version>
+                                </ignoreVersion>
                             </ignoreVersions>
                         </ruleSet>
                     </configuration>
@@ -392,7 +396,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.1.0</version>
+            <version>5.1.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -103,11 +103,10 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
     @Override
     public int getSignum() {
         final var numeratorCompareToZero = getNumerator().compareTo(0L);
-        final var denominatorCompareToZero = getDenominator().compareTo(0L);
         if (numeratorCompareToZero == 0) {
             return 0;
         }
-        return numeratorCompareToZero == denominatorCompareToZero ? 1 : -1;
+        return numeratorCompareToZero == getDenominator().compareTo(0L) ? 1 : -1;
     }
 
     @Override
@@ -174,7 +173,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
 
     @Override
     public @NotNull Fraction reduce() {
-        final var gcd = LongMath.gcd(getNumerator(), getDenominator());
+        final var gcd = LongMath.gcd(Math.abs(getNumerator()), Math.abs(getDenominator()));
         return new Fraction(getNumerator() / gcd, getDenominator() / gcd);
     }
 

@@ -197,4 +197,45 @@ final class FractionTests {
 
         assertThat(fraction.lessThanOrEqualTo(other)).isTrue();
     }
+
+    @Test
+    void normalize_should_negate_numerator_and_calculate_abs_of_denominator_when_signum_is_negative_and_numerator_is_positive() {
+        final var actual = new Fraction(1L, -2L).normalize();
+
+        assertThat(actual.getNumerator()).isEqualByComparingTo(-1L);
+        assertThat(actual.getDenominator()).isEqualByComparingTo(2L);
+    }
+
+    @Test
+    void normalize_should_return_this_when_signum_is_negative() {
+        final var fraction = new Fraction(-1L, 2L);
+
+        assertThat(fraction.normalize()).isSameAs(fraction);
+    }
+
+    @Test
+    void normalize_should_return_0_when_signum_is_0() {
+        assertThat(new Fraction(-0L, -1L).normalize()).isSameAs(Fraction.ZERO);
+    }
+
+    @Test
+    void normalize_should_return_absolute_value_when_signum_is_1() {
+        final var actual = new Fraction(-1L, -2L).normalize();
+
+        assertThat(actual.getNumerator()).isEqualByComparingTo(1L);
+        assertThat(actual.getDenominator()).isEqualByComparingTo(2L);
+    }
+
+    @Test
+    void reduce_should_calculate_reduced() {
+        final var actual = new Fraction(-2L, -4L).reduce();
+
+        assertThat(actual.getNumerator()).isEqualByComparingTo(-1L);
+        assertThat(actual.getDenominator()).isEqualByComparingTo(-2L);
+    }
+
+    @Test
+    void toBigDecimal_should_calculate_BigDecimal() {
+        assertThat(new Fraction(1L, 2L).toBigDecimal()).isEqualByComparingTo("0.5");
+    }
 }
