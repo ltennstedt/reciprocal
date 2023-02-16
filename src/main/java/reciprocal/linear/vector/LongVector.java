@@ -38,7 +38,7 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
         return new LongVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList());
+            getEntries().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList());
     }
 
     @Override
@@ -47,26 +47,26 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
         return new LongVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList());
+            getEntries().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList());
     }
 
     @Override
     public @NotNull Long dotProduct(final @NotNull LongVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
-        return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Long::sum)
+        return getEntries().map(e -> e.element() * other.getElement(e.index())).reduce(Long::sum)
             .orElseThrow();
     }
 
     @Override
     public @NotNull LongVector scalarMultiply(final @NotNull Long scalar) {
         requireNonNull(scalar, "scalar");
-        return new LongVector(getSize(), getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
+        return new LongVector(getSize(), getEntries().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
     public @NotNull LongVector negate() {
-        return new LongVector(getSize(), getEntries().stream().map(e -> e.withElement(-e.element())).toList());
+        return new LongVector(getSize(), getEntries().map(e -> e.withElement(-e.element())).toList());
     }
 
     @Override
@@ -78,7 +78,7 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
 
     @Override
     public @NotNull Double taxicabNorm() {
-        return getElements().stream().map(Math::abs).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
+        return getElements().map(Math::abs).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
     }
 
     @Override
@@ -88,12 +88,12 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
 
     @Override
     public @NotNull Double maxNorm() {
-        return getElements().stream().map(Math::abs).max(Long::compareTo).map(Long::doubleValue).orElseThrow();
+        return getElements().map(Math::abs).max(Long::compareTo).map(Long::doubleValue).orElseThrow();
     }
 
     @Override
     protected @NotNull Double euclideanNormPow2() {
-        return getElements().stream().map(e -> e * e).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
+        return getElements().map(e -> e * e).reduce(Long::sum).map(Long::doubleValue).orElseThrow();
     }
 
     /**

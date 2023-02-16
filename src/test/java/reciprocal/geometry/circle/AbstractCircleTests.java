@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
 import org.junit.jupiter.api.Test;
 
-class AbstractCircleTests {
+final class AbstractCircleTests {
     @Test
     void constructor_should_throw_Exception_when_radius_is_null() {
         assertThatNullPointerException().isThrownBy(() -> new BigCircle(null)).withMessage("radius").withNoCause();

@@ -43,8 +43,8 @@ public final class BigFraction extends
      *
      * @since 0.0.1
      */
-    public static final Stream<BigFraction> UNITS = Stream.iterate(ONE,
-        bigFraction -> new BigFraction(BigInteger.ONE, bigFraction.getDenominator().add(BigInteger.ONE)));
+    public static final Stream<BigFraction> UNITS =
+        Stream.iterate(ONE, bf -> ofDenominator(bf.getDenominator().add(BigInteger.ONE)));
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -73,7 +73,7 @@ public final class BigFraction extends
      * @throws NullPointerException when {@code numerator == null}
      * @since 0.0.1
      */
-    public static BigFraction ofNumerator(final @NotNull BigInteger numerator) {
+    public static @NotNull BigFraction ofNumerator(final @NotNull BigInteger numerator) {
         return new BigFraction(numerator, BigInteger.ONE);
     }
 
@@ -86,7 +86,7 @@ public final class BigFraction extends
      * @throws IllegalArgumentException when {@code denominator == 0}
      * @since 0.0.1
      */
-    public static BigFraction ofDenominator(final @NotNull BigInteger denominator) {
+    public static @NotNull BigFraction ofDenominator(final @NotNull BigInteger denominator) {
         return new BigFraction(BigInteger.ONE, denominator);
     }
 

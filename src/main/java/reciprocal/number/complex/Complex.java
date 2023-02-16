@@ -73,7 +73,7 @@ public final class Complex extends AbstractComplex<@NotNull Double, @NotNull Com
      * @return real + 0 * i
      * @since 0.0.1
      */
-    public static Complex ofReal(final double real) {
+    public static @NotNull Complex ofReal(final double real) {
         return new Complex(real, 0.0D);
     }
 
@@ -84,7 +84,7 @@ public final class Complex extends AbstractComplex<@NotNull Double, @NotNull Com
      * @return 0 + imaginary * i
      * @since 0.0.1
      */
-    public static Complex ofImaginary(final double imaginary) {
+    public static @NotNull Complex ofImaginary(final double imaginary) {
         return new Complex(0.0D, imaginary);
     }
 

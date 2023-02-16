@@ -41,7 +41,7 @@ public final class BigDecimalVector
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().add(summand.getElement(e.index())))).toList());
+            getEntries().map(e -> e.withElement(e.element().add(summand.getElement(e.index())))).toList());
     }
 
     @Override
@@ -52,7 +52,7 @@ public final class BigDecimalVector
             summand.getSize());
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().add(summand.getElement(e.index()), mathContext)))
+            getEntries().map(e -> e.withElement(e.element().add(summand.getElement(e.index()), mathContext)))
                 .toList());
     }
 
@@ -62,7 +62,7 @@ public final class BigDecimalVector
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))
+            getEntries().map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))
                 .toList());
     }
 
@@ -76,7 +76,7 @@ public final class BigDecimalVector
             subtrahend.getSize());
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),
-            getEntries().stream()
+            getEntries()
                 .map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()), mathContext)))
                 .toList());
     }
@@ -85,7 +85,7 @@ public final class BigDecimalVector
     public @NotNull BigDecimal dotProduct(final @NotNull BigDecimalVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
-        return getEntries().stream().map(e -> e.element().multiply(other.getElement(e.index()))).reduce(BigDecimal::add)
+        return getEntries().map(e -> e.element().multiply(other.getElement(e.index()))).reduce(BigDecimal::add)
             .orElseThrow();
     }
 
@@ -95,7 +95,7 @@ public final class BigDecimalVector
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
         requireNonNull(mathContext, "mathContext");
-        return getEntries().stream().map(e -> e.element().multiply(other.getElement(e.index()), mathContext))
+        return getEntries().map(e -> e.element().multiply(other.getElement(e.index()), mathContext))
             .reduce((a, b) -> a.add(b, mathContext))
             .orElseThrow();
     }
@@ -104,7 +104,7 @@ public final class BigDecimalVector
     public @NotNull BigDecimalVector scalarMultiply(final @NotNull BigDecimal scalar) {
         requireNonNull(scalar, "scalar");
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
+            getEntries().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
     }
 
     @Override
@@ -113,20 +113,20 @@ public final class BigDecimalVector
         requireNonNull(scalar, "scalar");
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element(), mathContext))).toList());
+            getEntries().map(e -> e.withElement(scalar.multiply(e.element(), mathContext))).toList());
     }
 
     @Override
     public @NotNull BigDecimalVector negate() {
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
+            getEntries().map(e -> e.withElement(e.element().negate())).toList());
     }
 
     @Override
     public @NotNull BigDecimalVector negate(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
         return new BigDecimalVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().negate(mathContext))).toList());
+            getEntries().map(e -> e.withElement(e.element().negate(mathContext))).toList());
     }
 
     @Override
@@ -146,13 +146,13 @@ public final class BigDecimalVector
 
     @Override
     public @NotNull BigDecimal taxicabNorm() {
-        return getElements().stream().map(BigDecimal::abs).reduce(BigDecimal::add).orElseThrow();
+        return getElements().map(BigDecimal::abs).reduce(BigDecimal::add).orElseThrow();
     }
 
     @Override
     public @NotNull BigDecimal taxicabNorm(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
-        return getElements().stream().map(a -> a.abs(mathContext)).reduce((a, b) -> a.add(b, mathContext))
+        return getElements().map(a -> a.abs(mathContext)).reduce((a, b) -> a.add(b, mathContext))
             .orElseThrow();
     }
 
@@ -169,24 +169,24 @@ public final class BigDecimalVector
 
     @Override
     public @NotNull BigDecimal maxNorm() {
-        return getElements().stream().map(BigDecimal::abs).max(BigDecimal::compareTo).orElseThrow();
+        return getElements().map(BigDecimal::abs).max(BigDecimal::compareTo).orElseThrow();
     }
 
     @Override
     public @NotNull BigDecimal maxNorm(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
-        return getElements().stream().map(a -> a.abs(mathContext)).max(BigDecimal::compareTo).orElseThrow();
+        return getElements().map(a -> a.abs(mathContext)).max(BigDecimal::compareTo).orElseThrow();
     }
 
     @Override
     protected @NotNull BigDecimal euclideanNormPow2() {
-        return getElements().stream().map(e -> e.multiply(e)).reduce(BigDecimal::add).orElseThrow();
+        return getElements().map(e -> e.multiply(e)).reduce(BigDecimal::add).orElseThrow();
     }
 
     @Override
     protected @NotNull BigDecimal euclideanNormPow2(final @NotNull MathContext mathContext) {
         requireNonNull(mathContext, "mathContext");
-        return getElements().stream().map(e -> e.multiply(e, mathContext)).reduce((a, b) -> a.add(b, mathContext))
+        return getElements().map(e -> e.multiply(e, mathContext)).reduce((a, b) -> a.add(b, mathContext))
             .orElseThrow();
     }
 

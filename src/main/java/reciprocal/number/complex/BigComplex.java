@@ -78,7 +78,7 @@ public final class BigComplex extends AbstractComplex<@NotNull BigDecimal, @NotN
      * @throws NullPointerException when {@code real == null}
      * @since 0.0.1
      */
-    public static BigComplex ofReal(final @NotNull BigDecimal real) {
+    public static @NotNull BigComplex ofReal(final @NotNull BigDecimal real) {
         return new BigComplex(real, BigDecimal.ZERO);
     }
 
@@ -90,7 +90,7 @@ public final class BigComplex extends AbstractComplex<@NotNull BigDecimal, @NotN
      * @throws NullPointerException when {@code imaginary == null}
      * @since 0.0.1
      */
-    public static BigComplex ofImaginary(final @NotNull BigDecimal imaginary) {
+    public static @NotNull BigComplex ofImaginary(final @NotNull BigDecimal imaginary) {
         return new BigComplex(BigDecimal.ZERO, imaginary);
     }
 

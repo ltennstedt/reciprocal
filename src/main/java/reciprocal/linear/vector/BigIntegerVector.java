@@ -42,7 +42,7 @@ public final class BigIntegerVector
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
         return new BigIntegerVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().add(summand.getElement(e.index())))).toList()
+            getEntries().map(e -> e.withElement(e.element().add(summand.getElement(e.index())))).toList()
         );
     }
 
@@ -52,7 +52,7 @@ public final class BigIntegerVector
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
         return new BigIntegerVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))
+            getEntries().map(e -> e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))
                 .toList());
     }
 
@@ -60,7 +60,7 @@ public final class BigIntegerVector
     public @NotNull BigInteger dotProduct(final @NotNull BigIntegerVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
-        return getEntries().stream().map(e -> e.element().multiply(other.getElement(e.index()))).reduce(BigInteger::add)
+        return getEntries().map(e -> e.element().multiply(other.getElement(e.index()))).reduce(BigInteger::add)
             .orElseThrow();
     }
 
@@ -68,13 +68,13 @@ public final class BigIntegerVector
     public @NotNull BigIntegerVector scalarMultiply(final @NotNull BigInteger scalar) {
         requireNonNull(scalar, "scalar");
         return new BigIntegerVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
+            getEntries().map(e -> e.withElement(scalar.multiply(e.element()))).toList());
     }
 
     @Override
     public @NotNull BigIntegerVector negate() {
         return new BigIntegerVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element().negate())).toList());
+            getEntries().map(e -> e.withElement(e.element().negate())).toList());
     }
 
     @Override
@@ -86,7 +86,7 @@ public final class BigIntegerVector
 
     @Override
     public @NotNull BigDecimal taxicabNorm() {
-        return getElements().stream().map(BigInteger::abs).reduce(BigInteger::add).map(BigDecimal::new).orElseThrow();
+        return getElements().map(BigInteger::abs).reduce(BigInteger::add).map(BigDecimal::new).orElseThrow();
     }
 
     @Override
@@ -109,13 +109,13 @@ public final class BigIntegerVector
 
     @Override
     public @NotNull BigDecimal maxNorm() {
-        return getElements().stream().map(BigInteger::abs).max(BigInteger::compareTo).map(BigDecimal::new)
+        return getElements().map(BigInteger::abs).max(BigInteger::compareTo).map(BigDecimal::new)
             .orElseThrow();
     }
 
     @Override
     protected @NotNull BigDecimal euclideanNormPow2() {
-        return getElements().stream().map(e -> e.multiply(e)).reduce(BigInteger::add).map(BigDecimal::new)
+        return getElements().map(e -> e.multiply(e)).reduce(BigInteger::add).map(BigDecimal::new)
             .orElseThrow();
     }
 

@@ -38,7 +38,7 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
         checkArgument(getSize() == summand.getSize(), "equal sizes expected but %s != %s", getSize(),
             summand.getSize());
         return new DoubleVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList()
+            getEntries().map(e -> e.withElement(e.element() + summand.getElement(e.index()))).toList()
         );
     }
 
@@ -48,7 +48,7 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
         checkArgument(getSize() == subtrahend.getSize(), "equal sizes expected but %s != %s", getSize(),
             subtrahend.getSize());
         return new DoubleVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList()
+            getEntries().map(e -> e.withElement(e.element() - subtrahend.getElement(e.index()))).toList()
         );
     }
 
@@ -56,7 +56,7 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
     public @NotNull Double dotProduct(final @NotNull DoubleVector other) {
         requireNonNull(other, "other");
         checkArgument(getSize() == other.getSize(), "equal sizes expected but %s != %s", getSize(), other.getSize());
-        return getEntries().stream().map(e -> e.element() * other.getElement(e.index())).reduce(Double::sum)
+        return getEntries().map(e -> e.element() * other.getElement(e.index())).reduce(Double::sum)
             .orElseThrow();
     }
 
@@ -64,12 +64,12 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
     public @NotNull DoubleVector scalarMultiply(final @NotNull Double scalar) {
         requireNonNull(scalar, "scalar");
         return new DoubleVector(getSize(),
-            getEntries().stream().map(e -> e.withElement(scalar * e.element())).toList());
+            getEntries().map(e -> e.withElement(scalar * e.element())).toList());
     }
 
     @Override
     public @NotNull DoubleVector negate() {
-        return new DoubleVector(getSize(), getEntries().stream().map(e -> e.withElement(-e.element())).toList());
+        return new DoubleVector(getSize(), getEntries().map(e -> e.withElement(-e.element())).toList());
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
 
     @Override
     public @NotNull Double taxicabNorm() {
-        return getElements().stream().map(Math::abs).reduce(Double::sum).orElseThrow();
+        return getElements().map(Math::abs).reduce(Double::sum).orElseThrow();
     }
 
     @Override
@@ -91,12 +91,12 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
 
     @Override
     public @NotNull Double maxNorm() {
-        return getElements().stream().map(Math::abs).max(Double::compareTo).orElseThrow();
+        return getElements().map(Math::abs).max(Double::compareTo).orElseThrow();
     }
 
     @Override
     protected @NotNull Double euclideanNormPow2() {
-        return getElements().stream().map(e -> e * e).reduce(Double::sum).orElseThrow();
+        return getElements().map(e -> e * e).reduce(Double::sum).orElseThrow();
     }
 
     /**

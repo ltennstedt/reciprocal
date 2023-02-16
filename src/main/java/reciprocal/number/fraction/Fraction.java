@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.Comparator;
 import java.util.function.BiFunction;
+import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 import reciprocal.number.complex.Complex;
 
@@ -37,6 +38,13 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
      */
     public static final @NotNull Fraction ONE = ofNumerator(1L);
 
+    /**
+     * Units
+     *
+     * @since 0.0.1
+     */
+    public static final Stream<Fraction> UNITS = Stream.iterate(ONE, f -> ofDenominator(f.getDenominator() + 1L));
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -60,7 +68,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
      * @return numerator / 1
      * @since 0.0.1
      */
-    public static Fraction ofNumerator(final long numerator) {
+    public static @NotNull Fraction ofNumerator(final long numerator) {
         return new Fraction(numerator, 1L);
     }
 
@@ -71,7 +79,7 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
      * @return 1 / denominator
      * @since 0.0.1
      */
-    public static Fraction ofDenominator(final long denominator) {
+    public static @NotNull Fraction ofDenominator(final long denominator) {
         return new Fraction(1L, denominator);
     }
 

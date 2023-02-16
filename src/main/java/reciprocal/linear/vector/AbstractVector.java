@@ -65,8 +65,8 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return indices
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull Integer> getIndices() {
-        return entries.stream().map(VectorEntry::index).toList();
+    public final @NotNull Stream<@NotNull Integer> getIndices() {
+        return entries.stream().map(VectorEntry::index);
     }
 
     /**
@@ -75,8 +75,8 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return elements
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull E> getElements() {
-        return entries.stream().map(VectorEntry::element).toList();
+    public final @NotNull Stream<@NotNull E> getElements() {
+        return entries.stream().map(VectorEntry::element);
     }
 
     /**
@@ -95,8 +95,8 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
      * @return entries
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull VectorEntry<@NotNull E>> getEntries() {
-        return List.copyOf(entries);
+    public final @NotNull Stream<@NotNull VectorEntry<@NotNull E>> getEntries() {
+        return entries.stream();
     }
 
     /**
@@ -290,7 +290,7 @@ public abstract class AbstractVector<E extends Number, V extends AbstractVector<
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        return entries.equals(((AbstractVector<?, ?, ?>) obj).getEntries());
+        return entries.equals(((AbstractVector<?, ?, ?>) obj).getEntries().toList());
     }
 
     @Override

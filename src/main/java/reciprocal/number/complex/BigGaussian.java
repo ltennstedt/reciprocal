@@ -86,7 +86,7 @@ public final class BigGaussian extends AbstractComplex<@NotNull BigInteger, @Not
      * @throws NullPointerException when {@code real == null}
      * @since 0.0.1
      */
-    public static BigGaussian ofReal(final @NotNull BigInteger real) {
+    public static @NotNull BigGaussian ofReal(final @NotNull BigInteger real) {
         return new BigGaussian(real, BigInteger.ZERO);
     }
 
@@ -98,7 +98,7 @@ public final class BigGaussian extends AbstractComplex<@NotNull BigInteger, @Not
      * @throws NullPointerException when {@code imaginary == null}
      * @since 0.0.1
      */
-    public static BigGaussian ofImaginary(final @NotNull BigInteger imaginary) {
+    public static @NotNull BigGaussian ofImaginary(final @NotNull BigInteger imaginary) {
         return new BigGaussian(BigInteger.ZERO, imaginary);
     }
 

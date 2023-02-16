@@ -41,10 +41,10 @@ final class GaussianTests {
 
     @Test
     void add_should_calculate_sum() {
-        final var Gaussian = new Gaussian(1L, 2L);
+        final var gaussian = new Gaussian(1L, 2L);
         final var summand = new Gaussian(3L, 4L);
 
-        final var actual = Gaussian.add(summand);
+        final var actual = gaussian.add(summand);
 
         assertThat(actual.getReal()).isEqualByComparingTo(4L);
         assertThat(actual.getImaginary()).isEqualByComparingTo(6L);
