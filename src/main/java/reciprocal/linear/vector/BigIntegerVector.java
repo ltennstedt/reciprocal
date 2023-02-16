@@ -131,7 +131,7 @@ public final class BigIntegerVector
         }
 
         @Override
-        public BigIntegerVector build() {
+        public @NotNull BigIntegerVector build() {
             return new BigIntegerVector(getSize(), computeEntries());
         }
     }

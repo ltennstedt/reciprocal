@@ -107,7 +107,7 @@ public final class LongVector extends AbstractVector<@NotNull Long, @NotNull Lon
         }
 
         @Override
-        public LongVector build() {
+        public @NotNull LongVector build() {
             return new LongVector(getSize(), computeEntries());
         }
     }

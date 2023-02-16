@@ -7,8 +7,6 @@ import static org.apache.commons.lang3.Validate.noNullElements;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -146,8 +144,8 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return row indices
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull Integer> getRowIndices() {
-        return entries.stream().map(MatrixEntry::rowIndex).distinct().toList();
+    public final @NotNull Stream<@NotNull Integer> getRowIndices() {
+        return entries.stream().map(MatrixEntry::rowIndex).distinct();
     }
 
     /**
@@ -156,8 +154,8 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return column indices
      * @since 0.0.1
      */
-    public final @NotNull List<@NotNull Integer> getColumnIndices() {
-        return entries.stream().map(MatrixEntry::columnIndex).distinct().toList();
+    public final @NotNull Stream<@NotNull Integer> getColumnIndices() {
+        return entries.stream().map(MatrixEntry::columnIndex).distinct();
     }
 
     /**
@@ -166,8 +164,17 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return elements
      * @since 0.0.1
      */
-    public final @NotNull Set<@NotNull E> getElements() {
-        return entries.stream().map(MatrixEntry::element).collect(Collectors.toSet());
+    public final @NotNull Stream<@NotNull E> getElements() {
+        return entries.stream().map(MatrixEntry::element);
+    }
+
+    /**
+     * Entries
+     *
+     * @return entries
+     */
+    public final @NotNull Stream<@NotNull MatrixEntry<@NotNull E>> getEntries() {
+        return entries.stream();
     }
 
     /**
@@ -176,9 +183,8 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @return diagonal elements
      * @since 0.0.1
      */
-    public final @NotNull Set<@NotNull E> getDiagonalElements() {
-        return entries.stream().filter(e -> e.rowIndex() == e.columnIndex()).map(MatrixEntry::element)
-            .collect(Collectors.toSet());
+    public final @NotNull Stream<@NotNull E> getDiagonalElements() {
+        return entries.stream().filter(e -> e.rowIndex() == e.columnIndex()).map(MatrixEntry::element);
     }
 
     /**
@@ -188,7 +194,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     public final int getRowSize() {
-        return getRowIndices().size();
+        return getRowIndices().toList().size();
     }
 
     /**
@@ -198,7 +204,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      * @since 0.0.1
      */
     public final int getColumnSize() {
-        return getColumnIndices().size();
+        return getColumnIndices().toList().size();
     }
 
     /**
@@ -227,15 +233,6 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
      */
     public abstract boolean equalsByComparing(@NotNull M other);
 
-    /**
-     * Entries
-     *
-     * @return entries
-     */
-    public final @NotNull List<@NotNull MatrixEntry<@NotNull E>> getEntries() {
-        return List.copyOf(entries);
-    }
-
     @Override
     public final int hashCode() {
         return hash(entries);
@@ -249,7 +246,7 @@ public abstract class AbstractMatrix<E extends Number, V extends AbstractVector<
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        return entries.equals(((AbstractMatrix<?, ?, ?, ?>) obj).getEntries());
+        return entries.equals(((AbstractMatrix<?, ?, ?, ?>) obj).getEntries().toList());
     }
 
     @Override

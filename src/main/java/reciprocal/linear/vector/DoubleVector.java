@@ -111,7 +111,7 @@ public final class DoubleVector extends AbstractVector<@NotNull Double, @NotNull
         }
 
         @Override
-        public DoubleVector build() {
+        public @NotNull DoubleVector build() {
             return new DoubleVector(getSize(), computeEntries());
         }
     }
