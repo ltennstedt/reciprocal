@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
-import reciprocal.number.complex.Complex;
 
 /**
  * Immutable implementation of a fraction that uses {@link Long} as type for
@@ -197,16 +196,6 @@ public final class Fraction extends AbstractFraction<@NotNull Long, @NotNull Fra
      */
     public @NotNull BigFraction toBigFraction() {
         return new BigFraction(BigInteger.valueOf(getNumerator()), BigInteger.valueOf(getDenominator()));
-    }
-
-    /**
-     * Returns this as {@link Complex}
-     *
-     * @return {@link Complex}
-     * @since 0.0.1
-     */
-    public @NotNull Complex toComplex() {
-        return Complex.ofReal(doubleValue());
     }
 
     @Override

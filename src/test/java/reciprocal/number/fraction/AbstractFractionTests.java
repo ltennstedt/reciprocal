@@ -9,6 +9,56 @@ import org.junit.jupiter.api.Test;
 
 final class AbstractFractionTests {
     @Test
+    void isNotInvertible_should_return_false_when_this_is_invertible() {
+        assertThat(Fraction.ONE.isNotInvertible()).isFalse();
+    }
+
+    @Test
+    void isNotInvertible_should_return_true_when_this_is_not_invertible() {
+        assertThat(Fraction.ZERO.isNotInvertible()).isTrue();
+    }
+
+    @Test
+    void isNotUnit_should_return_false_when_this_is_a_unit() {
+        assertThat(Fraction.ONE.isNotUnit()).isFalse();
+    }
+
+    @Test
+    void isNotUnit_should_return_true_when_this_is_not_a_unit() {
+        assertThat(new Fraction(2L, 3L).isNotUnit()).isTrue();
+    }
+
+    @Test
+    void isNotDyadic_should_return_false_when_this_is_dyadic() {
+        assertThat(new Fraction(1L, 2L).isNotDyadic()).isFalse();
+    }
+
+    @Test
+    void isNotDyadic_should_return_true_when_this_is_not_dyadic() {
+        assertThat(new Fraction(1L, 3L).isNotDyadic()).isTrue();
+    }
+
+    @Test
+    void isReducible_should_return_false_when_this_is_irreducible() {
+        assertThat(new Fraction(2L, 3L).isReducible()).isFalse();
+    }
+
+    @Test
+    void isReducible_should_return_true_when_this_is_reducible() {
+        assertThat(new Fraction(2L, 4L).isReducible()).isTrue();
+    }
+
+    @Test
+    void isImproper_should_return_false_when_this_is_proper() {
+        assertThat(new Fraction(2L, 3L).isImproper()).isFalse();
+    }
+
+    @Test
+    void isImproper_should_return_true_when_this_is_improper() {
+        assertThat(Fraction.ONE.isImproper()).isTrue();
+    }
+
+    @Test
     void divide_should_throw_Exception_when_divisor_is_null() {
         assertThatNullPointerException().isThrownBy(() -> Fraction.ZERO.divide(null)).withMessage("divisor")
             .withNoCause();

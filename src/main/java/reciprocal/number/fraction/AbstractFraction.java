@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.util.function.BiFunction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import reciprocal.number.complex.BigComplex;
+import reciprocal.number.complex.Complex;
 
 /**
  * Base class for fractions
@@ -393,6 +395,26 @@ public abstract class AbstractFraction<N extends Number, T extends AbstractFract
     @Override
     public final double doubleValue() {
         return toBigDecimal().doubleValue();
+    }
+
+    /**
+     * Returns this as {@link Complex}
+     *
+     * @return {@link Complex}
+     * @since 0.0.1
+     */
+    public final @NotNull Complex toComplex() {
+        return Complex.ofReal(doubleValue());
+    }
+
+    /**
+     * Returns this as {@link BigComplex}
+     *
+     * @return {@link BigComplex}
+     * @since 0.0.1
+     */
+    public final @NotNull BigComplex toBigComplex() {
+        return BigComplex.ofReal(toBigDecimal());
     }
 
     /**

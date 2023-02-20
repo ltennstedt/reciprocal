@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNullPointerException;
 
+import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 
 final class FractionTests {
@@ -237,5 +238,40 @@ final class FractionTests {
     @Test
     void toBigDecimal_should_calculate_BigDecimal() {
         assertThat(new Fraction(1L, 2L).toBigDecimal()).isEqualByComparingTo("0.5");
+    }
+
+    @Test
+    void toBigFraction_should_calculate_BigFraction() {
+        final var actual = new Fraction(1L, 2L).toBigFraction();
+
+        assertThat(actual.getNumerator()).isOne();
+        assertThat(actual.getDenominator()).isEqualByComparingTo(BigInteger.valueOf(2L));
+    }
+
+    @Test
+    void getOne_should_return_one() {
+        assertThat(Fraction.ZERO.getOne()).isSameAs(Fraction.ONE);
+    }
+
+    @Test
+    void getConstructor_should_return_constructor() {
+        final var fraction = Fraction.ZERO.getConstructor().apply(1L, 2L);
+        assertThat(fraction.getNumerator()).isOne();
+        assertThat(fraction.getDenominator()).isEqualByComparingTo(2L);
+    }
+
+    @Test
+    void compareTo_should_return_minus_1_when_this_is_less_than_other() {
+        assertThat(new Fraction(1L, 3L).compareTo(new Fraction(2L, 3L))).isEqualByComparingTo(-1);
+    }
+
+    @Test
+    void compareTo_should_return_0_when_this_is_equal_to_other() {
+        assertThat(new Fraction(1L, 3L)).isEqualByComparingTo(new Fraction(1L, 3L));
+    }
+
+    @Test
+    void compareTo_should_return_1_when_this_is_greater_than_other() {
+        assertThat(new Fraction(2L, 3L).compareTo(new Fraction(1L, 3L))).isOne();
     }
 }
