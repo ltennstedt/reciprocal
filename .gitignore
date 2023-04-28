@@ -1,6 +1,10 @@
+.classpath
+.project
+.settings/
 .idea/
 reciprocal.iml
 target/
 pages/
 .checkstyle
 .pmd
+.DS_Store
