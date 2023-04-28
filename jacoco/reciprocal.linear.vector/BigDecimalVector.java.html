@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigDecimalVector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.vector</a> &gt; <span class="el_source">BigDecimalVector.java</span></div><h1>BigDecimalVector.java</h1><pre class="source lang-java linenums">package reciprocal.linear.vector;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a vector that uses {@link BigDecimal} as type for its elements
+ *
+ * @since 0.0.1
+ */
+public final class BigDecimalVector
+    extends AbstractMathContextVector&lt;@NotNull BigDecimal, @NotNull BigDecimalVector, @NotNull BigDecimal&gt; {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    BigDecimalVector(final int size, final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull BigDecimal&gt;&gt; entries) {
+<span class="fc" id="L23">        super(size, entries);</span>
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Returns {@link BigDecimalVectorBuilder}
+     *
+     * @param size size
+     * @return {@link BigDecimalVectorBuilder}
+     * @throws IllegalArgumentException when {@code size &lt; 1}
+     * @since 0.0.1
+     */
+    public static BigDecimalVectorBuilder ofSize(final int size) {
+<span class="fc" id="L35">        return new BigDecimalVectorBuilder(size);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector add(final @NotNull BigDecimalVector summand) {
+<span class="fc" id="L40">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        checkArgument(getSize() == summand.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L42">            summand.getSize());</span>
+<span class="fc" id="L43">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L44">            getEntries().map(e -&gt; e.withElement(e.element().add(summand.getElement(e.index())))).toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector add(final @NotNull BigDecimalVector summand,
+        final @NotNull MathContext mathContext) {
+<span class="fc" id="L50">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        checkArgument(getSize() == summand.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L52">            summand.getSize());</span>
+<span class="fc" id="L53">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L54">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L55">            getEntries().map(e -&gt; e.withElement(e.element().add(summand.getElement(e.index()), mathContext)))</span>
+<span class="fc" id="L56">                .toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector subtract(final @NotNull BigDecimalVector subtrahend) {
+<span class="fc" id="L61">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        checkArgument(getSize() == subtrahend.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L63">            subtrahend.getSize());</span>
+<span class="fc" id="L64">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L65">            getEntries().map(e -&gt; e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))</span>
+<span class="fc" id="L66">                .toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector subtract(
+        final @NotNull BigDecimalVector subtrahend,
+        final @NotNull MathContext mathContext
+    ) {
+<span class="fc" id="L74">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        checkArgument(getSize() == subtrahend.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L76">            subtrahend.getSize());</span>
+<span class="fc" id="L77">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L78">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L79">            getEntries()</span>
+<span class="fc" id="L80">                .map(e -&gt; e.withElement(e.element().subtract(subtrahend.getElement(e.index()), mathContext)))</span>
+<span class="fc" id="L81">                .toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal dotProduct(final @NotNull BigDecimalVector other) {
+<span class="fc" id="L86">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L88">        return getEntries().map(e -&gt; e.element().multiply(other.getElement(e.index()))).reduce(BigDecimal::add)</span>
+<span class="fc" id="L89">            .orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal dotProduct(final @NotNull BigDecimalVector other,
+        final @NotNull MathContext mathContext) {
+<span class="fc" id="L95">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L97">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L98">        return getEntries().map(e -&gt; e.element().multiply(other.getElement(e.index()), mathContext))</span>
+<span class="fc" id="L99">            .reduce((a, b) -&gt; a.add(b, mathContext))</span>
+<span class="fc" id="L100">            .orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector scalarMultiply(final @NotNull BigDecimal scalar) {
+<span class="fc" id="L105">        requireNonNull(scalar, &quot;scalar&quot;);</span>
+<span class="fc" id="L106">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L107">            getEntries().map(e -&gt; e.withElement(scalar.multiply(e.element()))).toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector scalarMultiply(final @NotNull BigDecimal scalar,
+        final @NotNull MathContext mathContext) {
+<span class="fc" id="L113">        requireNonNull(scalar, &quot;scalar&quot;);</span>
+<span class="fc" id="L114">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L115">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L116">            getEntries().map(e -&gt; e.withElement(scalar.multiply(e.element(), mathContext))).toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector negate() {
+<span class="fc" id="L121">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L122">            getEntries().map(e -&gt; e.withElement(e.element().negate())).toList());</span>
+    }
+
+    @Override
+    public @NotNull BigDecimalVector negate(final @NotNull MathContext mathContext) {
+<span class="fc" id="L127">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L128">        return new BigDecimalVector(getSize(),</span>
+<span class="fc" id="L129">            getEntries().map(e -&gt; e.withElement(e.element().negate(mathContext))).toList());</span>
+    }
+
+    @Override
+    public boolean orthogonalTo(final @NotNull BigDecimalVector other) {
+<span class="fc" id="L134">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        return dotProduct(other).compareTo(BigDecimal.ZERO) == 0;</span>
+    }
+
+    @Override
+    public boolean orthogonalTo(final @NotNull BigDecimalVector other, final @NotNull MathContext mathContext) {
+<span class="fc" id="L141">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L143">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        return dotProduct(other, mathContext).compareTo(BigDecimal.ZERO) == 0;</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal taxicabNorm() {
+<span class="fc" id="L149">        return getElements().map(BigDecimal::abs).reduce(BigDecimal::add).orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal taxicabNorm(final @NotNull MathContext mathContext) {
+<span class="fc" id="L154">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L155">        return getElements().map(a -&gt; a.abs(mathContext)).reduce((a, b) -&gt; a.add(b, mathContext))</span>
+<span class="fc" id="L156">            .orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal euclideanNorm() {
+<span class="fc" id="L161">        return euclideanNormPow2().sqrt(MathContext.UNLIMITED);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal euclideanNorm(final @NotNull MathContext mathContext) {
+<span class="fc" id="L166">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L167">        return euclideanNormPow2(mathContext).sqrt(mathContext);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal maxNorm() {
+<span class="fc" id="L172">        return getElements().map(BigDecimal::abs).max(BigDecimal::compareTo).orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal maxNorm(final @NotNull MathContext mathContext) {
+<span class="fc" id="L177">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L178">        return getElements().map(a -&gt; a.abs(mathContext)).max(BigDecimal::compareTo).orElseThrow();</span>
+    }
+
+    @Override
+    protected @NotNull BigDecimal euclideanNormPow2() {
+<span class="fc" id="L183">        return getElements().map(e -&gt; e.multiply(e)).reduce(BigDecimal::add).orElseThrow();</span>
+    }
+
+    @Override
+    protected @NotNull BigDecimal euclideanNormPow2(final @NotNull MathContext mathContext) {
+<span class="fc" id="L188">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L189">        return getElements().map(e -&gt; e.multiply(e, mathContext)).reduce((a, b) -&gt; a.add(b, mathContext))</span>
+<span class="fc" id="L190">            .orElseThrow();</span>
+    }
+
+    /**
+     * Builder for {@link BigDecimalVector BigDecimalVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class BigDecimalVectorBuilder extends
+        AbstractVectorBuilder&lt;@NotNull BigDecimal, @NotNull BigDecimalVector, @NotNull BigDecimalVectorBuilder&gt; {
+        BigDecimalVectorBuilder(final int size) {
+<span class="fc" id="L201">            super(size, i -&gt; BigDecimal.ZERO);</span>
+<span class="fc" id="L202">        }</span>
+
+        @Override
+        public @NotNull BigDecimalVector build() {
+<span class="fc" id="L206">            return new BigDecimalVector(getSize(), computeEntries());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

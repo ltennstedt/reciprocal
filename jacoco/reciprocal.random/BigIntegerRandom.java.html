@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigIntegerRandom.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.random</a> &gt; <span class="el_source">BigIntegerRandom.java</span></div><h1>BigIntegerRandom.java</h1><pre class="source lang-java linenums">package reciprocal.random;
+
+import static com.google.common.base.Preconditions.checkArgument;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Pseudorandom number generator for {@link BigInteger BigIntegers}
+ *
+ * @since 0.0.1
+ */
+public final class BigIntegerRandom extends AbstractRandom&lt;@NotNull BigInteger&gt; {
+    /**
+     * Constructor
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L21">    public BigIntegerRandom() {</span>
+<span class="fc" id="L22">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param seed seed
+     * @throws NullPointerException when {@code seed == null}
+     * @since 0.0.1
+     */
+    public BigIntegerRandom(final byte[] seed) {
+<span class="nc" id="L32">        super(seed);</span>
+<span class="nc" id="L33">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param secureRandom {@link SecureRandom}
+     * @throws NullPointerException when {@code secureRandom == null}
+     * @since 0.0.1
+     */
+    BigIntegerRandom(final @NotNull SecureRandom secureRandom) {
+<span class="fc" id="L43">        super(secureRandom);</span>
+<span class="fc" id="L44">    }</span>
+
+    @Override
+    public @NotNull BigInteger next() {
+<span class="fc" id="L48">        return BigInteger.valueOf(getSecureRandom().nextLong());</span>
+    }
+
+    @Override
+    public @NotNull BigInteger next(final long bound) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        checkArgument(bound &gt; 0, &quot;bound &gt; 0 expected but bound = %s&quot;, bound);</span>
+<span class="nc" id="L54">        return BigInteger.valueOf(getSecureRandom().nextLong(bound));</span>
+    }
+
+    @Override
+    public @NotNull BigInteger next(final long origin, final long bound) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        checkArgument(bound &gt; 0, &quot;origin &lt; bound expected but %s &gt;= %s&quot;, origin, bound);</span>
+<span class="nc" id="L60">        return BigInteger.valueOf(getSecureRandom().nextLong(origin, bound));</span>
+    }
+
+    @Override
+    public @NotNull Stream&lt;@NotNull BigInteger&gt; numbers() {
+<span class="nc" id="L65">        return getSecureRandom().longs().boxed().map(BigInteger::valueOf);</span>
+    }
+
+    @Override
+    public @NotNull Stream&lt;@NotNull BigInteger&gt; numbers(final long limit) {
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        checkArgument(limit &gt; -1, &quot;limit &gt; -1 expected but limit = %s&quot;, limit);</span>
+<span class="nc" id="L71">        return getSecureRandom().longs(limit).boxed().map(BigInteger::valueOf);</span>
+    }
+
+    @Override
+    public @NotNull Stream&lt;@NotNull BigInteger&gt; numbers(final long origin, final long bound) {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        checkArgument(bound &gt; 0, &quot;origin &lt; bound expected but %s &gt;= %s&quot;, origin, bound);</span>
+<span class="nc" id="L77">        return getSecureRandom().longs(origin, bound).boxed().map(BigInteger::valueOf);</span>
+    }
+
+    @Override
+    public @NotNull Stream&lt;@NotNull BigInteger&gt; numbers(final long limit, final long origin, final long bound) {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        checkArgument(limit &gt; -1, &quot;limit &gt; -1 expected but limit = %s&quot;, limit);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        checkArgument(bound &gt; 0, &quot;origin &lt; bound expected but %s &gt;= %s&quot;, origin, bound);</span>
+<span class="nc" id="L84">        return getSecureRandom().longs(limit, origin, bound).boxed().map(BigInteger::valueOf);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

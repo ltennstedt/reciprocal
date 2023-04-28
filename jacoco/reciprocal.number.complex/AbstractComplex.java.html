@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractComplex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.complex</a> &gt; <span class="el_source">AbstractComplex.java</span></div><h1>AbstractComplex.java</h1><pre class="source lang-java linenums">package reciprocal.number.complex;
+
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Base class for complex numbers
+ *
+ * @param &lt;N&gt; {@link Number}
+ * @param &lt;T&gt; {@link AbstractComplex}
+ * @param &lt;Q&gt; quotient
+ * @param &lt;A&gt; absolute value
+ * @param &lt;P&gt; {@link AbstractPolarForm}
+ * @since 0.0.1
+ */
+public abstract class AbstractComplex&lt;N extends Number, T extends AbstractComplex&lt;N, T, Q, A, P&gt;, Q, A, P&gt;
+    extends Number {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private final @NotNull N real;
+    private final @NotNull N imaginary;
+
+    /**
+     * Constructor
+     *
+     * @param real real part
+     * @param imaginary imaginary part
+     * @throws NullPointerException when {@code real == null}
+     * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L39">    protected AbstractComplex(final @NotNull N real, final @NotNull N imaginary) {</span>
+<span class="fc" id="L40">        this.real = requireNonNull(real, &quot;real&quot;);</span>
+<span class="fc" id="L41">        this.imaginary = requireNonNull(imaginary, &quot;imaginary&quot;);</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Indicates if this is invertible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isInvertible();
+
+    /**
+     * Indicates if this is not invertible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isNotInvertible() {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        return !isInvertible();</span>
+    }
+
+    /**
+     * Calculates the sum
+     *
+     * @param summand summand
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T add(@NotNull T summand);
+
+    /**
+     * Calculates the difference
+     *
+     * @param subtrahend subtrahend
+     * @return difference
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T subtract(@NotNull T subtrahend);
+
+    /**
+     * Calculates the product
+     *
+     * @param factor factor
+     * @return product
+     * @throws NullPointerException when {@code factor == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T multiply(@NotNull T factor);
+
+    /**
+     * Calculates the quotient
+     *
+     * @param divisor divisor
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @throws NullPointerException when divisor is not invertible
+     * @since 0.0.1
+     */
+    public abstract @NotNull Q divide(@NotNull T divisor);
+
+    /**
+     * Calculates the power
+     *
+     * @param exponent exponent
+     * @return power
+     * @since 0.0.1
+     */
+    public abstract @NotNull Q pow(int exponent);
+
+    /**
+     * Calculates the negated
+     *
+     * @return negated
+     * @since 0.0.1
+     */
+    public abstract @NotNull T negate();
+
+    /**
+     * Calculates the inverted
+     *
+     * @return inverted
+     * @since 0.0.1
+     */
+    public abstract @NotNull Q invert();
+
+    /**
+     * Calculates the absolute value
+     *
+     * @return absolute value
+     * @since 0.0.1
+     */
+    public abstract @NotNull A abs();
+
+    /**
+     * Calculates the conjugate
+     *
+     * @return conjugate
+     * @since 0.0.1
+     */
+    public abstract @NotNull T conjugate();
+
+    /**
+     * Calculates the argument
+     *
+     * @return argument
+     * @throws IllegalStateException when this is not invertible
+     * @since 0.0.1
+     */
+    public abstract @NotNull A argument();
+
+    @Override
+    public final int intValue() {
+<span class="fc" id="L155">        return real.intValue();</span>
+    }
+
+    @Override
+    public final long longValue() {
+<span class="fc" id="L160">        return real.longValue();</span>
+    }
+
+    @Override
+    public final float floatValue() {
+<span class="fc" id="L165">        return real.floatValue();</span>
+    }
+
+    @Override
+    public final double doubleValue() {
+<span class="fc" id="L170">        return real.doubleValue();</span>
+    }
+
+    /**
+     * Returns this as {@link BigInteger}
+     *
+     * @return {@link BigInteger}
+     * @since 0.0.1
+     */
+    public abstract @NotNull BigInteger toBigInteger();
+
+    /**
+     * Returns this as {@link BigDecimal}
+     *
+     * @return {@link BigDecimal}
+     * @since 0.0.1
+     */
+    public abstract @NotNull BigDecimal toBigDecimal();
+
+    /**
+     * Returns this as polar form
+     *
+     * @return polar form
+     * @throws IllegalStateException when this is not invertible
+     * @since 0.0.1
+     */
+    public abstract @NotNull P toPolarForm();
+
+    /**
+     * Returns if this is equal by comparing to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public abstract boolean equalsByComparing(@NotNull T other);
+
+    /**
+     * Returns if this is not equal by comparing to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public final boolean doesNotEqualByComparing(final @NotNull T other) {
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        return !equalsByComparing(other);</span>
+    }
+
+    /**
+     * Binary + operator for Groovy and Kotlin
+     *
+     * @param summand summand
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @since 0.0.1
+     */
+    public final @NotNull T plus(final @NotNull T summand) {
+<span class="fc" id="L229">        return add(summand);</span>
+    }
+
+    /**
+     * Binary - operator for Groovy and Kotlin
+     *
+     * @param subtrahend subtrahend
+     * @return difference
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @since 0.0.1
+     */
+    public final @NotNull T minus(final @NotNull T subtrahend) {
+<span class="fc" id="L241">        return subtract(subtrahend);</span>
+    }
+
+    /**
+     * Binary / operator for Groovy and Kotlin
+     *
+     * @param divisor divisor
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @throws IllegalArgumentException when divisor is not invertible
+     * @since 0.0.1
+     */
+    public final @NotNull Q div(final @NotNull T divisor) {
+<span class="fc" id="L254">        return divide(divisor);</span>
+    }
+
+    /**
+     * Binary ** operator for Groovy
+     *
+     * @param exponent exponent
+     * @return power
+     * @since 0.0.1
+     */
+    public final @NotNull Q power(final int exponent) {
+<span class="fc" id="L265">        return pow(exponent);</span>
+    }
+
+    /**
+     * Calculates the square of the absolute value
+     *
+     * @return square of the absolute value
+     * @since 0.0.1
+     */
+    protected abstract @NotNull N absPow2();
+
+    /**
+     * Real
+     *
+     * @return real
+     * @since 0.0.1
+     */
+    public final @NotNull N getReal() {
+<span class="fc" id="L283">        return real;</span>
+    }
+
+    /**
+     * Imaginary
+     *
+     * @return imaginary
+     * @since 0.0.1
+     */
+    public final @NotNull N getImaginary() {
+<span class="fc" id="L293">        return imaginary;</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="fc" id="L298">        return hash(real, imaginary);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="fc bfc" id="L303" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L304">            return true;</span>
+        }
+<span class="fc bfc" id="L306" title="All 4 branches covered.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="fc" id="L307">            return false;</span>
+        }
+<span class="fc" id="L309">        final AbstractComplex&lt;?, ?, ?, ?, ?&gt; other = (AbstractComplex&lt;?, ?, ?, ?, ?&gt;) obj;</span>
+<span class="fc bfc" id="L310" title="All 4 branches covered.">        return real.equals(other.getReal()) &amp;&amp; imaginary.equals(other.getImaginary());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="fc" id="L315">        return getClass().getSimpleName() + &quot;{real=&quot; + real + &quot;, imaginary=&quot; + imaginary + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

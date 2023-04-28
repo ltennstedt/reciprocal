@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractVector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.vector</a> &gt; <span class="el_source">AbstractVector.java</span></div><h1>AbstractVector.java</h1><pre class="source lang-java linenums">package reciprocal.linear.vector;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.noNullElements;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.IntFunction;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import org.apache.commons.lang3.builder.Builder;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Base class for vectors
+ *
+ * @param &lt;E&gt; element
+ * @param &lt;V&gt; vector
+ * @param &lt;N&gt; norm
+ * @since 0.0.1
+ */
+public abstract class AbstractVector&lt;E extends Number, V extends AbstractVector&lt;E, V, N&gt;,
+    N extends Number&gt; implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Entries
+     *
+     * @since 0.0.1
+     */
+    private final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; entries;
+
+    /**
+     * Constructor
+     *
+     * @param size size
+     * @param entries entries
+     * @throws IllegalArgumentException when {@code size &lt; 1}
+     * @throws NullPointerException when {@code entries == null}
+     * @throws IllegalArgumentException when one entry in entries is null
+     * @throws IllegalArgumentException when {@code index &lt; 1 || size &lt; index} for one index
+     * @since 0.0.1
+     */
+<span class="fc" id="L52">    protected AbstractVector(final int size, final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; entries) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        checkArgument(size &gt; 0, &quot;size &gt; 0 expected but size = %s&quot;, size);</span>
+<span class="fc" id="L54">        requireNonNull(entries, &quot;entries&quot;);</span>
+<span class="fc" id="L55">        noNullElements(entries, &quot;all entries expected not to be null but entries = %s&quot;, entries);</span>
+<span class="fc" id="L56">        final var indices = entries.stream().map(VectorEntry::index).sorted().toList();</span>
+<span class="fc" id="L57">        final var expectedIndices = Stream.iterate(1, i -&gt; i + 1).limit(size).toList();</span>
+<span class="fc" id="L58">        checkArgument(indices.equals(expectedIndices), &quot;indices == (1..%s) expected but indices = %s&quot;, size, indices);</span>
+<span class="fc" id="L59">        this.entries = entries.stream().sorted(Comparator.comparingInt(VectorEntry::index)).toList();</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Indices
+     *
+     * @return indices
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull Integer&gt; getIndices() {
+<span class="fc" id="L69">        return entries.stream().map(VectorEntry::index);</span>
+    }
+
+    /**
+     * Elements
+     *
+     * @return elements
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull E&gt; getElements() {
+<span class="fc" id="L79">        return entries.stream().map(VectorEntry::element);</span>
+    }
+
+    /**
+     * Size
+     *
+     * @return size
+     * @since 0.0.1
+     */
+    public final int getSize() {
+<span class="fc" id="L89">        return entries.size();</span>
+    }
+
+    /**
+     * Entries
+     *
+     * @return entries
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; getEntries() {
+<span class="fc" id="L99">        return entries.stream();</span>
+    }
+
+    /**
+     * Calculates the sum of this and the summand
+     *
+     * @param summand summand
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @throws IllegalArgumentException when sizes are not equal
+     * @since 0.0.1
+     */
+    public abstract @NotNull V add(@NotNull V summand);
+
+    /**
+     * Calculates the difference of this and the subtrahend
+     *
+     * @param subtrahend subtrahend
+     * @return difference
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @throws IllegalArgumentException when sizes are not equal
+     * @since 0.0.1
+     */
+    public abstract @NotNull V subtract(@NotNull V subtrahend);
+
+    /**
+     * Calculates the dot product of this and other
+     *
+     * @param other other
+     * @return dot product
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are not equal
+     * @since 0.0.1
+     */
+    public abstract @NotNull E dotProduct(@NotNull V other);
+
+    /**
+     * Calculates the scalar product pof this and the scalar
+     *
+     * @param scalar scalar
+     * @return scalar product
+     * @throws NullPointerException when {@code scalar == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull V scalarMultiply(@NotNull E scalar);
+
+    /**
+     * Calculates the negated vector of this
+     *
+     * @return negated vector
+     * @since 0.0.1
+     */
+    public abstract @NotNull V negate();
+
+    /**
+     * Calculates if this is orthogonal to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are not equal
+     * @since 0.0.1
+     */
+    public abstract boolean orthogonalTo(@NotNull V other);
+
+    /**
+     * Calculates the taxicab norm
+     *
+     * @return taxicab norm
+     * @since 0.0.1
+     */
+    public abstract @NotNull N taxicabNorm();
+
+    /**
+     * Calculates the euclidean norm
+     *
+     * @return euclidean norm
+     * @since 0.0.1
+     */
+    public abstract @NotNull N euclideanNorm();
+
+    /**
+     * Calculates the maximum norm
+     *
+     * @return max norm
+     * @since 0.0.1
+     */
+    public abstract @NotNull N maxNorm();
+
+    /**
+     * Calculates the taxicab distance to other
+     *
+     * @param other other
+     * @return taxicab distance
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are not equal
+     * @since 0.0.1
+     */
+    public final @NotNull N taxicabDistance(final @NotNull V other) {
+<span class="fc" id="L198">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L200">        return subtract(other).taxicabNorm();</span>
+    }
+
+    /**
+     * Calculates the euclidean distance to other
+     *
+     * @param other other
+     * @return euclidean distance
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException if sizes are not equal
+     * @since 0.0.1
+     */
+    public final @NotNull N euclideanDistance(final @NotNull V other) {
+<span class="fc" id="L213">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L215">        return subtract(other).euclideanNorm();</span>
+    }
+
+    /**
+     * Calculates the maximum distance to other
+     *
+     * @param other other
+     * @return max distance
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException if sizes are not equal
+     * @since 0.0.1
+     */
+    public final @NotNull N maxDistance(final @NotNull V other) {
+<span class="fc" id="L228">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L230">        return subtract(other).maxNorm();</span>
+    }
+
+    /**
+     * Calculates the element on the index
+     *
+     * @param index index
+     * @return element
+     * @throws IllegalArgumentException when {@code index &lt; 1 || index &gt; size}
+     * @since 0.0.1
+     */
+    public final @NotNull E getElement(final int index) {
+<span class="fc bfc" id="L242" title="All 4 branches covered.">        checkArgument(index &gt; 0 &amp;&amp; index &lt;= getSize(), &quot;0 &lt; index &lt;= %s expected but index = %s&quot;, getSize(), index);</span>
+<span class="fc" id="L243">        return getEntry(index).element();</span>
+    }
+
+    /**
+     * Calculates the {@link VectorEntry} on the index
+     *
+     * @param index index
+     * @return {@link VectorEntry}
+     * @throws IllegalArgumentException when {@code index &lt; 1 || index &gt; size}
+     * @since 0.0.1
+     */
+    public final @NotNull VectorEntry&lt;@NotNull E&gt; getEntry(final int index) {
+<span class="fc bfc" id="L255" title="All 4 branches covered.">        checkArgument(index &gt; 0 &amp;&amp; index &lt;= getSize(), &quot;0 &lt; index &lt;= %s expected but index = %s&quot;, getSize(), index);</span>
+<span class="fc" id="L256">        return entries.get(index - 1);</span>
+    }
+
+    /**
+     * Returns if this contains element
+     *
+     * @param element element
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code element == null}
+     * @since 0.0.1
+     */
+    public final boolean contains(final @NotNull E element) {
+<span class="fc" id="L268">        requireNonNull(element, &quot;element&quot;);</span>
+<span class="fc" id="L269">        return entries.stream().map(VectorEntry::element).anyMatch(e -&gt; e.equals(element));</span>
+    }
+
+    /**
+     * Calculates the square of the euclidean norm
+     *
+     * @return square of the euclidean norm
+     * @since 0.0.1
+     */
+    protected abstract @NotNull N euclideanNormPow2();
+
+    @Override
+    public final int hashCode() {
+<span class="fc" id="L282">        return hash(entries);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="fc bfc" id="L287" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L288">            return true;</span>
+        }
+<span class="fc bfc" id="L290" title="All 4 branches covered.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="fc" id="L291">            return false;</span>
+        }
+<span class="fc" id="L293">        return entries.equals(((AbstractVector&lt;?, ?, ?&gt;) obj).getEntries().toList());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="fc" id="L298">        return getClass().getSimpleName() + &quot;{entries=&quot; + entries + &quot;}&quot;;</span>
+    }
+
+    /**
+     * Builder for vectors
+     *
+     * @param &lt;E&gt; element
+     * @param &lt;V&gt; vector
+     * @param &lt;B&gt; builder
+     * @since 0.0.1
+     */
+    public abstract static class AbstractVectorBuilder
+        &lt;E extends Number, V extends AbstractVector&lt;E, V, ?&gt;, B extends AbstractVectorBuilder&lt;E, V, B&gt;&gt; implements
+        Builder&lt;V&gt; {
+        /**
+         * Size
+         *
+         * @since 0.0.1
+         */
+        private final int size;
+
+        /**
+         * Entries
+         *
+         * @since 0.0.1
+         */
+        private final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; entries;
+
+        private @NotNull IntFunction&lt;@NotNull E&gt; computationOfAbsentees;
+
+        /**
+         * Constructor
+         *
+         * @param size size
+         * @param computationOfAbsentees computation of absentees
+         * @throws IllegalArgumentException when {@code size &lt; 1}
+         * @throws NullPointerException when {@code computationOfAbsentees == null}
+         * @since 0.0.1
+         */
+<span class="fc" id="L337">        protected AbstractVectorBuilder(final int size, final @NotNull IntFunction&lt;@NotNull E&gt; computationOfAbsentees) {</span>
+<span class="fc bfc" id="L338" title="All 2 branches covered.">            checkArgument(size &gt; 0, &quot;size &gt; 0 expected but size = %s&quot;, size);</span>
+<span class="fc" id="L339">            this.size = size;</span>
+<span class="fc" id="L340">            entries = new ArrayList&lt;&gt;(size);</span>
+<span class="fc" id="L341">            this.computationOfAbsentees = requireNonNull(computationOfAbsentees, &quot;computationOfAbsentees&quot;);</span>
+<span class="fc" id="L342">        }</span>
+
+        /**
+         * Sets element
+         *
+         * @param index index
+         * @param element element
+         * @return {@code this}
+         * @throws IllegalArgumentException when {@code index &lt; 1 || index &gt; size}
+         * @throws IllegalArgumentException when index already exists
+         * @throws NullPointerException when {@code element == null}
+         * @since 0.0.1
+         */
+        @SuppressWarnings(&quot;unchecked&quot;)
+        public final @NotNull B set(final int index, final @NotNull E element) {
+<span class="fc bfc" id="L357" title="All 4 branches covered.">            checkArgument(index &gt; 0 &amp;&amp; index &lt;= size, &quot;0 &lt; index &lt;= size expected but index = %s&quot;, index);</span>
+<span class="pc bpc" id="L358" title="1 of 2 branches missed.">            checkArgument(entries.stream().map(VectorEntry::index).noneMatch(i -&gt; i == index), &quot;index already exists&quot;);</span>
+<span class="fc" id="L359">            requireNonNull(element, &quot;element&quot;);</span>
+<span class="fc" id="L360">            entries.add(new VectorEntry&lt;&gt;(index, element));</span>
+<span class="fc" id="L361">            return (B) this;</span>
+        }
+
+        /**
+         * Sets computation of absentees
+         *
+         * @param newComputationOfAbsentees computation of absentees
+         * @return {@code this}
+         * @since 0.0.1
+         */
+        @SuppressWarnings(&quot;unchecked&quot;)
+        public final @NotNull B computationOfAbsentees(
+            final @NotNull IntFunction&lt;@NotNull E&gt; newComputationOfAbsentees) {
+<span class="fc" id="L374">            computationOfAbsentees = requireNonNull(newComputationOfAbsentees, &quot;newComputationOfAbsentees&quot;);</span>
+<span class="fc" id="L375">            return (B) this;</span>
+        }
+
+        /**
+         * Size
+         *
+         * @return size
+         * @since 0.0.1
+         */
+        protected final int getSize() {
+<span class="fc" id="L385">            return size;</span>
+        }
+
+        /**
+         * Entries
+         *
+         * @return entries
+         * @since 0.0.1
+         */
+        protected final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; getEntries() {
+<span class="fc" id="L395">            return Collections.unmodifiableList(entries);</span>
+        }
+
+        /**
+         * Computation for absent
+         *
+         * @return computation for absent
+         * @since 0.0.1
+         */
+        protected final @NotNull IntFunction&lt;@NotNull E&gt; getComputationOfAbsentees() {
+<span class="fc" id="L405">            return computationOfAbsentees;</span>
+        }
+
+        /**
+         * Computes entries
+         *
+         * @return entries
+         * @since 0.0.1
+         */
+        protected @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; computeEntries() {
+<span class="pc" id="L415">            return IntStream.iterate(1, i -&gt; i + 1).boxed().limit(getSize())</span>
+<span class="fc" id="L416">                .map(i -&gt;</span>
+<span class="pc bnc" id="L417" title="All 2 branches missed.">                    getEntries().stream().filter(e -&gt; e.index() == i).findAny()</span>
+<span class="fc" id="L418">                        .orElse(new VectorEntry&lt;&gt;(i, getComputationOfAbsentees().apply(i)))</span>
+<span class="fc" id="L419">                ).toList();</span>
+        }
+
+        @Override
+        public final @NotNull String toString() {
+<span class="fc" id="L424">            return getClass().getSimpleName() + &quot;{size=&quot; + size + &quot;, entries=&quot; + entries + &quot;}&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

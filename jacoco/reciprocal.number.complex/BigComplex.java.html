@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigComplex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.complex</a> &gt; <span class="el_source">BigComplex.java</span></div><h1>BigComplex.java</h1><pre class="source lang-java linenums">package reciprocal.number.complex;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
+import static java.util.Objects.requireNonNull;
+
+import ch.obermuhlner.math.big.BigDecimalMath;
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a complex number that uses {@link BigDecimal} as
+ * type for its real and imaginary part
+ *
+ * @since 0.0.1
+ */
+public final class BigComplex extends AbstractComplex&lt;@NotNull BigDecimal, @NotNull BigComplex, @NotNull BigComplex,
+    @NotNull BigDecimal, @NotNull BigPolarForm&gt; {
+    /**
+     * 0
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L27">    public static final @NotNull BigComplex ZERO = ofReal(BigDecimal.ZERO);</span>
+
+    /**
+     * 1
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L34">    public static final @NotNull BigComplex ONE = ofReal(BigDecimal.ONE);</span>
+
+    /**
+     * i
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L41">    public static final @NotNull BigComplex I = ofImaginary(BigDecimal.ONE);</span>
+
+    /**
+     * -1
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L48">    public static final @NotNull BigComplex MINUS_ONE = ONE.negate();</span>
+
+    /**
+     * -i
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L55">    public static final @NotNull BigComplex MINUS_I = I.negate();</span>
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param real real part
+     * @param imaginary imaginary part
+     * @throws NullPointerException when {@code real == null}
+     * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
+     */
+    public BigComplex(final @NotNull BigDecimal real, final @NotNull BigDecimal imaginary) {
+<span class="fc" id="L70">        super(real, imaginary);</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * Static factory method
+     *
+     * @param real real part
+     * @return real + 0 * i
+     * @throws NullPointerException when {@code real == null}
+     * @since 0.0.1
+     */
+    public static @NotNull BigComplex ofReal(final @NotNull BigDecimal real) {
+<span class="fc" id="L82">        return new BigComplex(real, BigDecimal.ZERO);</span>
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param imaginary imaginary part
+     * @return 0 + imaginary * i
+     * @throws NullPointerException when {@code imaginary == null}
+     * @since 0.0.1
+     */
+    public static @NotNull BigComplex ofImaginary(final @NotNull BigDecimal imaginary) {
+<span class="fc" id="L94">        return new BigComplex(BigDecimal.ZERO, imaginary);</span>
+    }
+
+    @Override
+    public boolean isInvertible() {
+<span class="fc" id="L99">        return doesNotEqualByComparing(ZERO);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex add(final @NotNull BigComplex summand) {
+<span class="fc" id="L104">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc" id="L105">        return new BigComplex(getReal().add(summand.getReal()), getImaginary().add(summand.getImaginary()));</span>
+    }
+
+    /**
+     * Calculates the sum
+     *
+     * @param summand summand
+     * @param mathContext {@link MathContext}
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     */
+    public @NotNull BigComplex add(final @NotNull BigComplex summand, final @NotNull MathContext mathContext) {
+<span class="fc" id="L118">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc" id="L119">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L120">        final var re = getReal().add(summand.getReal(), mathContext);</span>
+<span class="fc" id="L121">        final var im = getImaginary().add(summand.getImaginary(), mathContext);</span>
+<span class="fc" id="L122">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex subtract(final @NotNull BigComplex subtrahend) {
+<span class="fc" id="L127">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc" id="L128">        final var re = getReal().subtract(subtrahend.getReal());</span>
+<span class="fc" id="L129">        final var im = getImaginary().subtract(subtrahend.getImaginary());</span>
+<span class="fc" id="L130">        return new BigComplex(re, im);</span>
+    }
+
+    /**
+     * Calculates the difference
+     *
+     * @param subtrahend subtrahend
+     * @param mathContext {@link MathContext}
+     * @return sum
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     */
+    public @NotNull BigComplex subtract(final @NotNull BigComplex subtrahend, final @NotNull MathContext mathContext) {
+<span class="fc" id="L143">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc" id="L144">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L145">        final var re = getReal().subtract(subtrahend.getReal(), mathContext);</span>
+<span class="fc" id="L146">        final var im = getImaginary().subtract(subtrahend.getImaginary(), mathContext);</span>
+<span class="fc" id="L147">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex multiply(final @NotNull BigComplex factor) {
+<span class="fc" id="L152">        requireNonNull(factor, &quot;factor&quot;);</span>
+<span class="fc" id="L153">        final var re = getReal().multiply(factor.getReal()).subtract(getImaginary().multiply(factor.getImaginary()));</span>
+<span class="fc" id="L154">        final var im = getReal().multiply(factor.getImaginary()).add(getImaginary().multiply(factor.getReal()));</span>
+<span class="fc" id="L155">        return new BigComplex(re, im);</span>
+    }
+
+    /**
+     * Calculates the product
+     *
+     * @param factor factor
+     * @param mathContext {@link MathContext}
+     * @return product
+     * @throws NullPointerException when {@code factor == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigComplex multiply(final @NotNull BigComplex factor, final @NotNull MathContext mathContext) {
+<span class="fc" id="L169">        requireNonNull(factor, &quot;factor&quot;);</span>
+<span class="fc" id="L170">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L171">        final var re = getReal().multiply(factor.getReal(), mathContext)</span>
+<span class="fc" id="L172">            .subtract(getImaginary().multiply(factor.getImaginary(), mathContext), mathContext);</span>
+<span class="fc" id="L173">        final var im = getReal().multiply(factor.getImaginary(), mathContext)</span>
+<span class="fc" id="L174">            .add(getImaginary().multiply(factor.getReal(), mathContext), mathContext);</span>
+<span class="fc" id="L175">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex divide(final @NotNull BigComplex divisor) {
+<span class="fc" id="L180">        requireNonNull(divisor, &quot;divisor&quot;);</span>
+<span class="fc" id="L181">        checkArgument(divisor.isInvertible(), &quot;divisor expected to be invertible but divisor = %s&quot;, divisor);</span>
+<span class="fc" id="L182">        final var den = divisor.getReal().pow(2).add(divisor.getImaginary().pow(2));</span>
+<span class="fc" id="L183">        final var re = getReal().multiply(divisor.getReal()).add(getImaginary().multiply(divisor.getImaginary()))</span>
+<span class="fc" id="L184">            .divide(den, MathContext.DECIMAL128);</span>
+<span class="fc" id="L185">        final var im = getImaginary().multiply(divisor.getReal()).subtract(getReal().multiply(divisor.getImaginary()))</span>
+<span class="fc" id="L186">            .divide(den, MathContext.DECIMAL128);</span>
+<span class="fc" id="L187">        return new BigComplex(re, im);</span>
+    }
+
+    /**
+     * Calculates the quotient
+     *
+     * @param divisor divisor
+     * @param mathContext {@link MathContext}
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @throws IllegalArgumentException when divisor is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigComplex divide(final @NotNull BigComplex divisor, final @NotNull MathContext mathContext) {
+<span class="fc" id="L202">        requireNonNull(divisor, &quot;divisor&quot;);</span>
+<span class="fc" id="L203">        checkArgument(divisor.isInvertible(), &quot;divisor expected to be invertible but divisor = %s&quot;, divisor);</span>
+<span class="fc" id="L204">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L205">        final var den =</span>
+<span class="fc" id="L206">            divisor.getReal().pow(2, mathContext).add(divisor.getImaginary().pow(2, mathContext), mathContext);</span>
+<span class="fc" id="L207">        final var re = getReal().multiply(divisor.getReal(), mathContext)</span>
+<span class="fc" id="L208">            .add(getImaginary().multiply(divisor.getImaginary(), mathContext), mathContext).divide(den, mathContext);</span>
+<span class="fc" id="L209">        final var im = getImaginary().multiply(divisor.getReal(), mathContext)</span>
+<span class="fc" id="L210">            .subtract(getReal().multiply(divisor.getImaginary(), mathContext), mathContext).divide(den, mathContext);</span>
+<span class="fc" id="L211">        return new BigComplex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex pow(final int exponent) {
+<span class="fc bfc" id="L216" title="All 2 branches covered.">        if (exponent &lt; 0) {</span>
+<span class="fc" id="L217">            return multiply(pow(-exponent - 1)).invert();</span>
+        }
+<span class="fc bfc" id="L219" title="All 2 branches covered.">        if (exponent &gt; 0) {</span>
+<span class="fc" id="L220">            return multiply(pow(exponent - 1));</span>
+        }
+<span class="fc" id="L222">        return ONE;</span>
+    }
+
+    /**
+     * Calculates the power
+     *
+     * @param exponent exponent
+     * @param mathContext {@link MathContext}
+     * @return power
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigComplex pow(final int exponent, final @NotNull MathContext mathContext) {
+<span class="fc" id="L235">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc bfc" id="L236" title="All 2 branches covered.">        if (exponent &lt; 0) {</span>
+<span class="fc" id="L237">            return multiply(pow(-exponent - 1, mathContext), mathContext).invert(mathContext);</span>
+        }
+<span class="fc bfc" id="L239" title="All 2 branches covered.">        if (exponent &gt; 0) {</span>
+<span class="fc" id="L240">            return multiply(pow(exponent - 1, mathContext), mathContext);</span>
+        }
+<span class="fc" id="L242">        return ONE;</span>
+    }
+
+    @Override
+    public @NotNull BigComplex negate() {
+<span class="fc" id="L247">        return new BigComplex(getReal().negate(), getImaginary().negate());</span>
+    }
+
+    /**
+     * Calculates the negated
+     *
+     * @param mathContext {@link MathContext}
+     * @return negated
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigComplex negate(final @NotNull MathContext mathContext) {
+<span class="fc" id="L259">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L260">        return new BigComplex(getReal().negate(mathContext), getImaginary().negate(mathContext));</span>
+    }
+
+    @Override
+    public @NotNull BigComplex invert() {
+<span class="fc" id="L265">        checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L266">        return ONE.divide(this);</span>
+    }
+
+    /**
+     * Calculates the inverted
+     *
+     * @param mathContext {@link MathContext}
+     * @return inverted
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigComplex invert(final @NotNull MathContext mathContext) {
+<span class="fc" id="L278">        checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L279">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L280">        return ONE.divide(this, mathContext);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal abs() {
+<span class="fc" id="L285">        return absPow2().sqrt(MathContext.DECIMAL128);</span>
+    }
+
+    /**
+     * Calculates the absolute value
+     *
+     * @param mathContext {@link MathContext}
+     * @return absolute value
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigDecimal abs(final @NotNull MathContext mathContext) {
+<span class="fc" id="L297">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L298">        return absPow2(mathContext).sqrt(mathContext);</span>
+    }
+
+    @Override
+    public @NotNull BigComplex conjugate() {
+<span class="fc" id="L303">        return new BigComplex(getReal(), getImaginary().negate());</span>
+    }
+
+    /**
+     * Calculates the conjugate
+     *
+     * @param mathContext {@link MathContext}
+     * @return conjugate
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigComplex conjugate(final @NotNull MathContext mathContext) {
+<span class="fc" id="L315">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L316">        return new BigComplex(getReal(), getImaginary().negate(mathContext));</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal argument() {
+<span class="fc" id="L321">        checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L322">        final var acos = BigDecimalMath.acos(getReal().divide(abs(), MathContext.DECIMAL128), MathContext.DECIMAL128);</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">        return getImaginary().compareTo(BigDecimal.ZERO) &lt; 0 ? acos.negate() : acos;</span>
+    }
+
+    /**
+     * Calculates the argument
+     *
+     * @param mathContext {@link MathContext}
+     * @return argument
+     * @throws IllegalStateException when this is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigDecimal argument(final @NotNull MathContext mathContext) {
+<span class="fc" id="L336">        checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L337">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L338">        final var acos = BigDecimalMath.acos(getReal().divide(abs(), mathContext), mathContext);</span>
+<span class="fc bfc" id="L339" title="All 2 branches covered.">        return getImaginary().compareTo(BigDecimal.ZERO) &lt; 0 ? acos.negate(mathContext) : acos;</span>
+    }
+
+    @Override
+    public @NotNull BigInteger toBigInteger() {
+<span class="fc" id="L344">        return getReal().toBigInteger();</span>
+    }
+
+    /**
+     * Returns this as exact {@link BigInteger}
+     *
+     * @return {@link BigInteger}
+     * @throws ArithmeticException when real part is not an exact {@link BigInteger}
+     * @since 0.0.1
+     */
+    public @NotNull BigInteger toBigIntegerExact() {
+<span class="fc" id="L355">        return getReal().toBigIntegerExact();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal toBigDecimal() {
+<span class="fc" id="L360">        return getReal();</span>
+    }
+
+    @Override
+    public @NotNull BigPolarForm toPolarForm() {
+<span class="fc" id="L365">        return new BigPolarForm(abs(), argument());</span>
+    }
+
+    /**
+     * Returns this as polar form
+     *
+     * @param mathContext {@link MathContext}
+     * @return polar form
+     * @throws IllegalStateException when this is not invertible
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigPolarForm toPolarForm(final @NotNull MathContext mathContext) {
+<span class="fc" id="L378">        return new BigPolarForm(abs(mathContext), argument(mathContext));</span>
+    }
+
+    @Override
+    public boolean equalsByComparing(final @NotNull BigComplex other) {
+<span class="fc" id="L383">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L384" title="All 4 branches covered.">        return getReal().compareTo(other.getReal()) == 0 &amp;&amp; getImaginary().compareTo(other.getImaginary()) == 0;</span>
+    }
+
+    @Override
+    protected @NotNull BigDecimal absPow2() {
+<span class="fc" id="L389">        return getReal().pow(2).add(getImaginary().pow(2));</span>
+    }
+
+    private BigDecimal absPow2(final MathContext mathContext) {
+<span class="fc" id="L393">        return getReal().pow(2, mathContext).add(getImaginary().pow(2, mathContext), mathContext);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

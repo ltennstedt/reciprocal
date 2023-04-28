@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"reciprocal"},{"l":"reciprocal.geometry.circle"},{"l":"reciprocal.geometry.rectangle"},{"l":"reciprocal.linear.matrix"},{"l":"reciprocal.linear.vector"},{"l":"reciprocal.number.complex"},{"l":"reciprocal.number.fraction"},{"l":"reciprocal.polynomial"},{"l":"reciprocal.random"}];updateSearchResults();

@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractFraction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.fraction</a> &gt; <span class="el_source">AbstractFraction.java</span></div><h1>AbstractFraction.java</h1><pre class="source lang-java linenums">package reciprocal.number.fraction;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.util.function.BiFunction;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.number.complex.BigComplex;
+import reciprocal.number.complex.Complex;
+
+/**
+ * Base class for fractions
+ *
+ * @param &lt;N&gt; {@link Number}
+ * @param &lt;T&gt; {@link AbstractFraction}
+ * @param &lt;Q&gt; quotient
+ * @since 0.0.1
+ */
+public abstract class AbstractFraction&lt;N extends Number, T extends AbstractFraction&lt;N, T, Q&gt;, Q extends Number&gt;
+    extends Number implements Comparable&lt;T&gt; {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private final @NotNull N numerator;
+    private final @NotNull N denominator;
+
+    /**
+     * All arguments Constructor
+     *
+     * @param numerator numerator
+     * @param denominator denominator
+     * @throws NullPointerException when {@code numerator == null}
+     * @throws NullPointerException when {@code denominator == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L41">    protected AbstractFraction(final @NotNull N numerator, final @NotNull N denominator) {</span>
+<span class="fc" id="L42">        this.numerator = requireNonNull(numerator, &quot;numerator&quot;);</span>
+<span class="fc" id="L43">        this.denominator = requireNonNull(denominator, &quot;denominator&quot;);</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Indicates if this is invertible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isInvertible();
+
+    /**
+     * Indicates if this is not invertible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isNotInvertible() {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        return !isInvertible();</span>
+    }
+
+    /**
+     * Indicates if this is a unit
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isUnit();
+
+    /**
+     * Indicates if this is not a unit
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isNotUnit() {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        return !isUnit();</span>
+    }
+
+    /**
+     * Indicates if this is dyadic
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isDyadic();
+
+    /**
+     * Indicates if this is not dyadic
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isNotDyadic() {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        return !isDyadic();</span>
+    }
+
+    /**
+     * Indicates if this is irreducible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isIrreducible();
+
+    /**
+     * Indicates if this is not reducible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isReducible() {
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        return !isIrreducible();</span>
+    }
+
+    /**
+     * Indicates if this is proper
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isProper();
+
+    /**
+     * Indicates if this is improper
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isImproper() {
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        return !isProper();</span>
+    }
+
+    /**
+     * Signum
+     *
+     * @return signum
+     * @since 0.0.1
+     */
+    public abstract int getSignum();
+
+    /**
+     * Calculates the sum
+     *
+     * @param summand summand
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T add(@NotNull T summand);
+
+    /**
+     * Calculates the difference
+     *
+     * @param subtrahend subtrahend
+     * @return difference
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T subtract(@NotNull T subtrahend);
+
+    /**
+     * Calculates the product
+     *
+     * @param factor factor
+     * @return product
+     * @throws NullPointerException when {@code factor == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T multiply(@NotNull T factor);
+
+    /**
+     * Calculates the quotient
+     *
+     * @param divisor divisor
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @throws IllegalArgumentException when divisor is not invertible
+     * @since 0.0.1
+     */
+    public final @NotNull T divide(final @NotNull T divisor) {
+<span class="fc" id="L184">        requireNonNull(divisor, &quot;divisor&quot;);</span>
+<span class="fc" id="L185">        checkArgument(divisor.isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L186">        return multiply(divisor.invert());</span>
+    }
+
+    /**
+     * Calculates the power
+     *
+     * @param exponent exponent
+     * @return power
+     * @throws IllegalStateException when exponent is negative and this is not invertible
+     * @since 0.0.1
+     */
+    public final @NotNull T pow(final int exponent) {
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        if (exponent &lt; 0) {</span>
+<span class="fc" id="L199">            checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L200">            return multiply(pow(-exponent - 1)).invert();</span>
+        }
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        if (exponent &gt; 0) {</span>
+<span class="fc" id="L203">            return multiply(pow(exponent - 1));</span>
+        }
+<span class="fc" id="L205">        return getOne();</span>
+    }
+
+    /**
+     * Calculates the negated
+     *
+     * @return negated
+     * @since 0.0.1
+     */
+    public abstract @NotNull T negate();
+
+    /**
+     * Calculates the inverted
+     *
+     * @return inverted
+     * @throws IllegalStateException if this is not invertible
+     * @since 0.0.1
+     */
+    public final @NotNull T invert() {
+<span class="fc" id="L224">        checkArgument(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L225">        return getConstructor().apply(denominator, numerator);</span>
+    }
+
+    /**
+     * Calculates the absolute value
+     *
+     * @return absolute value
+     * @since 0.0.1
+     */
+    public abstract @NotNull T abs();
+
+    /**
+     * Calculates the expanded
+     *
+     * @param number number
+     * @return expanded
+     * @throws NullPointerException when {@code number == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull T expand(@NotNull N number);
+
+    /**
+     * Returns if this is less than or equal to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public abstract boolean lessThanOrEqualTo(@NotNull T other);
+
+    /**
+     * Returns if this is greater than or equal to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public final boolean greaterThanOrEqualTo(final @NotNull T other) {
+<span class="fc" id="L265">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L266" title="All 4 branches covered.">        return !lessThanOrEqualTo(other) || equivalent(other);</span>
+    }
+
+    /**
+     * Returns if this is strictly less than other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public final boolean lessThan(final @NotNull T other) {
+<span class="fc" id="L278">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        return !greaterThanOrEqualTo(other);</span>
+    }
+
+    /**
+     * Returns if this is strictly greater than other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public final boolean greaterThan(final @NotNull T other) {
+<span class="fc" id="L291">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">        return !lessThanOrEqualTo(other);</span>
+    }
+
+    /**
+     * Calculates the minimum of this and other
+     *
+     * @param other other
+     * @return minimum
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public final @NotNull T min(final @NotNull T other) {
+<span class="nc" id="L305">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">        return greaterThan(other) ? other : (T) this;</span>
+    }
+
+    /**
+     * Calculates the maximum of this and other
+     *
+     * @param other other
+     * @return minimum
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public @NotNull T max(final @NotNull T other) {
+<span class="nc" id="L319">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="nc bnc" id="L320" title="All 2 branches missed.">        return lessThan(other) ? other : (T) this;</span>
+    }
+
+    /**
+     * Calculates this incremented by 1
+     *
+     * @return increment
+     * @since 0.0.1
+     */
+    public final @NotNull T inc() {
+<span class="nc" id="L330">        return add(getOne());</span>
+    }
+
+    /**
+     * Calculates this decremented by 1
+     *
+     * @return decrement
+     * @since 0.0.1
+     */
+    public final @NotNull T dec() {
+<span class="nc" id="L340">        return subtract(getOne());</span>
+    }
+
+    /**
+     * Calculates the normalized fraction
+     *
+     * @return normalized
+     * @since 0.0.1
+     */
+    public abstract @NotNull T normalize();
+
+    /**
+     * Calculates the reduced fraction
+     *
+     * @return reduced
+     * @since 0.0.1
+     */
+    public abstract @NotNull T reduce();
+
+    /**
+     * Returns if this is equivalent to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code number == null}
+     * @since 0.0.1
+     */
+    public final boolean equivalent(final @NotNull T other) {
+<span class="fc" id="L368">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc" id="L369">        return normalize().reduce().equals(other.normalize().reduce());</span>
+    }
+
+    /**
+     * Returns this as {@link BigDecimal}
+     *
+     * @return {@link BigDecimal}
+     * @since 0.0.1
+     */
+    public abstract @NotNull BigDecimal toBigDecimal();
+
+    @Override
+    public final int intValue() {
+<span class="nc" id="L382">        return toBigDecimal().intValue();</span>
+    }
+
+    @Override
+    public final long longValue() {
+<span class="nc" id="L387">        return toBigDecimal().longValue();</span>
+    }
+
+    @Override
+    public final float floatValue() {
+<span class="nc" id="L392">        return toBigDecimal().floatValue();</span>
+    }
+
+    @Override
+    public final double doubleValue() {
+<span class="nc" id="L397">        return toBigDecimal().doubleValue();</span>
+    }
+
+    /**
+     * Returns this as {@link Complex}
+     *
+     * @return {@link Complex}
+     * @since 0.0.1
+     */
+    public final @NotNull Complex toComplex() {
+<span class="nc" id="L407">        return Complex.ofReal(doubleValue());</span>
+    }
+
+    /**
+     * Returns this as {@link BigComplex}
+     *
+     * @return {@link BigComplex}
+     * @since 0.0.1
+     */
+    public final @NotNull BigComplex toBigComplex() {
+<span class="nc" id="L417">        return BigComplex.ofReal(toBigDecimal());</span>
+    }
+
+    /**
+     * 1
+     *
+     * @return 1
+     * @since 0.0.1
+     */
+    protected abstract @NotNull T getOne();
+
+    /**
+     * Constructor
+     *
+     * @return constructor
+     * @since 0.0.1
+     */
+    protected abstract @NotNull BiFunction&lt;N, N, T&gt; getConstructor();
+
+    /**
+     * Binary + operator for Groovy and Kotlin
+     *
+     * @param summand summand
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @since 0.0.1
+     */
+    public final @NotNull T plus(final @NotNull T summand) {
+<span class="nc" id="L445">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="nc" id="L446">        return add(summand);</span>
+    }
+
+    /**
+     * Binary - operator for Groovy and Kotlin
+     *
+     * @param subtrahend subtrahend
+     * @return difference
+     * @throws NullPointerException when {@code subtrahend == null}
+     * @since 0.0.1
+     */
+    public final @NotNull T minus(final @NotNull T subtrahend) {
+<span class="nc" id="L458">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="nc" id="L459">        return subtract(subtrahend);</span>
+    }
+
+    /**
+     * Binary / operator for Groovy and Kotlin
+     *
+     * @param divisor divisor
+     * @return quotient
+     * @throws NullPointerException when {@code divisor == null}
+     * @since 0.0.1
+     */
+    public final @NotNull T div(final @NotNull T divisor) {
+<span class="nc" id="L471">        requireNonNull(divisor, &quot;divisor&quot;);</span>
+<span class="nc" id="L472">        return divide(divisor);</span>
+    }
+
+    /**
+     * Binary ** operator for Groovy
+     *
+     * @param exponent exponent
+     * @return power
+     * @since 0.0.1
+     */
+    public final @NotNull T power(final int exponent) {
+<span class="nc" id="L483">        return pow(exponent);</span>
+    }
+
+    /**
+     * Numerator
+     *
+     * @return numerator
+     * @since 0.0.1
+     */
+    public final @NotNull N getNumerator() {
+<span class="fc" id="L493">        return numerator;</span>
+    }
+
+    /**
+     * Denominator
+     *
+     * @return denominator
+     * @since 0.0.1
+     */
+    public final @NotNull N getDenominator() {
+<span class="fc" id="L503">        return denominator;</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="nc" id="L508">        return hash(numerator, denominator);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="pc bpc" id="L513" title="1 of 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L514">            return true;</span>
+        }
+<span class="pc bpc" id="L516" title="2 of 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L517">            return false;</span>
+        }
+<span class="fc" id="L519">        final var other = (AbstractFraction&lt;?, ?, ?&gt;) obj;</span>
+<span class="pc bpc" id="L520" title="1 of 4 branches missed.">        return numerator.equals(other.getNumerator()) &amp;&amp; denominator.equals(other.getDenominator());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="fc" id="L525">        return getClass().getSimpleName() + &quot;{numerator=&quot; + numerator + &quot;, denominator=&quot; + denominator + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

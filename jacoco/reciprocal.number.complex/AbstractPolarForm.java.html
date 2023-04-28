@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractPolarForm.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.complex</a> &gt; <span class="el_source">AbstractPolarForm.java</span></div><h1>AbstractPolarForm.java</h1><pre class="source lang-java linenums">package reciprocal.number.complex;
+
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Base class for polar forms
+ *
+ * @param &lt;N&gt; number
+ * @param &lt;T&gt; this
+ * @since 0.0.1
+ */
+public abstract class AbstractPolarForm&lt;N extends Number, T extends AbstractPolarForm&lt;N, T&gt;&gt; implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private final @NotNull N radial;
+    private final @NotNull N angular;
+
+    /**
+     * Constructor
+     *
+     * @param radial radial
+     * @param angular angular
+     * @throws NullPointerException when {@code radial == null}
+     * @throws NullPointerException when {@code angular == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L34">    protected AbstractPolarForm(final @NotNull N radial, final @NotNull N angular) {</span>
+<span class="fc" id="L35">        this.radial = requireNonNull(radial, &quot;radial&quot;);</span>
+<span class="fc" id="L36">        this.angular = requireNonNull(angular, &quot;angular&quot;);</span>
+<span class="fc" id="L37">    }</span>
+
+    /**
+     * Radial
+     *
+     * @return radial
+     * @since 0.0.1
+     */
+    public final @NotNull N getRadial() {
+<span class="fc" id="L46">        return radial;</span>
+    }
+
+    /**
+     * Angular
+     *
+     * @return angular
+     * @since 0.0.1
+     */
+    public final @NotNull N getAngular() {
+<span class="fc" id="L56">        return angular;</span>
+    }
+
+    /**
+     * Returns if this is equal by comparing to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public abstract boolean equalsByComparing(@NotNull T other);
+
+    /**
+     * Returns if this is not equal by comparing to other
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public final boolean doesNotEqualByComparing(final @NotNull T other) {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        return !equalsByComparing(other);</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="nc" id="L83">        return hash(radial, angular);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L89">            return true;</span>
+        }
+<span class="nc bnc" id="L91" title="All 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L92">            return false;</span>
+        }
+<span class="nc" id="L94">        final var other = (AbstractPolarForm&lt;?, ?&gt;) obj;</span>
+<span class="nc bnc" id="L95" title="All 4 branches missed.">        return radial.equals(other.getRadial()) &amp;&amp; angular.equals(other.getAngular());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="nc" id="L100">        return getClass().getSimpleName() + &quot;{radial=&quot; + radial + &quot;, angular=&quot; + angular + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

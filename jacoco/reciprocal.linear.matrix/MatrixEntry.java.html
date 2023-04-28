@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixEntry.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.matrix</a> &gt; <span class="el_source">MatrixEntry.java</span></div><h1>MatrixEntry.java</h1><pre class="source lang-java linenums">package reciprocal.linear.matrix;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Entry for matrices
+ *
+ * @param &lt;E&gt; element
+ * @param rowIndex row index
+ * @param columnIndex column index
+ * @param element element
+ * @since 0.0.1
+ */
+public record MatrixEntry&lt;E extends Number&gt;(int rowIndex, int columnIndex, @NotNull E element) implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param rowIndex row index
+     * @param columnIndex column index
+     * @param element element
+     * @throws IllegalArgumentException when {@code rowIndex &lt;= 0}
+     * @throws IllegalArgumentException when {@code columnIndex &lt;= 0}
+     * @throws NullPointerException when {@code element == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L34">    public MatrixEntry {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        checkArgument(rowIndex &gt; 0, &quot;rowIndex &gt; 0 expected but rowIndex = %s&quot;, rowIndex);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        checkArgument(columnIndex &gt; 0, &quot;columnIndex &gt; 0 expected but columnIndex = %s&quot;, columnIndex);</span>
+<span class="fc" id="L37">        requireNonNull(element, &quot;element&quot;);</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Returns a copy with new row index
+     *
+     * @param newRowIndex row index
+     * @return copy
+     * @throws IllegalArgumentException when {@code newIndex &lt; 1}
+     * @since 0.0.1
+     */
+    public @NotNull MatrixEntry&lt;@NotNull E&gt; withRowIndex(final int newRowIndex) {
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        checkArgument(newRowIndex &gt; 0, &quot;newRowIndex &gt; 0 expected but newRowIndex = %s&quot;, newRowIndex);</span>
+<span class="fc" id="L50">        return new MatrixEntry&lt;&gt;(newRowIndex, columnIndex, element);</span>
+    }
+
+    /**
+     * Returns a copy with new column index
+     *
+     * @param newColumnIndex column index
+     * @return copy
+     * @throws IllegalArgumentException when {@code newColumnIndex &lt; 1}
+     * @since 0.0.1
+     */
+    public @NotNull MatrixEntry&lt;@NotNull E&gt; withColumnIndex(final int newColumnIndex) {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        checkArgument(newColumnIndex &gt; 0, &quot;newColumnIndex &gt; 0 expected but newColumnIndex = %s&quot;, newColumnIndex);</span>
+<span class="fc" id="L63">        return new MatrixEntry&lt;&gt;(rowIndex, newColumnIndex, element);</span>
+    }
+
+    /**
+     * Returns a copy with new element
+     *
+     * @param newElement element
+     * @return copy
+     * @throws NullPointerException when {@code newElement == null}
+     * @since 0.0.1
+     */
+    public @NotNull MatrixEntry&lt;@NotNull E&gt; withElement(final @NotNull E newElement) {
+<span class="fc" id="L75">        requireNonNull(newElement, &quot;newElement&quot;);</span>
+<span class="fc" id="L76">        return new MatrixEntry&lt;&gt;(rowIndex, columnIndex, newElement);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

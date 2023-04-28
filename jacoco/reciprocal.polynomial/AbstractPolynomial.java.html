@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractPolynomial.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.polynomial</a> &gt; <span class="el_source">AbstractPolynomial.java</span></div><h1>AbstractPolynomial.java</h1><pre class="source lang-java linenums">package reciprocal.polynomial;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.noNullElements;
+
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Base class for polynomials
+ *
+ * @param &lt;C&gt; coefficient
+ * @param &lt;P&gt; polynomial
+ * @since 0.0.1
+ */
+public abstract class AbstractPolynomial&lt;C extends Number, P extends AbstractPolynomial&lt;C, P&gt;&gt; {
+    private final @NotNull List&lt;@NotNull C&gt; coefficients;
+
+    /**
+     * Constructor
+     *
+     * @param coefficients coefficients
+     * @throws NullPointerException when {@code coefficients == null}
+     * @throws IllegalArgumentException when {@code coefficient == null} for one coefficient in coefficients
+     * @since 0.0.1
+     */
+<span class="nc" id="L30">    protected AbstractPolynomial(final @NotNull List&lt;@NotNull C&gt; coefficients) {</span>
+<span class="nc" id="L31">        requireNonNull(coefficients, &quot;coefficients&quot;);</span>
+<span class="nc" id="L32">        noNullElements(coefficients, &quot;all coefficients expected not to be null but coefficients = %s&quot;, coefficients);</span>
+<span class="nc" id="L33">        this.coefficients = List.copyOf(coefficients);</span>
+<span class="nc" id="L34">    }</span>
+
+    /**
+     * Degree
+     *
+     * @return degree
+     * @since 0.0.1
+     */
+    public final int getDegree() {
+<span class="nc" id="L43">        return coefficients.size();</span>
+    }
+
+    /**
+     * Indicates if {@code this} is zero
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isZero();
+
+    /**
+     * Indicates if {@code this} is constant
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isConstant() {
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        return getDegree() == 0;</span>
+    }
+
+    /**
+     * Indicates if {@code this} is linear
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isLinear() {
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        return getDegree() == 1;</span>
+    }
+
+    /**
+     * Indicates if {@code this} is quadratic
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isQuadratic() {
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        return getDegree() == 2;</span>
+    }
+
+    /**
+     * Indicates if {@code this} is cubic
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isCubic() {
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        return getDegree() == 3;</span>
+    }
+
+    /**
+     * Indicates if {@code this} is quartic
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isQuartic() {
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        return getDegree() == 4;</span>
+    }
+
+    /**
+     * Derivative
+     *
+     * @return derivative
+     * @since 0.0.1
+     */
+    public abstract @NotNull List&lt;@NotNull C&gt; getDerivative();
+
+    /**
+     * Returns the coefficient of a given index
+     *
+     * @param index index
+     * @return coefficient
+     * @throws IllegalArgumentException when {@code index &lt; 0}
+     * @since 0.0.1
+     */
+    public final @NotNull C get(final int index) {
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        checkArgument(index &gt; -1, &quot;expected index &gt; -1 but index = %s&quot;, index);</span>
+<span class="nc" id="L122">        return coefficients.get(index);</span>
+    }
+
+    /**
+     * Coefficients
+     *
+     * @return coefficients
+     * @since 0.0.1
+     */
+    public final @NotNull List&lt;@NotNull C&gt; getCoefficients() {
+<span class="nc" id="L132">        return List.copyOf(coefficients);</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="nc" id="L137">        return hash(coefficients);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L143">            return true;</span>
+        }
+<span class="nc bnc" id="L145" title="All 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L146">            return false;</span>
+        }
+<span class="nc" id="L148">        final var that = (AbstractPolynomial&lt;?, ?&gt;) obj;</span>
+<span class="nc" id="L149">        return coefficients.equals(that.getCoefficients());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="nc" id="L154">        return getClass().getSimpleName() + &quot;{coefficients=&quot; + coefficients + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

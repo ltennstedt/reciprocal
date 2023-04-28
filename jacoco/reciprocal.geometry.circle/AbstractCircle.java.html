@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractCircle.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.geometry.circle</a> &gt; <span class="el_source">AbstractCircle.java</span></div><h1>AbstractCircle.java</h1><pre class="source lang-java linenums">package reciprocal.geometry.circle;
+
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * Base class for circles
+ *
+ * @param &lt;N&gt; number
+ * @param &lt;C&gt; circle
+ * @since 0.0.1
+ */
+public abstract class AbstractCircle&lt;N extends Number, C extends AbstractCircle&lt;N, C&gt;&gt;
+    implements Comparable&lt;C&gt;, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private final @NotNull N radius;
+
+    /**
+     * Constructor
+     *
+     * @param radius radius
+     * @throws NullPointerException when {@code radius == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L32">    protected AbstractCircle(final @NotNull N radius) {</span>
+<span class="fc" id="L33">        this.radius = requireNonNull(radius, &quot;radius&quot;);</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * Diameter
+     *
+     * @return diameter
+     * @since 0.0.1
+     */
+    public abstract @NotNull N getDiameter();
+
+    /**
+     * Circumference
+     *
+     * @return circumference
+     * @since 0.0.1
+     */
+    public abstract @NotNull N getCircumference();
+
+    /**
+     * Area
+     *
+     * @return area
+     * @since 0.0.1
+     */
+    public abstract @NotNull N getArea();
+
+    /**
+     * Radius
+     *
+     * @return radius
+     * @since 0.0.1
+     */
+    public final @NotNull N getRadius() {
+<span class="fc" id="L67">        return radius;</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="fc" id="L72">        return hash(radius);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (this == obj) {</span>
+<span class="fc" id="L78">            return true;</span>
+        }
+<span class="nc bnc" id="L80" title="All 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L81">            return false;</span>
+        }
+<span class="nc" id="L83">        final var other = (AbstractCircle&lt;?, ?&gt;) obj;</span>
+<span class="nc" id="L84">        return radius.equals(other.getRadius());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="nc" id="L89">        return getClass().getSimpleName() + &quot;{radius=&quot; + radius + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

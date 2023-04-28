@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractMathContextVector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.vector</a> &gt; <span class="el_source">AbstractMathContextVector.java</span></div><h1>AbstractMathContextVector.java</h1><pre class="source lang-java linenums">package reciprocal.linear.vector;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.math.MathContext;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Base class for vectors with {@link MathContext}
+ *
+ * @param &lt;E&gt; element
+ * @param &lt;V&gt; vector
+ * @param &lt;N&gt; norm
+ * @since 0.0.1
+ */
+public abstract class AbstractMathContextVector&lt;E extends Number, V extends AbstractMathContextVector&lt;E, V, N&gt;, N extends Number&gt;
+    extends AbstractVector&lt;E, V, N&gt; {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param size size
+     * @param vectorEntries entries
+     * @throws IllegalArgumentException when {@code size &lt; 1}
+     * @throws NullPointerException when {@code entries == null}
+     * @throws IllegalArgumentException when one element in entries is null
+     * @throws IllegalArgumentException when {@code index &lt; 1 || size &lt; index} for one index
+     * @since 0.0.1
+     */
+    protected AbstractMathContextVector(final int size,
+        final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull E&gt;&gt; vectorEntries) {
+<span class="fc" id="L37">        super(size, vectorEntries);</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Calculates the sum of this and the summand
+     *
+     * @param summand summand
+     * @param mathContext {@link MathContext}
+     * @return sum
+     * @throws NullPointerException when {@code summand == null}
+     * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract V add(@NotNull V summand, @NotNull MathContext mathContext);
+
+    /**
+     * Calculates the difference of this and the subtrahend
+     *
+     * @param subtrahend subtrahend
+     * @param mathContext {@link MathContext}
+     * @return difference
+     * @throws NullPointerException when {@code summand == null}
+     * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract V subtract(@NotNull V subtrahend, @NotNull MathContext mathContext);
+
+    /**
+     * Calculates the dot product of this and other
+     *
+     * @param other other
+     * @param mathContext {@link MathContext}
+     * @return dot product
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract E dotProduct(@NotNull V other, @NotNull MathContext mathContext);
+
+    /**
+     * Calculates the scalar product pof this and the scalar
+     *
+     * @param scalar scalar
+     * @param mathContext {@link MathContext}
+     * @return scalar product
+     * @throws NullPointerException when {@code scalar == null}
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull V scalarMultiply(@NotNull E scalar, @NotNull MathContext mathContext);
+
+    /**
+     * Calculates the negated vector of this
+     *
+     * @param mathContext {@link MathContext}
+     * @return negated vector
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull V negate(@NotNull MathContext mathContext);
+
+    /**
+     * Calculates if this is orthogonal to other
+     *
+     * @param other other
+     * @param mathContext {@link MathContext}
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract boolean orthogonalTo(@NotNull V other, @NotNull MathContext mathContext);
+
+    /**
+     * Calculates the taxicab norm
+     *
+     * @param mathContext {@link MathContext}
+     * @return taxicab norm
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull N taxicabNorm(@NotNull MathContext mathContext);
+
+    /**
+     * Calculates the euclidean norm
+     *
+     * @param mathContext {@link MathContext}
+     * @return euclidean norm
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull N euclideanNorm(@NotNull MathContext mathContext);
+
+    /**
+     * Calculates the maximum norm
+     *
+     * @param mathContext {@link MathContext}
+     * @return max norm
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public abstract @NotNull N maxNorm(@NotNull MathContext mathContext);
+
+    /**
+     * Calculates the taxicab distance to other
+     *
+     * @param other other
+     * @param mathContext {@link MathContext}
+     * @return taxicab distance
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException when sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public final @NotNull N taxicabDistance(final @NotNull V other, final @NotNull MathContext mathContext) {
+<span class="fc" id="L156">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L158">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L159">        return subtract(other, mathContext).taxicabNorm(mathContext);</span>
+    }
+
+    /**
+     * Calculates the euclidean distance to other
+     *
+     * @param other other
+     * @param mathContext {@link MathContext}
+     * @return euclidean distance
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException if sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public final @NotNull N euclideanDistance(final @NotNull V other, final @NotNull MathContext mathContext) {
+<span class="fc" id="L174">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L176">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L177">        return subtract(other, mathContext).euclideanNorm(mathContext);</span>
+    }
+
+    /**
+     * Calculates the maximum distance to other
+     *
+     * @param other other
+     * @param mathContext {@link MathContext}
+     * @return max distance
+     * @throws NullPointerException when {@code other == null}
+     * @throws IllegalArgumentException if sizes are unequal
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public final @NotNull N maxDistance(final @NotNull V other, final @NotNull MathContext mathContext) {
+<span class="fc" id="L192">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L194">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L195">        return subtract(other, mathContext).maxNorm(mathContext);</span>
+    }
+
+    /**
+     * Calculates the square of the euclidean norm
+     *
+     * @param mathContext {@link MathContext}
+     * @return square of the euclidean norm
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    protected abstract @NotNull N euclideanNormPow2(@NotNull MathContext mathContext);
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

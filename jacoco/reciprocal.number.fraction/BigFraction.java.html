@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigFraction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.fraction</a> &gt; <span class="el_source">BigFraction.java</span></div><h1>BigFraction.java</h1><pre class="source lang-java linenums">package reciprocal.number.fraction;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import com.google.common.math.BigIntegerMath;
+import java.io.Serial;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.util.Comparator;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a fraction that uses {@link BigFraction} as type
+ * for its numerator and denominator
+ * &lt;p&gt;
+ * The returned Fractions of most methods are neither normalized nor reduced.
+ *
+ * @since 0.0.1
+ */
+public final class BigFraction extends
+    AbstractFraction&lt;@NotNull BigInteger, @NotNull BigFraction, @NotNull BigDecimal&gt; {
+    /**
+     * 0
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L32">    public static final BigFraction ZERO = ofNumerator(BigInteger.ZERO);</span>
+
+    /**
+     * 1
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L39">    public static final BigFraction ONE = ofNumerator(BigInteger.ONE);</span>
+
+    /**
+     * Units
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L46">    public static final Stream&lt;BigFraction&gt; UNITS =</span>
+<span class="pc" id="L47">        Stream.iterate(ONE, bf -&gt; ofDenominator(bf.getDenominator().add(BigInteger.ONE)));</span>
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param numerator numerator
+     * @param denominator denominator
+     * @throws NullPointerException when {@code numerator == null}
+     * @throws NullPointerException when {@code denominator == null}
+     * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since 0.0.1
+     */
+    public BigFraction(final @NotNull BigInteger numerator, final @NotNull BigInteger denominator) {
+<span class="fc" id="L63">        super(numerator, denominator);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        checkArgument(denominator.compareTo(BigInteger.ZERO) != 0,</span>
+            &quot;denominator expected not to be 0 but denominator = %s&quot;, denominator);
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Static factory method
+     *
+     * @param numerator numerator
+     * @return numerator / 1
+     * @throws NullPointerException when {@code numerator == null}
+     * @since 0.0.1
+     */
+    public static @NotNull BigFraction ofNumerator(final @NotNull BigInteger numerator) {
+<span class="fc" id="L77">        return new BigFraction(numerator, BigInteger.ONE);</span>
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param denominator denominator
+     * @return 1 / denominator
+     * @throws NullPointerException when {@code denominator == null}
+     * @throws IllegalArgumentException when {@code denominator == 0}
+     * @since 0.0.1
+     */
+    public static @NotNull BigFraction ofDenominator(final @NotNull BigInteger denominator) {
+<span class="nc" id="L90">        return new BigFraction(BigInteger.ONE, denominator);</span>
+    }
+
+    @Override
+    public boolean isInvertible() {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        return getNumerator().compareTo(BigInteger.ZERO) != 0;</span>
+    }
+
+    @Override
+    public boolean isUnit() {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        return getNumerator().compareTo(BigInteger.ONE) == 0;</span>
+    }
+
+    @Override
+    public boolean isDyadic() {
+<span class="nc" id="L105">        return BigIntegerMath.isPowerOfTwo(getDenominator());</span>
+    }
+
+    @Override
+    public boolean isIrreducible() {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        return getNumerator().abs().gcd(getDenominator().abs()).compareTo(BigInteger.ONE) == 0;</span>
+    }
+
+    @Override
+    public boolean isProper() {
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        return getNumerator().abs().compareTo(getDenominator().abs()) &lt; 0;</span>
+    }
+
+    @Override
+    public int getSignum() {
+<span class="nc" id="L120">        return getNumerator().signum() * getDenominator().signum();</span>
+    }
+
+    @Override
+    public @NotNull BigFraction add(final @NotNull BigFraction summand) {
+<span class="nc" id="L125">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="nc" id="L126">        final var num =</span>
+<span class="nc" id="L127">            summand.getDenominator().multiply(getNumerator())</span>
+<span class="nc" id="L128">                .add(getDenominator().multiply(summand.getNumerator()));</span>
+<span class="nc" id="L129">        final var den = getDenominator().multiply(summand.getDenominator());</span>
+<span class="nc" id="L130">        return new BigFraction(num, den);</span>
+    }
+
+    @Override
+    public @NotNull BigFraction subtract(final @NotNull BigFraction subtrahend) {
+<span class="nc" id="L135">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="nc" id="L136">        final var num = subtrahend.getDenominator().multiply(getNumerator())</span>
+<span class="nc" id="L137">            .subtract(getDenominator().multiply(subtrahend.getNumerator()));</span>
+<span class="nc" id="L138">        final var den = getDenominator().multiply(subtrahend.getDenominator());</span>
+<span class="nc" id="L139">        return new BigFraction(num, den);</span>
+    }
+
+    @Override
+    public @NotNull BigFraction multiply(final @NotNull BigFraction factor) {
+<span class="nc" id="L144">        requireNonNull(factor, &quot;factor&quot;);</span>
+<span class="nc" id="L145">        return new BigFraction(</span>
+<span class="nc" id="L146">            getNumerator().multiply(factor.getNumerator()),</span>
+<span class="nc" id="L147">            getDenominator().multiply(factor.getDenominator())</span>
+        );
+    }
+
+    @Override
+    public @NotNull BigFraction negate() {
+<span class="nc" id="L153">        return new BigFraction(getNumerator().negate(), getDenominator());</span>
+    }
+
+    @Override
+    public @NotNull BigFraction abs() {
+<span class="nc" id="L158">        return new BigFraction(getNumerator().abs(), getDenominator().abs());</span>
+    }
+
+    @Override
+    public @NotNull BigFraction expand(final @NotNull BigInteger number) {
+<span class="nc" id="L163">        return new BigFraction(number.multiply(getNumerator()), number.multiply(getDenominator()));</span>
+    }
+
+    @Override
+    public boolean lessThanOrEqualTo(final @NotNull BigFraction other) {
+<span class="nc" id="L168">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="nc" id="L169">        final var normalized = normalize();</span>
+<span class="nc" id="L170">        final var normalizedOther = other.normalize();</span>
+<span class="nc" id="L171">        final var left = normalizedOther.getDenominator().multiply(normalized.getNumerator());</span>
+<span class="nc" id="L172">        final var right = normalized.getDenominator().multiply(normalizedOther.getNumerator());</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        return left.compareTo(right) &lt; 1;</span>
+    }
+
+    @Override
+    public @NotNull BigFraction normalize() {
+<span class="nc bnc" id="L178" title="All 4 branches missed.">        if (getSignum() &lt; 0 &amp;&amp; getNumerator().compareTo(BigInteger.ZERO) &gt; 0) {</span>
+<span class="nc" id="L179">            return new BigFraction(getNumerator().negate(), getDenominator().abs());</span>
+        }
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (getSignum() &lt; 0) {</span>
+<span class="nc" id="L182">            return this;</span>
+        }
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (getSignum() == 0) {</span>
+<span class="nc" id="L185">            return ZERO;</span>
+        }
+<span class="nc" id="L187">        return abs();</span>
+    }
+
+    @Override
+    public @NotNull BigFraction reduce() {
+<span class="nc" id="L192">        final var gcd = getNumerator().gcd(getDenominator()).abs();</span>
+<span class="nc" id="L193">        return new BigFraction(getNumerator().divide(gcd), getDenominator().divide(gcd));</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal toBigDecimal() {
+<span class="nc" id="L198">        return new BigDecimal(getNumerator()).divide(new BigDecimal(getDenominator()), MathContext.DECIMAL128);</span>
+    }
+
+    @Override
+    public int compareTo(final @NotNull BigFraction o) {
+<span class="nc" id="L203">        return BigFractionComparator.INSTANCE.compare(this, o);</span>
+    }
+
+    @Override
+    protected @NotNull BigFraction getOne() {
+<span class="nc" id="L208">        return ONE;</span>
+    }
+
+    @Override
+    protected @NotNull BiFunction&lt;BigInteger, BigInteger, BigFraction&gt; getConstructor() {
+<span class="nc" id="L213">        return BigFraction::new;</span>
+    }
+
+    /**
+     * Comparator
+     *
+     * @since 0.0.1
+     */
+    public static final class BigFractionComparator implements Comparator&lt;BigFraction&gt;, Serializable {
+        /**
+         * Instance
+         *
+         * @since 0.0.1
+         */
+<span class="nc" id="L227">        public static final BigFractionComparator INSTANCE = new BigFractionComparator();</span>
+
+        @Serial
+        private static final long serialVersionUID = 1L;
+
+        private BigFractionComparator() {
+        }
+
+        @Override
+        public int compare(final @NotNull BigFraction o1, final @NotNull BigFraction o2) {
+<span class="nc" id="L237">            requireNonNull(o1, &quot;o1&quot;);</span>
+<span class="nc" id="L238">            requireNonNull(o2, &quot;o2&quot;);</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">            if (o1.lessThan(o2)) {</span>
+<span class="nc" id="L240">                return -1;</span>
+            }
+<span class="nc bnc" id="L242" title="All 2 branches missed.">            if (o1.greaterThan(o2)) {</span>
+<span class="nc" id="L243">                return 1;</span>
+            }
+<span class="nc" id="L245">            return 0;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

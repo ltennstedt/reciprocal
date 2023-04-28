@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigIntegerVector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.vector</a> &gt; <span class="el_source">BigIntegerVector.java</span></div><h1>BigIntegerVector.java</h1><pre class="source lang-java linenums">package reciprocal.linear.vector;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a vector which uses {@link BigInteger} as type for its elements
+ *
+ * @since 0.0.1
+ */
+public final class BigIntegerVector
+    extends AbstractVector&lt;@NotNull BigInteger, @NotNull BigIntegerVector, @NotNull BigDecimal&gt; {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    BigIntegerVector(final int size, final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull BigInteger&gt;&gt; entries) {
+<span class="fc" id="L24">        super(size, entries);</span>
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Returns {@link BigIntegerVectorBuilder}
+     *
+     * @param size size
+     * @return {@link BigIntegerVectorBuilder}
+     * @throws IllegalArgumentException when {@code size &lt; 1}
+     * @since 0.0.1
+     */
+    public static BigIntegerVectorBuilder ofSize(final int size) {
+<span class="fc" id="L36">        return new BigIntegerVectorBuilder(size);</span>
+    }
+
+    @Override
+    public @NotNull BigIntegerVector add(final @NotNull BigIntegerVector summand) {
+<span class="fc" id="L41">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        checkArgument(getSize() == summand.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L43">            summand.getSize());</span>
+<span class="fc" id="L44">        return new BigIntegerVector(getSize(),</span>
+<span class="fc" id="L45">            getEntries().map(e -&gt; e.withElement(e.element().add(summand.getElement(e.index())))).toList()</span>
+        );
+    }
+
+    @Override
+    public @NotNull BigIntegerVector subtract(final @NotNull BigIntegerVector subtrahend) {
+<span class="fc" id="L51">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        checkArgument(getSize() == subtrahend.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L53">            subtrahend.getSize());</span>
+<span class="fc" id="L54">        return new BigIntegerVector(getSize(),</span>
+<span class="fc" id="L55">            getEntries().map(e -&gt; e.withElement(e.element().subtract(subtrahend.getElement(e.index()))))</span>
+<span class="fc" id="L56">                .toList());</span>
+    }
+
+    @Override
+    public @NotNull BigInteger dotProduct(final @NotNull BigIntegerVector other) {
+<span class="fc" id="L61">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L63">        return getEntries().map(e -&gt; e.element().multiply(other.getElement(e.index()))).reduce(BigInteger::add)</span>
+<span class="fc" id="L64">            .orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigIntegerVector scalarMultiply(final @NotNull BigInteger scalar) {
+<span class="fc" id="L69">        requireNonNull(scalar, &quot;scalar&quot;);</span>
+<span class="fc" id="L70">        return new BigIntegerVector(getSize(),</span>
+<span class="fc" id="L71">            getEntries().map(e -&gt; e.withElement(scalar.multiply(e.element()))).toList());</span>
+    }
+
+    @Override
+    public @NotNull BigIntegerVector negate() {
+<span class="fc" id="L76">        return new BigIntegerVector(getSize(),</span>
+<span class="fc" id="L77">            getEntries().map(e -&gt; e.withElement(e.element().negate())).toList());</span>
+    }
+
+    @Override
+    public boolean orthogonalTo(final @NotNull BigIntegerVector other) {
+<span class="fc" id="L82">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        return dotProduct(other).compareTo(BigInteger.ZERO) == 0;</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal taxicabNorm() {
+<span class="fc" id="L89">        return getElements().map(BigInteger::abs).reduce(BigInteger::add).map(BigDecimal::new).orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal euclideanNorm() {
+<span class="fc" id="L94">        return euclideanNormPow2().sqrt(MathContext.UNLIMITED);</span>
+    }
+
+    /**
+     * Calculates the Euclidean norm
+     *
+     * @param mathContext {@link MathContext}
+     * @return euclidean norm
+     * @throws NullPointerException when {@code mathContext == null}
+     * @since 0.0.1
+     */
+    public @NotNull BigDecimal euclideanNorm(final @NotNull MathContext mathContext) {
+<span class="fc" id="L106">        requireNonNull(mathContext, &quot;mathContext&quot;);</span>
+<span class="fc" id="L107">        return euclideanNormPow2().sqrt(mathContext);</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal maxNorm() {
+<span class="fc" id="L112">        return getElements().map(BigInteger::abs).max(BigInteger::compareTo).map(BigDecimal::new)</span>
+<span class="fc" id="L113">            .orElseThrow();</span>
+    }
+
+    @Override
+    protected @NotNull BigDecimal euclideanNormPow2() {
+<span class="fc" id="L118">        return getElements().map(e -&gt; e.multiply(e)).reduce(BigInteger::add).map(BigDecimal::new)</span>
+<span class="fc" id="L119">            .orElseThrow();</span>
+    }
+
+    /**
+     * Builder for {@link BigIntegerVector BigIntegerVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class BigIntegerVectorBuilder extends
+        AbstractVectorBuilder&lt;@NotNull BigInteger, @NotNull BigIntegerVector, @NotNull BigIntegerVectorBuilder&gt; {
+        BigIntegerVectorBuilder(final int size) {
+<span class="fc" id="L130">            super(size, i -&gt; BigInteger.ZERO);</span>
+<span class="fc" id="L131">        }</span>
+
+        @Override
+        public @NotNull BigIntegerVector build() {
+<span class="fc" id="L135">            return new BigIntegerVector(getSize(), computeEntries());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

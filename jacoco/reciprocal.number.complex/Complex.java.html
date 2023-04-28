@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Complex.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.number.complex</a> &gt; <span class="el_source">Complex.java</span></div><h1>Complex.java</h1><pre class="source lang-java linenums">package reciprocal.number.complex;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a complex number that uses {@link Double} as
+ * type for its real and imaginary part
+ *
+ * @since 0.0.1
+ */
+public final class Complex extends AbstractComplex&lt;@NotNull Double, @NotNull Complex, @NotNull Complex,
+    @NotNull Double, @NotNull PolarForm&gt; {
+    /**
+     * 0
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L25">    public static final @NotNull Complex ZERO = ofReal(0.0D);</span>
+
+    /**
+     * 1
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L32">    public static final @NotNull Complex ONE = ofReal(1.0D);</span>
+
+    /**
+     * i
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L39">    public static final @NotNull Complex I = ofImaginary(1.0D);</span>
+
+    /**
+     * -1
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L46">    public static final @NotNull Complex MINUS_ONE = ofReal(1.0D);</span>
+
+    /**
+     * -i
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L53">    public static final @NotNull Complex MINUS_I = ofImaginary(-1.0D);</span>
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor
+     *
+     * @param real real part
+     * @param imaginary imaginary part
+     * @since 0.0.1
+     */
+    public Complex(final double real, final double imaginary) {
+<span class="fc" id="L66">        super(real, imaginary);</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Static factory method
+     *
+     * @param real real part
+     * @return real + 0 * i
+     * @since 0.0.1
+     */
+    public static @NotNull Complex ofReal(final double real) {
+<span class="fc" id="L77">        return new Complex(real, 0.0D);</span>
+    }
+
+    /**
+     * Static factory method
+     *
+     * @param imaginary imaginary part
+     * @return 0 + imaginary * i
+     * @since 0.0.1
+     */
+    public static @NotNull Complex ofImaginary(final double imaginary) {
+<span class="fc" id="L88">        return new Complex(0.0D, imaginary);</span>
+    }
+
+    @Override
+    public boolean isInvertible() {
+<span class="fc" id="L93">        return doesNotEqualByComparing(ZERO);</span>
+    }
+
+    @Override
+    public @NotNull Complex add(final @NotNull Complex summand) {
+<span class="fc" id="L98">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc" id="L99">        return new Complex(getReal() + summand.getReal(), getImaginary() + summand.getImaginary());</span>
+    }
+
+    @Override
+    public @NotNull Complex subtract(final @NotNull Complex subtrahend) {
+<span class="fc" id="L104">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc" id="L105">        return new Complex(getReal() - subtrahend.getReal(), getImaginary() - subtrahend.getImaginary());</span>
+    }
+
+    @Override
+    public @NotNull Complex multiply(final @NotNull Complex factor) {
+<span class="fc" id="L110">        requireNonNull(factor, &quot;factor&quot;);</span>
+<span class="fc" id="L111">        final var re = getReal() * factor.getReal() - getImaginary() * factor.getImaginary();</span>
+<span class="fc" id="L112">        final var im = getReal() * factor.getImaginary() + getImaginary() * factor.getReal();</span>
+<span class="fc" id="L113">        return new Complex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull Complex divide(final @NotNull Complex divisor) {
+<span class="fc" id="L118">        requireNonNull(divisor, &quot;divisor&quot;);</span>
+<span class="fc" id="L119">        checkArgument(divisor.isInvertible(), &quot;expected divisor to be invertible but divisor = %s&quot;, divisor);</span>
+<span class="fc" id="L120">        final var den = Math.pow(divisor.getReal(), 2.0D) + Math.pow(divisor.getImaginary(), 2.0D);</span>
+<span class="fc" id="L121">        final var re = (getReal() * divisor.getReal() + getImaginary() * divisor.getImaginary()) / den;</span>
+<span class="fc" id="L122">        final var im = (getImaginary() * divisor.getReal() - getReal() * divisor.getImaginary()) / den;</span>
+<span class="fc" id="L123">        return new Complex(re, im);</span>
+    }
+
+    @Override
+    public @NotNull Complex pow(final int exponent) {
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        if (exponent &lt; 0) {</span>
+<span class="fc" id="L129">            return multiply(pow(-exponent - 1)).invert();</span>
+        }
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (exponent &gt; 0) {</span>
+<span class="fc" id="L132">            return multiply(pow(exponent - 1));</span>
+        }
+<span class="fc" id="L134">        return ONE;</span>
+    }
+
+    @Override
+    public @NotNull Complex negate() {
+<span class="fc" id="L139">        return new Complex(-getReal(), -getImaginary());</span>
+    }
+
+    @Override
+    public @NotNull Complex invert() {
+<span class="fc" id="L144">        checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L145">        return ONE.divide(this);</span>
+    }
+
+    @Override
+    public @NotNull Double abs() {
+<span class="fc" id="L150">        return Math.sqrt(absPow2());</span>
+    }
+
+    @Override
+    public @NotNull Complex conjugate() {
+<span class="fc" id="L155">        return new Complex(getReal(), -getImaginary());</span>
+    }
+
+    @Override
+    public @NotNull Double argument() {
+<span class="fc" id="L160">        checkState(isInvertible(), &quot;this expected to be invertible but this = %s&quot;, this);</span>
+<span class="fc" id="L161">        final var acos = Math.acos(getReal() / abs());</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        return getImaginary() &lt; 0.0D ? -acos : acos;</span>
+    }
+
+    @Override
+    public @NotNull BigInteger toBigInteger() {
+<span class="fc" id="L167">        return toBigDecimal().toBigInteger();</span>
+    }
+
+    /**
+     * Returns this as exact {@link BigInteger}
+     *
+     * @return {@link BigInteger}
+     * @throws ArithmeticException when real part is not exact
+     * @since 0.0.1
+     */
+    public @NotNull BigInteger toBigIntegerExact() {
+<span class="fc" id="L178">        return toBigDecimal().toBigIntegerExact();</span>
+    }
+
+    @Override
+    public @NotNull BigDecimal toBigDecimal() {
+<span class="fc" id="L183">        return BigDecimal.valueOf(doubleValue());</span>
+    }
+
+    /**
+     * Returns this as {@link BigComplex}
+     *
+     * @return {@link BigComplex}
+     */
+    public @NotNull BigComplex toBigComplex() {
+<span class="nc" id="L192">        return new BigComplex(BigDecimal.valueOf(getReal()), BigDecimal.valueOf(getImaginary()));</span>
+    }
+
+    @Override
+    public @NotNull PolarForm toPolarForm() {
+<span class="fc" id="L197">        return new PolarForm(abs(), argument());</span>
+    }
+
+    @Override
+    public boolean equalsByComparing(final @NotNull Complex other) {
+<span class="fc" id="L202">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L203" title="All 4 branches covered.">        return getReal().compareTo(other.getReal()) == 0 &amp;&amp; getImaginary().compareTo(other.getImaginary()) == 0;</span>
+    }
+
+    @Override
+    protected @NotNull Double absPow2() {
+<span class="fc" id="L208">        return Math.pow(getReal(), 2.0D) + Math.pow(getImaginary(), 2.0D);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

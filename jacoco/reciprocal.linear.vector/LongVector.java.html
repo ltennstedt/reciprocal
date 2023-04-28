@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LongVector.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.vector</a> &gt; <span class="el_source">LongVector.java</span></div><h1>LongVector.java</h1><pre class="source lang-java linenums">package reciprocal.linear.vector;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
+import java.io.Serial;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Immutable implementation of a vector which uses {@link Long} as type for its elements
+ *
+ * @since 0.0.1
+ */
+public final class LongVector extends AbstractVector&lt;@NotNull Long, @NotNull LongVector, @NotNull Double&gt; {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    LongVector(final int size, final @NotNull List&lt;@NotNull VectorEntry&lt;@NotNull Long&gt;&gt; entries) {
+<span class="fc" id="L20">        super(size, entries);</span>
+<span class="fc" id="L21">    }</span>
+
+    /**
+     * Returns a {@link LongVectorBuilder}
+     *
+     * @param size size
+     * @return {@link LongVectorBuilder}
+     * @throws IllegalArgumentException when {@code size &lt; 1}
+     * @since 0.0.1
+     */
+    public static LongVectorBuilder ofSize(final int size) {
+<span class="fc" id="L32">        return new LongVectorBuilder(size);</span>
+    }
+
+    @Override
+    public @NotNull LongVector add(final @NotNull LongVector summand) {
+<span class="fc" id="L37">        requireNonNull(summand, &quot;summand&quot;);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        checkArgument(getSize() == summand.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L39">            summand.getSize());</span>
+<span class="fc" id="L40">        return new LongVector(getSize(),</span>
+<span class="fc" id="L41">            getEntries().map(e -&gt; e.withElement(e.element() + summand.getElement(e.index()))).toList());</span>
+    }
+
+    @Override
+    public @NotNull LongVector subtract(final @NotNull LongVector subtrahend) {
+<span class="fc" id="L46">        requireNonNull(subtrahend, &quot;subtrahend&quot;);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        checkArgument(getSize() == subtrahend.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(),</span>
+<span class="fc" id="L48">            subtrahend.getSize());</span>
+<span class="fc" id="L49">        return new LongVector(getSize(),</span>
+<span class="fc" id="L50">            getEntries().map(e -&gt; e.withElement(e.element() - subtrahend.getElement(e.index()))).toList());</span>
+    }
+
+    @Override
+    public @NotNull Long dotProduct(final @NotNull LongVector other) {
+<span class="fc" id="L55">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc" id="L57">        return getEntries().map(e -&gt; e.element() * other.getElement(e.index())).reduce(Long::sum)</span>
+<span class="fc" id="L58">            .orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull LongVector scalarMultiply(final @NotNull Long scalar) {
+<span class="fc" id="L63">        requireNonNull(scalar, &quot;scalar&quot;);</span>
+<span class="fc" id="L64">        return new LongVector(getSize(), getEntries().map(e -&gt; e.withElement(scalar * e.element())).toList());</span>
+    }
+
+    @Override
+    public @NotNull LongVector negate() {
+<span class="fc" id="L69">        return new LongVector(getSize(), getEntries().map(e -&gt; e.withElement(-e.element())).toList());</span>
+    }
+
+    @Override
+    public boolean orthogonalTo(final @NotNull LongVector other) {
+<span class="fc" id="L74">        requireNonNull(other, &quot;other&quot;);</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        checkArgument(getSize() == other.getSize(), &quot;equal sizes expected but %s != %s&quot;, getSize(), other.getSize());</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        return dotProduct(other) == 0L;</span>
+    }
+
+    @Override
+    public @NotNull Double taxicabNorm() {
+<span class="fc" id="L81">        return getElements().map(Math::abs).reduce(Long::sum).map(Long::doubleValue).orElseThrow();</span>
+    }
+
+    @Override
+    public @NotNull Double euclideanNorm() {
+<span class="fc" id="L86">        return Math.sqrt(euclideanNormPow2());</span>
+    }
+
+    @Override
+    public @NotNull Double maxNorm() {
+<span class="fc" id="L91">        return getElements().map(Math::abs).max(Long::compareTo).map(Long::doubleValue).orElseThrow();</span>
+    }
+
+    @Override
+    protected @NotNull Double euclideanNormPow2() {
+<span class="fc" id="L96">        return getElements().map(e -&gt; e * e).reduce(Long::sum).map(Long::doubleValue).orElseThrow();</span>
+    }
+
+    /**
+     * Builder for {@link LongVector LongVectors}
+     *
+     * @since 0.0.1
+     */
+    public static final class LongVectorBuilder extends AbstractVectorBuilder&lt;Long, LongVector, LongVectorBuilder&gt; {
+        LongVectorBuilder(final int size) {
+<span class="fc" id="L106">            super(size, i -&gt; 0L);</span>
+<span class="fc" id="L107">        }</span>
+
+        @Override
+        public @NotNull LongVector build() {
+<span class="fc" id="L111">            return new LongVector(getSize(), computeEntries());</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

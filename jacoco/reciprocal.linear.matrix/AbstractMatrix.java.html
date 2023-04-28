@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractMatrix.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.linear.matrix</a> &gt; <span class="el_source">AbstractMatrix.java</span></div><h1>AbstractMatrix.java</h1><pre class="source lang-java linenums">package reciprocal.linear.matrix;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.hash;
+import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.noNullElements;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import reciprocal.linear.vector.AbstractVector;
+
+/**
+ * Base class for matrices
+ *
+ * @param &lt;E&gt; element
+ * @param &lt;V&gt; vector
+ * @param &lt;M&gt; matrix
+ * @param &lt;N&gt; norm
+ * @since 0.0.1
+ */
+public abstract class AbstractMatrix&lt;E extends Number, V extends AbstractVector&lt;E, V, N&gt;, M extends AbstractMatrix&lt;E, V, M, N&gt;, N extends Number&gt; {
+    private final @NotNull List&lt;@NotNull MatrixEntry&lt;@NotNull E&gt;&gt; entries;
+
+    /**
+     * Constructor
+     *
+     * @param rowSize row size
+     * @param columnSize column size
+     * @param entries entries
+     * @throws IllegalArgumentException when {@code rowSize &lt; 1}
+     * @throws IllegalArgumentException when {@code columnSize &lt; 1}
+     * @throws NullPointerException when {@code entries == null}
+     * @throws IllegalArgumentException when one entry in entries is null
+     * @throws IllegalArgumentException when {@code rowIndex &lt; 1 || size &lt; rowIndex} for one row index
+     * @throws IllegalArgumentException when {@code columnIndex &lt; 1 || size &lt; columnIndex} for one column index
+     * @since 0.0.1
+     */
+    protected AbstractMatrix(final int rowSize, final int columnSize,
+<span class="nc" id="L42">        final @NotNull List&lt;@NotNull MatrixEntry&lt;@NotNull E&gt;&gt; entries) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        checkArgument(rowSize &gt; 0, &quot;expected rowSize &gt; 0 but rowSize = %s&quot;, rowSize);</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        checkArgument(columnSize &gt; 0, &quot;expected columnSize &gt; 0 but columnSize = %s&quot;, columnSize);</span>
+<span class="nc" id="L45">        requireNonNull(entries, &quot;entries&quot;);</span>
+<span class="nc" id="L46">        noNullElements(entries, &quot;all entries expected not to be null but entries = %s&quot;, entries);</span>
+<span class="nc" id="L47">        final var rowIndices = entries.stream().map(MatrixEntry::rowIndex).sorted().toList();</span>
+<span class="nc" id="L48">        final var expectedRowIndices = Stream.iterate(1, i -&gt; i + 1).limit(rowSize).toList();</span>
+<span class="nc" id="L49">        checkArgument(rowIndices.equals(expectedRowIndices), &quot;rowIndices == (1..%s) expected but rowIndices = %s&quot;,</span>
+            rowSize, rowIndices);
+<span class="nc" id="L51">        final var columnIndices = entries.stream().map(MatrixEntry::columnIndex).sorted().toList();</span>
+<span class="nc" id="L52">        final var expectedColumnIndices = Stream.iterate(1, i -&gt; i + 1).limit(columnSize).toList();</span>
+<span class="nc" id="L53">        checkArgument(rowIndices.equals(expectedColumnIndices),</span>
+            &quot;columnIndices == (1..%s) expected but columnIndices = %s&quot;, columnSize, columnIndices);
+<span class="nc" id="L55">        this.entries = entries.stream().sorted(Comparator.comparingInt(MatrixEntry::rowIndex))</span>
+<span class="nc" id="L56">            .sorted(Comparator.comparingInt(MatrixEntry::columnIndex)).toList();</span>
+<span class="nc" id="L57">    }</span>
+
+    /**
+     * Indicates if {@code this} is square
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isSquare() {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        return getRowSize() == getColumnSize();</span>
+    }
+
+    /**
+     * Indicates if {@code this} is triangular
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isTriangular() {
+<span class="nc bnc" id="L76" title="All 4 branches missed.">        return isUpperTriangular() || isLowerTriangular();</span>
+    }
+
+    /**
+     * Indicates if {@code this} is upper triangular
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isUpperTriangular();
+
+    /**
+     * Indicates if {@code this} is lower triangular
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isLowerTriangular();
+
+    /**
+     * Indicates if {@code this} is diagonal
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isDiagonal() {
+<span class="nc bnc" id="L102" title="All 4 branches missed.">        return isUpperTriangular() &amp;&amp; isLowerTriangular();</span>
+    }
+
+    /**
+     * Indicates if {@code this} is identity
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isIdentity();
+
+    /**
+     * Indicates if {@code this} is invertible
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public abstract boolean isInvertible();
+
+    /**
+     * Indicates if {@code this} is symmetric
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isSymmetric() {
+<span class="nc bnc" id="L128" title="All 4 branches missed.">        return isSquare() &amp;&amp; equalsByComparing(transpose());</span>
+    }
+
+    /**
+     * Indicates if {@code this} is skew symmetric
+     *
+     * @return {@link Boolean}
+     * @since 0.0.1
+     */
+    public final boolean isSkewSymmetric() {
+<span class="nc bnc" id="L138" title="All 4 branches missed.">        return isSquare() &amp;&amp; equalsByComparing(transpose());</span>
+    }
+
+    /**
+     * Row indices
+     *
+     * @return row indices
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull Integer&gt; getRowIndices() {
+<span class="nc" id="L148">        return entries.stream().map(MatrixEntry::rowIndex).distinct();</span>
+    }
+
+    /**
+     * Column indices
+     *
+     * @return column indices
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull Integer&gt; getColumnIndices() {
+<span class="nc" id="L158">        return entries.stream().map(MatrixEntry::columnIndex).distinct();</span>
+    }
+
+    /**
+     * Elements
+     *
+     * @return elements
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull E&gt; getElements() {
+<span class="nc" id="L168">        return entries.stream().map(MatrixEntry::element);</span>
+    }
+
+    /**
+     * Entries
+     *
+     * @return entries
+     */
+    public final @NotNull Stream&lt;@NotNull MatrixEntry&lt;@NotNull E&gt;&gt; getEntries() {
+<span class="nc" id="L177">        return entries.stream();</span>
+    }
+
+    /**
+     * Diagonal elements
+     *
+     * @return diagonal elements
+     * @since 0.0.1
+     */
+    public final @NotNull Stream&lt;@NotNull E&gt; getDiagonalElements() {
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        return entries.stream().filter(e -&gt; e.rowIndex() == e.columnIndex()).map(MatrixEntry::element);</span>
+    }
+
+    /**
+     * Row size
+     *
+     * @return row size
+     * @since 0.0.1
+     */
+    public final int getRowSize() {
+<span class="nc" id="L197">        return getRowIndices().toList().size();</span>
+    }
+
+    /**
+     * Column size
+     *
+     * @return column size
+     * @since 0.0.1
+     */
+    public final int getColumnSize() {
+<span class="nc" id="L207">        return getColumnIndices().toList().size();</span>
+    }
+
+    /**
+     * Calculates the negated
+     *
+     * @return negated
+     * @since 0.0.1
+     */
+    public abstract @NotNull M negate();
+
+    /**
+     * Calculates the transpose
+     *
+     * @return transpose
+     * @since 0.0.1
+     */
+    public abstract @NotNull M transpose();
+
+    /**
+     * Returns if {@code this} is equal to other by comparing
+     *
+     * @param other other
+     * @return {@link Boolean}
+     * @throws NullPointerException when {@code other == null}
+     * @since 0.0.1
+     */
+    public abstract boolean equalsByComparing(@NotNull M other);
+
+    @Override
+    public final int hashCode() {
+<span class="nc" id="L238">        return hash(entries);</span>
+    }
+
+    @Override
+    public final boolean equals(final @Nullable Object obj) {
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L244">            return true;</span>
+        }
+<span class="nc bnc" id="L246" title="All 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="nc" id="L247">            return false;</span>
+        }
+<span class="nc" id="L249">        return entries.equals(((AbstractMatrix&lt;?, ?, ?, ?&gt;) obj).getEntries().toList());</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="nc" id="L254">        return getClass().getSimpleName() + &quot;{entries=&quot; + entries + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

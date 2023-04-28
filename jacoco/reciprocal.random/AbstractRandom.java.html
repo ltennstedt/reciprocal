@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractRandom.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reciprocal</a> &gt; <a href="index.source.html" class="el_package">reciprocal.random</a> &gt; <span class="el_source">AbstractRandom.java</span></div><h1>AbstractRandom.java</h1><pre class="source lang-java linenums">package reciprocal.random;
+
+import static java.util.Objects.requireNonNull;
+
+import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * Base class for pseudorandom number generators
+ *
+ * @param &lt;N&gt; {@link Number}
+ * @since 0.0.1
+ */
+public abstract class AbstractRandom&lt;N extends Number&gt; {
+    /**
+     * {@link SecureRandom}
+     *
+     * @since 0.0.1
+     */
+    private final @NotNull SecureRandom secureRandom;
+
+    /**
+     * Constructor
+     *
+     * @since 0.0.1
+     */
+<span class="fc" id="L29">    protected AbstractRandom() {</span>
+<span class="fc" id="L30">        secureRandom = new SecureRandom();</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param seed seed
+     * @throws NullPointerException when {@code seed == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L40">    protected AbstractRandom(final byte[] seed) {</span>
+<span class="nc" id="L41">        requireNonNull(seed, &quot;seed&quot;);</span>
+<span class="nc" id="L42">        secureRandom = new SecureRandom(Arrays.copyOf(seed, seed.length));</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Constructor
+     *
+     * @param secureRandom {@link SecureRandom}
+     * @throws NullPointerException if {@code secureRandom == null}
+     * @since 0.0.1
+     */
+<span class="fc" id="L52">    protected AbstractRandom(final @NotNull SecureRandom secureRandom) {</span>
+<span class="fc" id="L53">        this.secureRandom = requireNonNull(secureRandom, &quot;secureRandom&quot;);</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * Returns the next pseudorandom number
+     *
+     * @return next number
+     * @since 0.0.1
+     */
+    public abstract @NotNull N next();
+
+    /**
+     * Returns the next pseudorandom number
+     *
+     * @param bound bound
+     * @return next number
+     * @throws IllegalArgumentException if {@code bound &lt; 1}
+     * @since 0.0.1
+     */
+    public abstract @NotNull N next(long bound);
+
+    /**
+     * Returns the next pseudorandom number
+     *
+     * @param origin origin
+     * @param bound bound
+     * @return next number
+     * @throws IllegalArgumentException if {@code origin &gt;= bound}
+     * @since 0.0.1
+     */
+    public abstract @NotNull N next(long origin, long bound);
+
+    /**
+     * Returns a {@link Stream} of pseudorandom numbers
+     *
+     * @return {@link Stream} of pseudorandom numbers
+     * @since 0.0.1
+     */
+    public abstract @NotNull Stream&lt;@NotNull N&gt; numbers();
+
+    /**
+     * Returns a {@link Stream} of pseudorandom numbers
+     *
+     * @param limit limit
+     * @return {@link Stream} of pseudorandom numbers
+     * @throws IllegalArgumentException if {@code limit &lt; 0}
+     * @since 0.0.1
+     */
+    public abstract @NotNull Stream&lt;@NotNull N&gt; numbers(long limit);
+
+    /**
+     * Returns a {@link Stream} of pseudorandom numbers
+     *
+     * @param origin origin
+     * @param bound bound
+     * @return {@link Stream} of pseudorandom numbers
+     * @throws IllegalArgumentException if {@code origin &gt;= bound}
+     * @since 0.0.1
+     */
+    public abstract @NotNull Stream&lt;@NotNull N&gt; numbers(long origin, long bound);
+
+    /**
+     * Returns a {@link Stream} of pseudorandom numbers
+     *
+     * @param limit limit
+     * @param origin origin
+     * @param bound bound
+     * @return {@link Stream} of pseudorandom numbers
+     * @throws IllegalArgumentException if {@code limit &lt; 0}
+     * @throws IllegalArgumentException if {@code origin &gt;= bound}
+     * @since 0.0.1
+     */
+    public abstract @NotNull Stream&lt;@NotNull N&gt; numbers(long limit, long origin, long bound);
+
+    /**
+     * {@link SecureRandom}
+     *
+     * @return {@link SecureRandom}
+     * @since 0.0.1
+     */
+    protected final @NotNull SecureRandom getSecureRandom() {
+<span class="fc" id="L134">        return secureRandom;</span>
+    }
+
+    @Override
+    public final @NotNull String toString() {
+<span class="fc" id="L139">        return getClass().getSimpleName() + &quot;{secureRandom=&quot; + secureRandom + &quot;}&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
